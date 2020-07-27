@@ -1,0 +1,51 @@
+{
+	"first_date": "2016-07-15",
+	"last_date": "2019-05-12",
+	"category_kg": {
+		"Shoulders": 203019.5,
+		"Back": 668684.2,
+		"Abs": 170124.8,
+		"All": 2928036.2,
+		"Triceps": 152887.8,
+		"Chest": 467911.5,
+		"Legs": 754804.9,
+		"Calves": 395678,
+  	"Biceps": 112480.5
+	},
+	"all_creatures_lifted": [{
+			"total_kg": 1741800,
+			"count": 5,
+			"creature": {
+				"name": "Gold dragon",
+				"kg": 580600,
+				"url": "http://forgottenrealms.wikia.com/wiki/Gold_dragon"
+			}},{
+			"total_kg": 23000,
+			"count": 1,
+			"creature": {
+				"name": "Northen right whale",
+				"kg": 23000,
+				"url": "https://en.wikipedia.org/wiki/North_Atlantic_right_whale"
+			}},{
+			"total_kg": 1750,
+			"count": 1,
+			"creature": {
+				"name": "Javan rhinoceros",
+				"kg": 1750,
+				"url": "https://en.wikipedia.org/wiki/Javan_rhinoceros"
+			}},{
+			"total_kg": 280,
+			"count": 1,
+			"creature": {
+				"name": "Indo-Pacific humpbacked dolphin",
+				"kg": 280,
+				"url": "https://en.wikipedia.org/wiki/Indian_Ocean_humpback_dolphin"
+			}},{
+			"total_kg": 6,
+			"count": 1,
+			"creature": {
+				"name": "Common raccon",
+				"kg": 6,
+				"url": "https://en.wikipedia.org/wiki/Raccoon"
+			}}]
+}
