@@ -8,7 +8,6 @@ import { Ng5SliderModule } from 'ng5-slider'
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
 import { ProgrammingComponent } from './programming/programming.component'
-// import { MusicComponent } from './music/music.component'
 import { LiftingComponent } from './lifting/lifting.component'
 import { PageNotFoundComponent } from './pagenotfound.component'
 import { GameAudioComponent } from './game-audio/game-audio.component'
@@ -29,7 +28,6 @@ import { WindowRef } from './window-ref.service'
 		AppComponent,
 		HomeComponent,
 		ProgrammingComponent,
-		// MusicComponent,
 		LiftingComponent,
 		GameAudioComponent,
 		PageNotFoundComponent,
