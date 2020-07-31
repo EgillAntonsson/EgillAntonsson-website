@@ -1,7 +1,16 @@
 import { GainWrapper } from '../wrapper/gainWrapper'
-export interface SoundInstance {
-	readonly source: AudioBufferSourceNode
-	readonly gainWrapper: GainWrapper
+export class SoundInstance {
+	readonly audioContext: AudioContext
+	readonly sourceNode: AudioBufferSourceNode
 	readonly analyzerNode: AnalyserNode
-	readonly audioCtx: AudioContext
+	readonly gainWrapper: GainWrapper
+	readonly id: number
+
+	constructor(audioContext: AudioContext, sourceNode: AudioBufferSourceNode, analyzerNode: AnalyserNode, gainWrapper: GainWrapper, id: number) {
+		this.audioContext = audioContext
+		this.sourceNode = sourceNode
+		this.analyzerNode = analyzerNode
+		this.gainWrapper = gainWrapper
+		this.id = id
+	}
 }

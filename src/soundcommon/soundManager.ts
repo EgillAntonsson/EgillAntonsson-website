@@ -87,15 +87,6 @@ export class SoundManager {
 		return sound
 	}
 
-	// addSound(url: string, key: string, soundType: SoundType = SoundType.SFX, maxGain: number = 1, loop = false, maxNrPlayingAtOnce?: number): Sound {
-	// 	let sound: Sound
-	// 	const soundTypeGain = (soundType === SoundType.Music) ? this._musicGain : this._sfxGain
-	// 	this.updateEmitterMaxListeners(this.sounds.size + 1)
-	// 	sound = new Sound(url, key, soundType, maxGain, loop, maxNrPlayingAtOnce, this._maxNrPlayingAtOncePerSound, soundTypeGain, this._masterGain, this._dynamicRange, this.audioCtx, this.log)
-	// 	this.addToList(key, sound)
-	// 	return sound
-	// }
-
 	private updateEmitterMaxListeners(nrOfSounds: number): void {
 		this._masterGain.setMaxListeners(2 * nrOfSounds * globalMaxNrPlayingAtOncePerSound)
 		// worst case all sound are type Music
