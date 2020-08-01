@@ -4,7 +4,7 @@ import { SoundInstance } from 'soundcommon/interface/soundInstance';
 export class Track {
 	readonly name: string
 	readonly soundDatas: SoundData[]
-	readonly play: (track: Track) => void
+	readonly play: (track: Track) => () => Promise<void>
 	layeredMusicController?: LayeredMusicController
 	// byBio?: string
 	// indexWithinBy?: number
@@ -16,16 +16,12 @@ export class Track {
 	// permalinkUrl?: string
 	// liked?: number
 
-	constructor(name: string, soundDatas: SoundData[], play: (track: Track) => void) {
+	constructor(name: string, soundDatas: SoundData[], play: (track: Track) => () => Promise<void>)
+	{
 		this.name = name
 		this.soundDatas = soundDatas
 		this.play = play
 	}
-
-	// play(cb: () => void) {
-	// 	// this.playCb(this)
-	// 	this.playPromise
-	// }
 }
 
 export interface ByTracks {

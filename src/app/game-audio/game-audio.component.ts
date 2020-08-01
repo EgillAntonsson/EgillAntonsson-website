@@ -9,6 +9,7 @@ import { ByTracks, Track, PlayReturn } from '../interface/track'
 import { LayeredMusicController } from '../../soundcommon/layeredMusicController'
 import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
+import { doesNotThrow } from 'assert';
 
 @Component({
 	selector: 'app-game-audio',
@@ -32,6 +33,7 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	masterGain = 1
 	masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
+	awaitingFirstPlay = false
 	mediumMaxNrPlaying = 16
 	lowMaxNrPlaying = 8
 
@@ -342,24 +344,16 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 
 ///////////////////
 
-	// TODO: change to .ogg, and remove .wav file in data
-const wyf = new Track( 'Who\'s Your Friend', [
-	{url: `${this.pathMusic}/WYF_ThemeSong.wav`, key: 'wyf', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+const wyf = new Track('Who\'s Your Friend', [
+	{url: `${this.pathMusic}/WYF_ThemeSong.ogg`, key: 'wyf', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 (track: Track) => {
-	const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-	console.log('before play')
-	const asyncWrapper = async () => {
-		const {instance, endedPromise} = await sound.play()
+	return async () => {
+		const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+		const {instance} = await sound.play()
+		this.awaitingFirstPlay = false
 		this.visualize(instance, this.canvas0, this.drawVisuals)
-		console.log('before endedPromise')
-		const smu = await endedPromise
-		// endedPromise.then(
-			console.log('smu' + smu)
-		// )
-		console.log('after endedPromise')
 	}
-	asyncWrapper()
 })
 
 //////////////
@@ -373,8 +367,7 @@ const sff = new Track('Soft Freak Fiesta', [
 {url: `${this.pathMusic}/SFF_WinJingle.ogg`, key: 'sffWinJingle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 (track: Track) => {
-	const asyncWrapper = async () => {
-		console.log('async wrapper start')
+	return async () => {
 		const introMenu = this.soundManager.instance.getSound(track.soundDatas[0].key)
 		const mainMenu = this.soundManager.instance.getSound(track.soundDatas[1].key)
 		const levelNoEnv = this.soundManager.instance.getSound(track.soundDatas[2].key)
@@ -385,74 +378,42 @@ const sff = new Track('Soft Freak Fiesta', [
 
 		let playReturn: PlayReturn
 		playReturn = await introMenu.play()
+		this.awaitingFirstPlay = false
 		this.visualize(playReturn.instance, this.canvas0, this.drawVisuals)
 		await playReturn.endedPromise
 		this.clearVisuals()
 
-		playReturn = await mainMenu.play()
-		this.visualize(playReturn.instance, this.canvas1, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
+		let nrOfLoop = 4
+		do {
+			playReturn = await mainMenu.play()
+			this.visualize(playReturn.instance, this.canvas1, this.drawVisuals)
+			await playReturn.endedPromise
+			this.clearVisuals()
 
-		playReturn = await levelNoEnv.play()
-		this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
+			playReturn = await levelNoEnv.play()
+			this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
+			await playReturn.endedPromise
+			this.clearVisuals()
 
-		playReturn = await levelBubbling.play()
-		this.visualize(playReturn.instance, this.canvas3, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
+			playReturn = await levelBubbling.play()
+			this.visualize(playReturn.instance, this.canvas3, this.drawVisuals)
+			await playReturn.endedPromise
+			this.clearVisuals()
 
-		if (playLose) {
-			playReturn = await loseJingle.play()
-		} else {
-			playReturn = await winJingle.play()
-		}
-		playLose = !playLose
-		this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
+			if (playLose) {
+				playReturn = await loseJingle.play()
+			} else {
+				playReturn = await winJingle.play()
+			}
+			playLose = !playLose
+			this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
+			await playReturn.endedPromise
+			this.clearVisuals()
 
-		playReturn = await mainMenu.play()
-		this.visualize(playReturn.instance, this.canvas1, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
+			--nrOfLoop
+		} while (nrOfLoop > 0)
 	}
-	asyncWrapper()
 })
-
-
-// const introMenu = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const mainMenu = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const levelNoEnv = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// const levelBubbling = this.soundManager.instance.getSound(track.soundDatas[3].key)
-// const loseJingle = this.soundManager.instance.getSound(track.soundDatas[4].key)
-// const winJingle = this.soundManager.instance.getSound(track.soundDatas[5].key)
-// let playLose = true
-// this.visualize(introMenu.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(mainMenu.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(levelNoEnv.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(levelBubbling.play(() => {
-// 				this.clearVisuals()
-// 				const endCb = () => {
-// 					this.clearVisuals()
-// 					this.visualize(mainMenu.play(), this.canvas0, this.drawVisuals)
-// 				}
-// 				if (playLose) {
-// 					this.visualize(loseJingle.play(endCb), this.canvas1, this.drawVisuals)
-// 				} else {
-// 					this.visualize(winJingle.play(endCb), this.canvas1, this.drawVisuals)
-// 				}
-// 				playLose = !playLose
-// 			}), this.canvas3, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
 
 /////////////////////
 
@@ -595,6 +556,10 @@ const sff = new Track('Soft Freak Fiesta', [
 	}
 
 	onTrackClick(track: Track) {
+		if (this.awaitingFirstPlay) {
+			this.log('Info', 'onTrackClick, awaitingFirstPlay is true, returning without processing')
+			return
+		}
 		this.selectedByIndex = this.openedUiByIndex
 
 		this.stopMusic()
@@ -608,21 +573,13 @@ const sff = new Track('Soft Freak Fiesta', [
 			}
 		}
 
-		track.play(track)
+		this.awaitingFirstPlay = true
+		track.play(track)()
 
+		// this should work if no await occurs in layered play
 		if (track.layeredMusicController) {
 			this.selectedLayeredMusic = track.layeredMusicController
 		}
-
-		// setTimeout(() => {
-		// 	console.log('timeout waiting waiting')
-		// 	track.play(track)
-
-		// if (track.layeredMusicController) {
-		// 	this.selectedLayeredMusic = track.layeredMusicController
-		// }
-		// }, 5000)
-
 	}
 
 	onByClick(byIndex: number) {
