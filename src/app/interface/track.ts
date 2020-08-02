@@ -29,9 +29,3 @@ export interface ByTracks {
 	tracks: Track[]
 	byBio?: string
 }
-
-export interface PlayReturn {
-	instance: SoundInstance
-	endedPromise: Promise<SoundInstance>
-}
-

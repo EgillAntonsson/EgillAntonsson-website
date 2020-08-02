@@ -160,7 +160,7 @@ export class LayeredMusicController {
 				this.gainsDisabled.emit(EmitterEvent.Change, true)
 			}
 			const inst = this._layerSoundInstances[this.layerIndexToBeDecremented]
-			inst.gainWrapper.unmuteInstance(inst.gainWrapper.value).cancelScheduledValues(0).linearRampToValueAtTime(1, inst.audioCtx.currentTime + this.fadeDurationSec)
+			inst.gainWrapper.unmuteInstance(inst.gainWrapper.value).cancelScheduledValues(0).linearRampToValueAtTime(1, inst.audioContext.currentTime + this.fadeDurationSec)
 			this.setFadeTimeout(this.fadeInTimeouts, this.layerIndexToBeDecremented)
 			this.currentLayerValue = this.maxLayerValue / 2
 		}

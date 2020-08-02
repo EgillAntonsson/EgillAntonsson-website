@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './pagenotfound.component'
 import { GameAudioComponent } from './game-audio/game-audio.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
-import { WindowRef } from './window-ref.service'
+// import { WindowRef } from './window-ref.service'
 
 @NgModule({
 	imports: [
@@ -38,7 +38,7 @@ import { WindowRef } from './window-ref.service'
 		// MatButtonToggleGroup,
 		// MatButtonToggle
 	],
-	providers: [WindowRef],
+	// providers: [WindowRef],
 	bootstrap: [AppComponent]
 })
 

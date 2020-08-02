@@ -10,11 +10,8 @@ export class SoundManagerService {
 	public get instance(): SoundManager {
 		return this._instance
 	}
-	public set instance(value: SoundManager) {
-		this._instance = value
-	}
 
 	constructor() {
-		this.instance = new SoundManager()
+		this._instance = new SoundManager()
 	}
 }

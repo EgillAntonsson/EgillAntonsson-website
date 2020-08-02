@@ -5,11 +5,11 @@ import { SoundType } from '../../soundcommon/enum/soundType'
 import { WindowRef } from '../window-ref.service'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { ByTracks, Track, PlayReturn } from '../interface/track'
+import { ByTracks, Track } from '../interface/track'
 import { LayeredMusicController } from '../../soundcommon/layeredMusicController'
 import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
-import { doesNotThrow } from 'assert';
+import { SoundService } from './sound.service'
 
 @Component({
 	selector: 'app-game-audio',
@@ -18,10 +18,10 @@ import { doesNotThrow } from 'assert';
 })
 export class GameAudioComponent implements OnDestroy, OnInit {
 
-	private pathMusic = '../../assets/audio/game'
+	// private pathMusic = '../../assets/audio/game'
 	public gainsDisabledForView = false
 	private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
-	public selectedLayeredMusic: LayeredMusicController
+	// public selectedLayeredMusic: LayeredMusicController
 	private canvases: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals = []
 	private enableGains: (value: boolean) => void
@@ -33,7 +33,8 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	masterGain = 1
 	masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
-	awaitingFirstPlay = false
+	awaitingFirstPlay = this.soundService.awaitingFirstPlay
+
 	mediumMaxNrPlaying = 16
 	lowMaxNrPlaying = 8
 
@@ -51,11 +52,21 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 
 	@ViewChild('canvas3', { static: true })
 	canvas3: ElementRef<HTMLCanvasElement>
+
 	emptyTrack: Track = {name: 'select a track', soundDatas: [{key: 'key', url: 'url', soundType: SoundType.Music, maxGain: 1, loop: false}], play: null}
 	selectedTrack: Track
+	private name = 'SoundPage'
+	private playedListenerName = `${this.name} playedListener`
+
+	private endedListenerName = `${this.name} endedListener`
 	selectedByIndex = 0
 	openedUiByIndex = 0
-	byTracksArr: ByTracks[]
+
+	// byTracksArr: ByTracks[]
+	get byTracksArr() {
+		return this.soundService.byTracksArr
+	}
+
 	optionsDR: Options = {
 		floor: 0,
 		ceil: 1,
@@ -94,12 +105,13 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 		return '#8B91A2'
 	}
 	private log: (msg?: any, ...optionalParams: any[]) => void
-
 	ngOnInit(): void {
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRef) {
+	private currentCanvasNr = 0
+
+	constructor(private soundService: SoundService, private soundManager: SoundManagerService, private windowRef: WindowRef) {
 		this.log = (msg?: any, optionalParams?: any[]) => {
 				optionalParams ? console.log(msg, optionalParams) : console.log(msg)
 		}
@@ -124,14 +136,31 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 		}
 		this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
-		soundManager.instance.init(windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
+		soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
 		soundManager.instance.setDynamicRange(this.value, this.highValue)
 
+		this.soundService.addInstancePlayedListener(this.playedListenerName,
+			(soundInstance) => this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
+		)
+
+		this.soundService.addInstanceEndedListener(this.playedListenerName,
+			() => this.clearVisuals()
+		)
+
 		this.selectedTrack = this.emptyTrack
-		this.setupTracks()
 	}
 
-	private setupTracks() {
+	private getNextCanvas() {
+		if (this.currentCanvasNr < 3) {
+			++this.currentCanvasNr
+		} else {
+			this.currentCanvasNr = 0
+		}
+
+		return this.canvases[this.currentCanvasNr]
+	}
+
+	// private setupTracks() {
 
 // const hhiaugl = {name: 'Song for commercial', soundDatas: [
 // {url: `${this.pathMusic}/hhiaugl.ogg`, key: 'hhiaugl', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
@@ -344,76 +373,6 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 
 ///////////////////
 
-const wyf = new Track('Who\'s Your Friend', [
-	{url: `${this.pathMusic}/WYF_ThemeSong.ogg`, key: 'wyf', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-],
-(track: Track) => {
-	return async () => {
-		const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-		const {instance} = await sound.play()
-		this.awaitingFirstPlay = false
-		this.visualize(instance, this.canvas0, this.drawVisuals)
-	}
-})
-
-//////////////
-
-const sff = new Track('Soft Freak Fiesta', [
-{url: `${this.pathMusic}/SFF_IntroMenuMusic.ogg`, key: 'sffIntroMenuMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_MenuMusic.ogg`, key: 'sffMenuMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LevelMusic_noEnv.ogg`, key: 'sffLevelMusicNoEnv', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LevelMusic_bubbling.ogg`, key: 'sffLevelMusicBubbling', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LoseJingle.ogg`, key: 'sffLoseJingle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_WinJingle.ogg`, key: 'sffWinJingle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-],
-(track: Track) => {
-	return async () => {
-		const introMenu = this.soundManager.instance.getSound(track.soundDatas[0].key)
-		const mainMenu = this.soundManager.instance.getSound(track.soundDatas[1].key)
-		const levelNoEnv = this.soundManager.instance.getSound(track.soundDatas[2].key)
-		const levelBubbling = this.soundManager.instance.getSound(track.soundDatas[3].key)
-		const loseJingle = this.soundManager.instance.getSound(track.soundDatas[4].key)
-		const winJingle = this.soundManager.instance.getSound(track.soundDatas[5].key)
-		let playLose = true
-
-		let playReturn: PlayReturn
-		playReturn = await introMenu.play()
-		this.awaitingFirstPlay = false
-		this.visualize(playReturn.instance, this.canvas0, this.drawVisuals)
-		await playReturn.endedPromise
-		this.clearVisuals()
-
-		let nrOfLoop = 4
-		do {
-			playReturn = await mainMenu.play()
-			this.visualize(playReturn.instance, this.canvas1, this.drawVisuals)
-			await playReturn.endedPromise
-			this.clearVisuals()
-
-			playReturn = await levelNoEnv.play()
-			this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
-			await playReturn.endedPromise
-			this.clearVisuals()
-
-			playReturn = await levelBubbling.play()
-			this.visualize(playReturn.instance, this.canvas3, this.drawVisuals)
-			await playReturn.endedPromise
-			this.clearVisuals()
-
-			if (playLose) {
-				playReturn = await loseJingle.play()
-			} else {
-				playReturn = await winJingle.play()
-			}
-			playLose = !playLose
-			this.visualize(playReturn.instance, this.canvas2, this.drawVisuals)
-			await playReturn.endedPromise
-			this.clearVisuals()
-
-			--nrOfLoop
-		} while (nrOfLoop > 0)
-	}
-})
 
 /////////////////////
 
@@ -527,33 +486,7 @@ const sff = new Track('Soft Freak Fiesta', [
 // }), this.canvas0, this.drawVisuals)
 // }}
 
-
-		this.byTracksArr = [
-			{by: 'Music', tracks: [
-				// hhiaugl
-			]},
-			{by: 'Game Music - Layered', tracks: [
-				// godsruleLayered,
-				// votLayered
-			]},
-			{by: 'Game Music', tracks: [
-				// cpp,
-				// ssix,
-				sff,
-				// habitarium,
-				// tp,
-				// jol2008,
-				// jol2009,
-				wyf,
-				// kyf,
-				// stackem,
-				// glow,
-				// godsrule,
-				// vot,
-				// crisis
-			]}
-		]
-	}
+	// }
 
 	onTrackClick(track: Track) {
 		if (this.awaitingFirstPlay) {
@@ -565,21 +498,23 @@ const sff = new Track('Soft Freak Fiesta', [
 		this.stopMusic()
 		this.selectedTrack = track
 
+		this.soundService.play(track)
 
-		if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
-			for (let i = 0; i < track.soundDatas.length; i++) {
-				this.soundManager.instance.addSound(track.soundDatas[i])
-				console.log('adding sound')
-			}
-		}
 
-		this.awaitingFirstPlay = true
-		track.play(track)()
+		// if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
+		// 	for (let i = 0; i < track.soundDatas.length; i++) {
+		// 		this.soundManager.instance.addSound(track.soundDatas[i])
+		// 		console.log('adding sound')
+		// 	}
+		// }
 
-		// this should work if no await occurs in layered play
-		if (track.layeredMusicController) {
-			this.selectedLayeredMusic = track.layeredMusicController
-		}
+		// this.awaitingFirstPlay = true
+		// track.play(track)()
+
+		// // this should work if no await occurs in layered play
+		// if (track.layeredMusicController) {
+		// 	this.selectedLayeredMusic = track.layeredMusicController
+		// }
 	}
 
 	onByClick(byIndex: number) {
@@ -630,23 +565,29 @@ const sff = new Track('Soft Freak Fiesta', [
 	}
 
 	public stopMusic() {
-		this.soundManager.instance.stopMusic()
-
 		if (this.gainsDisabled.value) {
 			this.gainsDisabled.value = false
 			this.gainsDisabled.emit(EmitterEvent.Change, false)
 		}
-		clearInterval(this.votFeudTimeout)
+
+		// take a look at this when re-enabling track
+		// clearInterval(this.votFeudTimeout)
+
 		this.selectedTrack = this.emptyTrack
-		if (this.selectedLayeredMusic) {
-			this.selectedLayeredMusic.stop()
-			this.selectedLayeredMusic = null
-		}
+
+		this.soundService.stopMusic()
+
+		// if (this.selectedLayeredMusic) {
+		// 	this.selectedLayeredMusic.stop()
+		// 	this.selectedLayeredMusic = null
+		// }
+
 		this.clearVisuals()
+		this.currentCanvasNr = 0
 	}
 	get layerText(): string {
-		if (this.selectedLayeredMusic && this.selectedLayeredMusic.layerSoundInstances) {
-			const layers = this.selectedLayeredMusic.layerSoundInstances
+		if (this.soundService.selectedLayeredMusic && this.soundService.selectedLayeredMusic.layerSoundInstances) {
+			const layers = this.soundService.selectedLayeredMusic.layerSoundInstances
 			if (layers[layers.length - 1].gainWrapper.instanceMuted) {
 				return 'add layer'
 			}
@@ -655,7 +596,7 @@ const sff = new Track('Soft Freak Fiesta', [
 	}
 
 	incrementMusicLayerValue() {
-		this.selectedLayeredMusic.incrementLayerValue()
+		this.soundService.selectedLayeredMusic.incrementLayerValue()
 	}
 
 	visualize(inst: SoundInstance, canvas: ElementRef<HTMLCanvasElement>, drawVisuals: number[]) {
@@ -720,5 +661,7 @@ const sff = new Track('Soft Freak Fiesta', [
 
 	ngOnDestroy() {
 		this.stopMusic()
+		this.soundService.removeInstancePlayedListener(this.playedListenerName)
+		this.soundService.removeInstanceEndedListener(this.endedListenerName)
 	}
 }

@@ -104,7 +104,7 @@ export class SoundManager {
 		this.sounds.set(key, sound)
 	}
 
-	playSound(key: string): SoundInstance {
+	playSound(key: string) {
 		const sound = this.sounds.get(key)
 		if (!sound) {
 			this.log('Warning', `Cannot play sound with key '${key}', not in SoundManager`)
