@@ -68,7 +68,7 @@ export class Sound {
 		return this.instances.size > 0
 	}
 
-	async play(endedCallback?: () => void, connectTheNodes = true) {
+	async play(connectTheNodes = true) {
 		if (this.reachedMaxNumberOfPlayingAtOnce()) {
 			this.log('Info', `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
 			return

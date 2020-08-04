@@ -16,7 +16,8 @@
 
 <div class="button" (click)="stopMusic()">stop music
 </div>
-<div *ngIf="selectedLayeredMusic" class="button" (click)="incrementMusicLayerValue()">{{layerText}}</div>
+
+<div *ngIf="isTrackLayerMusicController" class="button" (click)="incrementMusicLayerValue()">{{layerText}}</div>
 
 <div>
 <canvas #canvas0 class="canvas"></canvas>

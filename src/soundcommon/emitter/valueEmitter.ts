@@ -1,7 +1,6 @@
 import { EventEmitter } from 'events'
 
-export class ValueEmitter extends
-EventEmitter {
+export class ValueEmitter extends EventEmitter {
 	private _value: any
 	public get value(): any {
 		return this._value

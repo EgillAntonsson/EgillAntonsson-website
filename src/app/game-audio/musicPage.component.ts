@@ -1,27 +1,30 @@
 import { Component, OnDestroy, ViewChild, ElementRef, OnInit } from '@angular/core'
 import { Options, ChangeContext } from 'ng5-slider'
 import { SoundManagerService } from './soundManager.service'
-import { SoundType } from '../../soundcommon/enum/soundType'
 import { WindowRef } from '../window-ref.service'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { ByTracks, Track } from '../interface/track'
-import { LayeredMusicController } from '../../soundcommon/layeredMusicController'
+import { Track } from '../shared/data/track'
 import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
-import { SoundService } from './sound.service'
+import { MusicService } from './music.service'
+import { Log, LogType } from '../shared/Log'
 
 @Component({
 	selector: 'app-game-audio',
 	templateUrl: './game-audio.component.html',
 	styleUrls: ['./game-audio.component.css']
 })
-export class GameAudioComponent implements OnDestroy, OnInit {
-
-	// private pathMusic = '../../assets/audio/game'
-	public gainsDisabledForView = false
+export class MusicPageComponent implements OnDestroy, OnInit {
+	readonly label = 'MusicPage'
+	get selectedTrack() {
+		return this.musicService.selectedTrack
+	}
+	get awaitingFirstPlay() {
+		return this.musicService.awaitingFirstPlay
+	}
+	gainsDisabledForView = false
 	private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
-	// public selectedLayeredMusic: LayeredMusicController
 	private canvases: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals = []
 	private enableGains: (value: boolean) => void
@@ -33,11 +36,8 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	masterGain = 1
 	masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
-	awaitingFirstPlay = this.soundService.awaitingFirstPlay
-
 	mediumMaxNrPlaying = 16
 	lowMaxNrPlaying = 8
-
 	value = 0
 	highValue = 1
 	range = this.highValue - this.value
@@ -53,18 +53,15 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	@ViewChild('canvas3', { static: true })
 	canvas3: ElementRef<HTMLCanvasElement>
 
-	emptyTrack: Track = {name: 'select a track', soundDatas: [{key: 'key', url: 'url', soundType: SoundType.Music, maxGain: 1, loop: false}], play: null}
-	selectedTrack: Track
-	private name = 'SoundPage'
-	private playedListenerName = `${this.name} playedListener`
-
-	private endedListenerName = `${this.name} endedListener`
+	private currentCanvasNr = 0
+	private canvasNrAscending = false
+	private playedListenerName = `${this.label} playedListener`
+	private endedListenerName = `${this.label} endedListener`
 	selectedByIndex = 0
 	openedUiByIndex = 0
 
-	// byTracksArr: ByTracks[]
 	get byTracksArr() {
-		return this.soundService.byTracksArr
+		return this.musicService.byTracksArr
 	}
 
 	optionsDR: Options = {
@@ -104,20 +101,14 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	private sliderColorsDisabled(_: number): string {
 		return '#8B91A2'
 	}
-	private log: (msg?: any, ...optionalParams: any[]) => void
+	private log: (logType: LogType, msg?: any, ...optionalParams: any[]) => void
 	ngOnInit(): void {
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
-	private currentCanvasNr = 0
+	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private windowRef: WindowRef) {
 
-	constructor(private soundService: SoundService, private soundManager: SoundManagerService, private windowRef: WindowRef) {
-		this.log = (msg?: any, optionalParams?: any[]) => {
-				optionalParams ? console.log(msg, optionalParams) : console.log(msg)
-		}
-		// this.log = (msg?: any, optionalParams?: any[]) => {
-					// do nothing when in production env.
-			// }
+		this.log = Log.consoleLog
 
 		this.enableGains = (value: boolean) => {
 			// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
@@ -139,26 +130,33 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 		soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
 		soundManager.instance.setDynamicRange(this.value, this.highValue)
 
-		this.soundService.addInstancePlayedListener(this.playedListenerName,
+
+		this.musicService.setLog(this.log)
+
+		this.musicService.addInstancePlayedListener(this.playedListenerName,
 			(soundInstance) => this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
 		)
 
-		this.soundService.addInstanceEndedListener(this.playedListenerName,
+		this.musicService.addInstanceEndedListener(this.endedListenerName,
 			() => this.clearVisuals()
 		)
 
-		this.selectedTrack = this.emptyTrack
 	}
 
 	private getNextCanvas() {
-		if (this.currentCanvasNr < 3) {
-			++this.currentCanvasNr
+		if (this.currentCanvasNr === 0) {
+			this.currentCanvasNr++
+			this.canvasNrAscending = true
+		} else if (this.currentCanvasNr === 3) {
+			this.currentCanvasNr--
+			this.canvasNrAscending = false
 		} else {
-			this.currentCanvasNr = 0
+			this.canvasNrAscending ? this.currentCanvasNr++ : this.currentCanvasNr--
 		}
 
 		return this.canvases[this.currentCanvasNr]
 	}
+
 
 	// private setupTracks() {
 
@@ -169,28 +167,6 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 // 	this.visualize(this.soundManager.instance.getSound(track.soundDatas[0].key).play(), this.canvas0, this.drawVisuals)
 // }}
 
-// const godsruleLayered = {name: 'Godsrule: Village', soundDatas: [
-// {url: `${this.pathMusic}/loton_MusicVillageEnvironmentLayer.ogg`, key: 'godsruleEnvironmentLayer', soundType: SoundType.Music, maxGain: 0.075, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/loton_MusicVillageStringLayer.ogg`, key: 'godsruleStringLayer', soundType: SoundType.Music, maxGain: 0.55, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/loton_MusicVillageHarpLayer.ogg`, key: 'godsruleHarpLayer', soundType: SoundType.Music, maxGain: 0.4, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/loton_MusicVillagePianoLayer.ogg`, key: 'godsrulePianoLayer', soundType: SoundType.Music, maxGain: 0.35, loop: true, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track: Track) => {
-// if (!track.layeredMusicController) {
-// 	const sounds = [
-// 		this.soundManager.instance.getSound(track.soundDatas[0].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[1].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[2].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[3].key)
-// 	]
-// 	track.layeredMusicController = new LayeredMusicController(sounds, this.gainsDisabled, 3, this.log)
-// }
-// track.layeredMusicController.play((instances: SoundInstance[]) => {
-// 	for (let i = 0; i < instances.length; i++) {
-// 		this.visualize(instances[i], this.canvases[i], this.drawVisuals)
-// 	}
-// })
-// }}
 
 // const votLayered = {name: 'Vikings of Thule: Map', soundDatas: [
 // {url: `${this.pathMusic}/VOT_InterfaceMusic_0.mp3`, key: 'votWindLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
@@ -371,10 +347,6 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 // bridgeInst.gainWrapper.setValueAtTime(0.1, curTime).exponentialRampToValueAtTime(1, curTime + 0.25)
 // }}
 
-///////////////////
-
-
-/////////////////////
 
 // const kyf = {name: 'Know Your Friend', soundDatas: [
 // {url: `${this.pathMusic}/KYF_IntroMusic_WithAudience.ogg`, key: 'kyfIntroMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
@@ -490,31 +462,14 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 
 	onTrackClick(track: Track) {
 		if (this.awaitingFirstPlay) {
-			this.log('Info', 'onTrackClick, awaitingFirstPlay is true, returning without processing')
+			this.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')
 			return
 		}
 		this.selectedByIndex = this.openedUiByIndex
 
 		this.stopMusic()
-		this.selectedTrack = track
 
-		this.soundService.play(track)
-
-
-		// if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
-		// 	for (let i = 0; i < track.soundDatas.length; i++) {
-		// 		this.soundManager.instance.addSound(track.soundDatas[i])
-		// 		console.log('adding sound')
-		// 	}
-		// }
-
-		// this.awaitingFirstPlay = true
-		// track.play(track)()
-
-		// // this should work if no await occurs in layered play
-		// if (track.layeredMusicController) {
-		// 	this.selectedLayeredMusic = track.layeredMusicController
-		// }
+		this.musicService.play(track, this.gainsDisabled)
 	}
 
 	onByClick(byIndex: number) {
@@ -573,21 +528,18 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 		// take a look at this when re-enabling track
 		// clearInterval(this.votFeudTimeout)
 
-		this.selectedTrack = this.emptyTrack
 
-		this.soundService.stopMusic()
-
-		// if (this.selectedLayeredMusic) {
-		// 	this.selectedLayeredMusic.stop()
-		// 	this.selectedLayeredMusic = null
-		// }
+		this.musicService.stop()
 
 		this.clearVisuals()
-		this.currentCanvasNr = 0
+		this.currentCanvasNr = 1
+		this.canvasNrAscending = false
 	}
+
 	get layerText(): string {
-		if (this.soundService.selectedLayeredMusic && this.soundService.selectedLayeredMusic.layerSoundInstances) {
-			const layers = this.soundService.selectedLayeredMusic.layerSoundInstances
+		// if (this.musicService.selectedLayeredMusic && this.musicService.selectedLayeredMusic.layerSoundInstances) {
+			if (this.isTrackLayerMusicController) {
+			const layers = this.musicService.selectedTrack.layeredMusicController.layerSoundInstances
 			if (layers[layers.length - 1].gainWrapper.instanceMuted) {
 				return 'add layer'
 			}
@@ -596,7 +548,14 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 	}
 
 	incrementMusicLayerValue() {
-		this.soundService.selectedLayeredMusic.incrementLayerValue()
+		this.musicService.selectedTrack.layeredMusicController.incrementLayerValue()
+	}
+
+	get isTrackLayerMusicController() {
+		if (this.musicService.selectedTrack.layeredMusicController &&  this.musicService.selectedTrack.layeredMusicController.layerSoundInstances) {
+			return true
+		}
+		return false
 	}
 
 	visualize(inst: SoundInstance, canvas: ElementRef<HTMLCanvasElement>, drawVisuals: number[]) {
@@ -661,7 +620,7 @@ export class GameAudioComponent implements OnDestroy, OnInit {
 
 	ngOnDestroy() {
 		this.stopMusic()
-		this.soundService.removeInstancePlayedListener(this.playedListenerName)
-		this.soundService.removeInstanceEndedListener(this.endedListenerName)
+		this.musicService.removeInstancePlayedListener(this.playedListenerName)
+		this.musicService.removeInstanceEndedListener(this.endedListenerName)
 	}
 }

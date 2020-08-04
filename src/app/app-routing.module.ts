@@ -5,7 +5,7 @@ import {HomeComponent} from './home/home.component'
 import {ProgrammingComponent} from './programming/programming.component'
 // import {MusicComponent} from './music/music.component'
 import {LiftingComponent} from './lifting/lifting.component'
-import {GameAudioComponent} from './game-audio/game-audio.component'
+import {MusicPageComponent} from './game-audio/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
 	{path: 'code',  component: ProgrammingComponent},
 	// {path: 'music', component: MusicComponent},
 	{path: 'lifting', component: LiftingComponent},
-	{path: 'music', component: GameAudioComponent},
+	{path: 'music', component: MusicPageComponent},
 	{path: '**', component: PageNotFoundComponent }
 ]
 

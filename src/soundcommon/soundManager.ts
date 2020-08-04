@@ -61,7 +61,7 @@ export class SoundManager {
 	const AudioContext = window.AudioContext || window.webkitAudioContext
 		this.audioCtx = new AudioContext()
 
-		this.log =  (message?: any, optionalParams?: any[]) => {
+		this.log =  (message?: any, ...optionalParams: any[]) => {
 			if (log) {
 				log(message, optionalParams)
 			}

@@ -11,10 +11,9 @@ import { ProgrammingComponent } from './programming/programming.component'
 // import { MusicComponent } from './music/music.component'
 import { LiftingComponent } from './lifting/lifting.component'
 import { PageNotFoundComponent } from './pagenotfound.component'
-import { GameAudioComponent } from './game-audio/game-audio.component'
+import { MusicPageComponent } from './game-audio/musicPage.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
-// import { WindowRef } from './window-ref.service'
 
 @NgModule({
 	imports: [
@@ -31,14 +30,13 @@ import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 		ProgrammingComponent,
 		// MusicComponent,
 		LiftingComponent,
-		GameAudioComponent,
+		MusicPageComponent,
 		PageNotFoundComponent,
 		MyNumberPipe,
 		MinutesSecondsPipe,
 		// MatButtonToggleGroup,
 		// MatButtonToggle
 	],
-	// providers: [WindowRef],
 	bootstrap: [AppComponent]
 })
 

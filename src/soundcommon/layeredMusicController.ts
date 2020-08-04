@@ -4,7 +4,7 @@ import { EmitterEvent } from './enum/emitterEvent'
 import { BooleanEmitter } from './emitter/booleanEmitter'
 
 export class LayeredMusicController {
-	private layerSounds: Sound[]
+	readonly layerSounds: Sound[]
 	private startLayerIndexToBeDecremented: number
 	private layerIndexToBeDecremented: number
 	private timeIntervalSec: number
@@ -13,65 +13,37 @@ export class LayeredMusicController {
 	private maxLayerValue: number
 	private fadeDurationSec: number
 	private _layerSoundInstances: SoundInstance[];
-	public get layerSoundInstances(): SoundInstance[] {
+	get layerSoundInstances(): SoundInstance[] {
 		return this._layerSoundInstances
 	}
 	private layerMusicTimer: NodeJS.Timeout
 	private fadeOutTimeouts: Map<number, NodeJS.Timeout> = new Map()
 	private fadeInTimeouts: Map<number, NodeJS.Timeout> = new Map()
-	private gainsDisabled: BooleanEmitter
+	gainsDisabled: BooleanEmitter
 	private log: (message?: any, ...optionalParams: any[]) => void
 
-	constructor(layerSounds: Sound[], gainsDisabled: BooleanEmitter, startLayerIndexToBeDecremented = 0, log: (message?: any, ...optionalParams: any[]) => void, timeIntervalSec = 15, startCurrentLayerValue = 0, maxLayerValue = 0, fadeDurationSec = 10) {
+	constructor(layerSounds: Sound[], startLayerIndexToBeDecremented = 0, log: (message?: any, ...optionalParams: any[]) => void, timeIntervalSec = 15, startCurrentLayerValue = 0, maxLayerValue = 0, fadeDurationSec = 10) {
 		this.layerSounds = layerSounds
 		this.startLayerIndexToBeDecremented = startLayerIndexToBeDecremented
 		this.timeIntervalSec = timeIntervalSec
 		this.startCurrentLayerValue = startCurrentLayerValue
 		this.maxLayerValue = maxLayerValue
 		this.fadeDurationSec = fadeDurationSec
-		this.gainsDisabled = gainsDisabled
 		this.log = log
 	}
 
-	play(playCallback?: (instances: SoundInstance[]) => void) {
+
+	start(soundInstances: SoundInstance[]) {
+		this._layerSoundInstances = soundInstances
+
 		this.layerIndexToBeDecremented = this.startLayerIndexToBeDecremented
 		this.currentLayerValue = this.startCurrentLayerValue
 
-		const readyGo = () => {
-			let loaded = true
-			this.layerSounds.forEach(layer => {
-				loaded = layer.loaded
-			})
-			if (loaded) {
-				this.log('ready')
-				this._layerSoundInstances = []
-				let instance: SoundInstance
-				for (let i = 0; i < this.layerSounds.length; i++) {
-					const layer = this.layerSounds[i]
-					instance = layer.play()
-					this._layerSoundInstances.push(instance)
-				}
-				if (playCallback) {
-					playCallback(this._layerSoundInstances)
-				}
-
-				for (let i = this.layerIndexToBeDecremented + 1; i < this._layerSoundInstances.length; i++) {
-					this._layerSoundInstances[i].gainWrapper.muteInstance()
-				}
-
-				this.setLayerMusicTimer()
-				return true
-			}
+		for (let i = this.layerIndexToBeDecremented + 1; i < this._layerSoundInstances.length; i++) {
+			this._layerSoundInstances[i].gainWrapper.muteInstance()
 		}
 
-		if (!readyGo()) {
-			const readyTimer = setInterval(() => {
-				this.log('load timer')
-				if (readyGo()) {
-					clearInterval(readyTimer)
-				}
-			}, 100)
-		}
+		this.setLayerMusicTimer()
 	}
 
 	private setLayerMusicTimer() {
@@ -92,7 +64,7 @@ export class LayeredMusicController {
 					this.gainsDisabled.emit(EmitterEvent.Change, true)
 				}
 				const instance = this._layerSoundInstances[this.layerIndexToBeDecremented]
-				instance.gainWrapper.cancelScheduledValues(0).linearRampToValueAtTime(0, instance.audioCtx.currentTime + this.fadeDurationSec)
+				instance.gainWrapper.cancelScheduledValues(0).linearRampToValueAtTime(0, instance.audioContext.currentTime + this.fadeDurationSec)
 
 				this.setFadeTimeout(this.fadeOutTimeouts, this.layerIndexToBeDecremented, instance)
 				--this.layerIndexToBeDecremented
@@ -100,28 +72,6 @@ export class LayeredMusicController {
 			}
 		}, this.timeIntervalSec * 1000)
 	}
-
-	// private setFadeOutTimeout(instance: SoundInstance) {
-	// 	this.fadeOutTimeouts.set(this.layerIndexToBeDecremented, setTimeout(() => {
-	// 		this.log('onFadeOutTimeout, on time muting instance')
-	// 		instance.gainWrapper.muteInstance()
-	// 		if (this.gainsDisabled.value) {
-	// 			this.gainsDisabled.value = false
-	// 			this.gainsDisabled.emit(EmitterEvent.Change, false)
-	// 		}
-	// 	}, this.fadeDurationSec * 1000))
-	// }
-
-	// private setFadeInTimeout(instance: SoundInstance) {
-	// 	this.fadeInTimeouts.set(this.layerIndexToBeDecremented, setTimeout(() => {
-	// 		this.log('onFadeInTimeout, enabling')
-	// 		this.log(this.gainsDisabled.value)
-	// 		if (this.gainsDisabled.value) {
-	// 			this.gainsDisabled.value = false
-	// 			this.gainsDisabled.emit(EmitterEvent.Change, false)
-	// 		}
-	// 	}, this.fadeDurationSec * 1000))
-	// }
 
 	private setFadeTimeout(timeouts: Map<number, NodeJS.Timeout>, layerIndex: number, muteInstance?: SoundInstance) {
 		timeouts.set(layerIndex, setTimeout(() => {
@@ -177,6 +127,5 @@ export class LayeredMusicController {
 		this.fadeOutTimeouts.clear()
 		this.fadeInTimeouts.clear()
 	}
-
 
 }
