@@ -4,7 +4,7 @@ import { SoundManagerService } from './soundManager.service'
 import { WindowRef } from '../window-ref.service'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { Track } from '../shared/data/track'
+import { ITrack, LayeredMusicTrack } from '../shared/data/track'
 import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
 import { MusicService } from './music.service'
@@ -28,7 +28,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	private canvases: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals = []
 	private enableGains: (value: boolean) => void
-	private votFeudTimeout: NodeJS.Timeout
 	musicGain = 1
 	musicMuted = false
 	sfxGain = 1
@@ -133,13 +132,20 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 		this.musicService.setLog(this.log)
 
-		this.musicService.addInstancePlayedListener(this.playedListenerName,
-			(soundInstance) => this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
-		)
+		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
+			this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
+		})
 
-		this.musicService.addInstanceEndedListener(this.endedListenerName,
-			() => this.clearVisuals()
-		)
+		this.musicService.addInstanceEndedListener(this.endedListenerName, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => {
+			if (timeout) {
+				clearInterval(timeout)
+			}
+			if (trackEnded) {
+				this.stopMusic()
+			} else {
+				this.clearVisuals()
+			}
+		})
 
 	}
 
@@ -167,282 +173,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 // 	this.visualize(this.soundManager.instance.getSound(track.soundDatas[0].key).play(), this.canvas0, this.drawVisuals)
 // }}
 
-
-// const votLayered = {name: 'Vikings of Thule: Map', soundDatas: [
-// {url: `${this.pathMusic}/VOT_InterfaceMusic_0.mp3`, key: 'votWindLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/VOT_InterfaceMusic_3.ogg`, key: 'votChoirLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/VOT_InterfaceMusic_2.ogg`, key: 'votHarpLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/VOT_InterfaceMusic_1.ogg`, key: 'votMelodyLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track: Track) => {
-// if (!track.layeredMusicController) {
-// 	const sounds = [
-// 		this.soundManager.instance.getSound(track.soundDatas[0].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[1].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[2].key),
-// 		this.soundManager.instance.getSound(track.soundDatas[3].key)
-// 	]
-// 	track.layeredMusicController = new LayeredMusicController(sounds, this.gainsDisabled, 3, this.log)
-// }
-// track.layeredMusicController.play((instances: SoundInstance[]) => {
-// 	for (let i = 0; i < instances.length; i++) {
-// 		this.visualize(instances[i], this.canvases[i], this.drawVisuals)
-// 	}
-// })
-// }}
-
-// const cpp = {name: 'Cake Pop Party', soundDatas: [
-// {url: `${this.pathMusic}/CPP_workMusicIntroScreen.ogg`, key: 'cppMusicIntro', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/CPP_musicTransitionBeatFade.ogg`, key: 'cppMusicScaleBeat', soundType: SoundType.Music, maxGain: 0.6, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/CPP_workMusicMakePopLoop.ogg`, key: 'cppMusicMakePop', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const intro = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const scaleBeat = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const makePop = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// this.visualize(intro.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(intro.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(scaleBeat.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(makePop.play(() => {
-// 				this.clearVisuals()
-// 				this.visualize(intro.play(), this.canvas0, this.drawVisuals)
-// 			}), this.canvas3, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const ssix = {name: 'Symbol 6', soundDatas: [
-// {url: `${this.pathMusic}/SSIX_menu.ogg`, key: 'ssixMenu', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/SSIX_game.ogg`, key: 'ssixGame', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/SSIX_HexagoTune.ogg`, key: 'ssixHexago', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const menu = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const game = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const hexago = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// this.visualize(menu.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(game.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(hexago.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(menu.play(), this.canvas3, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const habitarium = {name: 'Habitarium', soundDatas: [
-// {url: `${this.pathMusic}/Habitarium_main_theme.ogg`, key: 'habitariumMainTheme', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/Habitarium_InGameLoop.ogg`, key: 'habitariumInGameLoop', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const main = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const inGame = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// this.visualize(main.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(inGame.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(main.play(), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const tp = {name: 'Tiny Places', soundDatas: [
-// {url: `${this.pathMusic}/TP_mainThemeIntro.ogg`, key: 'tpMainThemeIntro', soundType: SoundType.Music, maxGain: 0.65, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_mainThemeBridge.ogg`, key: 'tpMainThemeBridge', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_spaceWorld.ogg`, key: 'tpSpaceWorld', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_tomb.ogg`, key: 'tpTomb', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_lazyStyle.ogg`, key: 'tpLazyStyle', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_cutScene.ogg`, key: 'tpCutScene', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_inGame.ogg`, key: 'tpInGame', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/TP_outoftime.ogg`, key: 'tpOutOfTime', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const intro = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const bridge = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const space = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// const tomb = this.soundManager.instance.getSound(track.soundDatas[3].key)
-// const lazy = this.soundManager.instance.getSound(track.soundDatas[4].key)
-// const cut = this.soundManager.instance.getSound(track.soundDatas[5].key)
-// const inGame = this.soundManager.instance.getSound(track.soundDatas[6].key)
-// const time = this.soundManager.instance.getSound(track.soundDatas[7].key)
-// const introInst = intro.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(bridge.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(space.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(space.play(() => {
-// 				this.clearVisuals()
-// 				this.visualize(tomb.play(() => {
-// 					this.clearVisuals()
-// 					this.visualize(tomb.play(() => {
-// 						this.clearVisuals()
-// 						this.visualize(lazy.play(() => {
-// 							this.clearVisuals()
-// 							this.visualize(lazy.play(() => {
-// 								this.clearVisuals()
-// 								this.visualize(cut.play(() => {
-// 									this.clearVisuals()
-// 									this.visualize(inGame.play(() => {
-// 										this.clearVisuals()
-// 										this.visualize(time.play(() => {
-// 											this.stopMusic()
-// 										}), this.canvas0, this.drawVisuals)
-// 									}), this.canvas3, this.drawVisuals)
-// 								}), this.canvas2, this.drawVisuals)
-// 							}), this.canvas1, this.drawVisuals)
-// 						}), this.canvas0, this.drawVisuals)
-// 					}), this.canvas1, this.drawVisuals)
-// 				}), this.canvas2, this.drawVisuals)
-// 			}), this.canvas3, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// })
-// introInst.gainWrapper.value = 0.01
-// introInst.gainWrapper.linearRampToValueAtTime(1, introInst.audioCtx.currentTime + 0.25)
-// this.visualize(introInst, this.canvas0, this.drawVisuals)
-// }}
-
-// const jol2008 = {name: 'Christmas Game 2008', soundDatas: [
-// {url: `${this.pathMusic}/jolagogo2008_main_music.ogg`, key: 'jol2008mainMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/jolagogo2008_game_over.ogg`, key: 'jol2008gameOver', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const main = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const gameOver = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// this.visualize(main.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(main.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(gameOver.play(() => {
-// 			this.clearVisuals()
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const jol2009 = {name: 'Christmas Game 2009', soundDatas: [
-// {url: `${this.pathMusic}/jolagogo2009_Bridge.ogg`, key: 'jol2009bridge', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/jolagogo2009_Chorus.ogg`, key: 'jol2009chorus', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const bridge = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const chorus = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const bridgeInst = bridge.play(() => {
-// 	this.clearVisuals()
-// 	const chorusInst = chorus.play(() => {
-// 		this.stopMusic()
-// 	})
-// 	this.visualize(chorusInst, this.canvas1, this.drawVisuals)
-// 	chorusInst.gainWrapper.setTargetAtTime(0.01, chorus.audioCtx.currentTime + chorusInst.source.buffer.duration - 1.25, 1)
-// })
-// this.visualize(bridgeInst, this.canvas0, this.drawVisuals)
-// const curTime = bridge.audioCtx.currentTime
-// bridgeInst.gainWrapper.setValueAtTime(0.1, curTime).exponentialRampToValueAtTime(1, curTime + 0.25)
-// }}
-
-
-// const kyf = {name: 'Know Your Friend', soundDatas: [
-// {url: `${this.pathMusic}/KYF_IntroMusic_WithAudience.ogg`, key: 'kyfIntroMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/KYF_90secondsMusic.ogg`, key: 'kyf90secMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const intro = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const seconds = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// this.visualize(seconds.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(intro.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(intro.play(() => {
-// 			this.stopMusic()
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const stackem = {name: 'Stack\'em', soundDatas: [
-// {url: `${this.pathMusic}/Stackem_Tune_loop.ogg`, key: 'stackem', soundType: SoundType.Music, maxGain: 0.9, loop: true}
-// ],
-// play: (track) => {
-// this.visualize(this.soundManager.instance.getSound(track.soundDatas[0].key).play(), this.canvas0, this.drawVisuals)
-// }}
-
-// const glow = {name: 'Glowbulleville', soundDatas: [
-// {url: `${this.pathMusic}/GLOB_main_music.mp3`, key: 'glowMainMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/GLOB_village_music.mp3`, key: 'glowVillageMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/GLOB_wack_a_mole.mp3`, key: 'glowWack', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const main = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const village = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const wack = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// this.visualize(main.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(wack.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(village.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(village.play(() => {
-// 				this.visualize(main.play(), this.canvas0, this.drawVisuals)
-// 			}), this.canvas3, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const godsrule = {name: 'Godsrule: Battle', soundDatas: [
-// {url: `${this.pathMusic}/LOTON_BattleBaseLayer.ogg`, key: 'godsruleBattle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/LOTON_CombatDefeatMusic.ogg`, key: 'godsruleDefeat', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/LOTON_CombatVictory.ogg`, key: 'godsruleVictory', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const battle = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const defeat = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// const victory = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// this.visualize(battle.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(defeat.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(victory.play(() => {
-// 			this.clearVisuals()
-// 			this.visualize(battle.play(), this.canvas0, this.drawVisuals)
-// 		}), this.canvas2, this.drawVisuals)
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-// const vot = {name: 'Vikings of Thule: Feud', soundDatas: [
-// {url: `${this.pathMusic}/VOT_FeudMusic_drums.ogg`, key: 'votFeudDrums', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/VOT_FeudMusic.ogg`, key: 'votFeud', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/VOT_FeudEnding.ogg`, key: 'votFeudEnding', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// 	const feudDrums = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// 	const feud = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// 	const feudEnding = this.soundManager.instance.getSound(track.soundDatas[2].key)
-// 	this.visualize(feudDrums.play(() => {
-// 		this.clearVisuals()
-// 		this.visualize(feud.play(() => {
-// 			const feudInst = feud.play(() => {
-// 				this.clearVisuals()
-// 			})
-// 			this.visualize(feudInst, this.canvas2, this.drawVisuals)
-// 			this.votFeudTimeout = setTimeout(() => {
-// 				feudInst.gainWrapper.linearRampToValueAtTime(0, feudInst.audioCtx.currentTime + 0.2)
-// 				this.visualize(feudEnding.play(() => {
-// 					this.stopMusic()
-// 				}), this.canvas3, this.drawVisuals)
-// 			}, (feudInst.source.buffer.duration * 1000) - 799)
-// 		}), this.canvas1, this.drawVisuals)
-// 	}), this.canvas0, this.drawVisuals)
-// }}
-
 // const crisis = {name: 'The Crisis Game', soundDatas: [
 // {url: `${this.pathMusic}/Krepp_Byrjun.ogg`, key: 'crisisBegin', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
 // {url: `${this.pathMusic}/Krepp_Endir.ogg`, key: 'crisisEnd', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
@@ -460,7 +190,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 	// }
 
-	onTrackClick(track: Track) {
+	onTrackClick(track: ITrack) {
 		if (this.awaitingFirstPlay) {
 			this.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')
 			return
@@ -470,6 +200,19 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.stopMusic()
 
 		this.musicService.play(track, this.gainsDisabled)
+	}
+
+	public stopMusic() {
+		if (this.gainsDisabled.value) {
+			this.gainsDisabled.value = false
+			this.gainsDisabled.emit(EmitterEvent.Change, false)
+		}
+
+		this.musicService.stop()
+
+		this.clearVisuals()
+		this.currentCanvasNr = 1
+		this.canvasNrAscending = false
 	}
 
 	onByClick(byIndex: number) {
@@ -519,27 +262,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.soundManager.instance.setDynamicRange(changeCxt.value, changeCxt.highValue)
 	}
 
-	public stopMusic() {
-		if (this.gainsDisabled.value) {
-			this.gainsDisabled.value = false
-			this.gainsDisabled.emit(EmitterEvent.Change, false)
-		}
-
-		// take a look at this when re-enabling track
-		// clearInterval(this.votFeudTimeout)
-
-
-		this.musicService.stop()
-
-		this.clearVisuals()
-		this.currentCanvasNr = 1
-		this.canvasNrAscending = false
-	}
-
 	get layerText(): string {
-		// if (this.musicService.selectedLayeredMusic && this.musicService.selectedLayeredMusic.layerSoundInstances) {
-			if (this.isTrackLayerMusicController) {
-			const layers = this.musicService.selectedTrack.layeredMusicController.layerSoundInstances
+			if (this.musicService.selectedTrack instanceof LayeredMusicTrack && this.musicService.selectedTrack.layeredMusicController.layerSoundInstances) {
+			const layers =  this.musicService.selectedTrack.layeredMusicController.layerSoundInstances
 			if (layers[layers.length - 1].gainWrapper.instanceMuted) {
 				return 'add layer'
 			}
@@ -548,14 +273,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	incrementMusicLayerValue() {
-		this.musicService.selectedTrack.layeredMusicController.incrementLayerValue()
-	}
-
-	get isTrackLayerMusicController() {
-		if (this.musicService.selectedTrack.layeredMusicController &&  this.musicService.selectedTrack.layeredMusicController.layerSoundInstances) {
-			return true
-		}
-		return false
+		(this.musicService.selectedTrack as LayeredMusicTrack).layeredMusicController.incrementLayerValue()
 	}
 
 	visualize(inst: SoundInstance, canvas: ElementRef<HTMLCanvasElement>, drawVisuals: number[]) {

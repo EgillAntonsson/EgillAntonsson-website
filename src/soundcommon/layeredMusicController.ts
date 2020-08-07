@@ -44,6 +44,7 @@ export class LayeredMusicController {
 		}
 
 		this.setLayerMusicTimer()
+
 	}
 
 	private setLayerMusicTimer() {

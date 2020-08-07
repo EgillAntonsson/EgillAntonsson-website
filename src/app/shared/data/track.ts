@@ -3,16 +3,14 @@ import { LayeredMusicController } from '../../../soundcommon/layeredMusicControl
 
 export interface ITrack {
 	readonly name: string
-	readonly soundDatas?: SoundData[]
-	readonly play?: (track: Track) => () => Promise<void>
-	layeredMusicController?: LayeredMusicController
+	readonly soundDatas: SoundData[]
+	readonly play: () => () => Promise<void>
 }
 
 export class Track implements ITrack {
 	readonly name: string
 	readonly soundDatas: SoundData[]
-	readonly play: (track: Track) => () => Promise<void>
-	layeredMusicController?: LayeredMusicController
+	readonly play: () => () => Promise<void>
 
 
 	///////
@@ -26,7 +24,20 @@ export class Track implements ITrack {
 	// permalinkUrl?: string
 	// liked?: number
 
-	constructor(name: string, soundDatas: SoundData[], play: (track: Track) => () => Promise<void>) {
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>) {
+		this.name = name
+		this.soundDatas = soundDatas
+		this.play = play
+	}
+}
+
+export class LayeredMusicTrack implements ITrack {
+	name: string
+	soundDatas: SoundData[]
+	play: () => () => Promise<void>
+	layeredMusicController: LayeredMusicController
+
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>) {
 		this.name = name
 		this.soundDatas = soundDatas
 		this.play = play
@@ -35,7 +46,11 @@ export class Track implements ITrack {
 
 export class EmptyTrack implements ITrack {
 	readonly name: string
+	soundDatas: SoundData[]
+	play: () => () => Promise<void>
 	constructor(name: string) {
 		this.name = name
+		this.soundDatas = null
+		this.play = null
 	}
 }
