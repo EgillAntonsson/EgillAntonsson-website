@@ -163,33 +163,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.canvases[this.currentCanvasNr]
 	}
 
-
-	// private setupTracks() {
-
-// const hhiaugl = {name: 'Song for commercial', soundDatas: [
-// {url: `${this.pathMusic}/hhiaugl.ogg`, key: 'hhiaugl', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track: Track) => {
-// 	this.visualize(this.soundManager.instance.getSound(track.soundDatas[0].key).play(), this.canvas0, this.drawVisuals)
-// }}
-
-// const crisis = {name: 'The Crisis Game', soundDatas: [
-// {url: `${this.pathMusic}/Krepp_Byrjun.ogg`, key: 'crisisBegin', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-// {url: `${this.pathMusic}/Krepp_Endir.ogg`, key: 'crisisEnd', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
-// ],
-// play: (track) => {
-// const begin = this.soundManager.instance.getSound(track.soundDatas[0].key)
-// const end = this.soundManager.instance.getSound(track.soundDatas[1].key)
-// this.visualize(begin.play(() => {
-// 	this.clearVisuals()
-// 	this.visualize(end.play(() => {
-// 		this.clearVisuals()
-// 	}), this.canvas1, this.drawVisuals)
-// }), this.canvas0, this.drawVisuals)
-// }}
-
-	// }
-
 	onTrackClick(track: ITrack) {
 		if (this.awaitingFirstPlay) {
 			this.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')

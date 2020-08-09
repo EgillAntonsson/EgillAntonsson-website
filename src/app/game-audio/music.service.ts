@@ -42,7 +42,9 @@ export class MusicService {
 		return this._awaitingFirstPlay
 	}
 
-	readonly pathMusic = '../../assets/audio/game'
+	readonly pathRoot = '../../assets/audio'
+	readonly pathGame = `${this.pathRoot}/game`
+	readonly pathKuai = `${this.pathRoot}/kuai`
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
 
@@ -109,11 +111,223 @@ export class MusicService {
 	}
 
 	private setupTracks() {
+
+const otis = new Track('Odd Times in Space', [
+{url: `${this.pathRoot}/Odd_Times_in_Space.ogg`, key: 'otis', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(otis.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const toddlerTune = new Track('Toddler Tune', [
+{url: `${this.pathRoot}/Toddler_Tune.ogg`, key: 'toddlerTune', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(toddlerTune.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const fortidin = new Track('Fortíðin', [
+{url: `${this.pathRoot}/Fortidin.ogg`, key: 'fortidin', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(fortidin.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const icelandSocksIntro = new Track('Iceland Socks: Intro', [
+{url: `${this.pathRoot}/Iceland_Socks__Intro.ogg`, key: 'icelandSocksIntro', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(icelandSocksIntro.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const votThemeSong = new Track('Vikings of Thule: Theme', [
+{url: `${this.pathRoot}/Vikings_of_Thule__Theme_Song.ogg`, key: 'votThemeSong', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(votThemeSong.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Pirringur = new Track('Pirringur', [
+{url: `${this.pathKuai}/Pirringur.ogg`, key: 'Pirringur', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Pirringur.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Apollo = new Track('Apollo', [
+{url: `${this.pathKuai}/Apollo.ogg`, key: 'Apollo', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Apollo.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Andsetinn = new Track('Andsetinn', [
+{url: `${this.pathKuai}/Andsetinn.ogg`, key: 'Andsetinn', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Andsetinn.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Hamskipti = new Track('Hamskipti', [
+{url: `${this.pathKuai}/Hamskipti.ogg`, key: 'Hamskipti', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Hamskipti.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Rover = new Track('Rover', [
+{url: `${this.pathKuai}/Rover.ogg`, key: 'Rover', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Rover.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+
+const Andefni = new Track('Andefni', [
+{url: `${this.pathKuai}/Andefni.ogg`, key: 'Andefni', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Andefni.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Agndofa = new Track('Agndofa', [
+{url: `${this.pathKuai}/Agndofa.ogg`, key: 'Agndofa', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Agndofa.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const Ofurte = new Track('Ofurte', [
+{url: `${this.pathKuai}/Ofurte.ogg`, key: 'Ofurte', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(Ofurte.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const LesblindaI = new Track('Lesblinda I', [
+{url: `${this.pathKuai}/Lesblinda_I.ogg`, key: 'LesblindaI', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(LesblindaI.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const LesblindaII = new Track('Lesblinda II', [
+{url: `${this.pathKuai}/Lesblinda_II.ogg`, key: 'LesblindaII', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(LesblindaII.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
 		const godsruleLayered = new LayeredMusicTrack('Godsrule: Village', [
-{url: `${this.pathMusic}/loton_MusicVillageEnvironmentLayer.ogg`, key: 'godsruleEnvironmentLayer', soundType: SoundType.Music, maxGain: 0.075, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/loton_MusicVillageStringLayer.ogg`, key: 'godsruleStringLayer', soundType: SoundType.Music, maxGain: 0.55, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/loton_MusicVillageHarpLayer.ogg`, key: 'godsruleHarpLayer', soundType: SoundType.Music, maxGain: 0.4, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/loton_MusicVillagePianoLayer.ogg`, key: 'godsrulePianoLayer', soundType: SoundType.Music, maxGain: 0.35, loop: true, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/loton_MusicVillageEnvironmentLayer.ogg`, key: 'godsruleEnvironmentLayer', soundType: SoundType.Music, maxGain: 0.075, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/loton_MusicVillageStringLayer.ogg`, key: 'godsruleStringLayer', soundType: SoundType.Music, maxGain: 0.55, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/loton_MusicVillageHarpLayer.ogg`, key: 'godsruleHarpLayer', soundType: SoundType.Music, maxGain: 0.4, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/loton_MusicVillagePianoLayer.ogg`, key: 'godsrulePianoLayer', soundType: SoundType.Music, maxGain: 0.35, loop: true, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	if (!godsruleLayered.layeredMusicController) {
@@ -140,10 +354,10 @@ export class MusicService {
 })
 
 const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
-{url: `${this.pathMusic}/VOT_InterfaceMusic_0.mp3`, key: 'votWindLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/VOT_InterfaceMusic_3.ogg`, key: 'votChoirLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/VOT_InterfaceMusic_2.ogg`, key: 'votHarpLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/VOT_InterfaceMusic_1.ogg`, key: 'votMelodyLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/VOT_InterfaceMusic_0.mp3`, key: 'votWindLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/VOT_InterfaceMusic_3.ogg`, key: 'votChoirLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/VOT_InterfaceMusic_2.ogg`, key: 'votHarpLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/VOT_InterfaceMusic_1.ogg`, key: 'votMelodyLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	if (!votLayered.layeredMusicController) {
@@ -170,9 +384,9 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const cpp = new Track('Cake Pop Party', [
-{url: `${this.pathMusic}/CPP_workMusicIntroScreen.ogg`, key: 'cppMusicIntro', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/CPP_musicTransitionBeatFade.ogg`, key: 'cppMusicScaleBeat', soundType: SoundType.Music, maxGain: 0.6, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/CPP_workMusicMakePopLoop.ogg`, key: 'cppMusicMakePop', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/CPP_workMusicIntroScreen.ogg`, key: 'cppMusicIntro', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/CPP_musicTransitionBeatFade.ogg`, key: 'cppMusicScaleBeat', soundType: SoundType.Music, maxGain: 0.6, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/CPP_workMusicMakePopLoop.ogg`, key: 'cppMusicMakePop', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -210,9 +424,9 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const symbol6 = new Track('Symbol 6', [
-{url: `${this.pathMusic}/SSIX_menu.ogg`, key: 'ssixMenu', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SSIX_game.ogg`, key: 'ssixGame', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SSIX_HexagoTune.ogg`, key: 'ssixHexago', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/SSIX_menu.ogg`, key: 'ssixMenu', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SSIX_game.ogg`, key: 'ssixGame', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SSIX_HexagoTune.ogg`, key: 'ssixHexago', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -245,8 +459,8 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const habitarium = new Track('Habitarium', [
-{url: `${this.pathMusic}/Habitarium_main_theme.ogg`, key: 'habitariumMainTheme', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/Habitarium_InGameLoop.ogg`, key: 'habitariumInGameLoop', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/Habitarium_main_theme.ogg`, key: 'habitariumMainTheme', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/Habitarium_InGameLoop.ogg`, key: 'habitariumInGameLoop', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -273,14 +487,14 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const tp = new Track('Tiny Places', [
-{url: `${this.pathMusic}/TP_mainThemeIntro.ogg`, key: 'tpMainThemeIntro', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_mainThemeBridge.ogg`, key: 'tpMainThemeBridge', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_spaceWorld.ogg`, key: 'tpSpaceWorld', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_tomb.ogg`, key: 'tpTomb', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_lazyStyle.ogg`, key: 'tpLazyStyle', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_cutScene.ogg`, key: 'tpCutScene', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_inGame.ogg`, key: 'tpInGame', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/TP_outoftime.ogg`, key: 'tpOutOfTime', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/TP_mainThemeIntro.ogg`, key: 'tpMainThemeIntro', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_mainThemeBridge.ogg`, key: 'tpMainThemeBridge', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_spaceWorld.ogg`, key: 'tpSpaceWorld', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_tomb.ogg`, key: 'tpTomb', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_lazyStyle.ogg`, key: 'tpLazyStyle', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_cutScene.ogg`, key: 'tpCutScene', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_inGame.ogg`, key: 'tpInGame', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/TP_outoftime.ogg`, key: 'tpOutOfTime', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -358,22 +572,22 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const wyf = new Track('Who\'s Your Friend', [
-	{url: `${this.pathMusic}/WYF_ThemeSong.ogg`, key: 'wyf', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
-	],
-	() => {
-		return async () => {
-			const sound = this.soundManager.instance.getSound(wyf.soundDatas[0].key)
-			const {instance, endedPromise} = await sound.play()
-			this.instancePlayedListeners.forEach((listener) => listener(instance))
-			this._awaitingFirstPlay = false
-			await endedPromise
-			this.instanceEndedListeners.forEach((listener) => listener(true))
-		}
-	})
+{url: `${this.pathGame}/WYF_ThemeSong.ogg`, key: 'wyf', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+	return async () => {
+		const sound = this.soundManager.instance.getSound(wyf.soundDatas[0].key)
+		const {instance, endedPromise} = await sound.play()
+		this.instancePlayedListeners.forEach((listener) => listener(instance))
+		this._awaitingFirstPlay = false
+		await endedPromise
+		this.instanceEndedListeners.forEach((listener) => listener(true))
+	}
+})
 
 		const kyf = new Track('Know Your Friend', [
-{url: `${this.pathMusic}/KYF_IntroMusic_WithAudience.ogg`, key: 'kyfIntroMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/KYF_90secondsMusic.ogg`, key: 'kyf90secMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/KYF_IntroMusic_WithAudience.ogg`, key: 'kyfIntroMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/KYF_90secondsMusic.ogg`, key: 'kyf90secMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -407,7 +621,7 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const stackem = new Track('Stack\'em', [
-{url: `${this.pathMusic}/Stackem_Tune_loop.ogg`, key: 'stackem', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/Stackem_Tune_loop.ogg`, key: 'stackem', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -426,8 +640,8 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const crisis = new Track('The Crisis Game', [
-{url: `${this.pathMusic}/Krepp_Byrjun.ogg`, key: 'crisisBegin', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/Krepp_Endir.ogg`, key: 'crisisEnd', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/Krepp_Byrjun.ogg`, key: 'crisisBegin', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/Krepp_Endir.ogg`, key: 'crisisEnd', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -456,9 +670,9 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const glow = new Track('Glowbulleville', [
-{url: `${this.pathMusic}/GLOB_main_music.mp3`, key: 'glowMainMusic', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/GLOB_village_music.mp3`, key: 'glowVillageMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/GLOB_wack_a_mole.mp3`, key: 'glowWack', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/GLOB_main_music.mp3`, key: 'glowMainMusic', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/GLOB_village_music.mp3`, key: 'glowVillageMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/GLOB_wack_a_mole.mp3`, key: 'glowWack', soundType: SoundType.Music, maxGain: 0.8, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -504,9 +718,9 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 		const godsrule = new Track('Godsrule: Battle', [
-{url: `${this.pathMusic}/LOTON_BattleBaseLayer.ogg`, key: 'godsruleBattle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/LOTON_CombatDefeatMusic.ogg`, key: 'godsruleDefeat', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/LOTON_CombatVictory.ogg`, key: 'godsruleVictory', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/LOTON_BattleBaseLayer.ogg`, key: 'godsruleBattle', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/LOTON_CombatDefeatMusic.ogg`, key: 'godsruleDefeat', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/LOTON_CombatVictory.ogg`, key: 'godsruleVictory', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -550,9 +764,9 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 })
 
 const vot = new Track('Vikings of Thule: Feud', [
-{url: `${this.pathMusic}/VOT_FeudMusic_drums.ogg`, key: 'votFeudDrums', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/VOT_FeudMusic.ogg`, key: 'votFeud', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/VOT_FeudEnding.ogg`, key: 'votFeudEnding', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/VOT_FeudMusic_drums.ogg`, key: 'votFeudDrums', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/VOT_FeudMusic.ogg`, key: 'votFeud', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/VOT_FeudEnding.ogg`, key: 'votFeudEnding', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -596,8 +810,8 @@ const vot = new Track('Vikings of Thule: Feud', [
 })
 
 		const jol2008 = new Track('Christmas Game 2008', [
-{url: `${this.pathMusic}/jolagogo2008_main_music.ogg`, key: 'jol2008mainMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/jolagogo2008_game_over.ogg`, key: 'jol2008gameOver', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/jolagogo2008_main_music.ogg`, key: 'jol2008mainMusic', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/jolagogo2008_game_over.ogg`, key: 'jol2008gameOver', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -625,8 +839,8 @@ const vot = new Track('Vikings of Thule: Feud', [
 })
 
 		const jol2009 = new Track('Christmas Game 2009', [
-{url: `${this.pathMusic}/jolagogo2009_Bridge.ogg`, key: 'jol2009bridge', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/jolagogo2009_Chorus.ogg`, key: 'jol2009chorus', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/jolagogo2009_Bridge.ogg`, key: 'jol2009bridge', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/jolagogo2009_Chorus.ogg`, key: 'jol2009chorus', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 	],
 	() => {
 		return async () => {
@@ -660,12 +874,12 @@ const vot = new Track('Vikings of Thule: Feud', [
 	})
 
 		const sff = new Track('Soft Freak Fiesta', [
-{url: `${this.pathMusic}/SFF_IntroMenuMusic.ogg`, key: 'sffIntroMenuMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_MenuMusic.ogg`, key: 'sffMenuMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LevelMusic_noEnv.ogg`, key: 'sffLevelMusicNoEnv', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LevelMusic_bubbling.ogg`, key: 'sffLevelMusicBubbling', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_LoseJingle.ogg`, key: 'sffLoseJingle', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
-{url: `${this.pathMusic}/SFF_WinJingle.ogg`, key: 'sffWinJingle', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
+{url: `${this.pathGame}/SFF_IntroMenuMusic.ogg`, key: 'sffIntroMenuMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SFF_MenuMusic.ogg`, key: 'sffMenuMusic', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SFF_LevelMusic_noEnv.ogg`, key: 'sffLevelMusicNoEnv', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SFF_LevelMusic_bubbling.ogg`, key: 'sffLevelMusicBubbling', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SFF_LoseJingle.ogg`, key: 'sffLoseJingle', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1},
+{url: `${this.pathGame}/SFF_WinJingle.ogg`, key: 'sffWinJingle', soundType: SoundType.Music, maxGain: 0.9, loop: false, maxNrPlayingAtOnce: 1}
 ],
 () => {
 	return async () => {
@@ -717,8 +931,24 @@ const vot = new Track('Vikings of Thule: Feud', [
 })
 
 		this._byTracksArr = [
-			{by: 'Music', tracks: [
-				// hhiaugl
+			{by: 'Egill Antonsson', tracks: [
+				votThemeSong,
+				icelandSocksIntro,
+				fortidin,
+				toddlerTune,
+				otis
+			]},
+			{by: 'KUAI', tracks: [
+				Pirringur,
+				Apollo,
+				Andsetinn,
+				Hamskipti,
+				Rover,
+				Andefni,
+				Agndofa,
+				Ofurte,
+				LesblindaI,
+				LesblindaII
 			]},
 			{by: 'Game Music - Layered', tracks: [
 				godsruleLayered,
