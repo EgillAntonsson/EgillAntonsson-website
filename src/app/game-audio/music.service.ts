@@ -112,6 +112,34 @@ export class MusicService {
 
 	private setupTracks() {
 
+const intro = new Track('Introduction', [
+{url: `${this.pathRoot}/Introduction.aac`, key: 'intro', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(intro.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const lecube = new Track('Lecube', [
+{url: `${this.pathRoot}/Lecube.ogg`, key: 'lecube', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(lecube.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
 const otis = new Track('Odd Times in Space', [
 {url: `${this.pathRoot}/Odd_Times_in_Space.ogg`, key: 'otis', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
 ],
@@ -936,7 +964,11 @@ const vot = new Track('Vikings of Thule: Feud', [
 				icelandSocksIntro,
 				fortidin,
 				toddlerTune,
-				otis
+				otis,
+				lecube
+			]},
+			{by: 'TribeOfOranges', tracks: [
+				intro
 			]},
 			{by: 'KUAI', tracks: [
 				Pirringur,
