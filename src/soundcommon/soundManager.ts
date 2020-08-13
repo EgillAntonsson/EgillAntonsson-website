@@ -34,6 +34,13 @@ export class SoundManager {
 		this._masterGain.value = validateRange(gain, 0, 1, this.log)
 		this._masterGain.emit(EmitterEvent.GainChange)
 	}
+
+	public get masterGain() {
+		if (this._masterGain) {
+			return this._masterGain.value
+		}
+		return 0
+	}
 	public set masterMuted(muted: boolean) {
 		this._masterGain.muted = muted
 		this._masterGain.emit(EmitterEvent.MuteChange)

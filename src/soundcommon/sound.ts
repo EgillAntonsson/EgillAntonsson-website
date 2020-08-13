@@ -203,10 +203,7 @@ export class Sound {
 
 	private disposeInstance(instance: SoundInstance) {
 		instance.sourceNode.removeEventListener('ended', this.endedListener)
-		// if (!instance.paused) {
-			instance.sourceNode.stop()
-			// instance.paused = true
-		// }
+		instance.sourceNode.stop()
 		instance.gainWrapper.dispose()
 		instance.sourceNode.disconnect()
 		instance.analyzerNode.disconnect()

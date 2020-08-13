@@ -1,0 +1,7 @@
+<div class="playerContainer" (click)="onPlayStop()">
+	<div class="playPauseContainer">
+		<div [ngClass]="{play: !isPlaying, pause: isPlaying}"></div>
+	</div>
+	<span class="playerText">{{selectedTrack.name}}</span>
+	<span class="timer playerText" [ngClass]="{fadein: isTrackReady}" *ngIf="isTrackReady">{{timeInSec | minutesSeconds }} / {{selectedTrack.durationInSec | minutesSeconds}}</span>
+</div>

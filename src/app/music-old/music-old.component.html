@@ -5,6 +5,9 @@
 	<span class="playerText">{{selectedTrack.name}}</span>
 	<span class="timer playerText" [ngClass]="{fadein: isTrackReady}" *ngIf="isTrackReady">{{timeInSec | minutesSeconds }} / {{selectedTrack.durationInSec | minutesSeconds}}</span>
 </div>
+
+
+
 <div class="allByContainer">
 	<div *ngFor="let byTracks of byTracksArr; let byIndex = index">
 		<div class="byContainer" (click)="onByClick(byIndex)">

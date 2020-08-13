@@ -1,19 +1,19 @@
 import { Component, OnDestroy, ViewChild, ElementRef, OnInit } from '@angular/core'
 import { Options, ChangeContext } from 'ng5-slider'
-import { SoundManagerService } from './soundManager.service'
-import { WindowRef } from '../window-ref.service'
+import { SoundManagerService } from '../shared/services/soundManager.service'
+import { WindowRef } from '../shared/services/windowRef.service'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'
 import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
-import { MusicService } from './music.service'
+import { MusicService } from '../shared/services/music.service'
 import { Log, LogType } from '../shared/Log'
 
 @Component({
-	selector: 'app-game-audio',
-	templateUrl: './game-audio.component.html',
-	styleUrls: ['./game-audio.component.css']
+	selector: 'app-music-page',
+	templateUrl: './musicPage.component.html',
+	styleUrls: ['./musicPage.component.css']
 })
 export class MusicPageComponent implements OnDestroy, OnInit {
 	readonly label = 'MusicPage'
@@ -32,7 +32,15 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	musicMuted = false
 	sfxGain = 1
 	sfxMuted = false
-	masterGain = 1
+	// masterGain = 1
+	get masterGain() {
+		return this.soundManager.instance.masterGain
+	}
+
+	set masterGain(value: number) {
+		this.soundManager.instance.masterGain = value
+	}
+
 	masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
 	mediumMaxNrPlaying = 16
@@ -126,7 +134,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		}
 		this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
-		soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
+		soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, 1, this.masterMuted, this.highMaxNrPlaying, this.log)
 		soundManager.instance.setDynamicRange(this.value, this.highValue)
 
 
@@ -164,7 +172,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	onTrackClick(track: ITrack) {
-		if (this.awaitingFirstPlay) {
+		if (this.musicService.awaitingFirstPlay) {
 			this.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')
 			return
 		}
@@ -221,9 +229,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, { getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
 	}
 
-	onMasterGainChange(changeCxt: ChangeContext) {
-		this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
-	}
+	// onMasterGainChange(changeCxt: ChangeContext) {
+	// 	this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
+	// }
 
 	onMasterMuteChange() {
 		if (this.gainsDisabled.value) { return }
@@ -310,7 +318,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnDestroy() {
-		this.stopMusic()
 		this.musicService.removeInstancePlayedListener(this.playedListenerName)
 		this.musicService.removeInstanceEndedListener(this.endedListenerName)
 	}

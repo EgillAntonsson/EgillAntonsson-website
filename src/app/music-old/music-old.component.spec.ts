@@ -50,7 +50,7 @@ export class MockParamMap implements ParamMap {
 }
 
 
-describe('MusicComponent', () => {
+describe('MusicOldComponent', () => {
 	let nrOfPlayCalls: number
 	let nrOfKillCalls: number
 	let mockService: SoundCloudService

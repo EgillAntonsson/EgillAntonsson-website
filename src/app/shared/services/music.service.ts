@@ -4,8 +4,9 @@ import { ITrack as ITrack, LayeredMusicTrack, EmptyTrack, Track } from 'app/shar
 import { SoundType } from 'soundcommon/enum/soundType'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
-import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
-import { LogType } from 'app/shared/Log';
+import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
+import { LogType } from 'app/shared/Log'
+import { WindowRef } from './windowRef.service'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -48,11 +49,14 @@ export class MusicService {
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
 
-	constructor(private soundManager: SoundManagerService) {
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRef) {
 		this.emptyTrack = new EmptyTrack('select a track')
 		this._selectedTrack = this.emptyTrack
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
+
+		// soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
+		// soundManager.instance.setDynamicRange(this.value, this.highValue)
 
 		this.setupTracks()
 
