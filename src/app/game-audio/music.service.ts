@@ -6,7 +6,6 @@ import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
 import { LogType } from 'app/shared/Log';
-import { SoundData } from '../../soundcommon/interface/soundData'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -45,6 +44,7 @@ export class MusicService {
 	readonly pathRoot = '../../assets/audio'
 	readonly pathGame = `${this.pathRoot}/game`
 	readonly pathKuai = `${this.pathRoot}/kuai`
+	readonly pathBrothers = `${this.pathRoot}/braedraminning`
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
 
@@ -111,6 +111,193 @@ export class MusicService {
 	}
 
 	private setupTracks() {
+
+const justInTime = new Track('Just in Time', [
+{url: `${this.pathRoot}/Just_in_Time.ogg`, key: 'justInTime', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+	const sound = this.soundManager.instance.getSound(justInTime.soundDatas[0].key)
+
+	let nrOfLoops = 2
+	do {
+		const {instance, endedPromise} = await sound.play()
+		this.instancePlayedListeners.forEach((listener) => listener(instance))
+		this._awaitingFirstPlay = false
+		await endedPromise
+		this.instanceEndedListeners.forEach((listener) => listener(nrOfLoops === 1))
+		nrOfLoops--
+	} while (nrOfLoops > 0)
+}
+})
+
+const rubber = new Track('Rubber', [
+{url: `${this.pathBrothers}/Rubber.ogg`, key: 'rubber', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(rubber.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const mouse = new Track('Mouse', [
+{url: `${this.pathBrothers}/Mouse.ogg`, key: 'mouse', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(mouse.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const chase = new Track('The Chase', [
+{url: `${this.pathBrothers}/The_Chase.ogg`, key: 'chase', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(chase.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const guitarSolos = new Track('The Guitar Solos', [
+{url: `${this.pathBrothers}/The_Guitar_Solos.ogg`, key: 'guitarSolos', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(guitarSolos.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const withoutThem = new Track('Without Them', [
+{url: `${this.pathBrothers}/Without_Them.ogg`, key: 'withoutThem', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(withoutThem.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const story = new Track('The Story', [
+{url: `${this.pathBrothers}/The_Story.ogg`, key: 'story', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(story.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const worldIsNothing = new Track('The World is Nothing', [
+{url: `${this.pathBrothers}/The_World_is_Nothing.ogg`, key: 'worldIsNothing', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(worldIsNothing.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const beLikeYou = new Track('Be Like You', [
+{url: `${this.pathBrothers}/Be_Like_You.ogg`, key: 'beLikeYou', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(beLikeYou.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const takeCare = new Track('Take Care', [
+{url: `${this.pathBrothers}/Take_Care.ogg`, key: 'takeCare', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(takeCare.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const tapDance = new Track('Tap Dance', [
+{url: `${this.pathBrothers}/Tap_Dance.ogg`, key: 'tapDance', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(tapDance.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const hhiComm = new Track('Song for HHI commercial', [
+{url: `${this.pathRoot}/Song_for_HHI_commercial.ogg`, key: 'hhiComm', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(hhiComm.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
+
+const routine = new Track('Routine', [
+{url: `${this.pathRoot}/Routine.ogg`, key: 'routine', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
+],
+() => {
+return async () => {
+const sound = this.soundManager.instance.getSound(routine.soundDatas[0].key)
+const {instance, endedPromise} = await sound.play()
+this.instancePlayedListeners.forEach((listener) => listener(instance))
+this._awaitingFirstPlay = false
+await endedPromise
+this.instanceEndedListeners.forEach((listener) => listener(true))
+}
+})
 
 const intro = new Track('Introduction', [
 {url: `${this.pathRoot}/Introduction.aac`, key: 'intro', soundType: SoundType.Music, maxGain: 1, loop: false, maxNrPlayingAtOnce: 1}
@@ -959,7 +1146,20 @@ const vot = new Track('Vikings of Thule: Feud', [
 })
 
 		this._byTracksArr = [
+			{by: 'Egill & Jónas seniors', tracks: [
+				rubber,
+				mouse,
+				chase,
+				guitarSolos,
+				withoutThem,
+				story,
+				worldIsNothing,
+				tapDance,
+				beLikeYou,
+				takeCare
+			]},
 			{by: 'Egill Antonsson', tracks: [
+				justInTime,
 				votThemeSong,
 				icelandSocksIntro,
 				fortidin,
@@ -968,7 +1168,9 @@ const vot = new Track('Vikings of Thule: Feud', [
 				lecube
 			]},
 			{by: 'TribeOfOranges', tracks: [
-				intro
+				intro,
+				routine,
+				hhiComm
 			]},
 			{by: 'KUAI', tracks: [
 				Pirringur,
