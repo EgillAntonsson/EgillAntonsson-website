@@ -6,10 +6,11 @@ import { EmitterEvent } from './enum/emitterEvent'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
 import { SoundInstance } from './interface/soundInstance'
 import { SoundData } from './interface/soundData'
+import { LogType } from 'app/shared/Log';
 
 export class SoundManager {
 	private sounds: Map<string, Sound> = new Map()
-	private log: (message?: any, ...optionalParams: any[]) => void
+	private log =  (logType: LogType, message?: any, ...optionalParams: any[]) => {}
 	private audioCtx: AudioContext
 	private _musicGain: GainEmitter
 	public set musicGain(gain: number) {
@@ -56,8 +57,7 @@ export class SoundManager {
 	private _dynamicRange: DynamicRangeEmitter
 	public initialized = false
 
-	// tslint:disable-next-line: max-line-length
-	init(window: any, musicGain: number = 1, musicMuted: boolean = false, sfxGain: number = 1, sfxMuted: boolean = false, masterGain: number = 1, masterMuted: boolean = false, maxNrPlayingAtOncePerSound: number = globalMaxNrPlayingAtOncePerSound, log?: (message?: any, ...optionalParams: any[]) => void): void {
+	init(window: any, musicGain: number = 1, musicMuted: boolean = false, sfxGain: number = 1, sfxMuted: boolean = false, masterGain: number = 1, masterMuted: boolean = false, maxNrPlayingAtOncePerSound: number = globalMaxNrPlayingAtOncePerSound) {
 		this._musicGain = new GainEmitter(musicGain, musicMuted)
 		this._sfxGain = new GainEmitter(sfxGain, sfxMuted)
 		this._masterGain = new GainEmitter(masterGain, masterMuted)
@@ -65,16 +65,20 @@ export class SoundManager {
 		this._maxNrPlayingAtOncePerSound = maxNrPlayingAtOncePerSound
 
 		// for cross browser
-	const AudioContext = window.AudioContext || window.webkitAudioContext
+		const AudioContext = window.AudioContext || window.webkitAudioContext
 		this.audioCtx = new AudioContext()
 
-		this.log =  (message?: any, ...optionalParams: any[]) => {
-			if (log) {
-				log(message, optionalParams)
-			}
-		}
+		// this.log =  (message?: any, ...optionalParams: any[]) => {
+		// 	if (log) {
+		// 		log(message, optionalParams)
+		// 	}
+		// }
 
 		this.initialized = true
+	}
+
+	setLog(log: (logType: LogType, message?: any, ...optionalParams: any[]) => void) {
+		this.log = log
 	}
 
 	setDynamicRange(lowValue: number, highValue: number): void {

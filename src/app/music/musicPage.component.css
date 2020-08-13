@@ -1,4 +1,4 @@
-@import '@angular/material/prebuilt-themes/purple-green.css';
+/* @import '@angular/material/prebuilt-themes/purple-green.css'; */
 
 .canvas {
 	width: 100%;
@@ -7,7 +7,7 @@
 	border-radius: 0.3em;
 }
 
-.gainOuterContainer {
+/* .gainOuterContainer {
 	height: 71px;
 	margin-top: 1.3em;
 }
@@ -64,10 +64,6 @@
 	margin-top: 1.3em;
 }
 
-/* .maxNrLabelContainer {
-	float: right;
-} */
-
 .toggleButtonGroupContainer {
 	position: relative;
 	left: 50%;
@@ -86,7 +82,7 @@
 
 .mat-button-toggle {
 	color: var(--colorDarkLight);
-}
+} */
 
 .tribute {
 	font-size: xx-small;

@@ -31,7 +31,7 @@ export class MusicService {
 	get selectedTrack() {
 		return this._selectedTrack
 	}
-	private log: (message?: any, ...optionalParams: any[]) => void
+	private log = (message?: any, ...optionalParams: any[]) => {}
 	private _byTracksArr: ByTracks[]
 	get byTracksArr() {
 		return this._byTracksArr
@@ -55,19 +55,14 @@ export class MusicService {
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 
-		// soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
-		// soundManager.instance.setDynamicRange(this.value, this.highValue)
+		soundManager.instance.init(this.windowRef.nativeWindow)
 
 		this.setupTracks()
-
 	}
 
 	setLog(log: (logType: LogType, message?: any, ...optionalParams: any[]) => void) {
-		this.log =  (logType: LogType, message?: any, ...optionalParams: any[]) => {
-			if (log) {
-				log(logType, message, optionalParams)
-			}
-		}
+		this.log = log
+		this.soundManager.instance.setLog(log)
 	}
 
 	play(track: ITrack, gainsDisabled: BooleanEmitter) {

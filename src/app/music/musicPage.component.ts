@@ -23,8 +23,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	get awaitingFirstPlay() {
 		return this.musicService.awaitingFirstPlay
 	}
-	gainsDisabledForView = false
-	private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
+	// gainsDisabledForView = false
+	// private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
 	private canvases: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals = []
 	private enableGains: (value: boolean) => void
@@ -32,14 +32,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	musicMuted = false
 	sfxGain = 1
 	sfxMuted = false
-	// masterGain = 1
-	get masterGain() {
-		return this.soundManager.instance.masterGain
-	}
-
-	set masterGain(value: number) {
-		this.soundManager.instance.masterGain = value
-	}
+	masterGain = 1
 
 	masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
@@ -108,7 +101,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	private sliderColorsDisabled(_: number): string {
 		return '#8B91A2'
 	}
-	private log: (logType: LogType, msg?: any, ...optionalParams: any[]) => void
+	private log = (logType: LogType, msg?: any, ...optionalParams: any[]) => {}
 	ngOnInit(): void {
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
@@ -117,25 +110,24 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 		this.log = Log.consoleLog
 
-		this.enableGains = (value: boolean) => {
-			// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
-			this.gainsDisabledForView = value
-			if (value) {
-				this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-				this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-				this.optionsMasterGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-				this.optionsDR = Object.assign({}, this.optionsDR, {disabled: true})
-			} else {
-				this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: false, getSelectionBarColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors})
-			this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: false, getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
-			this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: false, getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
-			this.optionsDR = Object.assign({}, this.optionsDR, {disabled: false})
-			}
-		}
-		this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
+		// this.enableGains = (value: boolean) => {
+		// 	// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
+		// 	this.gainsDisabledForView = value
+		// 	if (value) {
+		// 		this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
+		// 		this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
+		// 		this.optionsMasterGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
+		// 		this.optionsDR = Object.assign({}, this.optionsDR, {disabled: true})
+		// 	} else {
+		// 		this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: false, getSelectionBarColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors})
+		// 	this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: false, getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
+		// 	this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: false, getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
+		// 	this.optionsDR = Object.assign({}, this.optionsDR, {disabled: false})
+		// 	}
+		// }
+		// this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
-		soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, 1, this.masterMuted, this.highMaxNrPlaying, this.log)
-		soundManager.instance.setDynamicRange(this.value, this.highValue)
+		// soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
 
 
 		this.musicService.setLog(this.log)
@@ -229,9 +221,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, { getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
 	}
 
-	// onMasterGainChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
-	// }
+	onMasterGainChange(changeCxt: ChangeContext) {
+		this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
+	}
 
 	onMasterMuteChange() {
 		if (this.gainsDisabled.value) { return }
