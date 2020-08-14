@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
-import { ITrack as ITrack, LayeredMusicTrack, EmptyTrack, Track } from 'app/shared/data/track'
+import { ITrack, LayeredMusicTrack, EmptyTrack, Track} from 'app/shared/data/track'
 import { SoundType } from 'soundcommon/enum/soundType'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
-import { LogType } from 'app/shared/Log'
 import { WindowRef } from './windowRef.service'
+import { LogService } from './log.service'
+import { LogType } from 'shared/enums/logType'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -31,7 +32,9 @@ export class MusicService {
 	get selectedTrack() {
 		return this._selectedTrack
 	}
-	private log = (message?: any, ...optionalParams: any[]) => {}
+	set selectedTrack(track: ITrack) {
+		this._selectedTrack = track
+	}
 	private _byTracksArr: ByTracks[]
 	get byTracksArr() {
 		return this._byTracksArr
@@ -42,6 +45,11 @@ export class MusicService {
 		return this._awaitingFirstPlay
 	}
 
+	private _isPlaying = false
+	get isPlaying() {
+		return this._isPlaying
+	}
+
 	readonly pathRoot = '../../assets/audio'
 	readonly pathGame = `${this.pathRoot}/game`
 	readonly pathKuai = `${this.pathRoot}/kuai`
@@ -49,56 +57,89 @@ export class MusicService {
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRef) {
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRef, private logService: LogService) {
+
+		console.log('music.service constructor !!!!!!!!!!!!!!!!!')
+
 		this.emptyTrack = new EmptyTrack('select a track')
-		this._selectedTrack = this.emptyTrack
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 
 		soundManager.instance.init(this.windowRef.nativeWindow)
 
 		this.setupTracks()
+
+		// this._selectedTrack = this.emptyTrack
+		this._selectedTrack = this._byTracksArr[1].tracks[0]
 	}
 
-	setLog(log: (logType: LogType, message?: any, ...optionalParams: any[]) => void) {
-		this.log = log
-		this.soundManager.instance.setLog(log)
-	}
+	// setLog(log: (logType: LogType, message?: any, ...optionalParams: any[]) => void) {
+	// 	this.log = log
+	// 	this.soundManager.instance.setLog(log)
+	// }
 
-	play(track: ITrack, gainsDisabled: BooleanEmitter) {
+	// play(track: ITrack, gainsDisabled: BooleanEmitter) {
+	// 	if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
+	// 		for (let i = 0; i < track.soundDatas.length; i++) {
+	// 			this.soundManager.instance.addSound(track.soundDatas[i])
+	// 			this.log(LogType.Info, `[${this.label}]`, 'adding sounds')
+	// 		}
+	// 	}
+
+	// 	this._awaitingFirstPlay = true
+	// 	track.play()()
+	// 	track.isPlaying = true
+
+	// 	if (track instanceof LayeredMusicTrack) {
+	// 		track.layeredMusicController.gainsDisabled = gainsDisabled
+	// 	}
+
+	// 	this._selectedTrack = track
+	// }
+
+	play(gainsDisabled: BooleanEmitter) {
+		const track = this._selectedTrack
 		if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
 			for (let i = 0; i < track.soundDatas.length; i++) {
 				this.soundManager.instance.addSound(track.soundDatas[i])
-				this.log(LogType.Info, `[${this.label}]`, 'adding sounds')
+				this.logService.log(LogType.Info, `[${this.label}]`, 'adding sounds')
 			}
 		}
 
+		this.stop()
 		this._awaitingFirstPlay = true
 		track.play()()
+		this._isPlaying = true
 
 		if (track instanceof LayeredMusicTrack) {
 			track.layeredMusicController.gainsDisabled = gainsDisabled
 		}
-
-		this._selectedTrack = track
 	}
 
 	stop() {
 		this.soundManager.instance.stopMusic()
+		const track = this._selectedTrack
 
-		if (this._selectedTrack instanceof LayeredMusicTrack) {
-			this._selectedTrack.layeredMusicController.stop()
+		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
+			track.layeredMusicController.stop()
 		}
 
-		this._selectedTrack = this.emptyTrack
+		this._isPlaying = false
+		// this._selectedTrack = this.emptyTrack
 	}
 
 	addInstancePlayedListener(name: string, listener: (soundInstance: SoundInstance) => void) {
 		this.instancePlayedListeners.set(name, listener)
 	}
 
-	addInstanceEndedListener(name: string, listener: () => void) {
-		this.instanceEndedListeners.set(name, listener)
+	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void) {
+		const outerListener = (trackEnded?: boolean, timeout?: NodeJS.Timeout) => {
+			if (trackEnded) {
+				this._isPlaying = false
+			}
+			listener(trackEnded, timeout)
+		}
+		this.instanceEndedListeners.set(name, outerListener)
 	}
 
 	removeInstancePlayedListener(name: string) {
@@ -551,7 +592,7 @@ this.instanceEndedListeners.forEach((listener) => listener(true))
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[3].key)
 		]
-		godsruleLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.log)
+		godsruleLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.logService.log)
 	}
 
 	return async () => {
@@ -581,7 +622,7 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 			this.soundManager.instance.getSound(votLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(votLayered.soundDatas[3].key)
 		]
-		votLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.log)
+		votLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.logService.log)
 	}
 
 	return async () => {

@@ -127,6 +127,11 @@ export class LayeredMusicController {
 		})
 		this.fadeOutTimeouts.clear()
 		this.fadeInTimeouts.clear()
+
+		if (this.gainsDisabled.value) {
+			this.gainsDisabled.value = false
+			this.gainsDisabled.emit(EmitterEvent.Change, false)
+		}
 	}
 
 }

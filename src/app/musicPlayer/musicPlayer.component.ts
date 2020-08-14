@@ -3,6 +3,9 @@ import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options, ChangeContext } from 'ng5-slider'
 import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
+import { SoundManagerService } from '../shared/services/soundManager.service'
+import { Subscription } from 'rxjs'
+import { MessageService, MessageType } from 'app/shared/services/message.service'
 
 @Component({
 	selector: 'app-music-player',
@@ -14,11 +17,21 @@ export class MusicPlayerComponent implements OnInit {
 	get selectedTrack() {
 		return this.musicService.selectedTrack
 	}
-	isPlaying = false
+	get isPlaying() {
+		return this.musicService.isPlaying
+	}
 
-	masterGain = 1
+	get masterGain() {
+		return this.soundManager.instance.masterGain
+	}
+
+	set masterGain(value: number) {
+		this.soundManager.instance.masterGain = value
+	}
 
 	masterMuted = false
+
+	subscription: Subscription
 
 	private enableGains: (value: boolean) => void
 	private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
@@ -56,7 +69,7 @@ export class MusicPlayerComponent implements OnInit {
 		console.log('music player ngInit')
 	}
 
-	constructor(private musicService: MusicService) {
+	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private messageService: MessageService) {
 
 		this.enableGains = (value: boolean) => {
 			// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
@@ -69,29 +82,36 @@ export class MusicPlayerComponent implements OnInit {
 		}
 		this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
+		this.subscription = this.messageService.onMessage().subscribe(message => {
+			if (message.messageType === MessageType.Play) {
+				this.play()
+			}
+		})
 	}
 
 	onPlayStop() {
+		if (this.musicService.isPlaying) {
+			this.musicService.stop()
+		} else {
+			this.play()
+		}
+	}
+
+	play() {
 		if (this.musicService.awaitingFirstPlay) {
-			// this.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')
 			return
 		}
 
-		this.musicService.stop()
-		this.musicService.play(this.musicService.byTracksArr[0].tracks[0], null)
+		this.musicService.play(this.gainsDisabled)
+	}
 
+	// onMasterGainChange(changeCxt: ChangeContext) {
+	// 	this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
+	// }
 
-		this.isPlaying = !this.isPlaying
-
-
-		// if (this.scPlayer != null) {
-		// 	if (this.scPlayer.isPlaying()) {
-		// 		this.scPlayer.pause()
-		// 		this.isPlaying = false
-		// 	} else {
-		// 		this.scPlayer.play()
-		// 		this.isPlaying = true
-		// 	}
-		// }
+	onMasterMuteChange() {
+		if (this.gainsDisabled.value) { return }
+		this.soundManager.instance.masterMuted = this.masterMuted = !this.masterMuted
+		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, { getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}
 }

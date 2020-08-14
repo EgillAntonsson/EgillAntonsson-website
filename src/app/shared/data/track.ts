@@ -31,17 +31,8 @@ export class Track implements ITrack {
 	}
 }
 
-export class LayeredMusicTrack implements ITrack {
-	name: string
-	soundDatas: SoundData[]
-	play: () => () => Promise<void>
+export class LayeredMusicTrack extends Track {
 	layeredMusicController: LayeredMusicController
-
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>) {
-		this.name = name
-		this.soundDatas = soundDatas
-		this.play = play
-	}
 }
 
 export class EmptyTrack implements ITrack {

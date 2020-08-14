@@ -1,63 +1,56 @@
-import { SoundType } from 'soundcommon/enum/soundType'
 import { globalMaxNrPlayingAtOncePerSound, validateRange } from './soundUtil'
 import { GainEmitter } from './emitter/gainEmitter'
 import { GainWrapper } from './wrapper/gainWrapper'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
 import { SoundInstance } from './interface/soundInstance'
 import { SoundData } from './interface/soundData'
+import { LogType } from '../shared/enums/logType'
 
 export class Sound {
+	readonly label = 'Sound'
 	readonly maxGainValidated: number
 	readonly maxNrPlayingAtOnceValidated: number
 	readonly soundData: SoundData
 	configMaxNrPlayingAtOnce: number
 	private instances: Map<number, SoundInstance> = new Map()
 	readonly audioCtx: AudioContext
-	private log: (message?: any, ...optionalParams: any[]) => void
+	private logger: (logType: LogType, message?: any, ...optionalParams: any[]) => void
 	private endedListener: EventListener
 	private soundTypeGain: GainEmitter
 	private masterGain: GainEmitter
 	private dynamicRange: DynamicRangeEmitter
 	private sourceNodeBuffer: AudioBuffer
 	private id =  -1
-	private endedCallback: () => void
 	private _loaded = false
 	public get loaded() {
 		return this._loaded
 	}
 	private firstInstancePromise: Promise<SoundInstance>
 
-	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, log: (message?: any, ...optionalParams: any[]) => void) {
+	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, logger: (logType: LogType, message?: any, ...rest: any[]) => void) {
 		this.audioCtx = audioCtx
-		this.log = log
+		this.logger = logger
 		this.soundData = soundData
 
 		this.configMaxNrPlayingAtOnce = configMaxNrPlayingAtOnce
 		if (this.soundData.maxNrPlayingAtOnce) {
-			this.maxNrPlayingAtOnceValidated = validateRange(this.soundData.maxNrPlayingAtOnce, 0, globalMaxNrPlayingAtOncePerSound, this.log)
+			this.maxNrPlayingAtOnceValidated = validateRange(this.soundData.maxNrPlayingAtOnce, 0, globalMaxNrPlayingAtOncePerSound, this.logger)
 		} else {
 			this.maxNrPlayingAtOnceValidated = this.soundData.loop ? 1 : globalMaxNrPlayingAtOncePerSound
 		}
 
-		this.maxGainValidated = validateRange(this.soundData.maxGain, 0, 1, this.log)
+		this.maxGainValidated = validateRange(this.soundData.maxGain, 0, 1, this.logger)
 		this.soundTypeGain = soundTypeGain
 		this.masterGain = masterGain
 		this.dynamicRange = dynamicRange
 
 		this.firstInstancePromise = this.createSoundInstance(true)
+	}
 
-		// this.firstInstancePromise.then((soundInstance: SoundInstance) => {
-		// 	console.log('inside loading promise.then, setting first instance')
-		// 	this.firstInstance = soundInstance
-		// 	if (!this.isPendingPlay) {
-		// 		// const endedPromise = this.processEnded(soundInstance)
-		// 		// this.playSoundInstance(soundInstance)
-		// 		this.isPendingPlay = false
-		// 	} else
-		// 		this.firstInstance = soundInstance
-		// 	}
-		// 	this.firstInstancePromise = null
-		// })
+	private log(logType: LogType, message?: any, ...optionalParams: any[]) {
+		if (this.logger) {
+			this.logger(logType, message, optionalParams)
+		}
 	}
 
 	private reachedMaxNumberOfPlayingAtOnce(): boolean {
@@ -70,55 +63,44 @@ export class Sound {
 
 	async play(connectTheNodes = true) {
 		if (this.reachedMaxNumberOfPlayingAtOnce()) {
-			this.log('Info', `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
+			this.logger(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
 			return
 		}
-
-		// if (endedCallback) {
-			// this.endedCallback = endedCallback
-		// }
 
 		let instance: SoundInstance
 
 		if (this.firstInstancePromise) {
-
-			// return this.firstInstancePromise
-			// return {sotundInstance: this.firstInstancePromise, endedPromise: endedPromise}
-
-			this.log('Info', 'play(): awaiting first instance promise')
+			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting first instance promise')
 			instance = await this.firstInstancePromise
-			this.log('Info', 'play(): done waiting for first instance promise')
 			this.firstInstancePromise = null
-
 		} else {
-			this.log('Info', 'play(): awaiting createSoundInstance')
+			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting createSoundInstance')
 			instance = await this.createSoundInstance(connectTheNodes) // should never await
 		}
 
 
 		this.instances.set(this.id, instance)
-		this.log('Info',  `Added soundInstance with id '${this.id}' to the instances list which now has the size '${this.instances.size}'`)
+		this.log(LogType.Info,  `Added soundInstance with id '${this.id}' to the instances list which now has the size '${this.instances.size}'`)
 
 		const endedPromise = this.createEndedPromise(instance)
 		this.playSoundInstance(instance)
 
-		// return instance
 		return {instance: instance, endedPromise: endedPromise}
 	}
 
 	private createEndedPromise(instance: SoundInstance) {
 		return new Promise<SoundInstance>((resolve) => {
 			this.endedListener = () => {
-				this.log('Info', 'endedListener')
+				this.log(LogType.Info, 'endedListener')
 				this.disposeInstance(instance)
 
 				resolve(instance)
 
 				const success = this.instances.delete(instance.id)
 				if (!success) {
-					this.log('Warning', `deleting map with instance id '${instance.id}' as key failed`)
+					this.log(LogType.Warn, `deleting map with instance id '${instance.id}' as key failed`)
 				}
-				this.log('Info', `endedListener for key '${this.soundData.key}' with instance id '${instance.id}, list with new size ${this.instances.size}`)
+				this.log(LogType.Info, `endedListener for key '${this.soundData.key}' with instance id '${instance.id}, list with new size ${this.instances.size}`)
 			}
 
 			instance.sourceNode.addEventListener('ended', this.endedListener)
@@ -127,7 +109,7 @@ export class Sound {
 	}
 
 	private playSoundInstance(instance: SoundInstance) {
-		// check if context is in suspended state (because of browser autoplay policy)
+		// INFO: checking if context is in suspended state (because of browser autoplay policy)
 		if (this.audioCtx.state === 'suspended') {
 			this.audioCtx.resume()
 		}
@@ -149,7 +131,7 @@ export class Sound {
 		sourceNode.loop = this.soundData.loop
 
 		const gainNode = this.audioCtx.createGain()
-		const gainWrapper = new GainWrapper(gainNode, this.maxGainValidated, this.soundTypeGain, this.masterGain, this.dynamicRange, this.soundData.soundType, this.log)
+		const gainWrapper = new GainWrapper(gainNode, this.maxGainValidated, this.soundTypeGain, this.masterGain, this.dynamicRange, this.soundData.soundType, this.logger)
 
 		const analyzerNode = this.audioCtx.createAnalyser()
 
@@ -158,7 +140,7 @@ export class Sound {
 		}
 
 		++this.id
-		this.log('Info',  `Creating sound instance for key '${this.soundData.key}' with id '${this.id}'`)
+		this.log(LogType.Info,  `Creating sound instance for key '${this.soundData.key}' with id '${this.id}'`)
 		// const instance: SoundInstanceInternal = {sourceNode, gainWrapper, analyzerNode, paused: true, id: this.id}
 		const instance = new SoundInstance(this.audioCtx, sourceNode, analyzerNode, gainWrapper, this.id)
 
@@ -183,7 +165,7 @@ export class Sound {
 	}
 
 	private async loadSound(): Promise<AudioBuffer> {
-		this.log('Info',  `Loading sound with key '${this.soundData.key}'`)
+		this.log(LogType.Info, `Loading sound with key '${this.soundData.key}'`)
 		const response = await fetch(this.soundData.url)
 		const arrayBuffer = await response.arrayBuffer()
 		const audioBuffer = await this.audioCtx.decodeAudioData(arrayBuffer)

@@ -155,6 +155,11 @@ export class GainWrapper implements AudioParam {
 	}
 
 	dispose() {
+		[this.soundTypeGain, this.masterGain].forEach(gainEmitter => {
+			gainEmitter.removeAllListeners(EmitterEvent.GainChange)
+			gainEmitter.removeAllListeners(EmitterEvent.MuteChange)
+		})
+
 		this.cancelScheduledValues(0)
 		this._gainNode.disconnect()
 		delete this._gainNode
