@@ -1,12 +1,8 @@
 import { Component, OnDestroy, ViewChild, ElementRef, OnInit } from '@angular/core'
-import { Options, ChangeContext } from 'ng5-slider'
-import { SoundManagerService } from '../shared/services/soundManager.service'
-import { WindowRef } from '../shared/services/windowRef.service'
+import { Options } from 'ng5-slider'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'
-import { EmitterEvent } from '../../soundcommon/enum/emitterEvent'
-import { BooleanEmitter } from '../../soundcommon/emitter/booleanEmitter'
 import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
@@ -22,21 +18,15 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	get selectedTrack() {
 		return this.musicService.selectedTrack
 	}
-	get awaitingFirstPlay() {
-		return this.musicService.awaitingFirstPlay
-	}
-	// gainsDisabledForView = false
-	// private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
+	// get awaitingFirstPlay() {
+	// 	return this.musicService.awaitingFirstPlay
+	// }
 	private canvases: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals = []
-	// private enableGains: (value: boolean) => void
 	musicGain = 1
 	musicMuted = false
 	sfxGain = 1
 	sfxMuted = false
-	// masterGain = 1
-
-	// masterMuted = false
 	highMaxNrPlaying = globalMaxNrPlayingAtOncePerSound
 	mediumMaxNrPlaying = 16
 	lowMaxNrPlaying = 8
@@ -66,85 +56,19 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.byTracksArr
 	}
 
-	optionsDR: Options = {
-		floor: 0,
-		ceil: 1,
-		step: 0.1,
-		minRange: 0.1,
-		draggableRange: true,
-		noSwitching: true,
-		showTicks: true,
-	}
-
-	optionsMusicGain: Options = {
-		floor: 0,
-		ceil: 1,
-		step: 0.01,
-		showSelectionBar: true,
-		getSelectionBarColor: this.sliderColors,
-		getPointerColor: this.sliderColors
-	}
-	optionsSfxGain = Object.assign({}, this.optionsMusicGain)
-	optionsMasterGain = Object.assign({}, this.optionsMusicGain)
-	private sliderColors(value: number): string {
-		if (value <= 0.2) { return '#394a00' }
-		if (value <= 0.4) { return '#596a06' }
-		if (value <= 0.6) { return '#798a0a' }
-		if (value <= 0.8) { return '#99aa2a' }
-		if (value <= 1) { return '#b9ca4a' }
-	}
-	private sliderColorsMuted(value: number): string {
-		if (value <= 0.2) { return '#5d0800' }
-		if (value <= 0.4) { return '#7d2800' }
-		if (value <= 0.6) { return '#9d4800' }
-		if (value <= 0.8) { return '#bd6800' }
-		if (value <= 1) { return '#dd8800' }
-	}
-	private sliderColorsDisabled(_: number): string {
-		return '#8B91A2'
-	}
 	ngOnInit(): void {
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
 	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService) {
 
-
-		// this.enableGains = (value: boolean) => {
-		// 	// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
-		// 	this.gainsDisabledForView = value
-		// 	if (value) {
-		// 		this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-		// 		this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-		// 		this.optionsMasterGain = Object.assign({}, this.optionsMusicGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
-		// 		this.optionsDR = Object.assign({}, this.optionsDR, {disabled: true})
-		// 	} else {
-		// 		this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, {disabled: false, getSelectionBarColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors})
-		// 	this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, {disabled: false, getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
-		// 	this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: false, getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
-		// 	this.optionsDR = Object.assign({}, this.optionsDR, {disabled: false})
-		// 	}
-		// }
-		// this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
-
-		// soundManager.instance.init(this.windowRef.nativeWindow, this.musicGain, this.musicMuted, this.sfxGain, this.sfxMuted, this.masterGain, this.masterMuted, this.highMaxNrPlaying, this.log)
-
-
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
 			this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
 		})
 
-		this.musicService.addInstanceEndedListener(this.endedListenerName, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => {
-			if (timeout) {
-				clearInterval(timeout)
-			}
-			if (trackEnded) {
-				this.clearVisuals()
-			} else {
-				this.clearVisuals()
-			}
+		this.musicService.addInstanceEndedListener(this.endedListenerName, (trackEnded?: boolean) => {
+			this.clearVisuals()
 		})
-
 	}
 
 	private getNextCanvas() {
@@ -168,11 +92,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		}
 		this.selectedByIndex = this.openedUiByIndex
 		this.musicService.selectedTrack = track
-
-		this.clearVisuals()
-
-		// this.musicService.play(track, this.gainsDisabled)
-
 		this.messageService.sendMessage(MessageType.Play)
 	}
 
@@ -184,45 +103,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			this.openedUiByIndex = byIndex
 		}
 	}
-
-	// onMaxNrPlayingChange(value: number) {
-	// 	this.soundManager.instance.maxNrPlayingAtOncePerSound =  value
-	// }
-
-	// onMusicGainChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.musicGain = changeCxt.value
-	// }
-
-	// onMusicMuteChange() {
-	// 	if (this.gainsDisabled.value) { return }
-	// 	this.soundManager.instance.musicMuted = this.musicMuted = !this.musicMuted
-	// 	this.optionsMusicGain = Object.assign({}, this.optionsMusicGain, { getSelectionBarColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.musicMuted ? this.sliderColorsMuted : this.sliderColors})
-	// }
-
-	// onSfxGainChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.sfxGain = this.sfxGain = changeCxt.value
-	// }
-
-	// onSfxMuteChange() {
-	// 	if (this.gainsDisabled.value) { return }
-	// 	this.soundManager.instance.sfxMuted = this.sfxMuted = !this.sfxMuted
-	// 	this.optionsSfxGain = Object.assign({}, this.optionsSfxGain, { getSelectionBarColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.sfxMuted ? this.sliderColorsMuted : this.sliderColors})
-	// }
-
-	// onMasterGainChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
-	// }
-
-	// onMasterMuteChange() {
-	// 	if (this.gainsDisabled.value) { return }
-	// 	this.soundManager.instance.masterMuted = this.masterMuted = !this.masterMuted
-	// 	this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, { getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
-	// }
-
-	// dynamicRangeChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.setDynamicRange(changeCxt.value, changeCxt.highValue)
-	// }
-
 	get layerText(): string {
 			if (this.musicService.selectedTrack instanceof LayeredMusicTrack && this.musicService.selectedTrack.layeredMusicController.layerSoundInstances) {
 			const layers =  this.musicService.selectedTrack.layeredMusicController.layerSoundInstances

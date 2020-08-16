@@ -1,22 +1,37 @@
-<div class="playerContainer" (click)="onPlayStop()">
-	<div class="playPauseContainer">
-		<div [ngClass]="{play: !isPlaying, pause: isPlaying}"></div>
-	</div>
+<div class="playerContainer">
+	<span class="playPauseContainer" (click)="onPlayStop()">
+		<div [ngClass]="{play: !isPlaying, stop: isPlaying}"></div>
+	</span>
 	<span class="playerText">{{selectedTrack.name}}</span>
-	<span class="timer playerText" [ngClass]="{fadein: isTrackReady}" *ngIf="isTrackReady">{{timeInSec | minutesSeconds }} / {{selectedTrack.durationInSec | minutesSeconds}}</span>
+	<span class="nextContainer" (click)="onNext()">
+		<div class="nextIcon_triangle"></div>
+		<div class="nextIcon_line"></div>
+	</span>
+	<span class=muteAndSliderContainer>
+		<span class="muteContainer" (click)="onMasterMuteChange()">
+			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted,  unmuteDisabled: gainsDisabled && !masterMuted}"></div>
+		</span>
+		<span class="sliderContainer">
+			<span class="slider">
+				<ng5-slider [(value)]="masterGain" [options]="optionsMasterGain"></ng5-slider>
+			</span>
+		</span>
+	</span>
+
 </div>
 
-<div class="gainOuterContainer">
+<!-- <div class="gainOuterContainer">
 	<div class="labelContainer"><label>Master Volume</label></div>
 <div class="muteOuterContainer" (click)="onMasterMuteChange()">
 	<div class="muteInnerContainer">
-			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabledForView && masterMuted,  unmuteDisabled: gainsDisabledForView && !masterMuted}"></div>
+			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted,  unmuteDisabled: gainsDisabled && !masterMuted}"></div>
 	</div>
 </div>
 <div class="sliderContainer">
 	<div class="slider">
 		<ng5-slider [(value)]="masterGain" [options]="optionsMasterGain"></ng5-slider>
-		<!-- <ng5-slider [(value)]="masterGain" [options]="optionsMasterGain" (userChange)="onMasterGainChange($event)"></ng5-slider> -->
 	</div>
 </div>
-</div>
+</div> -->
+
+<div class="lds-roller" [hidden]="!awaitingFirstPlay"><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div><div [hidden]="!awaitingFirstPlay"></div></div>

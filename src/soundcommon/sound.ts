@@ -14,7 +14,7 @@ export class Sound {
 	configMaxNrPlayingAtOnce: number
 	private instances: Map<number, SoundInstance> = new Map()
 	readonly audioCtx: AudioContext
-	private logger: (logType: LogType, message?: any, ...optionalParams: any[]) => void
+	private log: (logType: LogType, msg?: any, ...rest: any[]) => void
 	private endedListener: EventListener
 	private soundTypeGain: GainEmitter
 	private masterGain: GainEmitter
@@ -27,30 +27,24 @@ export class Sound {
 	}
 	private firstInstancePromise: Promise<SoundInstance>
 
-	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, logger: (logType: LogType, message?: any, ...rest: any[]) => void) {
+	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, log: (logType: LogType, msg?: any, ...rest: any[]) => void) {
 		this.audioCtx = audioCtx
-		this.logger = logger
 		this.soundData = soundData
+		this.log = log
 
 		this.configMaxNrPlayingAtOnce = configMaxNrPlayingAtOnce
 		if (this.soundData.maxNrPlayingAtOnce) {
-			this.maxNrPlayingAtOnceValidated = validateRange(this.soundData.maxNrPlayingAtOnce, 0, globalMaxNrPlayingAtOncePerSound, this.logger)
+			this.maxNrPlayingAtOnceValidated = validateRange(this.soundData.maxNrPlayingAtOnce, 0, globalMaxNrPlayingAtOncePerSound, this.log)
 		} else {
 			this.maxNrPlayingAtOnceValidated = this.soundData.loop ? 1 : globalMaxNrPlayingAtOncePerSound
 		}
 
-		this.maxGainValidated = validateRange(this.soundData.maxGain, 0, 1, this.logger)
+		this.maxGainValidated = validateRange(this.soundData.maxGain, 0, 1, this.log)
 		this.soundTypeGain = soundTypeGain
 		this.masterGain = masterGain
 		this.dynamicRange = dynamicRange
 
 		this.firstInstancePromise = this.createSoundInstance(true)
-	}
-
-	private log(logType: LogType, message?: any, ...optionalParams: any[]) {
-		if (this.logger) {
-			this.logger(logType, message, optionalParams)
-		}
 	}
 
 	private reachedMaxNumberOfPlayingAtOnce(): boolean {
@@ -63,7 +57,7 @@ export class Sound {
 
 	async play(connectTheNodes = true) {
 		if (this.reachedMaxNumberOfPlayingAtOnce()) {
-			this.logger(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
+			this.log(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
 			return
 		}
 
@@ -114,7 +108,6 @@ export class Sound {
 			this.audioCtx.resume()
 		}
 
-		// instance.paused = false
 		instance.sourceNode.start()
 	}
 
@@ -131,7 +124,7 @@ export class Sound {
 		sourceNode.loop = this.soundData.loop
 
 		const gainNode = this.audioCtx.createGain()
-		const gainWrapper = new GainWrapper(gainNode, this.maxGainValidated, this.soundTypeGain, this.masterGain, this.dynamicRange, this.soundData.soundType, this.logger)
+		const gainWrapper = new GainWrapper(gainNode, this.maxGainValidated, this.soundTypeGain, this.masterGain, this.dynamicRange, this.soundData.soundType, this.log)
 
 		const analyzerNode = this.audioCtx.createAnalyser()
 

@@ -4,22 +4,22 @@ import { LogType } from 'shared/enums/logType'
 @Injectable({ providedIn: 'root' })
 export class LogService {
 
-	logEnabled = false
+	static logEnabled = false
 
-	log(logType: LogType, message?: any, ...rest: any[]) {
-		if (this.logEnabled) {
+	log(logType: LogType, msg?: any, ...rest: any[]) {
+		if (LogService.logEnabled) {
 			// NOTE: currently only thinking of console.log
 			switch (logType) {
 				case LogType.Error:
-					console.error(message, rest.join(' '))
+					console.error(msg, rest.join(' '))
 					break
 
 				case LogType.Warn:
-					console.warn(message, rest.join(' '))
+					console.warn(msg, rest.join(' '))
 					break
 
 				case LogType.Info:
-					console.log(message, rest.join(' '))
+					console.log(msg, rest.join(' '))
 			}
 		}
 	}

@@ -1,15 +1,14 @@
-@import '@angular/material/prebuilt-themes/purple-green.css';
-
 .playerContainer {
 	cursor: pointer;
-	border: 1px solid var(--colorDarkLight);
+	border: 1px solid var(--colorGrayLight);
 	border-radius: 1em;
 	padding: 0.6em 0.5em;
 }
 
 .playerText {
-	font-family: Arial, Helvetica, sans-serif;
+	/* font-family: Arial, Helvetica, sans-serif; */
 	font-weight: bold;
+	/* width: 37%; */
 }
 
 .playPauseContainer {
@@ -17,23 +16,47 @@
 	padding-top: 1px;
 	padding-left: 2.5%;
 	width: 8%;
+	height: 23px;
 }
 
 .play {
 	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-	background: var(--colorActive);
+	background: var(--colorWhiteLightMed);
 	width: 23px;
 	height: 15px;
 	transform: translateX(-10%) translateY(10%) rotate(90deg);
 	transition: all 0.2s;
 }
 
-.pause {
-	width: 7px;
-	height: 18px;
-	border-right: 5px solid var(--colorPending);
-	border-left: 5px solid var(--colorPending);
+.nextContainer {
+	float: left;
+	/* padding-top: 1px;
+	padding-left: 2.5%;
+	width: 8%; */
+	height: 16px;
+}
+
+.nextIcon_triangle {
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+	background: var(--colorWhiteLightMed);
+	width: 16px;
+	height: 10px;
+	transform: translateX(-10%) translateY(10%) rotate(90deg);
+}
+
+.nextIcon_line {
+	width:  10px;
+	height: 16px;
+	border-right: 3px solid var(--colorWhiteLightMed);
+	transform: translateY(-12px);
+}
+
+.stop {
+	width: 16px;
+	height: 16px;
+	background-color: var(--colorWhiteLightMed);
 	transition: all 0.2s;
+	transform: translate(8%, 4%);
 }
 
 .timer {
@@ -68,7 +91,7 @@ ul {
 }
 
 .button {
-	background: var(--colorDarkDark);
+	background: var(--colorGreyDark);
 	color: #ccc;
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
@@ -84,7 +107,7 @@ ul {
 .button:hover {
 	background: var(--colorPending);
 	border-color: var(--colorPending);
-	color: var(--colorDarkDark);
+	color: var(--colorBlackLight);
 }
 
 .button a {
@@ -101,13 +124,6 @@ ul {
 	border-color: var(--colorActive);
 }
 
-.scLogo {
-	width: 104px;
-	height: 16px;
-	display: block;
-	background:transparent url('/assets/soundcloud.png') center top no-repeat;
-}
-
 .trackDescription {
 	float: left;
 }
@@ -116,34 +132,34 @@ ul {
 	float: right;
 }
 
-/*  */
-
 .gainOuterContainer {
 	height: 71px;
 	margin-top: 1.3em;
 }
 
-.labelContainer {
-	margin-bottom: -6px;
+.muteAndSliderContainer {
+	float: right;
+	width: 40%;
+}
+
+.muteContainer {
+	float: left;
+	transform: translateY(-8%);
 }
 
 .sliderContainer {
-	width: 90%;
+	width: 82%;
 	float: right;
-}
-
-.muteOuterContainer {
-	width: 10%;
-	float: left;
-	height: 54px;
-}
-
-.muteInnerContainer {
 	position: relative;
-	width: 100%;
-	left: 0%;
-	height: 65%;
-	top: 35%;
+	transform: translateY(-48%);
+}
+
+/* <a href="https://icons8.com/icon/9990/end">End icon by Icons8</a> */
+
+.nextIcon {
+	width: 50px;
+	height: 50px;
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAB9klEQVRoge3ZPYsTURTG8edMJAYRREGwCRjOTGFhY2djZWUp7Ddww8L2vpWCL4VfIOs32EU7bRRZtLCThSWFzD2TQBpBUGwkBDLHZqcQjWRmzp1JcX918tz7J8VABgiCIAiChjjnHqdperrte/wLlfmwiCgAl+f5dpIkhxYXONlciZnXumNU4ew4iqL3WZaNxuPx2Qrf96JKCACQqg57vd6xiNw0vVFFVUMKlwG8FZH92Wx2weA+ldUNKWwtFouxiNw22ivNKgQALgF4KSL7aZpeNNxdi2VIYSuKoi/OuaGH7ZV8hADAeSIaichr51zf0xl/8BVSuEVEx865oaqWemaV5TsEAM4R0SjLskMRSXwd0kRI4QaAIxG5p6od6/EmQwDgDIBnk8nk43Q6vWI53HQIAEBVry+Xy88i8sBqs5WQEz0AT6zG2gwxFUI2TQjZNG2GzAE8tBprJYSIPnU6nWvM/NRq85TV0Jp+AXg0GAyeE9HScrjJkA8A7jBz6mO8iZCfqnqXmV8Q0X//+qnDd8gbVd2J43jm+RxvIT9U9X4cx3ue9v/iI+Qgz/PdJEm+edheyTLkK4BdZn5luLk2q5CDbre70+/3vxvtlVY3ZApgm5nfGdyllqpPdiWivfl8fnUTIoBqv4jpa4VWbPKLniAIgiCo4zdXHZ6J37XAqwAAAABJRU5ErkJggg==")
 }
 
 .mute {
@@ -157,6 +173,8 @@ ul {
 	height: 24px;
 	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVRIie2TQQ7BUBRFzxO7IJbByJjWQuxBgqQ2IfZBfHMD7dzEVCzDM1I/pe1/IhGJM2vTf3tu3n/w52fYZdHEZfHReq4ZFJ5GU1VJQr51abxXleuwt+4DNILCCQsHUJWriOr9Wazhg+7m6UzR2qe0gcW8aO2T27gsilBZAp2qsHuDKmufx5BVVkA7xLjO+vUPDOEAvrnfxnyLQvDblN4il8ZnoFUXZp1B3kBVxqCXd6yrKN2DbTpKBJ0W339sD4bd9UyRRZ0hBO5BGcUmrxr4mG+RpQmEz+bZLIvn7jA6mQ/++To3A0mcQN4dZgYAAAAASUVORK5CYII=")
 }
+/* white */
+/* "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA4klEQVRIie2TwQ3CMAxFvxFbgDg0czAAk7ADUkEqSyD2YQUu2DkhxsBc2iqUNHEkJITUd0sVu+/LDjDxN3jvd8x8La2bWy4xc62qDRFl74rIBcDTObcGgJmlORE1FpGWJwDtDkmlWHPn3EfN0DpkNEGh+Zt1SG/DzBsiOgFYpTp1CVLWIf2QiegMYGk0BhLW0R8UNkdoHqYp3iIjYZr4FonIHcAi16l0BmGCrao+7NK2GYy+A+99o6r18PvX3kFVVXsiOuYMW/LvYIxhkliCkOItKkwCGGcTMzuIyK24cOLnvAAMNnVk6KtXAAAAAABJRU5ErkJggg==" */
 
 .muteDisabled {
 	width: 24px;
@@ -169,30 +187,6 @@ ul {
 	height: 24px;
 	background: url(
 	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA50lEQVRIie2TPQrCQBCFvxVvoXgTD+AhTGuZKo0QBe1cC6ON2JmcxSvY2IrHyNqYuIn52RFBBL9uw8zLe8wM/PkZVptkqqP4LO3ruhTp6BiCWbjVxicgDXxvCNBxE1dO4g9SwGQPJRUPfO+lp+zapjaB0HnBtU3uZr07jkyq9sCgSSlL0OTaJh+ySdUB6Ds6hgbXlT8QimM7t9OIt8gRO031FukovgK9NiXpDJ4JlJqAub3pupbaO9BRsgATlr9/7A4CfzwDtWxz+KD9DuooJ6lKUKwXbpEwCTjOpsJZMtfb+CJu/PN17hYIbgHrvkxYAAAAAElFTkSuQmCC")
-}
-
-.maxNrPlayingContainer {
-	margin-top: 1.3em;
-}
-
-.toggleButtonGroupContainer {
-	position: relative;
-	left: 50%;
-	width: 50%;
-	margin-top: 0.5em;
-}
-
-.toggleGroup {
-	left: -98px;
-}
-
-.mat-button-toggle-checked {
-	background: var(--colorActive);
-	color: var(--colorDarkDark) !important;
-}
-
-.mat-button-toggle {
-	color: var(--colorDarkLight);
 }
 
 @media screen and (max-width: 451px) {

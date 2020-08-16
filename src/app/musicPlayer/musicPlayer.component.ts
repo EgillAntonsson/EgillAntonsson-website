@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
-import { Options, ChangeContext } from 'ng5-slider'
+import { Options } from 'ng5-slider'
 import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { SoundManagerService } from '../shared/services/soundManager.service'
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
+import { Color } from 'app/shared/enums/color'
 
 @Component({
 	selector: 'app-music-player',
 	templateUrl: './musicPlayer.component.html',
 	styleUrls: ['./musicPlayer.component.css']
 })
-export class MusicPlayerComponent implements OnInit {
+export class MusicPlayerComponent {
 
+	get awaitingFirstPlay() {
+		return this.musicService.awaitingFirstPlay
+	}
 	get selectedTrack() {
 		return this.musicService.selectedTrack
 	}
@@ -34,8 +38,10 @@ export class MusicPlayerComponent implements OnInit {
 	subscription: Subscription
 
 	private enableGains: (value: boolean) => void
-	private gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
-	gainsDisabledForView = false
+	private _gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
+	get gainsDisabled() {
+		return this._gainsDisabled.value
+	}
 
 	optionsMasterGain: Options = {
 		floor: 0,
@@ -43,44 +49,44 @@ export class MusicPlayerComponent implements OnInit {
 		step: 0.01,
 		showSelectionBar: true,
 		getSelectionBarColor: this.sliderColors,
-		getPointerColor: this.sliderColors
+		getPointerColor: this.sliderColors,
+		hideLimitLabels: true,
+		hidePointerLabels: true
 	}
 
 	private sliderColors(value: number): string {
-		if (value <= 0.2) { return '#394a00' }
-		if (value <= 0.4) { return '#596a06' }
-		if (value <= 0.6) { return '#798a0a' }
-		if (value <= 0.8) { return '#99aa2a' }
-		if (value <= 1) { return '#b9ca4a' }
+		if (value <= 0.2) { return Color.GreenDark }
+		if (value <= 0.4) { return Color.GreenMedDark }
+		if (value <= 0.6) { return Color.GreenMed }
+		if (value <= 0.8) { return Color.GreenLightMed }
+		if (value <= 1) { return Color.GreenLight}
 	}
 	private sliderColorsMuted(value: number): string {
-		if (value <= 0.2) { return '#5d0800' }
-		if (value <= 0.4) { return '#7d2800' }
-		if (value <= 0.6) { return '#9d4800' }
-		if (value <= 0.8) { return '#bd6800' }
-		if (value <= 1) { return '#dd8800' }
+		if (value <= 0.2) { return Color.OrangeDark }
+		if (value <= 0.4) { return Color.OrangeMedDark }
+		if (value <= 0.6) { return Color.OrangeMed }
+		if (value <= 0.8) { return Color.OrangeLightMed }
+		if (value <= 1) { return Color.OrangeLight }
 	}
 
 	private sliderColorsDisabled(_: number): string {
-		return '#8B91A2'
-	}
-
-	ngOnInit(): void {
-		console.log('music player ngInit')
+		return Color.Disabled
 	}
 
 	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private messageService: MessageService) {
 
 		this.enableGains = (value: boolean) => {
+
 			// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
-			this.gainsDisabledForView = value
+			// this.gainsDisabledForView = value
+
 			if (value) {
 				this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
 			} else {
 			this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: false, getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 			}
 		}
-		this.gainsDisabled.on(EmitterEvent.Change, this.enableGains)
+		this._gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
 		this.subscription = this.messageService.onMessage().subscribe(message => {
 			if (message.messageType === MessageType.Play) {
@@ -97,12 +103,16 @@ export class MusicPlayerComponent implements OnInit {
 		}
 	}
 
+	onNext() {
+		console.log('next clicked #!!!!!!!!!!')
+	}
+
 	play() {
 		if (this.musicService.awaitingFirstPlay) {
 			return
 		}
 
-		this.musicService.play(this.gainsDisabled)
+		this.musicService.play(this._gainsDisabled)
 	}
 
 	// onMasterGainChange(changeCxt: ChangeContext) {
@@ -110,7 +120,7 @@ export class MusicPlayerComponent implements OnInit {
 	// }
 
 	onMasterMuteChange() {
-		if (this.gainsDisabled.value) { return }
+		if (this._gainsDisabled.value) { return }
 		this.soundManager.instance.masterMuted = this.masterMuted = !this.masterMuted
 		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, { getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}

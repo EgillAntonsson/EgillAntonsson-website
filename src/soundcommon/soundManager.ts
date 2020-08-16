@@ -4,14 +4,13 @@ import { validateRange, globalMaxNrPlayingAtOncePerSound } from './soundUtil'
 import { GainEmitter } from './emitter/gainEmitter'
 import { EmitterEvent } from './enum/emitterEvent'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
-import { SoundInstance } from './interface/soundInstance'
 import { SoundData } from './interface/soundData'
 import { LogType } from '../shared/enums/logType'
 
 export class SoundManager {
 	readonly label = 'SoundManager'
 	private sounds: Map<string, Sound> = new Map()
-	private logger: (logType: LogType, message?: any, ...optionalParams: any[]) => void
+	private log: (logType: LogType, msg?: any, ...rest: any[]) => void
 	private audioCtx: AudioContext
 	private _musicGain: GainEmitter
 	public set musicGain(gain: number) {
@@ -58,25 +57,24 @@ export class SoundManager {
 	private _dynamicRange: DynamicRangeEmitter
 	public initialized = false
 
-	init(window: any, musicGain: number = 1, musicMuted: boolean = false, sfxGain: number = 1, sfxMuted: boolean = false, masterGain: number = 1, masterMuted: boolean = false, maxNrPlayingAtOncePerSound: number = globalMaxNrPlayingAtOncePerSound, logger?: (logType: LogType, message?: any, ...rest: any[]) => void) {
-		this._musicGain = new GainEmitter(musicGain, musicMuted)
-		this._sfxGain = new GainEmitter(sfxGain, sfxMuted)
-		this._masterGain = new GainEmitter(masterGain, masterMuted)
+	init(window: any,  logger?: (logType: LogType, msg?: any, ...rest: any[]) => void) {
+		this._musicGain = new GainEmitter(1, false)
+		this._sfxGain = new GainEmitter(1, false)
+		this._masterGain = new GainEmitter(1, false)
 		this._dynamicRange = new DynamicRangeEmitter(0, 1)
-		this._maxNrPlayingAtOncePerSound = maxNrPlayingAtOncePerSound
-		this.logger = logger
+		this._maxNrPlayingAtOncePerSound = globalMaxNrPlayingAtOncePerSound
+
+		this.log = (logType: LogType, msg?: any, ...rest: any[]) => {
+			if (logger) {
+				logger(logType, msg, rest)
+			}
+		}
 
 		// for cross browser
 		const AudioContext = window.AudioContext || window.webkitAudioContext
 		this.audioCtx = new AudioContext()
 
 		this.initialized = true
-	}
-
-	private log(logType: LogType, message?: any, ...optionalParams: any[]) {
-		if (this.logger) {
-			this.logger(logType, message, optionalParams)
-		}
 	}
 
 	setDynamicRange(lowValue: number, highValue: number): void {
@@ -92,7 +90,7 @@ export class SoundManager {
 		const soundTypeGain = (soundData.soundType === SoundType.Music) ? this._musicGain : this._sfxGain
 		this.updateEmitterMaxListeners(this.sounds.size + 1)
 
-		const sound = new Sound(soundData, this._maxNrPlayingAtOncePerSound, soundTypeGain, this._masterGain, this._dynamicRange, this.audioCtx, this.logger)
+		const sound = new Sound(soundData, this._maxNrPlayingAtOncePerSound, soundTypeGain, this._masterGain, this._dynamicRange, this.audioCtx, this.log)
 		this.addToList(soundData.key, sound)
 		return sound
 	}

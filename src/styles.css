@@ -1,52 +1,48 @@
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
 :root {
-	--colorActive: #b9ca4a;
-	--colorPending: #dd8800;
-	--colorDarkDark: #111;
-	--colorDarkMed: #424242;
-	--colorDarkLight: #969896;
-	--colorLightLight: #eee;
-	--colorLink: #7aa6da;
-	--colorLinkVisited: #C397D8;
-}
 
-.slider .ng5-slider .ng5-slider-bar {
-	background:var(--colorDarkMed);
-	height: 3px;
-}
+	/* Should sync with color.ts enum */
 
-.slider .ng5-slider .ng5-slider-selection {
-	background: var(--colorActive);
-}
+	--colorBlackLight: #111;
 
-.slider .ng5-slider .ng5-slider-pointer {
-	width: 8px;
-	height: 16px;
-	top: auto;
-	bottom: -2px;
-	background-color: var(--colorActive);
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-}
+	--colorGrayLight: #969896;
+	--colorGrayLightMed: #8B91A2;
+	--colorGrayDark: #424242;
 
-.slider .ng5-slider .ng5-slider-pointer:after {
-	display: none;
-}
+	--colorWhiteLight: #EEE;
+	--colorWhiteLightMed: #DDD;
 
-.slider .ng5-slider .ng5-slider-bubble {
-	color: var(--colorLightLight)
-}
+	--colorGreenLight: #B9CA4A;
+	--colorGreenLightMed: #99AA2A;
+	--colorGreenMed: #798A0A;
+	--colorGreenMedDark: #596A06;
+	--colorGreenDark: #394A00;
 
-.slider .ng5-slider .ng5-slider-tick {
-	width: 3px;
-	height: 10px;
-	margin-left: 4px;
-	border-radius: 0;
-	background: var(--colorDarkMed);
-	top: -1px;
-}
+	--colorOrangeLight: #DD8800;
+	--colorOrangeLightMed: #BD6800;
+	--colorOrangeMed: #9D4800;
+	--colorOrangeMedDark: #7D2800;
+	--colorOrangeDark: #5D0800;
 
-.slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
-	background: var(--colorActive);
+	--colorBlueLight: #7AA6DA;
+
+	--colorPurpleLight: #C397D8;
+
+
+	--colorBackground: var(--colorBlackLight);
+
+	--colorForeground: var(--colorWhiteLight);
+
+	--colorActive: var(--colorGreenLight);
+
+	--colorPending: var(--colorOrangeLight);
+
+	--colorDisabled: var(--colorGrayLightMed);
+
+	--colorLink: var(--colorBlueLight);
+
+	--colorLinkVisited: var(--colorPurpleLight);
 }
 
 h1 {
@@ -82,10 +78,10 @@ table {
 
 body {
 	margin: 10px 5%;
-	background: var(--colorDarkDark);
+	background: var(--colorBackground);
 }
 body, input[text], button {
-	color: var(--colorLightLight);
+	color: var(--colorForeground);
 	font-family: Cambria, Georgia;
 }
 
@@ -125,20 +121,20 @@ nav a {
 	margin-left: 1%;
 	margin-right: 1%;
 	display: inline-block;
-	background: var(--colorDarkMed);
+	background: var(--colorGrayDark);
 	border-radius: 10px;
 	font-size: 126%;
 }
 nav a:visited, nav a:link {
-	color: var(--colorDarkLight);
+	color: var(--colorGrayLight);
 }
 nav a:hover {
-	color: var(--colorDarkDark);
+	color: var(--colorBackground);
 	background: var(--colorPending);
 }
 nav a.active {
 	background: var(--colorActive);
-	color: var(--colorDarkDark)
+	color: var(--colorBackground)
 }
 
 nav {
@@ -158,8 +154,8 @@ nav {
 	height: 60px;
 	margin-top: -10px;
 	margin-left: -1px;
-	background: var(--colorDarkDark);
-	border-bottom: 1px solid var(--colorDarkMed);;
+	background: var(--colorBackground);
+	border-bottom: 1px solid var(--colorGrayDark);
 	z-index: 1;
 }
 
@@ -235,6 +231,45 @@ nav li {
 	}
 }
 
+/* ng5 */
+.slider .ng5-slider .ng5-slider-bar {
+	background:var(--colorGrayDark);
+	height: 3px;
+}
+
+.slider .ng5-slider .ng5-slider-selection {
+	background: var(--colorActive);
+}
+
+.slider .ng5-slider .ng5-slider-pointer {
+	width: 5px;
+	height: 10px;
+	top: auto;
+	bottom: -3px;
+	outline-color: var(--colorGreenLight)
+}
+
+.slider .ng5-slider .ng5-slider-pointer:after {
+	display: none;
+}
+
+.slider .ng5-slider .ng5-slider-bubble {
+	color: var(--colorForeground)
+}
+
+.slider .ng5-slider .ng5-slider-tick {
+	width: 3px;
+	height: 10px;
+	margin-left: 4px;
+	border-radius: 0;
+	background: var(--colorGrayDark);
+	top: -1px;
+}
+
+.slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+	background: var(--colorActive);
+}
+
 /* loading animation from https://loading.io/css/ */
 .lds-roller {
   display: inline-block;
@@ -257,7 +292,7 @@ nav li {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--colorActive);
+  background: var(--colorPending);
 	margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {

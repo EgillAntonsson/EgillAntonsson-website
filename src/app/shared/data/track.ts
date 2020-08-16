@@ -34,14 +34,3 @@ export class Track implements ITrack {
 export class LayeredMusicTrack extends Track {
 	layeredMusicController: LayeredMusicController
 }
-
-export class EmptyTrack implements ITrack {
-	readonly name: string
-	soundDatas: SoundData[]
-	play: () => () => Promise<void>
-	constructor(name: string) {
-		this.name = name
-		this.soundDatas = null
-		this.play = null
-	}
-}
