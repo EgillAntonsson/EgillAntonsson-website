@@ -7,7 +7,7 @@
 			<span>{{byTracks.by}}</span>
 		</div>
 		<div class="trackContainer fadein" *ngIf="openedUiByIndex === byIndex">
-			<div [ngClass]="{track: track.name === selectedTrack.name}" *ngFor="let track of byTracks.tracks" (click)="onTrackClick(track)">
+			<div [ngClass]="{selectedTrack: track.name === selectedTrack.name}" *ngFor="let track of byTracks.tracks" (click)="onTrackClick(track)">
 				{{track.name}}
 			</div>
 		</div>

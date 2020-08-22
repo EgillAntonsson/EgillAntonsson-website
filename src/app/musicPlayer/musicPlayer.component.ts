@@ -104,7 +104,12 @@ export class MusicPlayerComponent {
 	}
 
 	onNext() {
-		console.log('next clicked #!!!!!!!!!!')
+		this.musicService.nextTrack()
+		this.play()
+	}
+
+	onShuffle() {
+		console.log('on shuffle click')
 	}
 
 	play() {

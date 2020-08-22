@@ -4,7 +4,6 @@ import { SoundManager } from 'soundcommon/soundManager'
 @Injectable({
 	providedIn: 'root',
 })
-
 export class SoundManagerService {
 	private _instance: SoundManager
 	public get instance(): SoundManager {

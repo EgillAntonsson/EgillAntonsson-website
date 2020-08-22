@@ -91,7 +91,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			return
 		}
 		this.selectedByIndex = this.openedUiByIndex
-		this.musicService.selectedTrack = track
+		this.musicService.nextSelectedTrack = track
 		this.messageService.sendMessage(MessageType.Play)
 	}
 

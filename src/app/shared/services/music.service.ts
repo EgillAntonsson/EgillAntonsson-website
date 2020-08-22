@@ -5,9 +5,10 @@ import { SoundType } from 'soundcommon/enum/soundType'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
-import { WindowRef } from './windowRef.service'
+import { WindowRefService } from './windowRef.service'
 import { LogService } from './log.service'
 import { LogType } from 'shared/enums/logType'
+import { RandomNumberService, IRandomNumber } from './randomNumber.service'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -23,16 +24,14 @@ interface ByTracks {
 @Injectable({
 	providedIn: 'root',
 })
-
 export class MusicService {
 	readonly label = 'MusicService'
 	private _selectedTrack: ITrack
 	get selectedTrack() {
 		return this._selectedTrack
 	}
-	set selectedTrack(track: ITrack) {
-		this._selectedTrack = track
-	}
+
+	nextSelectedTrack: ITrack
 	private _byTracksArr: ByTracks[]
 	get byTracksArr() {
 		return this._byTracksArr
@@ -56,9 +55,9 @@ export class MusicService {
 	readonly pathBrothers = `${this.pathRoot}/braedraminning`
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
+	private tracks: ITrack[]
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRef, private logService: LogService) {
-
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumber: RandomNumberService) {
 		LogService.logEnabled = true
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
@@ -67,23 +66,21 @@ export class MusicService {
 		this.setupTracks()
 		this.flattenTracksToList()
 
-		this._selectedTrack = this.tracks[0]
+		this.nextSelectedTrack = this.tracks[0]
+		this._selectedTrack = this.nextSelectedTrack
 	}
-
-	private tracks: ITrack[]
 
 	flattenTracksToList() {
 
 		this.tracks = []
 
-		let count = 0
+		let index = 0
+
 		for (let i = 0; i < this._byTracksArr.length; i++) {
 			for (let j = 0; j < this._byTracksArr[i].tracks.length; j++) {
-				this.tracks.push(this._byTracksArr[i].tracks[j])
-				if (i !== 0 && j === 0) {
-					count += this._byTracksArr[i].length
-				}
-				this._byTracksArr[i].tracks[j].index = (i * this._byTracksArr[i].length) + j
+				const track = this._byTracksArr[i].tracks[j]
+				track.index = index++
+				this.tracks.push(track)
 			}
 		}
 
@@ -91,15 +88,15 @@ export class MusicService {
 	}
 
 	play(gainsDisabled: BooleanEmitter) {
-		const track = this._selectedTrack
+		this.stop()
+
+		const track = this.nextSelectedTrack
 		if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
 			for (let i = 0; i < track.soundDatas.length; i++) {
 				this.soundManager.instance.addSound(track.soundDatas[i])
 				this.logService.log(LogType.Info, `[${this.label}]`, 'adding sounds')
 			}
 		}
-
-		this.stop()
 		this._awaitingFirstPlay = true
 		track.play()()
 		this._isPlaying = true
@@ -107,6 +104,8 @@ export class MusicService {
 		if (track instanceof LayeredMusicTrack) {
 			track.layeredMusicController.gainsDisabled = gainsDisabled
 		}
+
+		this._selectedTrack = track
 	}
 
 	stop() {
@@ -119,8 +118,31 @@ export class MusicService {
 		this._isPlaying = false
 	}
 
+	private shuffle = true
+	private playedTracks = []
+
 	nextTrack() {
-		this._selectedTrack = this.tracks
+		console.log('length', this.tracks.length)
+		// for (let index = 0; index < 1000; index++) {
+		// 	console.log('i', Math.floor(this.tracks.length * Math.random()))
+		// }
+
+		let nextIndex: number
+		if (this.shuffle) {
+			// nextIndex = Math.floor(this.tracks.length * Math.random())
+			nextIndex = this.randomNumber.getRandomNumber(this.tracks.length - 1)
+		} else {
+			nextIndex = this._selectedTrack.index + 1
+		}
+
+		console.log('nextIndex', nextIndex)
+
+		this._selectedTrack = this.tracks[nextIndex]
+
+	}
+
+	getRandomNumber() {
+		return Math.random()
 	}
 
 	addInstancePlayedListener(name: string, listener: (soundInstance: SoundInstance) => void) {

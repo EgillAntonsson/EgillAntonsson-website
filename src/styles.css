@@ -211,13 +211,6 @@ nav li {
 	line-height: 22px;
 }
 
-.track {
-	font-weight: bold;
-	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 1.5px; /* place it at the same y pos as the Lato font */
-	color: var(--colorActive);
-}
-
 .fadein {
 	animation: fadein 0.5s linear;
 }

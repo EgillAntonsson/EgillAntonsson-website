@@ -2,10 +2,13 @@
 	<span class="playPauseContainer" (click)="onPlayStop()">
 		<div [ngClass]="{play: !isPlaying, stop: isPlaying}"></div>
 	</span>
-	<span class="playerText">{{selectedTrack.name}}</span>
+	<span class="trackName">{{selectedTrack.name}}</span>
 	<span class="nextContainer" (click)="onNext()">
 		<div class="nextIcon_triangle"></div>
 		<div class="nextIcon_line"></div>
+	</span>
+	<span class="shuffleContainer" (click)="onShuffle()">
+		<div class="shuffleIcon"></div>
 	</span>
 	<span class=muteAndSliderContainer>
 		<span class="muteContainer" (click)="onMasterMuteChange()">

@@ -5,9 +5,11 @@ export interface ITrack {
 	readonly name: string
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
+	index: number
 }
 
 export class Track implements ITrack {
+	index: number
 	readonly name: string
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>

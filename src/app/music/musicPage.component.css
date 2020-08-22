@@ -84,6 +84,14 @@
 	color: var(--colorDarkLight);
 } */
 
+.selectedTrack {
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	 /* place it at the same y pos as the Lato font */
+	padding-top: 1.5px;
+	color: var(--colorActive);
+}
+
 .tribute {
 	font-size: xx-small;
 }

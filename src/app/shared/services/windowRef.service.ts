@@ -8,7 +8,7 @@ function _window(): any {
 @Injectable({
 	providedIn: 'root',
 })
-export class WindowRef {
+export class WindowRefService {
 
 	get nativeWindow(): any {
 		return _window()
