@@ -145,7 +145,6 @@ export class SoundManager {
 	stopMusic(): void {
 		this.sounds.forEach(sound => {
 			if (sound.soundData.soundType === SoundType.Music) {
-				this.log(LogType.Info, `stopping music with key ${sound.soundData.key}`)
 				sound.stop()
 			}
 		})

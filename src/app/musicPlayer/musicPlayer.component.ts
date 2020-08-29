@@ -24,7 +24,9 @@ export class MusicPlayerComponent {
 	get isPlaying() {
 		return this.musicService.isPlaying
 	}
-
+	get isShuffle() {
+		return this.musicService.isShuffle
+	}
 	get masterGain() {
 		return this.soundManager.instance.masterGain
 	}
@@ -109,7 +111,7 @@ export class MusicPlayerComponent {
 	}
 
 	onShuffle() {
-		console.log('on shuffle click')
+		this.musicService.toggleShuffle()
 	}
 
 	play() {

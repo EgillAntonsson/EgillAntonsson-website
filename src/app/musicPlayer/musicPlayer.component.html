@@ -4,11 +4,11 @@
 	</span>
 	<span class="trackName">{{selectedTrack.name}}</span>
 	<span class="nextContainer" (click)="onNext()">
-		<div class="nextIcon_triangle"></div>
-		<div class="nextIcon_line"></div>
+		<div class="next_triangle"></div>
+		<div class="next_line"></div>
 	</span>
 	<span class="shuffleContainer" (click)="onShuffle()">
-		<div class="shuffleIcon"></div>
+		<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
 	</span>
 	<span class=muteAndSliderContainer>
 		<span class="muteContainer" (click)="onMasterMuteChange()">

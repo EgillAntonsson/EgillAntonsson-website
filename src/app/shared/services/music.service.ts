@@ -8,7 +8,7 @@ import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
 import { LogService } from './log.service'
 import { LogType } from 'shared/enums/logType'
-import { RandomNumberService, IRandomNumber } from './randomNumber.service'
+import { RandomNumberService } from './randomNumber.service'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -46,9 +46,7 @@ export class MusicService {
 	get isPlaying() {
 		return this._isPlaying
 	}
-
 	private timeout: NodeJS.Timeout
-
 	readonly pathRoot = '../../assets/audio'
 	readonly pathGame = `${this.pathRoot}/game`
 	readonly pathKuai = `${this.pathRoot}/kuai`
@@ -56,8 +54,12 @@ export class MusicService {
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
 	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
 	private tracks: ITrack[]
+	private _isShuffle = true
+	get isShuffle() {
+		return this._isShuffle
+	}
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumber: RandomNumberService) {
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumberService: RandomNumberService) {
 		LogService.logEnabled = true
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
@@ -66,8 +68,21 @@ export class MusicService {
 		this.setupTracks()
 		this.flattenTracksToList()
 
-		this.nextSelectedTrack = this.tracks[0]
+		if (this._isShuffle) {
+			randomNumberService.startUniqueNumberTracking(this.tracks.length)
+			this.nextSelectedTrack = this.tracks[randomNumberService.getUniqueRandomNumber()]
+		} else {
+			this.nextSelectedTrack = this.tracks[0]
+		}
+
 		this._selectedTrack = this.nextSelectedTrack
+	}
+
+	toggleShuffle() {
+		this._isShuffle = !this._isShuffle
+		if (this._isShuffle) {
+			this.randomNumberService.startUniqueNumberTracking(this.tracks.length)
+		}
 	}
 
 	flattenTracksToList() {
@@ -118,31 +133,18 @@ export class MusicService {
 		this._isPlaying = false
 	}
 
-	private shuffle = true
-	private playedTracks = []
-
 	nextTrack() {
-		console.log('length', this.tracks.length)
-		// for (let index = 0; index < 1000; index++) {
-		// 	console.log('i', Math.floor(this.tracks.length * Math.random()))
-		// }
-
 		let nextIndex: number
-		if (this.shuffle) {
-			// nextIndex = Math.floor(this.tracks.length * Math.random())
-			nextIndex = this.randomNumber.getRandomNumber(this.tracks.length - 1)
+		if (this._isShuffle) {
+			nextIndex = this.randomNumberService.getUniqueRandomNumber()
 		} else {
 			nextIndex = this._selectedTrack.index + 1
 		}
 
 		console.log('nextIndex', nextIndex)
 
-		this._selectedTrack = this.tracks[nextIndex]
+		this.nextSelectedTrack = this.tracks[nextIndex]
 
-	}
-
-	getRandomNumber() {
-		return Math.random()
 	}
 
 	addInstancePlayedListener(name: string, listener: (soundInstance: SoundInstance) => void) {

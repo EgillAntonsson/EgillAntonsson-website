@@ -19,17 +19,23 @@ describe('MusicService', () => {
 
 	it('random', () => {
 
+	// 	const returnsGetRandomNumber = [0, 1, 2, 3]
+	// 	let returnsIndex = 0
+	// 	const mockRandomNumber: IRandomNumber = {
+	// 		getRandomNumber: (highest: number) => {
+	// 	console.log('in R N mock func')
+	// 	return returnsGetRandomNumber[returnsIndex++]
+	// 	},
+	// 	get
 
-	const mockRandomNumber: IRandomNumber = {getRandomNumber: (highest: number) => {
-	console.log('in R N mock func')
-	return 5
-}}
+	// }
 
-		const music = new MusicService(new SoundManagerService(), new WindowRefService(), new LogService(), mockRandomNumber)
+		const music = new MusicService(new SoundManagerService(), new WindowRefService(), new LogService(), new RandomNumberService)
 
-		console.log('bla bla')
+		console.log('in music.service.spec')
 		expect(music).toBeTruthy()
-		expect(mockRandomNumber.getRandomNumber(5)).toBe(5)
+		// expect(mockRandomNumber.getRandomNumber(0)).toBe(0)
+		// expect(mockRandomNumber.getRandomNumber(0)).toBe(1)
 	})
 
 })
