@@ -2,24 +2,26 @@
 	<span class="playPauseContainer" (click)="onPlayStop()">
 		<div [ngClass]="{play: !isPlaying, stop: isPlaying}"></div>
 	</span>
-	<span class="trackName">{{selectedTrack.name}}</span>
 	<span class="nextContainer" (click)="onNext()">
 		<div class="next_triangle"></div>
 		<div class="next_line"></div>
 	</span>
-	<span class="shuffleContainer" (click)="onShuffle()">
-		<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
-	</span>
-	<span class=muteAndSliderContainer>
+	<span class="trackName">{{selectedTrack.name}}</span>
+		<span class="playerRightButtonsContainer">
+		<span class="shuffleContainer" (click)="onShuffle()">
+			<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
+		</span>
+			<!-- <span class="muteAndSliderContainer"> -->
 		<span class="muteContainer" (click)="onMasterMuteChange()">
 			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted,  unmuteDisabled: gainsDisabled && !masterMuted}"></div>
 		</span>
 		<span class="sliderContainer">
 			<span class="slider">
-				<ng5-slider [(value)]="masterGain" [options]="optionsMasterGain"></ng5-slider>
+			<ng5-slider [(value)]="masterGain" [options]="optionsMasterGain"></ng5-slider>
 			</span>
-		</span>
+			</span>
 	</span>
+<!-- </span> -->
 
 </div>
 

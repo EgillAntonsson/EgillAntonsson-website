@@ -115,7 +115,8 @@ a:visited {
 }
 
 nav a {
-	padding: 6px 11px;
+	padding: 4px 8px;
+	margin-top: 3px;
 	margin-bottom: 1px;
 	text-decoration: none;
 	margin-left: 1%;
@@ -123,7 +124,7 @@ nav a {
 	display: inline-block;
 	background: var(--colorGrayDark);
 	border-radius: 10px;
-	font-size: 126%;
+	font-size: 120%;
 }
 nav a:visited, nav a:link {
 	color: var(--colorGrayLight);
@@ -144,14 +145,14 @@ nav {
 	z-index: 2;
 }
 
-.navContainer {
-	height: 41px;
+.headerContainer {
+	height: 100px;
 }
 
-.navBackground {
+.headerBackground {
 	position: fixed;
 	width: 91%;
-	height: 60px;
+	height: 100px;
 	margin-top: -10px;
 	margin-left: -1px;
 	background: var(--colorBackground);
@@ -173,7 +174,7 @@ nav li {
 	width: 95%;
 	margin-left: 5%;
 	float: left;
-	margin-top: 2em;
+	/* margin-top: 2em; */
 	margin-bottom: 2em;
 	cursor: pointer;
 	}
@@ -353,8 +354,8 @@ nav li {
   }
 }
 
-/* these put last because order in file matters.
-Not focusing on width that is less than 344px */
+/* '@media screen' put last because order in file matters.
+min width considered 360px (Galaxy S5) */
 @media screen and (max-width: 451px) {
 	.navContainer {
 		height: 85px;
@@ -362,13 +363,7 @@ Not focusing on width that is less than 344px */
 	.navBackground {
 		height: 105px;
 	}
-	nav {
-		width: 66%;
-		margin-left: 12%;
-	}
-	nav a {
-		margin-top: 5px;
-	}
+
 	/* debug */
 	/* h1 {
 		color: green;
@@ -376,12 +371,6 @@ Not focusing on width that is less than 344px */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	/* nav a {
-		padding: 6px 11px;
-		margin-left: 1%;
-		margin-right: 1%;
-		font-size: 126%;
-	} */
 	/* debug */
 	/* h1 {
 		color: orange;

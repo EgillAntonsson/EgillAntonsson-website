@@ -126,7 +126,6 @@
 
 @media screen and (max-width: 451px) {
 	.allByContainer {
-		margin-top: 1em;
 		margin-bottom: 1.5em;
 		width: 55%;
 	}
