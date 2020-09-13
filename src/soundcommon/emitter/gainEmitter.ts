@@ -1,6 +1,5 @@
 import { ValueEmitter } from './valueEmitter'
-export class GainEmitter extends
-ValueEmitter {
+export class GainEmitter extends ValueEmitter {
 	private _muted: boolean
 	public get muted(): boolean {
 		return this._muted

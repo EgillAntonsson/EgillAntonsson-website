@@ -1,52 +1,48 @@
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
 :root {
-	--colorActive: #b9ca4a;
-	--colorPending: #dd8800;
-	--colorDarkDark: #111;
-	--colorDarkMed: #424242;
-	--colorDarkLight: #969896;
-	--colorLightLight: #eee;
-	--colorLink: #7aa6da;
-	--colorLinkVisited: #C397D8;
-}
 
-.slider .ng5-slider .ng5-slider-bar {
-	background:var(--colorDarkMed);
-	height: 3px;
-}
+	/* Should sync with color.ts enum */
 
-.slider .ng5-slider .ng5-slider-selection {
-	background: var(--colorActive);
-}
+	--colorBlackLight: #111;
 
-.slider .ng5-slider .ng5-slider-pointer {
-	width: 8px;
-	height: 16px;
-	top: auto;
-	bottom: -2px;
-	background-color: var(--colorActive);
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-}
+	--colorGrayLight: #969896;
+	--colorGrayLightMed: #8B91A2;
+	--colorGrayDark: #424242;
 
-.slider .ng5-slider .ng5-slider-pointer:after {
-	display: none;
-}
+	--colorWhiteLight: #EEE;
+	--colorWhiteLightMed: #DDD;
 
-.slider .ng5-slider .ng5-slider-bubble {
-	color: var(--colorLightLight)
-}
+	--colorGreenLight: #B9CA4A;
+	--colorGreenLightMed: #99AA2A;
+	--colorGreenMed: #798A0A;
+	--colorGreenMedDark: #596A06;
+	--colorGreenDark: #394A00;
 
-.slider .ng5-slider .ng5-slider-tick {
-	width: 3px;
-	height: 10px;
-	margin-left: 4px;
-	border-radius: 0;
-	background: var(--colorDarkMed);
-	top: -1px;
-}
+	--colorOrangeLight: #DD8800;
+	--colorOrangeLightMed: #BD6800;
+	--colorOrangeMed: #9D4800;
+	--colorOrangeMedDark: #7D2800;
+	--colorOrangeDark: #5D0800;
 
-.slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
-	background: var(--colorActive);
+	--colorBlueLight: #7AA6DA;
+
+	--colorPurpleLight: #C397D8;
+
+
+	--colorBackground: var(--colorBlackLight);
+
+	--colorForeground: var(--colorWhiteLight);
+
+	--colorActive: var(--colorGreenLight);
+
+	--colorPending: var(--colorOrangeLight);
+
+	--colorDisabled: var(--colorGrayLightMed);
+
+	--colorLink: var(--colorBlueLight);
+
+	--colorLinkVisited: var(--colorPurpleLight);
 }
 
 h1 {
@@ -82,10 +78,10 @@ table {
 
 body {
 	margin: 10px 5%;
-	background: var(--colorDarkDark);
+	background: var(--colorBackground);
 }
 body, input[text], button {
-	color: var(--colorLightLight);
+	color: var(--colorForeground);
 	font-family: Cambria, Georgia;
 }
 
@@ -119,26 +115,27 @@ a:visited {
 }
 
 nav a {
-	padding: 6px 11px;
+	padding: 4px 8px;
+	margin-top: 3px;
 	margin-bottom: 1px;
 	text-decoration: none;
 	margin-left: 1%;
 	margin-right: 1%;
 	display: inline-block;
-	background: var(--colorDarkMed);
+	background: var(--colorGrayDark);
 	border-radius: 10px;
-	font-size: 126%;
+	font-size: 120%;
 }
 nav a:visited, nav a:link {
-	color: var(--colorDarkLight);
+	color: var(--colorGrayLight);
 }
 nav a:hover {
-	color: var(--colorDarkDark);
+	color: var(--colorBackground);
 	background: var(--colorPending);
 }
 nav a.active {
 	background: var(--colorActive);
-	color: var(--colorDarkDark)
+	color: var(--colorBackground)
 }
 
 nav {
@@ -148,18 +145,18 @@ nav {
 	z-index: 2;
 }
 
-.navContainer {
-	height: 41px;
+.headerContainer {
+	height: 100px;
 }
 
-.navBackground {
+.headerBackground {
 	position: fixed;
 	width: 91%;
-	height: 60px;
+	height: 100px;
 	margin-top: -10px;
 	margin-left: -1px;
-	background: var(--colorDarkDark);
-	border-bottom: 1px solid var(--colorDarkMed);;
+	background: var(--colorBackground);
+	border-bottom: 1px solid var(--colorGrayDark);
 	z-index: 1;
 }
 
@@ -177,7 +174,7 @@ nav li {
 	width: 95%;
 	margin-left: 5%;
 	float: left;
-	margin-top: 2em;
+	/* margin-top: 2em; */
 	margin-bottom: 2em;
 	cursor: pointer;
 	}
@@ -215,13 +212,6 @@ nav li {
 	line-height: 22px;
 }
 
-.track {
-	font-weight: bold;
-	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 1.5px; /* place it at the same y pos as the Lato font */
-	color: var(--colorActive);
-}
-
 .fadein {
 	animation: fadein 0.5s linear;
 }
@@ -235,8 +225,137 @@ nav li {
 	}
 }
 
-/* these put last because order in file matters.
-Not focusing on width that is less than 344px */
+/* ng5 */
+.slider .ng5-slider .ng5-slider-bar {
+	background:var(--colorGrayDark);
+	height: 3px;
+}
+
+.slider .ng5-slider .ng5-slider-selection {
+	background: var(--colorActive);
+}
+
+.slider .ng5-slider .ng5-slider-pointer {
+	width: 5px;
+	height: 10px;
+	top: auto;
+	bottom: -3px;
+	outline-color: var(--colorGreenLight)
+}
+
+.slider .ng5-slider .ng5-slider-pointer:after {
+	display: none;
+}
+
+.slider .ng5-slider .ng5-slider-bubble {
+	color: var(--colorForeground)
+}
+
+.slider .ng5-slider .ng5-slider-tick {
+	width: 3px;
+	height: 10px;
+	margin-left: 4px;
+	border-radius: 0;
+	background: var(--colorGrayDark);
+	top: -1px;
+}
+
+.slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+	background: var(--colorActive);
+}
+
+/* loading animation from https://loading.io/css/ */
+.lds-roller {
+  display: inline-block;
+  width: 80px;
+	height: 80px;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--colorPending);
+	margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+	left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* '@media screen' put last because order in file matters.
+min width considered 360px (Galaxy S5) */
 @media screen and (max-width: 451px) {
 	.navContainer {
 		height: 85px;
@@ -244,13 +363,7 @@ Not focusing on width that is less than 344px */
 	.navBackground {
 		height: 105px;
 	}
-	nav {
-		width: 66%;
-		margin-left: 12%;
-	}
-	nav a {
-		margin-top: 5px;
-	}
+
 	/* debug */
 	/* h1 {
 		color: green;
@@ -258,12 +371,6 @@ Not focusing on width that is less than 344px */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	/* nav a {
-		padding: 6px 11px;
-		margin-left: 1%;
-		margin-right: 1%;
-		font-size: 126%;
-	} */
 	/* debug */
 	/* h1 {
 		color: orange;

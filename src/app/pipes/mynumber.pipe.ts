@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({name: 'mynumber'})
 export class MyNumberPipe implements PipeTransform {
@@ -7,7 +7,7 @@ export class MyNumberPipe implements PipeTransform {
 		switch (conversionSign) {
 			case '/':
 				conversedValue = value / conversionAmount
-				break;
+				break
 			case '*':
 				conversedValue = value * conversionAmount
 				break;

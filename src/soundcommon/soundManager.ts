@@ -4,12 +4,13 @@ import { validateRange, globalMaxNrPlayingAtOncePerSound } from './soundUtil'
 import { GainEmitter } from './emitter/gainEmitter'
 import { EmitterEvent } from './enum/emitterEvent'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
-import { SoundInstance } from './interface/soundInstance'
 import { SoundData } from './interface/soundData'
+import { LogType } from '../shared/enums/logType'
 
 export class SoundManager {
+	readonly label = 'SoundManager'
 	private sounds: Map<string, Sound> = new Map()
-	private log: (message?: any, ...optionalParams: any[]) => void
+	private log: (logType: LogType, msg?: any, ...rest: any[]) => void
 	private audioCtx: AudioContext
 	private _musicGain: GainEmitter
 	public set musicGain(gain: number) {
@@ -34,6 +35,13 @@ export class SoundManager {
 		this._masterGain.value = validateRange(gain, 0, 1, this.log)
 		this._masterGain.emit(EmitterEvent.GainChange)
 	}
+
+	public get masterGain() {
+		if (this._masterGain.value) {
+			return this._masterGain.value
+		}
+		return 0
+	}
 	public set masterMuted(muted: boolean) {
 		this._masterGain.muted = muted
 		this._masterGain.emit(EmitterEvent.MuteChange)
@@ -49,30 +57,29 @@ export class SoundManager {
 	private _dynamicRange: DynamicRangeEmitter
 	public initialized = false
 
-	// tslint:disable-next-line: max-line-length
-	init(window: any, musicGain: number = 1, musicMuted: boolean = false, sfxGain: number = 1, sfxMuted: boolean = false, masterGain: number = 1, masterMuted: boolean = false, maxNrPlayingAtOncePerSound: number = globalMaxNrPlayingAtOncePerSound, log?: (message?: any, ...optionalParams: any[]) => void): void {
-		this._musicGain = new GainEmitter(musicGain, musicMuted)
-		this._sfxGain = new GainEmitter(sfxGain, sfxMuted)
-		this._masterGain = new GainEmitter(masterGain, masterMuted)
+	init(window: any,  logger?: (logType: LogType, msg?: any, ...rest: any[]) => void) {
+		this._musicGain = new GainEmitter(1, false)
+		this._sfxGain = new GainEmitter(1, false)
+		this._masterGain = new GainEmitter(1, false)
 		this._dynamicRange = new DynamicRangeEmitter(0, 1)
-		this._maxNrPlayingAtOncePerSound = maxNrPlayingAtOncePerSound
+		this._maxNrPlayingAtOncePerSound = globalMaxNrPlayingAtOncePerSound
 
-		// for cross browser
-	const AudioContext = window.AudioContext || window.webkitAudioContext
-		this.audioCtx = new AudioContext()
-
-		this.log =  (message?: any, optionalParams?: any[]) => {
-			if (log) {
-				log(message, optionalParams)
+		this.log = (logType: LogType, msg?: any, ...rest: any[]) => {
+			if (logger) {
+				logger(logType, msg, rest)
 			}
 		}
+
+		// for cross browser
+		const AudioContext = window.AudioContext || window.webkitAudioContext
+		this.audioCtx = new AudioContext()
 
 		this.initialized = true
 	}
 
 	setDynamicRange(lowValue: number, highValue: number): void {
 		if (lowValue > highValue) {
-			this.log('Error', `Invalid params for setDynamicRange, lowValue '${lowValue}' must be lower than highValue '${highValue}', not setting new Dynamic Range`)
+			this.log(LogType.Error, `Invalid params for setDynamicRange, lowValue '${lowValue}' must be lower than highValue '${highValue}', not setting new Dynamic Range`)
 		}
 		this._dynamicRange.lowValue = validateRange(lowValue, 0, 1, this.log)
 		this._dynamicRange.highValue =  validateRange(highValue, 0, 1, this.log)
@@ -82,19 +89,11 @@ export class SoundManager {
 	addSound(soundData: SoundData): Sound {
 		const soundTypeGain = (soundData.soundType === SoundType.Music) ? this._musicGain : this._sfxGain
 		this.updateEmitterMaxListeners(this.sounds.size + 1)
+
 		const sound = new Sound(soundData, this._maxNrPlayingAtOncePerSound, soundTypeGain, this._masterGain, this._dynamicRange, this.audioCtx, this.log)
 		this.addToList(soundData.key, sound)
 		return sound
 	}
-
-	// addSound(url: string, key: string, soundType: SoundType = SoundType.SFX, maxGain: number = 1, loop = false, maxNrPlayingAtOnce?: number): Sound {
-	// 	let sound: Sound
-	// 	const soundTypeGain = (soundType === SoundType.Music) ? this._musicGain : this._sfxGain
-	// 	this.updateEmitterMaxListeners(this.sounds.size + 1)
-	// 	sound = new Sound(url, key, soundType, maxGain, loop, maxNrPlayingAtOnce, this._maxNrPlayingAtOncePerSound, soundTypeGain, this._masterGain, this._dynamicRange, this.audioCtx, this.log)
-	// 	this.addToList(key, sound)
-	// 	return sound
-	// }
 
 	private updateEmitterMaxListeners(nrOfSounds: number): void {
 		this._masterGain.setMaxListeners(2 * nrOfSounds * globalMaxNrPlayingAtOncePerSound)
@@ -107,19 +106,23 @@ export class SoundManager {
 
 	private addToList(key: string, sound: Sound): void {
 		if (this.sounds.has(key)) {
-			this.log('Warning', `Sound with the key '${key}' is already in to SoundManager, not adding it again`)
+			this.log(LogType.Warn, `Sound with the key '${key}' is already in to SoundManager, not adding it again`)
 			return
 		}
 		this.sounds.set(key, sound)
 	}
 
-	playSound(key: string): SoundInstance {
+	playSound(key: string) {
 		const sound = this.sounds.get(key)
 		if (!sound) {
-			this.log('Warning', `Cannot play sound with key '${key}', not in SoundManager`)
+			this.log(LogType.Warn, `[${this.label}]`, `Cannot play sound with key '${key}', not in SoundManager`)
 			return
 		}
 		return sound.play()
+	}
+
+	isSoundPlaying(key: string) {
+
 	}
 
 	getSound(key: string): Sound {
@@ -133,7 +136,7 @@ export class SoundManager {
 	stopSound(key: string): void {
 		const sound = this.sounds.get(key)
 		if (!sound) {
-			this.log('Info: Cannot stop Sound, not in SoundManager')
+			this.log(LogType.Info, 'Cannot stop Sound, not in SoundManager')
 			return
 		}
 		sound.stop()
@@ -142,7 +145,6 @@ export class SoundManager {
 	stopMusic(): void {
 		this.sounds.forEach(sound => {
 			if (sound.soundData.soundType === SoundType.Music) {
-				this.log('Info', `stopping music with key ${sound.soundData.key}`)
 				sound.stop()
 			}
 		})

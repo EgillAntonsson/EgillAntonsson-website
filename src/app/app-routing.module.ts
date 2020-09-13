@@ -4,15 +4,15 @@ import {RouterModule, Routes} from '@angular/router'
 import {HomeComponent} from './home/home.component'
 import {ProgrammingComponent} from './programming/programming.component'
 import {LiftingComponent} from './lifting/lifting.component'
-import {GameAudioComponent} from './game-audio/game-audio.component'
+import {MusicPageComponent} from './music/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home',  component: HomeComponent},
+	{path: 'music', component: MusicPageComponent},
 	{path: 'code',  component: ProgrammingComponent},
 	{path: 'lifting', component: LiftingComponent},
-	{path: 'music', component: GameAudioComponent},
 	{path: '**', component: PageNotFoundComponent }
 ]
 

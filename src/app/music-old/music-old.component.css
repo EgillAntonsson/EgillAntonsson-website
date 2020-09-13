@@ -1,0 +1,253 @@
+/* .fadein {
+	animation: fadein 0.5s linear;
+}
+
+@keyframes fadein {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+} */
+
+.playerContainer {
+	cursor: pointer;
+	border: 1px solid var(--colorDarkLight);
+	border-radius: 1em;
+	padding: 0.6em 0.5em;
+}
+
+.playerText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+.playPauseContainer {
+	float: left;
+	padding-top: 1px;
+	padding-left: 2.5%;
+	width: 8%;
+}
+
+.play {
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+	background: var(--colorActive);
+	width: 23px;
+	height: 15px;
+	transform: translateX(-10%) translateY(10%) rotate(90deg);
+	transition: all 0.2s;
+}
+
+.pause {
+	width: 7px;
+	height: 18px;
+	border-right: 5px solid var(--colorPending);
+	border-left: 5px solid var(--colorPending);
+	transition: all 0.2s;
+}
+
+/* .byIconContainer {
+	float: left;
+	margin-right: 0.75em;
+} */
+
+/* .byIcon {
+	background: #969896;
+	width: 8px;
+	height: 8px;
+	transition: all 0.2s;
+	margin: auto;
+}
+
+.animateClose {
+	transform: translateY(6px) rotate(0deg);
+	transition: all 0.1s;
+}
+
+.animateOpen {
+	transform: translateY(5px) rotate(225deg);
+	transition: all 0.4s ease-out;
+} */
+
+.timer {
+	float: right;
+	padding-right: 2.5%;
+	padding-top: 1.5px; /*magic number*/
+}
+
+ul {
+	list-style: none;
+	cursor: pointer;
+}
+
+/* .allByContainer {
+	width: 95%;
+	margin-left: 5%;
+	float: left;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	cursor: pointer;
+	} */
+
+/* .byContainer {
+	margin-top: 5px;
+	margin-bottom: 2px;
+} */
+
+/* .trackContainer {
+	margin-left: 2em;
+	line-height: 22px;
+} */
+
+/* .track {
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 1.5px; /* place it at the same y pos as the Lato font */
+/*} */
+
+.artworkContainer {
+	float: right;
+	width: 50%;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.artworkImage {
+	width: 100%;
+	max-width: 500px;
+	border-radius: 5%;
+	display: block;
+	margin: 0 auto;
+}
+
+.buttonRow {
+	float: right;
+	width: 100%;
+}
+
+.button {
+	background: var(--colorDarkDark);
+	color: #ccc;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 2em;
+	margin-right: 5%;
+	float: right;
+	border: 1px solid #999;
+	border-radius: 0.5em;
+	cursor: pointer;
+	transition-duration: 0.4s;
+}
+
+.button:hover {
+	background: var(--colorPending);
+	border-color: var(--colorPending);
+	color: var(--colorDarkDark);
+}
+
+.button a {
+	transition-duration: 0.4s;
+}
+
+/* hover needs to be on .button instead of .scLogo so that change also occurs when pointer is inside of button but outside of href */
+.button:hover a {
+	background:transparent url('/assets/soundcloud_black.png') center top no-repeat;
+}
+
+.button:active {
+	background: var(--colorActive);
+	border-color: var(--colorActive);
+}
+
+.scLogo {
+	width: 104px;
+	height: 16px;
+	display: block;
+	background:transparent url('/assets/soundcloud.png') center top no-repeat;
+}
+
+.trackDescription {
+	float: left;
+}
+
+.byBio {
+	float: right;
+}
+
+@media screen and (max-width: 451px) {
+	.artworkContainer {
+		float: left;
+		width: 100%;
+		margin-top: 0;
+	}
+	.allByContainer {
+		margin-top: 1em;
+		margin-bottom: 1.5em;
+	}
+}
+
+@media screen and (min-width:  452px) and (max-width: 703px) {
+	.playerContainer {
+		margin: 0 5%;
+	}
+	.allByContainer {
+		width: 45%;
+		margin-left: 5%;
+	}
+	.artworkContainer {
+		width: 45%;
+		margin-right: 5%;
+	}
+}
+
+@media screen and (min-width: 704px) and (max-width: 1053px) {
+	.playerContainer {
+		margin: 0 10%;
+	}
+	.allByContainer {
+		width: 40%;
+		margin-left: 10%;
+	}
+	.artworkContainer {
+		width: 40%;
+		margin-right: 10%;
+	}
+	.buttonRow {
+		margin-right: 5%;
+	}
+}
+
+@media screen and (min-width: 1054px) and (max-width: 1403px) {
+	.playerContainer {
+		margin: 0 15%;
+	}
+	.allByContainer {
+		width: 35%;
+		margin-left: 15%;
+	}
+	.artworkContainer {
+		width: 35%;
+		margin-right: 15%;
+	}
+	.buttonRow {
+		margin-right: 10%;
+	}
+}
+
+@media screen and (min-width: 1404px) {
+	.playerContainer {
+		margin: 0 20%;
+	}
+	.allByContainer {
+		width: 30%;
+		margin-left: 20%;
+	}
+	.artworkContainer {
+		width: 30%;
+		margin-right: 20%;
+	}
+	.buttonRow {
+		margin-right: 15%;
+	}
+}
