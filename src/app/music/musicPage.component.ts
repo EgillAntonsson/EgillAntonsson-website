@@ -66,7 +66,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
 		})
 
-		this.musicService.addInstanceEndedListener(this.endedListenerName, (trackEnded?: boolean) => {
+		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
 			this.clearVisuals()
 		})
 	}

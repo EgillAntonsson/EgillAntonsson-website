@@ -52,7 +52,7 @@ export class MusicService {
 	readonly pathKuai = `${this.pathRoot}/kuai`
 	readonly pathBrothers = `${this.pathRoot}/braedraminning`
 	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
-	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, timeout?: NodeJS.Timeout) => void>
+	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 	private tracks: ITrack[]
 	private _isShuffle = true
 	get isShuffle() {
@@ -76,6 +76,20 @@ export class MusicService {
 		}
 
 		this._selectedTrack = this.nextSelectedTrack
+
+		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
+			if (this.timeout) {
+					clearTimeout(this.timeout)
+					this.timeout = null
+			}
+			if (trackEnded) {
+				this._isPlaying = false
+			}
+			// if (!serviceDidStop) {
+			// 	this.nextTrack()
+			// 	this.play(null)
+			// }
+		})
 	}
 
 	toggleShuffle() {
@@ -103,6 +117,9 @@ export class MusicService {
 	}
 
 	play(gainsDisabled: BooleanEmitter) {
+		if (this._awaitingFirstPlay) {
+			return
+		}
 		this.stop()
 
 		const track = this.nextSelectedTrack
@@ -129,7 +146,7 @@ export class MusicService {
 		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
 			track.layeredMusicController.stop()
 		}
-		this.instanceEndedListeners.forEach((listener) => listener(true))
+		this.instanceEndedListeners.forEach((listener) => listener(true, true))
 		this._isPlaying = false
 	}
 
@@ -151,18 +168,8 @@ export class MusicService {
 		this.instancePlayedListeners.set(name, listener)
 	}
 
-	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean) => void) {
-		const outerListener = (trackEnded?: boolean) => {
-			if (this.timeout) {
-				clearTimeout(this.timeout)
-				this.timeout = null
-			}
-			if (trackEnded) {
-				this._isPlaying = false
-			}
-			listener(trackEnded)
-		}
-		this.instanceEndedListeners.set(name, outerListener)
+	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, serviceDidStop?: boolean) => void) {
+		this.instanceEndedListeners.set(name, listener)
 	}
 
 	removeInstancePlayedListener(name: string) {
@@ -615,7 +622,8 @@ this.instanceEndedListeners.forEach((listener) => listener(true))
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[3].key)
 		]
-		godsruleLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.logService.log)
+		godsruleLayered.layeredMusicController = new LayeredMusicController(sounds, 3, 30, 20, true, this.instanceEndedListeners)
+		godsruleLayered.layeredMusicController.setLog(this.logService.log)
 	}
 
 	return async () => {
@@ -645,7 +653,8 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 			this.soundManager.instance.getSound(votLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(votLayered.soundDatas[3].key)
 		]
-		votLayered.layeredMusicController = new LayeredMusicController(sounds, 3, this.logService.log)
+		votLayered.layeredMusicController = new LayeredMusicController(sounds, 3, 30, 20, true, this.instanceEndedListeners)
+		votLayered.layeredMusicController.setLog(this.logService.log)
 	}
 
 	return async () => {

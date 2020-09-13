@@ -14,7 +14,7 @@ import { Color } from 'app/shared/enums/color'
 	styleUrls: ['./musicPlayer.component.css']
 })
 export class MusicPlayerComponent {
-
+	readonly label = 'MusicPlayer'
 	get awaitingFirstPlay() {
 		return this.musicService.awaitingFirstPlay
 	}
@@ -95,6 +95,12 @@ export class MusicPlayerComponent {
 				this.play()
 			}
 		})
+
+		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
+			if (trackEnded && !serviceDidStop) {
+					this.onNext()
+				}
+		})
 	}
 
 	onPlayStop() {
@@ -115,10 +121,6 @@ export class MusicPlayerComponent {
 	}
 
 	play() {
-		if (this.musicService.awaitingFirstPlay) {
-			return
-		}
-
 		this.musicService.play(this._gainsDisabled)
 	}
 
