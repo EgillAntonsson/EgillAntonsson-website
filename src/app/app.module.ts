@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
-import { MatRippleModule, MatButtonToggleModule } from '@angular/material'
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRippleModule } from '@angular/material/core';
 import { Ng5SliderModule } from 'ng5-slider'
 
 import { AppComponent } from './app.component'
