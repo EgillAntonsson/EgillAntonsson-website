@@ -60,7 +60,6 @@ export class MusicService {
 	}
 
 	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumberService: RandomNumberService) {
-		LogService.logEnabled = true
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 		soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -112,8 +111,6 @@ export class MusicService {
 				this.tracks.push(track)
 			}
 		}
-
-		console.log(this.tracks)
 	}
 
 	play(gainsDisabled: BooleanEmitter) {
@@ -158,7 +155,7 @@ export class MusicService {
 			nextIndex = this._selectedTrack.index + 1
 		}
 
-		console.log('nextIndex', nextIndex)
+		this.logService.log(LogType.Info, 'nextIndex', nextIndex)
 
 		this.nextSelectedTrack = this.tracks[nextIndex]
 
