@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { LogType } from 'shared/enums/logType'
 
 export interface IRandomNumber {
 	readonly getRandomNumber: (highest: number) => number
@@ -31,19 +32,18 @@ export class RandomNumberService implements IRandomNumber {
 			}
 
 			if (this.uniqueNumbers.size === this.highestUniqueBorder) {
-				console.log('clearing uniqueNumbers')
+				// Clearing uniqueNumbers
 				this.uniqueNumbers.clear()
 			}
 
 			let num: number
 
 			if (this.uniqueNumbers.size === this.highestUniqueBorder - 1) {
-				console.log('one number left to set')
+				// One number left to set
 
 				for (let i = 0; i <= this.uniqueNumbers.size; i++) {
 					if (!this.uniqueNumbers.has(i)) {
 						num = i
-						console.log('last num', num)
 						break
 					}
 				}
@@ -51,13 +51,10 @@ export class RandomNumberService implements IRandomNumber {
 				do {
 					num = this.getRandomNumber(this.highestUniqueBorder)
 
-					// console.log('.has', this.uniqueNumbers.has(num))
 				} while (this.uniqueNumbers.has(num))
 			}
 
 			this.uniqueNumbers.set(num, true)
-			// console.log('setting uniqueNumbers with: ', num, 'new keys size')
-			// console.log('this.uniqueNumbers.size', this.uniqueNumbers.size)
 
 			return num
 		}
@@ -73,6 +70,5 @@ export class RandomNumberService implements IRandomNumber {
 		this.uniqueNumberTracking = false
 		this.uniqueNumbers.clear()
 	}
-
 
 }

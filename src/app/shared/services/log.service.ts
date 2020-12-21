@@ -4,11 +4,12 @@ import { LogType } from 'shared/enums/logType'
 @Injectable({ providedIn: 'root' })
 export class LogService {
 
-	static logEnabled = false
+	// Set to 'true' to enable logging while developing,
+	// should always be set to 'false' for deployment.
+	private static IS_ENABLED = false
 
 	log(logType: LogType, msg?: any, ...rest: any[]) {
-		if (LogService.logEnabled) {
-			// NOTE: currently only thinking of console.log
+		if (LogService.IS_ENABLED) {
 			switch (logType) {
 				case LogType.Error:
 					console.error(msg, rest.join(' '))
