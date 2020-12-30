@@ -15,6 +15,7 @@ import { MusicPageComponent } from './music/musicPage.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
+import { RandomNumber, RandomNumberService } from './shared/services/randomNumber.service'
 
 @NgModule({
 	imports: [
@@ -36,7 +37,8 @@ import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
 		MyNumberPipe,
 		MinutesSecondsPipe,
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
+	providers: [{ provide: RandomNumber, useExisting: RandomNumberService }]
 })
 
 export class AppModule {}

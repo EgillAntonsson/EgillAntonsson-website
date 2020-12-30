@@ -1,14 +1,14 @@
 import { EventEmitter } from 'events'
 export class DynamicRangeEmitter extends
 EventEmitter {
-	private _lowValue: number
+	private _lowValue = 0
 	public get lowValue(): number {
 		return this._lowValue
 	}
 	public set lowValue(value: number) {
 		this._lowValue = value
 	}
-	private _highValue: number
+	private _highValue = 1
 	public get highValue(): number {
 		return this._highValue
 	}

@@ -15,17 +15,17 @@ export class Sound {
 	private instances: Map<number, SoundInstance> = new Map()
 	readonly audioCtx: AudioContext
 	private log: (logType: LogType, msg?: any, ...rest: any[]) => void
-	private endedListener: EventListener
+	private endedListener!: EventListener
 	private soundTypeGain: GainEmitter
 	private masterGain: GainEmitter
 	private dynamicRange: DynamicRangeEmitter
-	private sourceNodeBuffer: AudioBuffer
+	private sourceNodeBuffer!: AudioBuffer
 	private id =  -1
 	private _loaded = false
 	public get loaded() {
 		return this._loaded
 	}
-	private firstInstancePromise: Promise<SoundInstance>
+	private firstInstancePromise?: Promise<SoundInstance>
 
 	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, log: (logType: LogType, msg?: any, ...rest: any[]) => void) {
 		this.audioCtx = audioCtx
@@ -54,10 +54,9 @@ export class Sound {
 	get isPlaying(): boolean {
 		return this.instances.size > 0
 	}
-
 	async play(connectTheNodes = true) {
 		if (this.reachedMaxNumberOfPlayingAtOnce()) {
-			this.log(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
+			this.log(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}', not playing sound`)
 			return
 		}
 
@@ -66,12 +65,12 @@ export class Sound {
 		if (this.firstInstancePromise) {
 			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting first instance promise')
 			instance = await this.firstInstancePromise
-			this.firstInstancePromise = null
+			this.firstInstancePromise = undefined
 		} else {
-			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting createSoundInstance')
-			instance = await this.createSoundInstance(connectTheNodes) // should never await
+			this.log(LogType.Info, `[${this.label}]`, 'play(): createSoundInstance')
+			// Should never await / be async
+			instance = await this.createSoundInstance(connectTheNodes)
 		}
-
 
 		this.instances.set(this.id, instance)
 		this.log(LogType.Info,  `Added soundInstance with id '${this.id}' to the instances list which now has the size '${this.instances.size}'`)

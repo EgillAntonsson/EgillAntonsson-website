@@ -14,15 +14,15 @@ import { LogType } from '../../shared/enums/logType'
 	styleUrls: ['./musicPage.component.css']
 })
 export class MusicPageComponent implements OnDestroy, OnInit {
-	readonly label = 'MusicPage'
-	get selectedTrack() {
-		return this.musicService.selectedTrack
-	}
-	// get awaitingFirstPlay() {
-	// 	return this.musicService.awaitingFirstPlay
-	// }
-	private canvases: ElementRef<HTMLCanvasElement>[]
-	private drawVisuals = []
+	private readonly label = 'MusicPage'
+
+	private canvases!: ElementRef<HTMLCanvasElement>[]
+	private drawVisuals: number[] = []
+	private currentCanvasNr = 0
+	private canvasNrAscending = false
+	private playedListenerName = `${this.label} playedListener`
+	private endedListenerName = `${this.label} endedListener`
+
 	musicGain = 1
 	musicMuted = false
 	sfxGain = 1
@@ -34,21 +34,18 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	highValue = 1
 	range = this.highValue - this.value
 
+
 	@ViewChild('canvas0', { static: true })
-	canvas0: ElementRef<HTMLCanvasElement>
+	canvas0!: ElementRef<HTMLCanvasElement>
 	@ViewChild('canvas1', { static: true })
-	canvas1: ElementRef<HTMLCanvasElement>
+	canvas1!: ElementRef<HTMLCanvasElement>
 
 	@ViewChild('canvas2', { static: true })
-	canvas2: ElementRef<HTMLCanvasElement>
+	canvas2!: ElementRef<HTMLCanvasElement>
 
 	@ViewChild('canvas3', { static: true })
-	canvas3: ElementRef<HTMLCanvasElement>
+	canvas3!: ElementRef<HTMLCanvasElement>
 
-	private currentCanvasNr = 0
-	private canvasNrAscending = false
-	private playedListenerName = `${this.label} playedListener`
-	private endedListenerName = `${this.label} endedListener`
 	selectedByIndex = 0
 	openedUiByIndex = 0
 
@@ -56,22 +53,36 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.byTracksArr
 	}
 
-	ngOnInit(): void {
-		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
+	get selectedTrack() {
+		return this.musicService.selectedTrack
 	}
 
 	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService) {
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
-			this.visualize(soundInstance, this.getNextCanvas() , this.drawVisuals)
+			const canvas = this.getNextCanvas()
+			const canvasContext = this.tryGetCanvasContext(canvas)
+			if (canvasContext) {
+				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
+			}
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
 			this.clearVisuals()
 		})
+
 	}
 
-	private getNextCanvas() {
+	ngOnInit(): void {
+		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
+	}
+
+	ngOnDestroy() {
+		this.musicService.removeInstancePlayedListener(this.playedListenerName)
+		this.musicService.removeInstanceEndedListener(this.endedListenerName)
+	}
+
+	private getNextCanvas():  ElementRef<HTMLCanvasElement> {
 		if (this.currentCanvasNr === 0) {
 			this.currentCanvasNr++
 			this.canvasNrAscending = true
@@ -117,50 +128,50 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		(this.musicService.selectedTrack as LayeredMusicTrack).layeredMusicController.incrementLayerValue()
 	}
 
-	visualize(inst: SoundInstance, canvas: ElementRef<HTMLCanvasElement>, drawVisuals: number[]) {
-		const canvasCtx = canvas.nativeElement.getContext('2d')
+	visualize(inst: SoundInstance, canvas:  ElementRef<HTMLCanvasElement>, canvasContext: CanvasRenderingContext2D, drawVisuals: number[]) {
+			// const canvasContext = canvas.nativeElement.getContext('2d')
 		const analyser = inst.analyzerNode
 		analyser.fftSize = 2048
 		const bufferLength = analyser.fftSize
 		const dataArray = new Uint8Array(bufferLength)
 
-		const WIDTH = canvas.nativeElement.width
-		const HEIGHT = canvas.nativeElement.height
+		const canvasWidth = canvas.nativeElement.width
+		const canvasHeight = canvas.nativeElement.height
 
-		canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
+		canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
 
 		const draw = () => {
 			drawVisuals.push(requestAnimationFrame(draw))
 
 			analyser.getByteTimeDomainData(dataArray)
 
-			canvasCtx.fillStyle = '#111' // styles.css colorDarkDark
-			canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
+			canvasContext.fillStyle = '#111' // styles.css colorDarkDark
+			canvasContext.fillRect(0, 0, canvasWidth, canvasHeight)
 
-			canvasCtx.lineWidth = 3
-			canvasCtx.strokeStyle = '#b9ca4a' // styles.css colorActive
+			canvasContext.lineWidth = 3
+			canvasContext.strokeStyle = '#b9ca4a' // styles.css colorActive
 
-			canvasCtx.beginPath()
+			canvasContext.beginPath()
 
-			const sliceWidth = WIDTH * 1.0 / bufferLength
+			const sliceWidth = canvasWidth * 1.0 / bufferLength
 			let x = 0
 
 			for (let i = 0; i < bufferLength; i++) {
 
 				const v = dataArray[i] / 128.0
-				const y = v * HEIGHT / 2
+				const y = v * canvasHeight / 2
 
 				if (i === 0) {
-					canvasCtx.moveTo(x, y)
+					canvasContext.moveTo(x, y)
 				} else {
-					canvasCtx.lineTo(x, y)
+					canvasContext.lineTo(x, y)
 				}
 
 				x += sliceWidth
 			}
 
-			canvasCtx.lineTo(WIDTH, HEIGHT / 2)
-			canvasCtx.stroke()
+			canvasContext.lineTo(canvasWidth, canvasHeight / 2)
+			canvasContext.stroke()
 		}
 
 		draw()
@@ -172,16 +183,19 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		})
 		this.drawVisuals = []
 		this.canvases.forEach(canvas => {
-			const canvasCtx = canvas.nativeElement.getContext('2d')
-			canvasCtx.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
+			const canvasContext = this.tryGetCanvasContext(canvas)
+			canvasContext?.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
 		})
 
 		this.currentCanvasNr = 1
 		this.canvasNrAscending = false
 	}
 
-	ngOnDestroy() {
-		this.musicService.removeInstancePlayedListener(this.playedListenerName)
-		this.musicService.removeInstanceEndedListener(this.endedListenerName)
+	private tryGetCanvasContext(canvas: ElementRef<HTMLCanvasElement>) {
+		const canvasContext = canvas.nativeElement.getContext('2d')
+		if (!canvasContext) {
+			this.logService.log(LogType.Error, '"canvasContext" was "null"')
+		}
+		return canvasContext
 	}
 }

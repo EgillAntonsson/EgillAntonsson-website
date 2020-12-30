@@ -1,49 +1,40 @@
-import { Sound } from './sound'
 import { SoundInstance } from './interface/soundInstance'
 import { EmitterEvent } from './enum/emitterEvent'
 import { BooleanEmitter } from './emitter/booleanEmitter'
 import { LogType } from 'shared/enums/logType'
 
 export class LayeredMusicController {
-	readonly layerSounds: Sound[]
-	private startLayerIndexToBeDecremented: number
+
+	private hasStarted = false
 	private layerIndexToBeDecremented: number
-	private timeIntervalSec: number
-	private startCurrentLayerValue: number
 	private currentLayerValue: number
-	private maxLayerValue: number
-	private fadeDurationSec: number
-	private lastLayerFadesOutAndStops: boolean
-	private _layerSoundInstances: SoundInstance[];
+	private fadeOutTimeouts: Map<number, NodeJS.Timeout> = new Map()
+	private fadeInTimeouts: Map<number, NodeJS.Timeout> = new Map()
+
+	private layerMusicTimer!: NodeJS.Timeout
+
+	private _layerSoundInstances!: SoundInstance[]
 	get layerSoundInstances(): SoundInstance[] {
 		return this._layerSoundInstances
 	}
-	private layerMusicTimer: NodeJS.Timeout
-	private fadeOutTimeouts: Map<number, NodeJS.Timeout> = new Map()
-	private fadeInTimeouts: Map<number, NodeJS.Timeout> = new Map()
-	private _gainsDisabled: BooleanEmitter
-	private instanceEndedListeners: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 
+	private _gainsDisabled!: BooleanEmitter
 	set gainsDisabled(value: BooleanEmitter) {
 		this._gainsDisabled = value
 	}
-	private log = (_logType: LogType, _msg?: any, ..._rest: any[]) => {}
 
-	// tslint:disable-next-line: max-line-length
-	constructor(layerSounds: Sound[], startLayerIndexToBeDecremented = 3, timeIntervalSec = 15, fadeDurationSec = 10, lastLayerFadesOutAndStops = false, instanceEndedListeners: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>, startCurrentLayerValue = 0, maxLayerValue = 0) {
-		this.layerSounds = layerSounds
-		this.startLayerIndexToBeDecremented = startLayerIndexToBeDecremented
-		this.timeIntervalSec = timeIntervalSec
-		this.fadeDurationSec = fadeDurationSec
-		this.lastLayerFadesOutAndStops = lastLayerFadesOutAndStops
-		this.instanceEndedListeners = instanceEndedListeners
+	constructor(
+			readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>,
+			readonly log: (logType: LogType, msg?: any, ...rest: any[]) => void,
+			readonly startLayerIndexToBeDecremented = 3,
+			readonly timeIntervalSec = 30,
+			readonly fadeDurationSec = 20,
+			readonly lastLayerFadesOutAndStops = true,
+			readonly startCurrentLayerValue = 0,
+			readonly maxLayerValue = 0) {
 
-		this.startCurrentLayerValue = startCurrentLayerValue
-		this.maxLayerValue = maxLayerValue
-	}
-
-	setLog(log: (logType: LogType, msg?: any, ...rest: any[]) => void) {
-		this.log = log
+		this.layerIndexToBeDecremented = startLayerIndexToBeDecremented
+		this.currentLayerValue = startCurrentLayerValue
 	}
 
 	start(soundInstances: SoundInstance[]) {
@@ -58,6 +49,7 @@ export class LayeredMusicController {
 
 		this.setLayerMusicTimer()
 
+		this.hasStarted = true
 	}
 
 	private setLayerMusicTimer() {
@@ -72,10 +64,8 @@ export class LayeredMusicController {
 			if (this.lastLayerFadesOutAndStops || 0 < this.layerIndexToBeDecremented) {
 				this.log(LogType.Info, 'fading out index', this.layerIndexToBeDecremented)
 
-				if (!this._gainsDisabled.value) {
-					this._gainsDisabled.value = true
-					this._gainsDisabled.emit(EmitterEvent.Change, true)
-				}
+				this.setGainsDisabledValue(true)
+
 				const instance = this._layerSoundInstances[this.layerIndexToBeDecremented]
 				instance.gainWrapper.cancelScheduledValues(0).linearRampToValueAtTime(0, instance.audioContext.currentTime + this.fadeDurationSec)
 
@@ -86,6 +76,13 @@ export class LayeredMusicController {
 		}, this.timeIntervalSec * 1000)
 	}
 
+	private setGainsDisabledValue(value: boolean) {
+		if (value && !this._gainsDisabled.value) {
+			this._gainsDisabled.value = value
+			this._gainsDisabled.emit(EmitterEvent.Change, value)
+		}
+	}
+
 	private setFadeTimeout(timeouts: Map<number, NodeJS.Timeout>, layerIndex: number, muteInstance?: SoundInstance) {
 		timeouts.set(layerIndex, setTimeout(() => {
 			this.log(LogType.Info, 'onFadeTimeout')
@@ -93,11 +90,9 @@ export class LayeredMusicController {
 				muteInstance.gainWrapper.muteInstance()
 			}
 			timeouts.delete(layerIndex)
+
 			if (timeouts.size === 0) {
-				if (this._gainsDisabled.value) {
-					this._gainsDisabled.value = false
-					this._gainsDisabled.emit(EmitterEvent.Change, false)
-				}
+				this.setGainsDisabledValue(false)
 			}
 
 			if (this.lastLayerFadesOutAndStops && layerIndex === 0) {
@@ -108,6 +103,10 @@ export class LayeredMusicController {
 	}
 
 	incrementLayerValue() {
+		if (!this.hasStarted) {
+			return
+		}
+
 		if (this.currentLayerValue < this.maxLayerValue) {
 			++this.currentLayerValue
 			this.log(LogType.Info, 'incremented by 1 to value', this.currentLayerValue)
@@ -119,13 +118,14 @@ export class LayeredMusicController {
 		if (this.layerIndexToBeDecremented < this._layerSoundInstances.length - 1) {
 			++this.layerIndexToBeDecremented
 			this.log(LogType.Info, 'fading in index', this.layerIndexToBeDecremented)
-			if (this.fadeOutTimeouts.has(this.layerIndexToBeDecremented)) {
-				clearTimeout(this.fadeOutTimeouts.get(this.layerIndexToBeDecremented))
+
+			const timeout = this.fadeOutTimeouts.get(this.layerIndexToBeDecremented)
+				if (timeout) {
+				clearTimeout(timeout)
 			}
-			if (!this._gainsDisabled.value) {
-				this._gainsDisabled.value = true
-				this._gainsDisabled.emit(EmitterEvent.Change, true)
-			}
+
+			this.setGainsDisabledValue(true)
+
 			const inst = this._layerSoundInstances[this.layerIndexToBeDecremented]
 			inst.gainWrapper.unmuteInstance(inst.gainWrapper.value).cancelScheduledValues(0).linearRampToValueAtTime(1, inst.audioContext.currentTime + this.fadeDurationSec)
 			this.setFadeTimeout(this.fadeInTimeouts, this.layerIndexToBeDecremented)
@@ -144,10 +144,7 @@ export class LayeredMusicController {
 		this.fadeOutTimeouts.clear()
 		this.fadeInTimeouts.clear()
 
-		if (this._gainsDisabled.value) {
-			this._gainsDisabled.value = false
-			this._gainsDisabled.emit(EmitterEvent.Change, false)
-		}
+		this.setGainsDisabledValue(false)
 	}
 
 }
