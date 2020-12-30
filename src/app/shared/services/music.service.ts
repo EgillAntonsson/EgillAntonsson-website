@@ -64,6 +64,7 @@ export class MusicService {
 		this.instanceEndedListeners = new Map()
 		soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
 
+		this.tracks = []
 		this.setupTracks()
 		this.flattenTracksToList()
 
@@ -95,9 +96,6 @@ export class MusicService {
 	}
 
 	flattenTracksToList() {
-
-		this.tracks = []
-
 		let index = 0
 
 		for (let i = 0; i < this._byTracksArr.length; i++) {
@@ -181,7 +179,6 @@ const justInTime = new Track('Just in Time', [
 () => {
 return async () => {
 	const sound = this.soundManager.instance.getSound(justInTime.soundDatas[0].key)
-
 	let nrOfLoops = 2
 	do {
 		const {instance, endedPromise} = await sound.play()
@@ -1029,8 +1026,8 @@ new LayeredMusicController(this.instanceEndedListeners, this.logService.log))
 		this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 
 		const curTime = battle.audioCtx.currentTime
-		const duration = playReturn.instance.sourceNode.buffer.duration
-		playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + (duration / 2), (duration / 6))
+		const duration = playReturn.instance.sourceNode.buffer?.duration || 10
+			playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + (duration / 2), (duration / 6))
 
 		await playReturn.endedPromise
 		this.instanceEndedListeners.forEach((listener) => listener(true))
@@ -1064,7 +1061,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 		this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 
 		const curTime = feud.audioCtx.currentTime
-		const duration = playReturn.instance.sourceNode.buffer.duration
+		const duration = playReturn.instance.sourceNode.buffer?.duration || 10
 		playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + duration - 0.799, 1)
 
 		const asyncTimeout = async () => {
@@ -1078,7 +1075,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 
 		this.timeout = setTimeout(() => {
 			asyncTimeout()
-		}, (playReturn.instance.sourceNode.buffer.duration * 1000) - 799)
+		}, ((playReturn.instance.sourceNode.buffer?.duration || 10) * 1000) - 799)
 	}
 })
 
@@ -1164,7 +1161,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 		const winJingle = this.soundManager.instance.getSound(sff.soundDatas[5].key)
 		let playLose = true
 
-		let playReturn: PlayReturn | null
+		let playReturn: PlayReturn
 		playReturn = await introMenu.play()
 		this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 		this._awaitingFirstPlay = false
@@ -1174,7 +1171,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 		let nrOfLoop = 2
 		do {
 			playReturn = await mainMenu.play()
-			this.instancePlayedListeners.forEach((listener) => listener(playReturn?.instance))
+			this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 			await playReturn.endedPromise
 			this.instanceEndedListeners.forEach((listener) => listener())
 

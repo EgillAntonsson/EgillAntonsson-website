@@ -117,8 +117,12 @@ export class SoundManager {
 		return sound.play()
 	}
 
-	getSound(key: string): Sound | undefined {
-		return this.sounds.get(key)
+	getSound(key: string): Sound {
+		const sound = this.sounds.get(key)
+		if (!sound) {
+			throw new SoundManagerError(SoundManagerError.msgSoundNotInManager)
+		}
+		return sound
 	}
 
 	hasSound(key: string): boolean {
@@ -157,6 +161,19 @@ export class SoundManager {
 		if (this.audioContext) {
 			this.audioContext.close()
 		}
+	}
+
+}
+
+export class SoundManagerError implements Error {
+	name = 'SoundManagerError'
+	message: string
+	stack?: string
+
+	static msgSoundNotInManager = 'Sound Not In Manager'
+
+	constructor(message: string) {
+		this.message = message
 	}
 
 }

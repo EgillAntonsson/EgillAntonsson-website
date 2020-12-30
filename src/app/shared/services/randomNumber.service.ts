@@ -49,7 +49,7 @@ export class RandomNumberService implements RandomNumber {
 			this.uniqueNumbers.clear()
 		}
 
-		let num: number
+		let num = 0
 
 		if (this.uniqueNumbers.size === this.highestUniqueBorder - 1) {
 			// One number left to set
@@ -63,7 +63,6 @@ export class RandomNumberService implements RandomNumber {
 		} else {
 			do {
 				num = this.generateRandomNumber(this.highestUniqueBorder)
-
 			} while (this.uniqueNumbers.has(num))
 		}
 
@@ -75,7 +74,7 @@ export class RandomNumberService implements RandomNumber {
 }
 
 export class RandomNumberError implements Error {
-	name: string
+	name = 'RandomNumberError'
 	message: string
 	stack?: string
 
