@@ -15,17 +15,17 @@ export class Sound {
 	private instances: Map<number, SoundInstance> = new Map()
 	readonly audioCtx: AudioContext
 	private log: (logType: LogType, msg?: any, ...rest: any[]) => void
-	private endedListener: EventListener
+	private endedListener!: EventListener
 	private soundTypeGain: GainEmitter
 	private masterGain: GainEmitter
 	private dynamicRange: DynamicRangeEmitter
-	private sourceNodeBuffer: AudioBuffer
+	private sourceNodeBuffer!: AudioBuffer
 	private id =  -1
 	private _loaded = false
 	public get loaded() {
 		return this._loaded
 	}
-	private firstInstancePromise: Promise<SoundInstance>
+	private firstInstancePromise?: Promise<SoundInstance>
 
 	constructor(soundData: SoundData, configMaxNrPlayingAtOnce: number, soundTypeGain: GainEmitter, masterGain: GainEmitter, dynamicRange: DynamicRangeEmitter, audioCtx: AudioContext, log: (logType: LogType, msg?: any, ...rest: any[]) => void) {
 		this.audioCtx = audioCtx
@@ -44,10 +44,11 @@ export class Sound {
 		this.masterGain = masterGain
 		this.dynamicRange = dynamicRange
 
+		// first instance is meant for warmup loading and not to be played out
 		this.firstInstancePromise = this.createSoundInstance(true)
 	}
 
-	private reachedMaxNumberOfPlayingAtOnce(): boolean {
+	get reachedMaxNumberOfPlayingAtOnce(): boolean {
 		return this.instances.size >= this.maxNrPlayingAtOnceValidated || this.instances.size >= this.configMaxNrPlayingAtOnce
 	}
 
@@ -56,9 +57,8 @@ export class Sound {
 	}
 
 	async play(connectTheNodes = true) {
-		if (this.reachedMaxNumberOfPlayingAtOnce()) {
-			this.log(LogType.Info, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'`)
-			return
+		if (this.reachedMaxNumberOfPlayingAtOnce) {
+			this.log(LogType.Warn, `Reached MaxNrPlayingAtOnce for sound with key '${this.soundData.key}'. Will play sound, but client code can check property 'reachedMaxNumberOfPlayingAtOnce'`)
 		}
 
 		let instance: SoundInstance
@@ -66,12 +66,13 @@ export class Sound {
 		if (this.firstInstancePromise) {
 			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting first instance promise')
 			instance = await this.firstInstancePromise
-			this.firstInstancePromise = null
-		} else {
-			this.log(LogType.Info, `[${this.label}]`, 'play(): awaiting createSoundInstance')
-			instance = await this.createSoundInstance(connectTheNodes) // should never await
+			this.firstInstancePromise = undefined
 		}
-
+		else {
+			this.log(LogType.Info, `[${this.label}]`, 'play(): createSoundInstance')
+			// Should never await / be async
+			instance = await this.createSoundInstance(connectTheNodes)
+		}
 
 		this.instances.set(this.id, instance)
 		this.log(LogType.Info,  `Added soundInstance with id '${this.id}' to the instances list which now has the size '${this.instances.size}'`)
@@ -79,7 +80,7 @@ export class Sound {
 		const endedPromise = this.createEndedPromise(instance)
 		this.playSoundInstance(instance)
 
-		return {instance: instance, endedPromise: endedPromise}
+		return {instance, endedPromise}
 	}
 
 	private createEndedPromise(instance: SoundInstance) {
@@ -111,7 +112,6 @@ export class Sound {
 		instance.sourceNode.start()
 	}
 
-	// firstInstance is called from constructor, is meant for warmup loading and not to be played out
 	private async createSoundInstance(connectTheNodes: boolean) {
 		const sourceNode = this.audioCtx.createBufferSource()
 
@@ -134,25 +134,7 @@ export class Sound {
 
 		++this.id
 		this.log(LogType.Info,  `Creating sound instance for key '${this.soundData.key}' with id '${this.id}'`)
-		// const instance: SoundInstanceInternal = {sourceNode, gainWrapper, analyzerNode, paused: true, id: this.id}
 		const instance = new SoundInstance(this.audioCtx, sourceNode, analyzerNode, gainWrapper, this.id)
-
-		// this.instances.set(this.id, instance)
-		// this.log('Info',  `Added soundInstance with id '${this.id}' to the instances list which now has the size '${this.instances.size}'`)
-
-		// this.endedListener = () => {
-		// 	this.disposeInstance(instance)
-		// 	const success = this.instances.delete(instance.id)
-		// 	if (this.endedCallback) {
-		// 		this.endedCallback()
-		// 	}
-		// 	if (!success) {
-		// 		this.log('Warning', `deleting map with instance id '${instance.id}' as key failed`)
-		// 	}
-		// 	this.log('Info', `endedListener for key '${this.soundData.key}' with instance id '${instance.id}, list with new size ${this.instances.size}`)
-		// }
-
-		// sourceNode.addEventListener('ended', this.endedListener)
 
 		return instance
 	}

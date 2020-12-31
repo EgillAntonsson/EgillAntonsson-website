@@ -12,6 +12,7 @@ export class GainWrapper implements AudioParam {
 	public get defaultValue(): number {
 		return this._gainNode.gain.defaultValue
 	}
+
 	public get maxValue(): number {
 		return this._gainNode.gain.maxValue
 	}
@@ -35,10 +36,12 @@ export class GainWrapper implements AudioParam {
 	public set value(value: number) {
 		// this.log('Info', `GainWrapper set value param: ${value}`)
 		// this.log('Info', `GainWrapper get value before setting: ${this.value}`)
+
 		this._gainNode.gain.value = this.muted ? 0 : this.calculateGain(validateRange(value, 0, 1, this.log))
+
 		// this.log('Info', `GainWrapper value after setting: ${this.value}`)
 	}
-	private _gainNode: GainNode
+	private readonly _gainNode: GainNode
 	public get gainNode(): AudioNode {
 		return this._gainNode as AudioNode
 	}
@@ -85,7 +88,7 @@ export class GainWrapper implements AudioParam {
 			return 0
 		}
 		// dynamic Range applies only for SFX
-		if (this.soundType == SoundType.SFX) {
+		if (this.soundType === SoundType.SFX) {
 			const rangeCenter = this.dynamicRange.getRangeCenter()
 			// this.log('rangeCenter', rangeCenter)
 			// this.log('getRange', this.dynamicRange.getRange())
@@ -124,7 +127,7 @@ export class GainWrapper implements AudioParam {
 	}
 
 	linearRampToValueAtTime(value: number, endTime: number): AudioParam {
-		if (this.muted) { return this._gainNode.gain }
+		if (this.muted) { return this._gainNode?.gain }
 		this._gainNode.gain.linearRampToValueAtTime(this.calculateGain(value), endTime)
 		return this
 	}
@@ -162,10 +165,6 @@ export class GainWrapper implements AudioParam {
 
 		this.cancelScheduledValues(0)
 		this._gainNode.disconnect()
-		delete this._gainNode
-		delete this.dynamicRange
-		delete this.masterGain
-		delete this.soundTypeGain
 	}
 
 }

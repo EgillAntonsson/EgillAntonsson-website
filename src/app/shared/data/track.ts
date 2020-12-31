@@ -9,10 +9,10 @@ export interface ITrack {
 }
 
 export class Track implements ITrack {
-	index: number
 	readonly name: string
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
+	index!: number
 
 
 	///////
@@ -34,5 +34,10 @@ export class Track implements ITrack {
 }
 
 export class LayeredMusicTrack extends Track {
-	layeredMusicController: LayeredMusicController
+
+	readonly layeredMusicController: LayeredMusicController
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, layeredMusicController: LayeredMusicController) {
+		super(name, soundDatas, play)
+		this.layeredMusicController = layeredMusicController
+	}
 }

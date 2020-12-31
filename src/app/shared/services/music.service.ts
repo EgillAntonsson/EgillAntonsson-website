@@ -8,7 +8,7 @@ import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
 import { LogService } from './log.service'
 import { LogType } from 'shared/enums/logType'
-import { RandomNumberService } from './randomNumber.service'
+import { RandomNumber } from './randomNumber.service'
 
 interface PlayReturn {
 	instance: SoundInstance
@@ -32,7 +32,7 @@ export class MusicService {
 	}
 
 	nextSelectedTrack: ITrack
-	private _byTracksArr: ByTracks[]
+	private _byTracksArr!: ByTracks[]
 	get byTracksArr() {
 		return this._byTracksArr
 	}
@@ -46,7 +46,7 @@ export class MusicService {
 	get isPlaying() {
 		return this._isPlaying
 	}
-	private timeout: NodeJS.Timeout
+	private timeout: NodeJS.Timeout | undefined
 	readonly pathRoot = '../../assets/audio'
 	readonly pathGame = `${this.pathRoot}/game`
 	readonly pathKuai = `${this.pathRoot}/kuai`
@@ -59,49 +59,43 @@ export class MusicService {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumberService: RandomNumberService) {
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService, private logService: LogService, private randomNumber: RandomNumber) {
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 		soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
 
+		this.tracks = []
 		this.setupTracks()
 		this.flattenTracksToList()
 
 		if (this._isShuffle) {
-			randomNumberService.startUniqueNumberTracking(this.tracks.length)
-			this.nextSelectedTrack = this.tracks[randomNumberService.getUniqueRandomNumber()]
+			randomNumber.startUniqueNumberTracking(this.tracks.length)
+			this.nextSelectedTrack = this.tracks[randomNumber.generateUniqueRandomNumber()]
 		} else {
 			this.nextSelectedTrack = this.tracks[0]
 		}
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
+		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean) => {
 			if (this.timeout) {
 					clearTimeout(this.timeout)
-					this.timeout = null
+					this.timeout = undefined
 			}
 			if (trackEnded) {
 				this._isPlaying = false
 			}
-			// if (!serviceDidStop) {
-			// 	this.nextTrack()
-			// 	this.play(null)
-			// }
 		})
 	}
 
 	toggleShuffle() {
 		this._isShuffle = !this._isShuffle
 		if (this._isShuffle) {
-			this.randomNumberService.startUniqueNumberTracking(this.tracks.length)
+			this.randomNumber.startUniqueNumberTracking(this.tracks.length)
 		}
 	}
 
 	flattenTracksToList() {
-
-		this.tracks = []
-
 		let index = 0
 
 		for (let i = 0; i < this._byTracksArr.length; i++) {
@@ -150,7 +144,7 @@ export class MusicService {
 	nextTrack() {
 		let nextIndex: number
 		if (this._isShuffle) {
-			nextIndex = this.randomNumberService.getUniqueRandomNumber()
+			nextIndex = this.randomNumber.generateUniqueRandomNumber()
 		} else {
 			nextIndex = this._selectedTrack.index + 1
 		}
@@ -185,7 +179,6 @@ const justInTime = new Track('Just in Time', [
 () => {
 return async () => {
 	const sound = this.soundManager.instance.getSound(justInTime.soundDatas[0].key)
-
 	let nrOfLoops = 2
 	do {
 		const {instance, endedPromise} = await sound.play()
@@ -612,21 +605,17 @@ this.instanceEndedListeners.forEach((listener) => listener(true))
 {url: `${this.pathGame}/loton_MusicVillagePianoLayer.ogg`, key: 'godsrulePianoLayer', soundType: SoundType.Music, maxGain: 0.35, loop: true, maxNrPlayingAtOnce: 1}
 ],
 () => {
-	if (!godsruleLayered.layeredMusicController) {
+
+	return async () => {
 		const sounds = [
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[0].key),
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[1].key),
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(godsruleLayered.soundDatas[3].key)
 		]
-		godsruleLayered.layeredMusicController = new LayeredMusicController(sounds, 3, 30, 20, true, this.instanceEndedListeners)
-		godsruleLayered.layeredMusicController.setLog(this.logService.log)
-	}
-
-	return async () => {
 		const instances: SoundInstance[] = []
-		for (let i = 0; i < godsruleLayered.layeredMusicController.layerSounds.length; i++) {
-			const sound = godsruleLayered.layeredMusicController.layerSounds[i]
+		for (let i = 0; i < sounds.length; i++) {
+			const sound = sounds[i]
 			const {instance} = await sound.play()
 			instances.push(instance)
 			this.instancePlayedListeners.forEach((listener) => listener(instance))
@@ -634,30 +623,27 @@ this.instanceEndedListeners.forEach((listener) => listener(true))
 		godsruleLayered.layeredMusicController.start(instances)
 		this._awaitingFirstPlay = false
 	}
-})
+},
+new LayeredMusicController(this.instanceEndedListeners, this.logService.log))
 
-const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
+	const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 {url: `${this.pathGame}/VOT_InterfaceMusic_0.mp3`, key: 'votWindLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
 {url: `${this.pathGame}/VOT_InterfaceMusic_3.ogg`, key: 'votChoirLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
 {url: `${this.pathGame}/VOT_InterfaceMusic_2.ogg`, key: 'votHarpLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1},
 {url: `${this.pathGame}/VOT_InterfaceMusic_1.ogg`, key: 'votMelodyLayer', soundType: SoundType.Music, maxGain: 1, loop: true, maxNrPlayingAtOnce: 1}
 ],
 () => {
-	if (!votLayered.layeredMusicController) {
+
+	return async () => {
 		const sounds = [
 			this.soundManager.instance.getSound(votLayered.soundDatas[0].key),
 			this.soundManager.instance.getSound(votLayered.soundDatas[1].key),
 			this.soundManager.instance.getSound(votLayered.soundDatas[2].key),
 			this.soundManager.instance.getSound(votLayered.soundDatas[3].key)
 		]
-		votLayered.layeredMusicController = new LayeredMusicController(sounds, 3, 30, 20, true, this.instanceEndedListeners)
-		votLayered.layeredMusicController.setLog(this.logService.log)
-	}
-
-	return async () => {
 		const instances: SoundInstance[] = []
-		for (let i = 0; i < votLayered.layeredMusicController.layerSounds.length; i++) {
-			const sound = votLayered.layeredMusicController.layerSounds[i]
+		for (let i = 0; i < sounds.length; i++) {
+			const sound = sounds[i]
 			const {instance} = await sound.play()
 			instances.push(instance)
 			this.instancePlayedListeners.forEach((listener) => listener(instance))
@@ -665,7 +651,8 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 		votLayered.layeredMusicController.start(instances)
 		this._awaitingFirstPlay = false
 	}
-})
+},
+new LayeredMusicController(this.instanceEndedListeners, this.logService.log))
 
 		const cpp = new Track('Cake Pop Party', [
 {url: `${this.pathGame}/CPP_workMusicIntroScreen.ogg`, key: 'cppMusicIntro', soundType: SoundType.Music, maxGain: 0.7, loop: false, maxNrPlayingAtOnce: 1},
@@ -1039,8 +1026,8 @@ const votLayered = new LayeredMusicTrack('Vikings of Thule: Map', [
 		this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 
 		const curTime = battle.audioCtx.currentTime
-		const duration = playReturn.instance.sourceNode.buffer.duration
-		playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + (duration / 2), (duration / 6))
+		const duration = playReturn.instance.sourceNode.buffer?.duration || 10
+			playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + (duration / 2), (duration / 6))
 
 		await playReturn.endedPromise
 		this.instanceEndedListeners.forEach((listener) => listener(true))
@@ -1074,7 +1061,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 		this.instancePlayedListeners.forEach((listener) => listener(playReturn.instance))
 
 		const curTime = feud.audioCtx.currentTime
-		const duration = playReturn.instance.sourceNode.buffer.duration
+		const duration = playReturn.instance.sourceNode.buffer?.duration || 10
 		playReturn.instance.gainWrapper.setTargetAtTime(0, curTime + duration - 0.799, 1)
 
 		const asyncTimeout = async () => {
@@ -1088,7 +1075,7 @@ const vot = new Track('Vikings of Thule: Feud', [
 
 		this.timeout = setTimeout(() => {
 			asyncTimeout()
-		}, (playReturn.instance.sourceNode.buffer.duration * 1000) - 799)
+		}, ((playReturn.instance.sourceNode.buffer?.duration || 10) * 1000) - 799)
 	}
 })
 

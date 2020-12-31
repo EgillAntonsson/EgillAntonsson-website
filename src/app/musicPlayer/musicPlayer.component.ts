@@ -62,6 +62,7 @@ export class MusicPlayerComponent {
 		if (value <= 0.6) { return Color.GreenMed }
 		if (value <= 0.8) { return Color.GreenLightMed }
 		if (value <= 1) { return Color.GreenLight}
+		return Color.GreenLight
 	}
 	private sliderColorsMuted(value: number): string {
 		if (value <= 0.2) { return Color.OrangeDark }
@@ -69,6 +70,7 @@ export class MusicPlayerComponent {
 		if (value <= 0.6) { return Color.OrangeMed }
 		if (value <= 0.8) { return Color.OrangeLightMed }
 		if (value <= 1) { return Color.OrangeLight }
+		return Color.OrangeLight
 	}
 
 	private sliderColorsDisabled(_: number): string {
@@ -123,10 +125,6 @@ export class MusicPlayerComponent {
 	play() {
 		this.musicService.play(this._gainsDisabled)
 	}
-
-	// onMasterGainChange(changeCxt: ChangeContext) {
-	// 	this.soundManager.instance.masterGain = this.masterGain = changeCxt.value
-	// }
 
 	onMasterMuteChange() {
 		if (this._gainsDisabled.value) { return }

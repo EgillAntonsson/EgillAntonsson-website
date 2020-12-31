@@ -1,5 +1,3 @@
-import { SoundManager } from './soundManager'
-
 describe('sound common', () => {
 	// let pipe: SoundCommon
 
