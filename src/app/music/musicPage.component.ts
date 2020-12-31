@@ -1,5 +1,4 @@
 import { Component, OnDestroy, ViewChild, ElementRef, OnInit } from '@angular/core'
-import { Options } from 'ng5-slider'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'

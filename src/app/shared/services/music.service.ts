@@ -77,7 +77,7 @@ export class MusicService {
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
+		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean) => {
 			if (this.timeout) {
 					clearTimeout(this.timeout)
 					this.timeout = undefined

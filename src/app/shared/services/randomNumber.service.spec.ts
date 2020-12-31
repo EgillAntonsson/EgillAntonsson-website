@@ -51,10 +51,10 @@ export class RandomNumberMock implements RandomNumber {
 	generateUniqueRandomNumber(): number {
 		return this.retGenerateUniqueRandomNumber
 	}
-	generateRandomNumber(highestNotIncluded: number): number {
+	generateRandomNumber(_highestNotIncluded: number): number {
 		return this.retGenerateRandomNumber
 	}
-	startUniqueNumberTracking(highestBorder: number): void {
+	startUniqueNumberTracking(_highestBorder: number): void {
 	}
 	stopUniqueNumberTracking(): void {
 	}

@@ -19,6 +19,15 @@
     ],
     "module": "es2020",
 		"strict": true,
-		"strictNullChecks": true
-  }
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
+	},
+	"angularCompilerOptions": {
+		"fullTemplateTypeCheck": true,
+		"strictTemplates": true,
+		"strictInjectionParameters": true
+	}
 }

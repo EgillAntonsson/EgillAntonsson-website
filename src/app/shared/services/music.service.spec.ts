@@ -11,6 +11,7 @@ describe('MusicService', () => {
 		const randomNumberMock = new RandomNumberMock()
 
 		const music = new MusicService(new SoundManagerService(), new WindowRefService(), new LogService(), randomNumberMock)
+		console.log(music.label)
 
 		randomNumberMock.retGenerateRandomNumber = 99
 		expect(randomNumberMock.generateRandomNumber(100)).toBe(randomNumberMock.retGenerateRandomNumber)

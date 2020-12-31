@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-lift',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LiftingComponent {
 	categoryKg: CategoryKg
-	allCreaturesLifted: Array<Object>
+	allCreaturesLifted: Array<CreatureLifted>
 	firstDate: Date
 	lastDate: Date
 
@@ -22,4 +22,25 @@ export class LiftingComponent {
 
 interface CategoryKg {
 	All: number
+	Shoulders: number
+	Back: number
+	Abs: number
+	Triceps: number
+	Chest: number
+	Legs: number
+	Calves: number
+	Biceps: number
+}
+
+interface CreatureLifted {
+
+	total_kg: number
+	count: number
+	creature: Creature
+}
+
+interface Creature {
+	name: string
+	kg: number
+	url: string
 }
