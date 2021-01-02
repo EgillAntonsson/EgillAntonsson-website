@@ -48,8 +48,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	selectedByIndex = 0
 	openedUiByIndex = 0
 
-	get byTracksArr() {
-		return this.musicService.byTracksArr
+	get byTracks() {
+		return this.musicService.byTracks
 	}
 
 	get selectedTrack() {

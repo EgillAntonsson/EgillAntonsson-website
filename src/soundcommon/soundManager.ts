@@ -7,7 +7,30 @@ import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
 import { SoundData } from './interface/soundData'
 import { LogType } from '../shared/enums/logType'
 
-export class SoundManager {
+export interface SoundManager {
+
+	readonly label: string
+	readonly sounds: Map<string, Sound>
+	musicGain: number
+	musicMuted: boolean
+	sfxGain: number
+	sfxMuted: boolean
+	masterGain: number
+	masterMuted: boolean
+	maxNrPlayingAtOncePerSound: number
+	init(window: any, log: (logType: LogType, msg?: any, ...rest: any[]) => void): void
+	setDynamicRange(lowValue: number, highValue: number): void
+	addSound(soundData: SoundData): Sound
+	playSound(key: string): void
+	getSound(key: string): Sound
+	hasSound(key: string): boolean
+	stopSound(key: string): void
+	stopMusic(): void
+	stopAllSounds(): void
+	purge(): void
+}
+
+export class SoundManagerImp implements SoundManager {
 	readonly label = 'SoundManager'
 	readonly sounds: Map<string, Sound>
 
@@ -73,7 +96,7 @@ export class SoundManager {
 		this.audioContext = new AudioContext()
 	}
 
-	setDynamicRange(lowValue: number, highValue: number): void {
+	setDynamicRange(lowValue: number, highValue: number) {
 		if (lowValue > highValue) {
 			this.log(LogType.Error, `Invalid params for setDynamicRange, lowValue '${lowValue}' must be lower than highValue '${highValue}', not setting new Dynamic Range`)
 		}
@@ -82,7 +105,7 @@ export class SoundManager {
 		this.dynamicRange.emit(EmitterEvent.Change, this.dynamicRange)
 	}
 
-	addSound(soundData: SoundData): Sound {
+	addSound(soundData: SoundData) {
 		const soundTypeGain = (soundData.soundType === SoundType.Music) ? this._musicGain : this._sfxGain
 		this.updateEmitterMaxListeners(this.sounds.size + 1)
 
@@ -117,7 +140,7 @@ export class SoundManager {
 		return sound.play()
 	}
 
-	getSound(key: string): Sound {
+	getSound(key: string) {
 		const sound = this.sounds.get(key)
 		if (!sound) {
 			throw new SoundManagerError(SoundManagerError.msgSoundNotInManager)
@@ -125,11 +148,11 @@ export class SoundManager {
 		return sound
 	}
 
-	hasSound(key: string): boolean {
+	hasSound(key: string) {
 		return this.sounds.has(key)
 	}
 
-	stopSound(key: string): void {
+	stopSound(key: string) {
 		const sound = this.sounds.get(key)
 		if (!sound) {
 			this.log(LogType.Info, 'Cannot stop Sound, not in SoundManager')
@@ -138,7 +161,7 @@ export class SoundManager {
 		sound.stop()
 	}
 
-	stopMusic(): void {
+	stopMusic() {
 		this.sounds.forEach(sound => {
 			if (sound.soundData.soundType === SoundType.Music) {
 				sound.stop()

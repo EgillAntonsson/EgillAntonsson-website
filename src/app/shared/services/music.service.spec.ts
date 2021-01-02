@@ -3,6 +3,7 @@ import { SoundManagerService } from './soundManager.service'
 import { WindowRefService } from './windowRef.service'
 import { LogService } from './log.service'
 import { RandomNumberMock } from './randomNumber.service.spec'
+import { MyTracksService } from './myTracks.service'
 
 describe('MusicService', () => {
 
@@ -10,7 +11,8 @@ describe('MusicService', () => {
 
 		const randomNumberMock = new RandomNumberMock()
 
-		const music = new MusicService(new SoundManagerService(), new WindowRefService(), new LogService(), randomNumberMock)
+		const sms = new SoundManagerService()
+		const music = new MusicService(sms, new WindowRefService(), new MyTracksService(sms), randomNumberMock, new LogService())
 		console.log(music.label)
 
 		randomNumberMock.retGenerateRandomNumber = 99
