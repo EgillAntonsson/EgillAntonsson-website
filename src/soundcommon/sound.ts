@@ -1,4 +1,4 @@
-import { globalMaxNrPlayingAtOncePerSound, validateRange } from './soundUtil'
+import { SoundUtil } from './soundUtil'
 import { GainEmitter } from './emitter/gainEmitter'
 import { GainWrapper } from './wrapper/gainWrapper'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
@@ -34,12 +34,12 @@ export class Sound {
 
 		this.configMaxNrPlayingAtOnce = configMaxNrPlayingAtOnce
 		if (this.soundData.maxNrPlayingAtOnce) {
-			this.maxNrPlayingAtOnceValidated = validateRange(this.soundData.maxNrPlayingAtOnce, 0, globalMaxNrPlayingAtOncePerSound, this.log)
+			this.maxNrPlayingAtOnceValidated = SoundUtil.validateNumberForRange(this.soundData.maxNrPlayingAtOnce, 0, configMaxNrPlayingAtOnce)
 		} else {
-			this.maxNrPlayingAtOnceValidated = this.soundData.loop ? 1 : globalMaxNrPlayingAtOncePerSound
+			this.maxNrPlayingAtOnceValidated = this.soundData.loop ? 1 : configMaxNrPlayingAtOnce
 		}
 
-		this.maxGainValidated = validateRange(this.soundData.maxGain, 0, 1, this.log)
+		this.maxGainValidated = SoundUtil.validateNumberForRange(this.soundData.maxGain, 0, 1)
 		this.soundTypeGain = soundTypeGain
 		this.masterGain = masterGain
 		this.dynamicRange = dynamicRange

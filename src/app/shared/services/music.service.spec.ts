@@ -12,7 +12,8 @@ describe('MusicService', () => {
 		const randomNumberMock = new RandomNumberMock()
 
 		const sms = new SoundManagerService()
-		const music = new MusicService(sms, new WindowRefService(), new MyTracksService(sms), randomNumberMock, new LogService())
+		const music = new MusicService(sms, new WindowRefService(), new MyTracksService(sms, new LogService()), randomNumberMock, new LogService())
+
 		console.log(music.label)
 
 		randomNumberMock.retGenerateRandomNumber = 99

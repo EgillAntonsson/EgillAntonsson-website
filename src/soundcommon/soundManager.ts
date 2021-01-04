@@ -1,6 +1,6 @@
 import { Sound } from './sound'
 import { SoundType } from './enum/soundType'
-import { validateRange, globalMaxNrPlayingAtOncePerSound } from './soundUtil'
+import { globalMaxNrPlayingAtOncePerSound, SoundUtil } from './soundUtil'
 import { GainEmitter } from './emitter/gainEmitter'
 import { EmitterEvent } from './enum/emitterEvent'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
@@ -36,7 +36,7 @@ export class SoundManagerImp implements SoundManager {
 
 	private _musicGain: GainEmitter
 	public set musicGain(gain: number) {
-		this._musicGain.value = validateRange(gain, 0, 1, this.log)
+		this._musicGain.value = SoundUtil.validateNumberForRange(gain, 0, 1)
 		this._musicGain.emit(EmitterEvent.GainChange)
 	}
 	public set musicMuted(muted: boolean) {
@@ -46,7 +46,7 @@ export class SoundManagerImp implements SoundManager {
 
 	private _sfxGain: GainEmitter
 	public set sfxGain(gain: number) {
-		this._sfxGain.value = validateRange(gain, 0, 1, this.log)
+		this._sfxGain.value = SoundUtil.validateNumberForRange(gain, 0, 1)
 		this._sfxGain.emit(EmitterEvent.GainChange)
 	}
 	public set sfxMuted(muted: boolean) {
@@ -59,7 +59,7 @@ export class SoundManagerImp implements SoundManager {
 		return this._masterGain.value
 	}
 	public set masterGain(gain: number) {
-		this._masterGain.value = validateRange(gain, 0, 1, this.log)
+		this._masterGain.value = SoundUtil.validateNumberForRange(gain, 0, 1)
 		this._masterGain.emit(EmitterEvent.GainChange)
 	}
 	public set masterMuted(muted: boolean) {
@@ -69,7 +69,7 @@ export class SoundManagerImp implements SoundManager {
 
 	private _maxNrPlayingAtOncePerSound: number
 	public set maxNrPlayingAtOncePerSound(value: number) {
-		this._maxNrPlayingAtOncePerSound = validateRange(value, 1, globalMaxNrPlayingAtOncePerSound, this.log)
+		this._maxNrPlayingAtOncePerSound = SoundUtil.validateNumberForRange(value, 1, globalMaxNrPlayingAtOncePerSound)
 		this.sounds.forEach(sound => {
 			sound.configMaxNrPlayingAtOnce = this._maxNrPlayingAtOncePerSound
 		})
@@ -100,8 +100,8 @@ export class SoundManagerImp implements SoundManager {
 		if (lowValue > highValue) {
 			this.log(LogType.Error, `Invalid params for setDynamicRange, lowValue '${lowValue}' must be lower than highValue '${highValue}', not setting new Dynamic Range`)
 		}
-		this.dynamicRange.lowValue = validateRange(lowValue, 0, 1, this.log)
-		this.dynamicRange.highValue =  validateRange(highValue, 0, 1, this.log)
+		this.dynamicRange.lowValue = SoundUtil.validateNumberForRange(lowValue, 0, 1)
+		this.dynamicRange.highValue =  SoundUtil.validateNumberForRange(highValue, 0, 1)
 		this.dynamicRange.emit(EmitterEvent.Change, this.dynamicRange)
 	}
 

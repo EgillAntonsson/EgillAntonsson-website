@@ -34,24 +34,19 @@ export class MusicService {
 	get isPlaying() {
 		return this._isPlaying
 	}
-	private timeout: NodeJS.Timeout | undefined
-	readonly instancePlayedListeners: Map<string, (soundInstance: SoundInstance) => void>
-	readonly instanceEndedListeners: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 	private tracks: Track[]
 	private _isShuffle = true
 	get isShuffle() {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private logService: LogService, ) {
+	constructor(private soundManager: SoundManagerService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private logService: LogService) {
 
-		this.instancePlayedListeners = new Map()
-		this.instanceEndedListeners = new Map()
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
 
-		this.myTracks.init(this.instancePlayedListeners, this.instanceEndedListeners)
+		this.myTracks.init()
 		this._byTracks = myTracks.byTracks
 		this.tracks = myTracks.flatTracks
 
@@ -103,7 +98,7 @@ export class MusicService {
 		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
 			track.layeredMusicController.stop()
 		}
-		this.instanceEndedListeners.forEach((listener) => listener(true, true))
+		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
 		this._isPlaying = false
 	}
 
@@ -126,10 +121,10 @@ export class MusicService {
 			this._awaitingFirstPlay = false
 		})
 
-		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean) => {
-			if (this.timeout) {
-					clearTimeout(this.timeout)
-					this.timeout = undefined
+		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, _serviceDidStop?: boolean) => {
+			if (this.myTracks.timeout) {
+					clearTimeout(this.myTracks.timeout)
+					this.myTracks.timeout = undefined
 			}
 			if (trackEnded) {
 				this._isPlaying = false
@@ -138,19 +133,19 @@ export class MusicService {
 	}
 
 	addInstancePlayedListener(name: string, listener: (soundInstance: SoundInstance) => void) {
-		this.instancePlayedListeners.set(name, listener)
+		this.myTracks.instancePlayedListeners.set(name, listener)
 	}
 
 	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, serviceDidStop?: boolean) => void) {
-		this.instanceEndedListeners.set(name, listener)
+		this.myTracks.instanceEndedListeners.set(name, listener)
 	}
 
 	removeInstancePlayedListener(name: string) {
-		this.instancePlayedListeners.delete(name)
+		this.myTracks.instancePlayedListeners.delete(name)
 	}
 
 	removeInstanceEndedListener(name: string) {
-		this.instanceEndedListeners.delete(name)
+		this.myTracks.instanceEndedListeners.delete(name)
 	}
 
 }
