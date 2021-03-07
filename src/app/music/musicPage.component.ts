@@ -6,6 +6,7 @@ import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { LogType } from '../../shared/enums/logType'
+import { PlayState } from 'app/shared/enums/playState'
 
 @Component({
 	selector: 'app-music-page',
@@ -48,8 +49,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	selectedByIndex = 0
 	openedUiByIndex = 0
 
-	get byTracksArr() {
-		return this.musicService.byTracksArr
+	get byTracks() {
+		return this.musicService.byTracks
 	}
 
 	get selectedTrack() {
@@ -96,8 +97,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	onTrackClick(track: ITrack) {
-		if (this.musicService.awaitingFirstPlay) {
-			this.logService.log(LogType.Info, 'onTrackClick, awaitingFirstPlay is true, returning without processing')
+		if (this.musicService.playState === PlayState.Loading) {
+			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
 			return
 		}
 		this.selectedByIndex = this.openedUiByIndex

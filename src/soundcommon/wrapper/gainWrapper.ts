@@ -1,7 +1,7 @@
-import { validateRange } from '../soundUtil'
+import { SoundUtil } from '../soundUtil'
 import { DynamicRangeEmitter } from '../emitter/dynamicRangeEmitter'
 import { GainEmitter } from '../emitter/gainEmitter'
-import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
+import { EmitterEvent } from 'soundcommon/enum/emitterEvent'
 import { SoundType } from 'soundcommon/enum/soundType'
 
 export class GainWrapper implements AudioParam {
@@ -37,7 +37,7 @@ export class GainWrapper implements AudioParam {
 		// this.log('Info', `GainWrapper set value param: ${value}`)
 		// this.log('Info', `GainWrapper get value before setting: ${this.value}`)
 
-		this._gainNode.gain.value = this.muted ? 0 : this.calculateGain(validateRange(value, 0, 1, this.log))
+		this._gainNode.gain.value = this.muted ? 0 : this.calculateGain(SoundUtil.validateNumberForRange(value, 0, 1))
 
 		// this.log('Info', `GainWrapper value after setting: ${this.value}`)
 	}
@@ -93,7 +93,7 @@ export class GainWrapper implements AudioParam {
 			// this.log('rangeCenter', rangeCenter)
 			// this.log('getRange', this.dynamicRange.getRange())
 			const calculatedGain = rangeCenter + (GainPreDR - 0.5) * this.dynamicRange.getRange()
-			// this.log('Info', `calculateGain calculatedGain: ${calculatedGain}`)
+			this.log('Info', `calculateGain calculatedGain: ${calculatedGain}`)
 			return calculatedGain
 		} else {
 			return GainPreDR
