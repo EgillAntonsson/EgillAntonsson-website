@@ -4,7 +4,7 @@
 	<url>
 		<loc>https://www.egill.rocks</loc>
 		<priority>0.9</priority>
-		<lastmod>2020-11-14</lastmod>
+		<lastmod>2021-03-07</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/Egill_Antonsson_family.jpg</image:loc>
@@ -17,7 +17,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
 		<priority>1.0</priority>
-		<lastmod>2020-12-21</lastmod>
+		<lastmod>2021-03-07</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://i1.sndcdn.com/artworks-000190333072-jdj443-t500x500.jpg</image:loc>
@@ -28,7 +28,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
 		<priority>0.8</priority>
-		<lastmod>2020-11-14</lastmod>
+		<lastmod>2021-03-07</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/Egill_Antonsson_against_the_dragon_breath</image:loc>
