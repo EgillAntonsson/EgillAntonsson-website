@@ -63,18 +63,6 @@ export class MyTracksService {
 		}
 
 		this._byTracks = [
-			{by: 'Egill & Jónas seniors', tracks: [
-				this.rubber(),
-				this.mouse(),
-				this.chase(),
-				this.guitarSolos(),
-				this.withoutThem(),
-				this.story(),
-				this.worldIsNothing(),
-				this.tapDance(),
-				this.beLikeYou(),
-				this.takeCare()
-			]},
 			{by: 'Egill Antonsson', tracks: [
 				this.justInTime(),
 				this.votThemeSong(),
@@ -120,6 +108,18 @@ export class MyTracksService {
 				this.godsrule(),
 				this.vot(),
 				this.crisisGame()
+			]},
+			{by: 'Egill & Jónas seniors', tracks: [
+				this.rubber(),
+				this.mouse(),
+				this.chase(),
+				this.guitarSolos(),
+				this.withoutThem(),
+				this.story(),
+				this.worldIsNothing(),
+				this.tapDance(),
+				this.beLikeYou(),
+				this.takeCare()
 			]}
 		]
 

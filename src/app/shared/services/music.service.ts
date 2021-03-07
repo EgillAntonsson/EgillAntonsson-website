@@ -8,6 +8,7 @@ import { LogService } from './log.service'
 import { LogType } from 'shared/enums/logType'
 import { RandomNumber } from './randomNumber.service'
 import { ByTracks, MyTracksService } from './myTracks.service'
+import { PlayState } from '../enums/playState'
 
 @Injectable({
 	providedIn: 'root',
@@ -24,16 +25,13 @@ export class MusicService {
 	get byTracks() {
 		return this._byTracks
 	}
-	private _awaitingFirstPlay = false
-
-	get awaitingFirstPlay() {
-		return this._awaitingFirstPlay
+	private _playState = PlayState.Stopped
+	get playState() {
+		return this._playState
 	}
 
-	private _isPlaying = false
-	get isPlaying() {
-		return this._isPlaying
-	}
+	private _playStateChangeListener = () => {}
+
 	private tracks: Track[]
 	private _isShuffle = true
 	get isShuffle() {
@@ -69,7 +67,7 @@ export class MusicService {
 	}
 
 	play(gainsDisabled: BooleanEmitter) {
-		if (this._awaitingFirstPlay) {
+		if (this._playState === PlayState.Loading) {
 			return
 		}
 		this.stop()
@@ -81,9 +79,8 @@ export class MusicService {
 				this.logService.log(LogType.Info, `[${this.label}]`, 'adding sounds')
 			}
 		}
-		this._awaitingFirstPlay = true
+		this._playState = PlayState.Loading
 		track.play()()
-		this._isPlaying = true
 
 		if (track instanceof LayeredMusicTrack) {
 			track.layeredMusicController.gainsDisabled = gainsDisabled
@@ -99,7 +96,7 @@ export class MusicService {
 			track.layeredMusicController.stop()
 		}
 		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
-		this._isPlaying = false
+		// this._isPlaying = false
 	}
 
 	nextTrack() {
@@ -118,7 +115,10 @@ export class MusicService {
 
 	private setupInstanceListeners() {
 		this.addInstancePlayedListener(`${this.label} playedListener`, (_soundInstance: SoundInstance) => {
-			this._awaitingFirstPlay = false
+			this._playState = PlayState.Playing
+				// listener needs to be called here
+				// as the seems view does not update when State is right away set from 'Loading' to 'Playing' (when no loading is needed)
+			this._playStateChangeListener()
 		})
 
 		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, _serviceDidStop?: boolean) => {
@@ -127,7 +127,7 @@ export class MusicService {
 					this.myTracks.timeout = undefined
 			}
 			if (trackEnded) {
-				this._isPlaying = false
+				this._playState = PlayState.Stopped
 			}
 		})
 	}
@@ -138,6 +138,10 @@ export class MusicService {
 
 	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, serviceDidStop?: boolean) => void) {
 		this.myTracks.instanceEndedListeners.set(name, listener)
+	}
+
+	addPlayStateChangeListener(listener: () => void) {
+		this._playStateChangeListener = listener
 	}
 
 	removeInstancePlayedListener(name: string) {

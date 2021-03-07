@@ -170,8 +170,6 @@ export class Sound {
 	dispose(): void {
 		this.instances.forEach((instance: SoundInstance) => {
 			this.disposeInstance(instance)
-			// delete instance.gainWrapper
-			// delete instance.sourceNode
 		})
 		this.instances.clear()
 		this.soundTypeGain.removeAllListeners()

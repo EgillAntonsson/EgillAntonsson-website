@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from 'ng5-slider'
@@ -7,6 +7,7 @@ import { SoundManagerService } from '../shared/services/soundManager.service'
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
+import { PlayState } from 'app/shared/enums/playState';
 
 @Component({
 	selector: 'app-music-player',
@@ -15,15 +16,16 @@ import { Color } from 'app/shared/enums/color'
 })
 export class MusicPlayerComponent {
 	readonly label = 'MusicPlayer'
-	get awaitingFirstPlay() {
-		return this.musicService.awaitingFirstPlay
-	}
+
 	get selectedTrack() {
 		return this.musicService.selectedTrack
 	}
-	get isPlaying() {
-		return this.musicService.isPlaying
+
+	get playState() {
+		console.log('playState', this.musicService.playState)
+		return this.musicService.playState
 	}
+
 	get isShuffle() {
 		return this.musicService.isShuffle
 	}
@@ -77,12 +79,9 @@ export class MusicPlayerComponent {
 		return Color.Disabled
 	}
 
-	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private messageService: MessageService) {
+	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
 
 		this.enableGains = (value: boolean) => {
-
-			// INFO: view html seems not to be able to dig into enableGains.value, thus gainsDisabledForView is needed
-			// this.gainsDisabledForView = value
 
 			if (value) {
 				this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
@@ -103,10 +102,18 @@ export class MusicPlayerComponent {
 					this.onNext()
 				}
 		})
+
+		this.musicService.addPlayStateChangeListener(() => {
+			console.log('this.changeDetectorRef.detectChanges()')
+			this.changeDetectorRef.detectChanges()
+		})
 	}
 
 	onPlayStop() {
-		if (this.musicService.isPlaying) {
+		if (this.musicService.playState === PlayState.Loading) {
+			return
+		}
+		if (this.musicService.playState === PlayState.Playing) {
 			this.musicService.stop()
 		} else {
 			this.play()

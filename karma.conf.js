@@ -19,10 +19,10 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, 'coverage'), reports: [ 'html', 'lcovonly' ],
 			fixWebpackSourcePaths: true,
 			thresholds: {
-				statements: 22,
-				lines: 26,
-				branches: 22,
-				functions: 10
+				statements: 30,
+				branches: 23,
+				functions: 20,
+				lines: 35
 			}
     },
 
@@ -34,5 +34,5 @@ module.exports = function (config) {
     // browsers: ['Chrome'],
     browsers: ['ChromeHeadless'],
     singleRun: false
-  });
-};
+  })
+}
