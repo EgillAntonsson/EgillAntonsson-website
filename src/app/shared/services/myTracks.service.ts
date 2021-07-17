@@ -64,8 +64,10 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{by: 'Egill Antonsson', tracks: [
-				this.justInTime(),
+				this.weWillMeetAgain(),
+				this.magmaMerryGoRound(),
 				this.votThemeSong(),
+				this.justInTime(),
 				this.icelandSocksIntro(),
 				this.fortidin(),
 				this.toddlerTune(),
@@ -300,6 +302,54 @@ export class MyTracksService {
 		return track
 	}
 
+	private votThemeSong() {
+		const track = new Track(
+			'Vikings of Thule Theme Song',
+			[SoundData.music('votThemeSong', `${this.pathRoot}/Vikings_of_Thule__Theme_Song.ogg`)],
+			() => {
+				return async () => {
+					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+					const {instance, endedPromise} = await sound.play()
+					this.instancePlayedListeners.forEach((listener) => listener(instance))
+					await endedPromise
+					this.instanceEndedListeners.forEach((listener) => listener(true))
+				}
+			})
+		return track
+	}
+
+	private weWillMeetAgain() {
+		const track = new Track(
+			'We Will Meet Again',
+			[SoundData.music('weWillMeetAgain', `${this.pathRoot}/We_Will_Meet_Again.ogg`)],
+			() => {
+				return async () => {
+					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+					const {instance, endedPromise} = await sound.play()
+					this.instancePlayedListeners.forEach((listener) => listener(instance))
+					await endedPromise
+					this.instanceEndedListeners.forEach((listener) => listener(true))
+				}
+			})
+		return track
+	}
+
+	private magmaMerryGoRound() {
+		const track = new Track(
+			'Magma MerryGoRound',
+			[SoundData.music('magmaMerryGoRound', `${this.pathRoot}/Magma_MerryGoRound.ogg`)],
+			() => {
+				return async () => {
+					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+					const {instance, endedPromise} = await sound.play()
+					this.instancePlayedListeners.forEach((listener) => listener(instance))
+					await endedPromise
+					this.instanceEndedListeners.forEach((listener) => listener(true))
+				}
+			})
+		return track
+	}
+
 	private justInTime() {
 		const track = new Track('Just in Time', [{
 				url: `${this.pathRoot}/Just_in_Time.ogg`,
@@ -320,22 +370,6 @@ export class MyTracksService {
 						this.instanceEndedListeners.forEach((listener) => listener(nrOfLoops === 1))
 						nrOfLoops--
 					} while (nrOfLoops > 0)
-				}
-			})
-		return track
-	}
-
-	private votThemeSong() {
-		const track = new Track(
-			'Vikings of Thule: Theme',
-			[SoundData.music('votThemeSong', `${this.pathRoot}/Vikings_of_Thule__Theme_Song.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
 			})
 		return track
