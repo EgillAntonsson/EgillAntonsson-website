@@ -10,7 +10,7 @@ Project uses the [Angular](https://angular.io) framework
 
 ### Angular CLI, used commands:
 
-#### [> git a ](https://angular.io/cli/serve)
+#### [> ng serve](https://angular.io/cli/serve)
 
 #### [> ng test](https://angular.io/guide/testing#set-up-testing)
 
