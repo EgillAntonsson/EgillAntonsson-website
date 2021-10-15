@@ -18,6 +18,9 @@ export class LiftingComponent {
 
 	egillTotalLifted: number
 
+	calculatorInput = 0
+	calculatorResult: Array<CreatureLifted> = []
+
 	constructor(private http: HttpClient) {
 		/**
 	 * Sorts by the heaviest first.
@@ -86,8 +89,8 @@ export class LiftingComponent {
 
 		// TODO: good and early input validation in textfield
 
-		console.log('please work', textValue)
-		this.weightToCreatures(parseFloat(textValue))
+		this.calculatorInput = parseFloat(textValue)
+		this.calculatorResult = this.weightToCreatures(this.calculatorInput)
 	}
 
 	weightToCreatures(weightInKg: number) {
