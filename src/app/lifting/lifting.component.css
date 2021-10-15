@@ -11,3 +11,7 @@ table th {
 	border: 1px solid #ccc;
 	padding: 0.5em;
 }
+
+.converter {
+	text-align: center;
+}

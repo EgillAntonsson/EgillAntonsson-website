@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "",
-    "types": ["node"]
+    "types": ["node"],
+		"paths": {
+      "fs": ["./node_modules/fs-web"]
+    }
   },
   "files": [
     "main.ts",
