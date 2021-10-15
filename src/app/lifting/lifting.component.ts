@@ -11,10 +11,12 @@ export class LiftingComponent {
 
 	creatures: Array<Creature>
 
-	categoryKg: CategoryKg
+	// categoryKg: CategoryKg
 	allCreaturesLifted: Array<CreatureLifted> = []
-	firstDate: Date
-	lastDate: Date
+	firstDate!: Date
+	lastDate!: Date
+
+	egillTotalLifted: number
 
 	constructor(private http: HttpClient) {
 		/**
@@ -27,7 +29,7 @@ export class LiftingComponent {
 		this.creatures = require('../../assets/data/creatures.json')
 		this.creatures.sort((a, b) => a.kg > b.kg ? -1 : 1)
 
-
+		this.egillTotalLifted = 0.0
 		// Parse local CSV file
 
 		const pathFitNotes = '../../assets/data/FitNotes_Export.csv'
@@ -36,49 +38,48 @@ export class LiftingComponent {
 
 		// let csv: string
 
-		let sum = 0
 
 		this.http.get(pathFitNotes, {responseType: 'text'}).subscribe(data => {
-			// const list = data.split('\n')
-			// list.forEach( line => {
-			// 	csv += line
-			// })
 
-			let config = {header: true}
+			let config = {header: true, skipEmptyLines: true}
 			let parseRes = Papa.parse(data, config)
 
 			let theData = parseRes.data as Array<FitNoteRow>
+			let errors = parseRes.errors
+
+
+			let error
+			for (let i = errors.length - 1 ; i >= 0; i--) {
+				error = errors[i]
+				// console.log('Removing row "' + error.row + '". ' + error.type + '. ' + error.code + '. ' + error.message)
+				theData.splice(error.row, 1)
+			}
 
 			theData.forEach(FitNoteRow => {
 				// let weight: number =  parseFloat(FitNoteRow['weight (kgs)'])
-				let date =  FitNoteRow.Date
-				let weight = FitNoteRow['Weight (kgs)']
-				sum += parseFloat(weight)
-				// console.log(date)
-				// console.log(weight)
-				// console.log(sum)
+				const weight = FitNoteRow['Weight (kgs)']
+				const reps = FitNoteRow.Reps
+
+				// console.log('weight', weight)
+				// console.log('egillTotalLifted', this.egillTotalLifted)
+				if (weight !== '' && reps !== '') {
+					this.egillTotalLifted += parseFloat(weight) * parseFloat(reps)
+					// console.log(date)
+					// console.log(weight)
+					// console.log('egillTotalLifted after', this.egillTotalLifted)
+				}
 			})
 
-			console.log(sum)
-
-			this.allCreaturesLifted = this.weightToCreatures(sum)
-			console.log(this.allCreaturesLifted)
+			console.log(this.egillTotalLifted)
+			// console.log(date)
+			this.allCreaturesLifted = this.weightToCreatures(this.egillTotalLifted)
+			this.firstDate = new Date(theData[0].Date)
+		this.lastDate = new Date(theData[theData.length - 1].Date)
+			// console.log(this.allCreaturesLifted)
 		})
 
-// 	Papa.parse(new File()), {
-// 	complete: function(results) {
-// 		console.log("Finished:", results.data)
-// 	}
-// });
-
-
-		const lifting_data = require('../../assets/data/lifting.json')
-		this.categoryKg = lifting_data.category_kg as CategoryKg
-		this.firstDate = new Date(lifting_data.first_date)
-		this.lastDate = new Date(lifting_data.last_date)
-
-		// this.allCreaturesLifted = lifting_data.all_creatures_lifted
-		// this.allCreaturesLifted = this.weightToCreatures(2928036.2)
+		// const lifting_data = require('../../assets/data/lifting.json')
+		// this.categoryKg = lifting_data.category_kg as CategoryKg
 	}
 
 	clickme(textValue: string) {
@@ -110,18 +111,14 @@ export class LiftingComponent {
 		})
 
 		return creaturesLifted
-
-		// console.log('weightInKg', weightInKg)
-		// console.log(creaturesLifted)
-		// console.log(tempWeightInKg)
-		// console.log(this.creatures)
 	}
 
 }
 
 interface FitNoteRow {
-	'Weight (kgs)': string
 	Date: string
+	'Weight (kgs)': string
+	Reps: string
 }
 
 interface Creature {
@@ -130,17 +127,17 @@ interface Creature {
 	url: string
 }
 
-interface CategoryKg {
-	All: number
-	Shoulders: number
-	Back: number
-	Abs: number
-	Triceps: number
-	Chest: number
-	Legs: number
-	Calves: number
-	Biceps: number
-}
+// interface CategoryKg {
+// 	All: number
+// 	Shoulders: number
+// 	Back: number
+// 	Abs: number
+// 	Triceps: number
+// 	Chest: number
+// 	Legs: number
+// 	Calves: number
+// 	Biceps: number
+// }
 
 interface CreatureLifted {
 	count: number
