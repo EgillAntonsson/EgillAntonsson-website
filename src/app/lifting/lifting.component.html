@@ -9,10 +9,10 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 		<th>Creatures lifted</th>
 	</tr>
 	<tr>
-		<td class="center">{{egillTotalLifted | mynumber: 0:'/':1000}}</td>
+		<td class="center">{{totalKgLifted | mynumber: 0:'/':1000}}</td>
 		<td>
 			<ul>
-				<li *ngFor="let item of allCreaturesLifted">
+				<li *ngFor="let item of totalCreaturesLifted">
 					{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber}} kg{{item.count > 1 ? ' each' : ''}})
 				</li>
 			</ul>
@@ -29,7 +29,7 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 	<div class="converter">
 		<sub>Enter KGs into text field and then press button:</sub><br>
 		<input type="text" id="inputText" name="inputText" #text>
-		<button type="button" (click)="clickme(text.value)">Convert</button>
+		<button type="button" (click)="convertClick(text.value)">Convert</button>
 	</div>
 	<table class="calculatorResult" *ngIf="calculatorResult.length > 0">
 		<tr>
