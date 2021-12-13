@@ -15,14 +15,6 @@ export class LiftingService {
 	hasCalculatedMyStats = false
 
 	constructor(private http: HttpClient, private logService: LogService) {
-	}
-
-	loadAndCalculateMyLog(callback: (myLiftingStats: MyLiftingStats) => void) {
-
-		if (this.hasCalculatedMyStats) {
-			callback(this.myLiftingStats)
-		}
-
 		/** Load creature list
 		* Sorts by the heaviest first.
 		* mammals: gathered from https://thewebsiteofeverything.com/animals/mammals/adult-weight.html
@@ -32,6 +24,13 @@ export class LiftingService {
 		*/
 		this.creatureList = require('../../../assets/data/creatures.json')
 		this.creatureList.sort((a, b) => a.kg > b.kg ? -1 : 1)
+	}
+
+	loadAndCalculateMyLog(callback: (myLiftingStats: MyLiftingStats) => void) {
+
+		if (this.hasCalculatedMyStats) {
+			callback(this.myLiftingStats)
+		}
 
 
 		// calculate egillTotalLifted
@@ -103,7 +102,7 @@ export class LiftingService {
 export interface Creature {
 	name: string
 	kg: number
-	url: string
+	url: string | undefined
 }
 
 export interface CreatureLifted {
