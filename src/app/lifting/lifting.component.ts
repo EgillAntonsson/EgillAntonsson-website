@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Component, } from '@angular/core'
+import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { LiftingService, CreatureLifted } from '../shared/services/lifting.service'
 
 @Component({
@@ -13,10 +14,16 @@ export class LiftingComponent {
 	totalKgLifted = 0
 	totalCreaturesLifted: Array<CreatureLifted> = []
 
-	calculatorInput = 0
-	calculatorResult: Array<CreatureLifted> = []
 
-	constructor(private liftingService: LiftingService) {
+
+	convertLastInputSubmit = 0
+	convertResult: Array<CreatureLifted> = []
+	convertForm: FormGroup
+	inputKgControl
+	maximumInputAllowed = 999999999
+	minimumInputAllowed = 0.5
+
+	constructor(private liftingService: LiftingService, private fb: FormBuilder) {
 
 		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
 			this.totalKgLifted = myLiftingStats.totalKgLifted
@@ -25,13 +32,35 @@ export class LiftingComponent {
 			this.lastDate = myLiftingStats.lastDate
 		})
 
+
+		const initialKgValue = 120
+		this.convertForm = this.fb.group({
+			inputKg: [initialKgValue,[
+					Validators.pattern(/^\d+\.*\d*$/),
+					Validators.max(this.maximumInputAllowed),
+					Validators.min(this.minimumInputAllowed)
+				]
+			]
+		})
+		this.inputKgControl = this.convertForm.controls['inputKg']
+
+		this.convert(initialKgValue)
 	}
 
-	convertClick(textValue: string) {
 
-		// TODO: early input validation in textfield
+	inputEvent() {
+		const inputNumber = parseFloat(this.inputKgControl.value)
 
-		this.calculatorInput = parseFloat(textValue)
-		this.calculatorResult = this.liftingService.weightInCreatures(this.calculatorInput)
+		if (this.inputKgControl.invalid || inputNumber === this.convertLastInputSubmit) {
+			return
+		}
+
+		this.convertLastInputSubmit = inputNumber
+		this.convert(inputNumber)
 	}
+
+	private convert(number: number) {
+		this.convertResult = this.liftingService.weightInCreatures(number)
+	}
+
 }

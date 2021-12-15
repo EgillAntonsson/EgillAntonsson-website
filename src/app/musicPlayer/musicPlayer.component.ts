@@ -22,7 +22,6 @@ export class MusicPlayerComponent {
 	}
 
 	get playState() {
-		console.log('playState', this.musicService.playState)
 		return this.musicService.playState
 	}
 
@@ -104,7 +103,6 @@ export class MusicPlayerComponent {
 		})
 
 		this.musicService.addPlayStateChangeListener(() => {
-			console.log('this.changeDetectorRef.detectChanges()')
 			this.changeDetectorRef.detectChanges()
 		})
 	}
