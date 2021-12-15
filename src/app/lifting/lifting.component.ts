@@ -33,6 +33,7 @@ export class LiftingComponent {
 		})
 
 
+		// INFO: input html set to type "number", which does not allow characters on desktop, but good to have also the pattern (might be needed on mobile, to be later verified)
 		const initialKgValue = 120
 		this.convertForm = this.fb.group({
 			inputKg: [initialKgValue,[
