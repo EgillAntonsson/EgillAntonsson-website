@@ -10,11 +10,17 @@ export class MyNumberPipe implements PipeTransform {
 				break
 			case '*':
 				conversedValue = value * conversionAmount
-				break;
+				break
 			default:
 				throw new RangeError('parameter "conversionSign" can only have value "/" or "*"')
 		}
-		const originalString = conversedValue.toFixed(decimalDigits)
+
+			let toFix = decimalDigits
+			if (value === Math.trunc(value)) {
+				toFix = 0
+			}
+			const originalString = conversedValue.toFixed(toFix)
+
 
 		const formattedStringList: string[] = []
 		let index = originalString.includes('.') ? originalString.indexOf('.') : originalString.length

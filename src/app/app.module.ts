@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatRippleModule } from '@angular/material/core'
 import { Ng5SliderModule } from 'ng5-slider'
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
@@ -24,7 +25,8 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 		HttpClientModule,
 		MatRippleModule,
 		Ng5SliderModule,
-		MatButtonToggleModule
+		MatButtonToggleModule,
+		ReactiveFormsModule
 	],
 	declarations: [
 		AppComponent,

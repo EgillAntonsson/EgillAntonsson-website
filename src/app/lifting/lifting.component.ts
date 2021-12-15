@@ -1,6 +1,6 @@
-import { Component } from '@angular/core'
-import * as Papa from 'papaparse'
-import { HttpClient } from '@angular/common/http'
+import { Component, } from '@angular/core'
+import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { LiftingService, CreatureLifted } from '../shared/services/lifting.service'
 
 @Component({
 	selector: 'app-lift',
@@ -9,140 +9,59 @@ import { HttpClient } from '@angular/common/http'
 })
 export class LiftingComponent {
 
-	creatures: Array<Creature>
-
-	// categoryKg: CategoryKg
-	allCreaturesLifted: Array<CreatureLifted> = []
-	firstDate!: Date
-	lastDate!: Date
-
-	egillTotalLifted: number
-
-	calculatorInput = 0
-	calculatorResult: Array<CreatureLifted> = []
-
-	constructor(private http: HttpClient) {
-		/**
-	 * Sorts by the heaviest first.
-	 * mammals: gathered from https://thewebsiteofeverything.com/animals/mammals/adult-weight.html
-	 * 	Only having one mammal (most known or funny) from the list when many have the same weight.
-	 * dragons: Using maximum weight from https://en.wikipedia.org/wiki/Metallic_dragon
-	 * dinosaurs: Using maximum weight https://en.wikipedia.org/wiki/Dinosaur_size#Record_sizes
-	 */
-		this.creatures = require('../../assets/data/creatures.json')
-		this.creatures.sort((a, b) => a.kg > b.kg ? -1 : 1)
-
-		this.egillTotalLifted = 0.0
-		// Parse local CSV file
-
-		const pathFitNotes = '../../assets/data/FitNotes_Export.csv'
-
-		// let csv = 'Date,Exercise,Category,Weight (kgs),Reps,Distance,Distance Unit,Time\n2016-07-15,Deadlift,Back,40.0,8,,,'
-
-		// let csv: string
+	firstDate: Date = new Date(2016, 6, 15)
+	lastDate: Date = new Date()
+	totalKgLifted = 0
+	totalCreaturesLifted: Array<CreatureLifted> = []
 
 
-		this.http.get(pathFitNotes, {responseType: 'text'}).subscribe(data => {
 
-			let config = {header: true, skipEmptyLines: true}
-			let parseRes = Papa.parse(data, config)
+	convertLastInputSubmit = 0
+	convertResult: Array<CreatureLifted> = []
+	convertForm: FormGroup
+	inputKgControl
+	maximumInputAllowed = 999999999
+	minimumInputAllowed = 0.5
 
-			let theData = parseRes.data as Array<FitNoteRow>
-			let errors = parseRes.errors
+	constructor(private liftingService: LiftingService, private fb: FormBuilder) {
 
-
-			let error
-			for (let i = errors.length - 1 ; i >= 0; i--) {
-				error = errors[i]
-				// console.log('Removing row "' + error.row + '". ' + error.type + '. ' + error.code + '. ' + error.message)
-				theData.splice(error.row, 1)
-			}
-
-			theData.forEach(FitNoteRow => {
-				// let weight: number =  parseFloat(FitNoteRow['weight (kgs)'])
-				const weight = FitNoteRow['Weight (kgs)']
-				const reps = FitNoteRow.Reps
-
-				// console.log('weight', weight)
-				// console.log('egillTotalLifted', this.egillTotalLifted)
-				if (weight !== '' && reps !== '') {
-					this.egillTotalLifted += parseFloat(weight) * parseFloat(reps)
-					// console.log(date)
-					// console.log(weight)
-					// console.log('egillTotalLifted after', this.egillTotalLifted)
-				}
-			})
-
-			console.log(this.egillTotalLifted)
-			// console.log(date)
-			this.allCreaturesLifted = this.weightToCreatures(this.egillTotalLifted)
-			this.firstDate = new Date(theData[0].Date)
-		this.lastDate = new Date(theData[theData.length - 1].Date)
-			// console.log(this.allCreaturesLifted)
+		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
+			this.totalKgLifted = myLiftingStats.totalKgLifted
+			this.totalCreaturesLifted = myLiftingStats.totalCreaturesLifted
+			this.firstDate = myLiftingStats.firstDate
+			this.lastDate = myLiftingStats.lastDate
 		})
 
-		// const lifting_data = require('../../assets/data/lifting.json')
-		// this.categoryKg = lifting_data.category_kg as CategoryKg
-	}
 
-	clickme(textValue: string) {
-
-		// TODO: good and early input validation in textfield
-
-		this.calculatorInput = parseFloat(textValue)
-		this.calculatorResult = this.weightToCreatures(this.calculatorInput)
-	}
-
-	weightToCreatures(weightInKg: number) {
-
-		let tempWeightInKg = weightInKg
-
-		const creaturesLifted: Array<CreatureLifted> = []
-
-		this.creatures.forEach(creature => {
-
-			let count = 0
-			while (creature.kg <= tempWeightInKg) {
-				tempWeightInKg -= creature.kg
-				count++
-			}
-
-			if (count > 0) {
-				creaturesLifted.push({count: count, creature: {name: creature.name, kg: creature.kg, url: creature.url}})
-			}
-
+		// INFO: input html set to type "number", which does not allow characters on desktop, but good to have also the pattern (might be needed on mobile, to be later verified)
+		const initialKgValue = 120
+		this.convertForm = this.fb.group({
+			inputKg: [initialKgValue,[
+					Validators.pattern(/^\d+\.*\d*$/),
+					Validators.max(this.maximumInputAllowed),
+					Validators.min(this.minimumInputAllowed)
+				]
+			]
 		})
+		this.inputKgControl = this.convertForm.controls['inputKg']
 
-		return creaturesLifted
+		this.convert(initialKgValue)
 	}
 
-}
 
-interface FitNoteRow {
-	Date: string
-	'Weight (kgs)': string
-	Reps: string
-}
+	inputEvent() {
+		const inputNumber = parseFloat(this.inputKgControl.value)
 
-interface Creature {
-	name: string
-	kg: number
-	url: string
-}
+		if (this.inputKgControl.invalid || inputNumber === this.convertLastInputSubmit) {
+			return
+		}
 
-// interface CategoryKg {
-// 	All: number
-// 	Shoulders: number
-// 	Back: number
-// 	Abs: number
-// 	Triceps: number
-// 	Chest: number
-// 	Legs: number
-// 	Calves: number
-// 	Biceps: number
-// }
+		this.convertLastInputSubmit = inputNumber
+		this.convert(inputNumber)
+	}
 
-interface CreatureLifted {
-	count: number
-	creature: Creature
+	private convert(number: number) {
+		this.convertResult = this.liftingService.weightInCreatures(number)
+	}
+
 }

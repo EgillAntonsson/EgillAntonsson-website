@@ -12,6 +12,10 @@ table th {
 	padding: 0.5em;
 }
 
+ul {
+	list-style: none;
+}
+
 .converter {
 	text-align: center;
 }
