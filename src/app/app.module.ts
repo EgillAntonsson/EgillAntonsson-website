@@ -6,6 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatRippleModule } from '@angular/material/core'
 import { NgxSliderModule } from '@angular-slider/ngx-slider'
 import { ReactiveFormsModule } from '@angular/forms'
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
@@ -26,7 +27,8 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 		MatRippleModule,
 		NgxSliderModule,
 		MatButtonToggleModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		HighlightModule
 	],
 	declarations: [
 		AppComponent,
@@ -40,7 +42,14 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 		MinutesSecondsPipe,
 	],
 	bootstrap: [AppComponent],
-	providers: [{ provide: RandomNumber, useExisting: RandomNumberService }]
+	providers: [{
+		provide: RandomNumber, useExisting: RandomNumberService
+	}, {
+		provide: HIGHLIGHT_OPTIONS,
+		useValue: {
+			fullLibraryLoader: () => import('highlight.js'),
+		}
+	}]
 })
 
 export class AppModule {}
