@@ -233,17 +233,17 @@ nav li {
 	}
 }
 
-/* ng5 */
-.slider .ng5-slider .ng5-slider-bar {
+/* ngx */
+.slider .ngx-slider .ngx-slider-bar {
 	background:var(--colorGrayDark);
 	height: 3px;
 }
 
-.slider .ng5-slider .ng5-slider-selection {
+.slider .ngx-slider .ngx-slider-selection {
 	background: var(--colorActive);
 }
 
-.slider .ng5-slider .ng5-slider-pointer {
+.slider .ngx-slider .ngx-slider-pointer {
 	width: 5px;
 	height: 10px;
 	top: auto;
@@ -251,15 +251,15 @@ nav li {
 	outline-color: var(--colorGreenLight)
 }
 
-.slider .ng5-slider .ng5-slider-pointer:after {
+.slider .ngx-slider .ngx-slider-pointer:after {
 	display: none;
 }
 
-.slider .ng5-slider .ng5-slider-bubble {
+.slider .ngx-slider .ngx-slider-bubble {
 	color: var(--colorForeground)
 }
 
-.slider .ng5-slider .ng5-slider-tick {
+.slider .ngx-slider .ngx-slider-tick {
 	width: 3px;
 	height: 10px;
 	margin-left: 4px;
@@ -268,7 +268,7 @@ nav li {
 	top: -1px;
 }
 
-.slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+.slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
 	background: var(--colorActive);
 }
 

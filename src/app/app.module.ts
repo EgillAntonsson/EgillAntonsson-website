@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatRippleModule } from '@angular/material/core'
-import { Ng5SliderModule } from 'ng5-slider'
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSliderModule } from '@angular-slider/ngx-slider'
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
@@ -24,7 +24,7 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 		BrowserModule,
 		HttpClientModule,
 		MatRippleModule,
-		Ng5SliderModule,
+		NgxSliderModule,
 		MatButtonToggleModule,
 		ReactiveFormsModule
 	],
