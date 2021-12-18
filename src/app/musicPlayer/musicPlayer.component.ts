@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
-import { Options } from 'ng5-slider'
+import { Options } from '@angular-slider/ngx-slider'
 import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { SoundManagerService } from '../shared/services/soundManager.service'
 import { Subscription } from 'rxjs'
