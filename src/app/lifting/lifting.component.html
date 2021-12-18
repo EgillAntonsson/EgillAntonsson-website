@@ -9,26 +9,66 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 		<th>Creatures lifted</th>
 	</tr>
 	<tr>
-		<td class="center">{{categoryKg.All | mynumber: 0:'/':1000}}</td>
+		<td class="center">{{totalKgLifted | mynumber: 3:'/':1000}}</td>
 		<td>
 			<ul>
-				<li *ngFor="let item of allCreaturesLifted">
-					{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber}} kg{{item.count > 1 ? ' each' : ''}})
+				<li *ngFor="let item of totalCreaturesLifted">
+					{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber: 1}} kg{{item.count > 1 ? ' each' : ''}})
 				</li>
 			</ul>
 		</td>
 	</tr>
 </table>
 <p>
-	I use the awesome app <a href="https://play.google.com/store/apps/details?id=com.github.jamesgay.fitnotes&hl=en">FitNotes</a> to log my exercises and use that log for the calculations above.
+	I use <a href="https://play.google.com/store/apps/details?id=com.github.jamesgay.fitnotes&hl=en">FitNotes</a> app to log my lifting,<br>
+	and export the log from it and use it for the above calculation.<br>
+	No creatures were hurt during the lifting :)
 </p>
-<p>
-	No animal was hurt during the lifting (maybe their pride a little bit).<br>
-	The sources for the creature weight list:<br>
-	<a href="http://forgottenrealms.wikia.com/wiki/Metallic_dragon">Metallic dragons of the Forgotten Realms</a><br>
-	<a href="https://en.wikipedia.org/wiki/Dinosaur_size">Dinosaur size</a><br>
-	<a href="https://thewebsiteofeverything.com/animals/mammals/adult-weight.html">Adult mammals ordered by their weight</a>
-</p>
+</div>
+<div>
+	<h1>Kg to Creatures converter</h1>
+	<div class="converter">
+  <form [formGroup]="convertForm" novalidate>
+			<div class="form-group">
+					<input type="number" formControlName="inputKg" (input)="inputEvent()" [maxlength]="16">
+
+			</div>
+			<sub>kg number in text field is converts to below:</sub><br>
+			<div *ngIf="inputKgControl.invalid" class="alert">
+				<div *ngIf="this.inputKgControl.errors?.pattern">
+					Only numbers are allowed (and ' . ' for fraction)
+				</div>
+				<div *ngIf="this.inputKgControl.errors?.max">
+					number is too big, reduce it
+				</div>
+				<div *ngIf="this.inputKgControl.errors?.min">
+					number is to small, increase it
+				</div>
+			</div>
+  </form>
+	</div>
+	<table *ngIf="convertResult.length > 0">
+		<tr>
+			<th>KGs</th>
+			<th>Creatures</th>
+		</tr>
+		<tr>
+			<td class="center">{{convertLastInputSubmit}}</td>
+			<td>
+				<ul>
+					<li *ngFor="let item of convertResult">
+						{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber: 1 }} kg {{item.count > 1 ? ' each' : ''}})
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<p>
+		The sources for the creature weight list:<br>
+		<a href="http://forgottenrealms.wikia.com/wiki/Metallic_dragon">Metallic dragons of the Forgotten Realms</a><br>
+		<a href="https://en.wikipedia.org/wiki/Dinosaur_size">Dinosaur size</a><br>
+		<a href="https://thewebsiteofeverything.com/animals/mammals/adult-weight.html">Adult mammals weight</a>
+	</p>
 </div>
 <div>
 <figure>

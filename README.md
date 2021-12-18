@@ -10,7 +10,7 @@ Project uses the [Angular](https://angular.io) framework
 
 ### Angular CLI, used commands:
 
-#### [> git a ](https://angular.io/cli/serve)
+#### [> ng serve](https://angular.io/cli/serve)
 
 #### [> ng test](https://angular.io/guide/testing#set-up-testing)
 
@@ -31,6 +31,6 @@ Done locally, requires `Python 3.7.1`
 
 ## Deployment
 
-[Netlify](https://www.netlify.com) deploys `deploy/` folder on git push to remote `master` branch. (integrated via `Netlify` Github App)
+[Netlify](https://www.netlify.com) deploys `deploy/` on git push to remote `master` branch. (integrated via `Netlify` Github App)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc4a4897-0a5a-4854-b26c-ff66d80c0d94/deploy-status)](https://app.netlify.com/sites/egillantonsson/deploys)

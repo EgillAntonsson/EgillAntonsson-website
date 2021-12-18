@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core'
+import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { LiftingService, CreatureLifted } from '../shared/services/lifting.service'
 
 @Component({
 	selector: 'app-lift',
@@ -6,41 +8,60 @@ import { Component } from '@angular/core';
 	styleUrls: ['./lifting.component.css']
 })
 export class LiftingComponent {
-	categoryKg: CategoryKg
-	allCreaturesLifted: Array<CreatureLifted>
-	firstDate: Date
-	lastDate: Date
 
-	constructor() {
-		const lifting_data = require('../../assets/lifting.json')
-		this.categoryKg = lifting_data.category_kg as CategoryKg
-		this.allCreaturesLifted = lifting_data.all_creatures_lifted
-		this.firstDate = new Date(lifting_data.first_date)
-		this.lastDate = new Date(lifting_data.last_date)
+	firstDate: Date = new Date(2016, 6, 15)
+	lastDate: Date = new Date()
+	totalKgLifted = 0
+	totalCreaturesLifted: Array<CreatureLifted> = []
+
+
+
+	convertLastInputSubmit = 0
+	convertResult: Array<CreatureLifted> = []
+	convertForm: FormGroup
+	inputKgControl
+	maximumInputAllowed = 999999999
+	minimumInputAllowed = 0.5
+
+	constructor(private liftingService: LiftingService, private fb: FormBuilder) {
+
+		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
+			this.totalKgLifted = myLiftingStats.totalKgLifted
+			this.totalCreaturesLifted = myLiftingStats.totalCreaturesLifted
+			this.firstDate = myLiftingStats.firstDate
+			this.lastDate = myLiftingStats.lastDate
+		})
+
+
+		// INFO: input html set to type "number", which does not allow characters on desktop, but good to have also the pattern (might be needed on mobile, to be later verified)
+		const initialKgValue = 120
+		this.convertForm = this.fb.group({
+			inputKg: [initialKgValue,[
+					Validators.pattern(/^\d+\.*\d*$/),
+					Validators.max(this.maximumInputAllowed),
+					Validators.min(this.minimumInputAllowed)
+				]
+			]
+		})
+		this.inputKgControl = this.convertForm.controls['inputKg']
+
+		this.convert(initialKgValue)
 	}
-}
 
-interface CategoryKg {
-	All: number
-	Shoulders: number
-	Back: number
-	Abs: number
-	Triceps: number
-	Chest: number
-	Legs: number
-	Calves: number
-	Biceps: number
-}
 
-interface CreatureLifted {
+	inputEvent() {
+		const inputNumber = parseFloat(this.inputKgControl.value)
 
-	total_kg: number
-	count: number
-	creature: Creature
-}
+		if (this.inputKgControl.invalid || inputNumber === this.convertLastInputSubmit) {
+			return
+		}
 
-interface Creature {
-	name: string
-	kg: number
-	url: string
+		this.convertLastInputSubmit = inputNumber
+		this.convert(inputNumber)
+	}
+
+	private convert(number: number) {
+		this.convertResult = this.liftingService.weightInCreatures(number)
+	}
+
 }

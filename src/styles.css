@@ -80,9 +80,13 @@ body {
 	margin: 10px 5%;
 	background: var(--colorBackground);
 }
-body, input[text], button {
+body, input[text] {
 	color: var(--colorForeground);
 	font-family: Cambria, Georgia;
+}
+
+input {
+	text-align: center;
 }
 
 .image {
@@ -169,6 +173,10 @@ nav li {
 }
 
 /* reused in many components */
+
+.alert {
+	color: var(--colorOrangeLight);
+}
 
 .allByContainer {
 	width: 95%;
