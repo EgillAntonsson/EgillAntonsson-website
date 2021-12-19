@@ -1,12 +1,131 @@
 <h2>Building with the bleeps and bloops and the 1s and 0s</h2>
+
+
+<p><a href='https://medium.com/pragmatic-programmers/3-3-the-tdd-cycle-red-green-refactor-b2d9925518a0'>The TDD Cycle: Red-Green-Refactor</a></p>
+
+<p><a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a></p>
+
+
 <p>
-	My code repositories are on <a href='https://github.com/EgillAntonsson'>GitHub</a>,<br>
-	and so are my <a href='https://gist.github.com/EgillAntonsson'>code snippets</a>.<br>
-	The main repositories are:
-</p>
-<h3><a href='https://github.com/EgillAntonsson/EgillAntonsson-website'>Egill Antonsson website</a></h3>
-<p>
-	The development project of this website (yes the one you're reading right now!)
+	After getting the description that relates to the Heart Gauge from our hypothetical game designer,<br>
+	and iterating it with her/him, we define terminology map, and the list of functional requirements:
 </p>
 
-<pre><code [highlight]="code"></code></pre>
+<p>
+	Mapping out separations of concerns and terms within the main 'Life Gouge' term.<br>
+</p>
+<table>
+	<tr>
+		<th>Model / Non-Visual Logic</th>
+		<th>View / Visual (logic*)</th>
+	</tr>
+	<tr>
+		<td class="center">
+			Health
+		</td>
+		<td class="center">
+			Heart Container
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+				-
+		</td>
+		<td class="center">
+			Heart (contains 4 Fractions)
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+			Health Points
+		</td>
+		<td class="center">
+			Heart Fraction
+		</td>
+	</tr>
+</table>
+<sup>* the View can have some logic, but it should only be about visual and minimal</sup>
+<p>
+	The want the code dependency to be minimal and one-way,<br>
+	View can depend on Model (but not vice-versa).
+</p>
+
+<p>
+	We focus first on Health model's functional requirements.<br>
+	Furthermore we focus first on the bulletin 'Health starting state',<br>
+	We'll flesh it further out, as we iterate on the TDD cycle.
+</p>
+<ul>
+	<li>Health starting state</li>
+	<ul>
+		<li>Health Points starting value (12, which visually equals 3 Hearts)</li>
+		<li>...</li>
+	</ul>
+	<li>Health taking damage</li>
+	<ul>
+		<li>... we will flesh this out later</li>
+	</ul>
+	<li>Health healing</li>
+	<ul>
+		<li>... we will flesh this out later</li>
+	</ul>
+</ul>
+
+<hr>
+<h3>Health Points starting value (12)</h3>
+<p><span class="redFail">RED:</span>
+	We define our test class and our first test.<br>
+	The test is failing as the code does not even compile.
+</p>
+<pre><code [highlight]="test_1_Red"></code></pre>
+
+<p><span class="greenPass">GREEN:</span> Let's make the test pass by defining a simple implementation.
+</p>
+<pre><code [highlight]="impl_1_Green"></code></pre>
+
+<p><span class="greenRefactor">REFACTOR:</span> We now recognize from a game design perspective that it is good to be able to tweak the value of starting value of 'Points' for game balancing,<br>
+	so we refactor the value to be passed as parameter to the constructor.<br>
+	We also rename from 'Points' to 'StartingPoints'
+</p>
+<pre><code [highlight]="code_1_Refactor"></code></pre>
+<p>
+	This is sufficient from the Health class perspective.<br>
+	We'll not go into where and how this value is defined and passed through,<br>
+	in order to keep our focus on the Health tests and implementation.<br>
+</p>
+
+<hr>
+
+<p>
+	We now recognize that Health should defensively handle invalid value,<br>
+it can not be less than 1, as Link would then be dead on arrival :)<br>
+	So let's refine our requirement list, and begin our next TDD cycle<br>
+</p>
+
+<ul>
+	<li>Health starting state</li>
+	<ul>
+		<li>&#9989; Health Points starting value (defined outside and passed in)</li>
+		<li>Handle invalid passed starting value (less than 1)</li>
+	</ul>
+</ul>
+
+<h3>Handle invalid passed starting value (less than 1)</h3>
+<p><span class="redFail">RED:</span>
+	We decide that throwing an exception is appropriate,<br>
+	and an existing exception from System namespace can be used.
+	(The invalid value should also be handled early and close to the value definition,<br>
+	well before creating health object).
+</p>
+<pre><code [highlight]="test_2_Red"></code></pre>
+
+<p><span class="greenPass">GREEN:</span> Let's make the test pass.<br>
+</p>
+<pre><code [highlight]="impl_2_Green"></code></pre>
+
+<p><span class="greenRefactor">REFACTOR:</span> Our 'simply make it GREEN / pass' solution was indeed the proper refactored one (as it was simple enough to take in one step)<br>
+	and the code looks pretty good, thus we deem no refactoring needed in this cycle.
+</p>
+
+<hr>
+<p>We feel confident that our latest logic is sufficiently tested</p>

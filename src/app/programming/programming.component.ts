@@ -1,69 +1,99 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 // import {Highlight } from 'ngx-highlightjs'
 
 @Component({
-	selector: 'app-programming',
-	templateUrl: './programming.component.html',
-	styleUrls: [
-		'./programming.component.css'
-	]
+  selector: 'app-programming',
+  templateUrl: './programming.component.html',
+  styleUrls: [
+    './programming.component.css'
+  ]
 })
-export class ProgrammingComponent implements OnInit {
+export class ProgrammingComponent {
 
-	linenumbers = true
 
-	languages = ['csharp']
+  lineNumbers = false
 
-	code = `
+test_1_Red = `//HealthTest.cs
 using NUnit.Framework;
 
 public class HealthTest
 {
+    [TestFixture]
     public class PointsTest
     {
         [Test]
-        public void ShouldHaveStartValue_WhenStarting()
+        public void HasStartingValue()
         {
-            Assert.AreEqual(12, 12);
+            var health = new Health();
+            Assert.That(health.Points, Is.EqualTo(12));
         }
     }
 }
 `
 
-codeTs = `
-weightInCreatures(weightInKg: number) {
-	let tempWeightInKg = weightInKg
-
-	const creaturesLifted: Array<CreatureLifted> = []
-
-	this.creatureList.forEach(creature => {
-
-		let count = 0
-		while (creature.kg <= tempWeightInKg) {
-			tempWeightInKg -= creature.kg
-			count++
-		}
-
-		if (count > 0) {
-			creaturesLifted.push({count: count, creature: {name: creature.name, kg: creature.kg, url: creature.url}})
-		}
-
-	})
-
-	return creaturesLifted
+impl_1_Green = `//Health.cs
+public class Health
+{
+    public int Points = 12;
 }
-
 `
 
+code_1_Refactor = `//HealthTest.cs
+using NUnit.Framework;
 
-// constructor(private highlight: Highlight) {
-// 	console.log(this.highlight.languages.length)
+public class HealthTest
+{
+    [TestFixture]
+    public class PointsTest
+    {
+        [Test]
+        public void HasStartingValue()
+        {
+            var startingPoints = 12;
+            var health = new Health(startingPoints);
+            Assert.That(health.Points, Is.EqualTo(startingPoints));
+        }
+    }
+}
 
-// }
-	ngOnInit(): void {
-// 		console.log(this.highlight.languages.length)
-// 		// this.highlight.highlightAll()
-// 		// console.log(this.highlight.listLanguages())
-	}
+//Health.cs
+public class Health
+{
+    public int Points;
+
+    public Health(int points)
+    {
+        Points = points;
+    }
+}
+`
+
+test_2_Red = `//HealthTest.cs (continuing)
+[Test]
+public void ThrowsError_WhenStartingValueIsInvalid()
+{
+    Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+    delegate { new Health(0); });
+}
+`
+
+impl_2_Green = `//Health.cs
+using System;
+
+public class Health
+{
+    public int Points;
+
+    public Health(int points)
+    {
+        if (points < 1)
+        {
+            var msg = $"Value '{points}' for parameter 'points' is out of range, it should be higher than '0'";
+            throw new ArgumentOutOfRangeException(msg);
+        }
+        Points = points;
+    }
+}
+`
 
 }

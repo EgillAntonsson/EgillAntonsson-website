@@ -1,5 +1,5 @@
 @import '@angular/material/prebuilt-themes/purple-green.css';
-@import '~highlight.js/styles/github-dark.css';
+@import '~highlight.js/styles/tomorrow-night-bright.css';
 
 :root {
 
@@ -26,24 +26,48 @@
 	--colorOrangeMedDark: #7D2800;
 	--colorOrangeDark: #5D0800;
 
+	--colorRed: #ee4400;
+
 	--colorBlueLight: #7AA6DA;
 
 	--colorPurpleLight: #C397D8;
 
 
 	--colorBackground: var(--colorBlackLight);
-
 	--colorForeground: var(--colorWhiteLight);
-
 	--colorActive: var(--colorGreenLight);
-
 	--colorPending: var(--colorOrangeLight);
-
 	--colorDisabled: var(--colorGrayLightMed);
-
 	--colorLink: var(--colorBlueLight);
-
 	--colorLinkVisited: var(--colorPurpleLight);
+}
+
+.redFail {
+	color: var(--colorOrangeMed);
+}
+
+.greenPass {
+	color: var(--colorGreenLight);
+}
+
+.greenRefactor {
+	color: var(--colorGreenLightMed);
+}
+
+* {
+	font-family: Lato, Helvetica, sans-serif;
+}
+
+code {
+	font-family: 'Jura', sans-serif;
+}
+
+body {
+	margin: 10px 5%;
+	background: var(--colorBackground);
+}
+body, input[text] {
+	color: var(--colorForeground);
 }
 
 h1 {
@@ -67,45 +91,30 @@ p {
 	padding-bottom: 1em;
 }
 
-label {
+/* label {
 	font-size: 90%;
 	display: block;
 	text-align: center;
-}
+} */
 
+/* table */
 table {
 	margin: 0 auto;
 }
-
-body {
-	margin: 10px 5%;
-	background: var(--colorBackground);
+table td {
+	border: 1px solid #ccc;
+	padding: 0.5em;
 }
-body, input[text] {
-	color: var(--colorForeground);
-	font-family: Cambria, Georgia;
+table td.center {
+	text-align: center;
+}
+table th {
+	border: 1px solid #ccc;
+	padding: 0.5em;
 }
 
 input {
 	text-align: center;
-}
-
-.image {
-	width: 100%;
-	max-width: 575px;
-	border-radius: 5%;
-	display: block;
-	margin: 0 auto;
-}
-
-figure {
-	margin: 2em auto;
-}
-
-figcaption {
-	font-size: 90%;
-	text-align: center;
-	padding-top: 0.3em;
 }
 
 a {
@@ -150,6 +159,29 @@ nav {
 	z-index: 2;
 }
 
+nav li {
+	display: inline;
+}
+
+
+figure {
+	margin: 2em auto;
+}
+
+figcaption {
+	font-size: 90%;
+	text-align: center;
+	padding-top: 0.3em;
+}
+
+.image {
+	width: 100%;
+	max-width: 575px;
+	border-radius: 5%;
+	display: block;
+	margin: 0 auto;
+}
+
 .headerContainer {
 	height: 100px;
 }
@@ -163,14 +195,6 @@ nav {
 	background: var(--colorBackground);
 	border-bottom: 1px solid var(--colorGrayDark);
 	z-index: 1;
-}
-
-nav li {
-	display: inline;
-}
-
-* {
-	font-family: Lato, Arial, Helvetica, sans-serif;
 }
 
 /* reused in many components */
@@ -224,7 +248,6 @@ nav li {
 .fadein {
 	animation: fadein 0.5s linear;
 }
-
 @keyframes fadein {
 	0% {
 		opacity: 0;
@@ -234,7 +257,7 @@ nav li {
 	}
 }
 
-/* ngx */
+/* ngx slider*/
 .slider .ngx-slider .ngx-slider-bar {
 	background:var(--colorGrayDark);
 	height: 3px;
