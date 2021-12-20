@@ -2,39 +2,39 @@ import { Component } from '@angular/core'
 // import {Highlight } from 'ngx-highlightjs'
 
 @Component({
-  selector: 'app-programming',
-  templateUrl: './programming.component.html',
-  styleUrls: [
-    './programming.component.css'
-  ]
+	selector: 'app-programming',
+	templateUrl: './programming.component.html',
+	styleUrls: [
+		'./programming.component.css'
+	]
 })
 export class ProgrammingComponent {
 
 
-  lineNumbers = false
+	lineNumbers = false
 
 test_1_Red = `//HealthTest.cs
 using NUnit.Framework;
 
 public class HealthTest
 {
-    [TestFixture]
-    public class PointsTest
-    {
-        [Test]
-        public void HasStartingValue()
-        {
-            var health = new Health();
-            Assert.That(health.Points, Is.EqualTo(12));
-        }
-    }
+	[TestFixture]
+	public class PointsTest
+	{
+		[Test]
+		public void HasStartingValue()
+		{
+			var health = new Health();
+			Assert.That(health.Points, Is.EqualTo(12));
+		}
+	}
 }
 `
 
 impl_1_Green = `//Health.cs
 public class Health
 {
-    public int Points = 12;
+	public int Points = 12;
 }
 `
 
@@ -43,28 +43,28 @@ using NUnit.Framework;
 
 public class HealthTest
 {
-    [TestFixture]
-    public class PointsTest
-    {
-        [Test]
-        public void HasStartingValue()
-        {
-            var startingPoints = 12;
-            var health = new Health(startingPoints);
-            Assert.That(health.Points, Is.EqualTo(startingPoints));
-        }
-    }
+	[TestFixture]
+	public class PointsTest
+	{
+		[Test]
+		public void HasStartingValue()
+		{
+			int startingPoints = 12;
+			var health = new Health(startingPoints);
+			Assert.That(health.Points, Is.EqualTo(startingPoints));
+		}
+	}
 }
 
 //Health.cs
 public class Health
 {
-    public int Points;
+	public int Points { get;  private set; }
 
-    public Health(int points)
-    {
-        Points = points;
-    }
+	public Health(int points)
+	{
+		Points = points;
+	}
 }
 `
 
@@ -72,8 +72,10 @@ test_2_Red = `//HealthTest.cs (continuing)
 [Test]
 public void ThrowsError_WhenStartingValueIsInvalid()
 {
-    Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-    delegate { new Health(0); });
+	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+	delegate {
+		new Health(0);
+	});
 }
 `
 
@@ -82,17 +84,47 @@ using System;
 
 public class Health
 {
-    public int Points;
+	public int Points { get;  private set; }
 
-    public Health(int points)
-    {
-        if (points < 1)
-        {
-            var msg = $"Value '{points}' for parameter 'points' is out of range, it should be higher than '0'";
-            throw new ArgumentOutOfRangeException(msg);
-        }
-        Points = points;
-    }
+	public Health(int points)
+	{
+		if (points < 1)
+		{
+			var msg = $"Value '{points}' for parameter 'points' is invalid, it should be higher than '0'";
+			throw new ArgumentOutOfRangeException(msg);
+		}
+		Points = points;
+	}
+}
+`
+test_3_Green = `//HealthTest.cs
+using NUnit.Framework;
+using System;
+
+public class HealthTest
+{
+	[TestFixture]
+	public class PointsTest
+	{
+
+		[TestCase(12)]
+		[TestCase(1)]
+		public void HasStartingValue(int startingPoints)
+		{
+			var health = new Health(startingPoints);
+			Assert.That(health.Points, Is.EqualTo(startingPoints));
+		}
+
+		[TestCase(0)]
+		[TestCase(-1)]
+		public void ThrowsError_WhenStartingValueIsInvalid(int startingPoints)
+		{
+			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+			delegate {
+				new Health(startingPoints);
+			});
+		}
+	}
 }
 `
 

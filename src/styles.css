@@ -54,20 +54,25 @@
 	color: var(--colorGreenLightMed);
 }
 
-* {
+/* * {
 	font-family: Lato, Helvetica, sans-serif;
-}
+} */
 
-code {
-	font-family: 'Jura', sans-serif;
-}
 
 body {
+	font-family: Lato, Helvetica, sans-serif;
 	margin: 10px 5%;
 	background: var(--colorBackground);
 }
 body, input[text] {
 	color: var(--colorForeground);
+}
+
+code {
+	/* font-family: 'Jura', sans-serif; */
+	font-family: 'M PLUS 1 Code';
+	font-size: 90%;
+	tab-size: 1;
 }
 
 h1 {
