@@ -80,73 +80,84 @@
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 
-<p><span class="greenPass">GREEN:</span> Let's make the test pass by defining a simple implementation.
+<p><span class="greenPass">GREEN:</span> Let's make the test pass with a simple implementation.
 </p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 
-<p><span class="greenRefactor">REFACTOR:</span> Now it comes to mind that from a game design perspective,<br>
-	it is good to be able to tweak the starting value,for game balancing<br>
-	Thus I refactor the value to be passed as parameter to the constructor.<br>
-	I also encapsulate 'Points' with 'private set',<br>
-	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.
+<h4><span class="greenRefactor">REFACTOR</span></h4>
+
+<p>Now it comes to mind that from a game design perspective,<br>
+	it is good to be able to tweak the starting health points for game balancing<br>
+	thus I refactor the value to be passed as parameter into the constructor.<br>
+	<span class="outOfScope">A full-blown real-life system has accessible game balancing config<br>
+	that is well integrated in the code base,<br>
+	that would then use <span class="code">Health</span> class as designed (passing in value/s),<br>
+	but that is out of scope.<br></span>
+	<br>
+	I name the passed parameter <span class="code">startingPoints</span>.<br>
+	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
+	starting health points is passed into constructor which sets the current health points.<br>
+	<br>
+	I also encapsulate t with private setter,<br>
+	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.<br>
+	The only exposure should be for the class interface, that the tests will drive,<br>
+	the will gradually be established through the TDD cycles.
 </p>
 <pre><code [highlight]="code_1_Refactor"></code></pre>
-<p>
-	Passing in the value is sufficient from the Health class perspective.<br>
-	Where the value is defined, and how it is integrated in the code base,<br>
-	is out of scope (but would be done in a finalized real-life scenario)<br>
-</p>
 
 <hr>
 
+<h3>Handle invalid starting points values</h3>
 <p>
-	Now it comes to mind that Health should handle invalid starting value for Points,<br>
-it can not be less than 1, as Link would then start being dead on arrival :)<br>
-	So let's refine our requirement list, and begin our next TDD cycle<br>
+	Now it comes to mind that invalid starting point values can be passed in,<br>
+	as our Link avatar should never start with less than 1 Health Points,<br>
+	because otherwise he'd start up being dead (and what a sad game play that would be :) )<br>
+	Thus I'll throw exceptions passed in value is invalid.<br>
+	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
+	(e.g. in the previously mentioned game balancing config, which is out of scope).<br></span>
 </p>
 
+<h4><span class="redFail">RED</span></h4>
 
-<ul>
-	<li>Health starting state</li>
-		<ul>
-			<li>Health Points starting value &#9989;</li>
-			<li>Handle invalid starting value for Health Points (less than 1)</li>
-		</ul>
-</ul>
-
-<h3>Handle invalid starting value for Health Points (less than 1)</h3>
-<p><span class="redFail">RED:</span>
-	I deem it appropriate to throw an exception in this case.<br>
-	Also the invalid value should be handled early and close to the value definition (out of scope),<br>
-	which makes the thrown exception in Health class the 'last line of defence'.<br>
-	(An alternative, not worth to go for at this point,<br>
-	would be to correct the invalid value to a predefined valid value (e.g. 12),<br>
-	and put in place an accessible logger system, that logs this handling with an informative message.)<br>
-</p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 
 <p>
-	I deem that existing ArgumentOutOfRangeException from System can be used.<br>
-	I chose the value '0' as it's on the valid/invalid 'edge'.
+	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
+	that includes an informative error message for my case.<br>
+	I chose the value 0 as it's on the invalid 'edge'. (as 1 is valid).
 </p>
 
-<p><span class="greenPass">GREEN:</span> Let's make the test pass.<br>
- If value is invalid I throw the exception with an informative error message<br>
-</p>
+<h4><span class="greenPass">GREEN</span></h4>
+
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
-<p>The 'GREEN' implementation in this case,<br>
+<p>The <span class="greenPass">GREEN</span> implementation in this case,<br>
 	is also the proper generic solution,<br>
-	in other words I did GREEN and REFACTOR in one step.<br>
-	The code in whole looks pretty good, so no refactoring needed in this cycle.
+	in other words I did <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step.<br>
+	<br>
+	The error message is informative and clear,<br>
+	e.g is using code would pass in value 0, it would be:<br>
+	<span class="code">System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
+		Parameter name: startingPoints</span><br>
+	<br>
+	A thought now occurs to me that the implementation might not handle a <span class="code">null</span> value,<br>
+	but as type	<span class="code">int</span> (and other number types) are (non nullable) Value types,<br>
+	this case can not happen.
+	<br>
+	<br>
+	I feel that no refactoring is needed in this cycle, as the code looks clean, so moving on.
 </p>
 
 <hr>
-<p>The implementation is simple enough that I'm confident that it works for any passed-in starting value.<br>
-	But for the purpose of further TDD demonstration,<br>
-	let's add couple oft.</p>
 
-<p><span class="greenRefactor">REFACTOR:</span> Adding test cases where the value is close to the valid/invalid 'edge',<br>
+<p>As the implementation is very simple I am confident that it works for any passed-in values.<br>
+	But let's test a few more values,<br>
+	to demonstrate how one can do so in a clean and maintainable way.
+</p>
+
+<h4><span class="greenRefactor">Refactor</span></h4>
+
+<p>Refactoring tests to add test cases where the value is close to the valid/invalid 'edge',<br>
 	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case attribute</a>.
 </p>
 <pre><code [highlight]="test_3_Green"></code></pre>

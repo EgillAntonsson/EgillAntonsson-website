@@ -1,0 +1,20 @@
+.redFail {
+	color: var(--colorOrangeMed);
+}
+
+.greenPass {
+	color: var(--colorGreenLight);
+}
+
+.greenRefactor {
+	color: var(--colorGreenLightMed);
+}
+
+.code {
+	font-family: 'M PLUS 1 Code';
+}
+
+.outOfScope {
+	color: var(--colorGrayLight);
+	font-style: italic;
+}

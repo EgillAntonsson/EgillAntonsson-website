@@ -11,14 +11,13 @@ import { Component } from '@angular/core'
 export class ProgrammingComponent {
 
 
-	lineNumbers = false
+	lineNumbers = true
 
 test_1_Red = `//HealthTest.cs
 using NUnit.Framework;
 
 public class HealthTest
 {
-	[TestFixture]
 	public class PointsTest
 	{
 		[Test]
@@ -43,15 +42,14 @@ using NUnit.Framework;
 
 public class HealthTest
 {
-	[TestFixture]
-	public class PointsTest
+	public class CurrentPointsTest
 	{
 		[Test]
 		public void HasStartingValue()
 		{
 			int startingPoints = 12;
 			var health = new Health(startingPoints);
-			Assert.That(health.Points, Is.EqualTo(startingPoints));
+			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
 		}
 	}
 }
@@ -59,16 +57,16 @@ public class HealthTest
 //Health.cs
 public class Health
 {
-	public int Points { get;  private set; }
+	public int CurrentPoints { get;  private set; }
 
-	public Health(int points)
+	public Health(int startingPoints)
 	{
-		Points = points;
+		CurrentPoints = startingPoints;
 	}
 }
 `
 
-test_2_Red = `//HealthTest.cs (continuing)
+test_2_Red = `//HealthTest.cs (only showing the new test)
 [Test]
 public void ThrowsError_WhenStartingValueIsInvalid()
 {
@@ -84,16 +82,17 @@ using System;
 
 public class Health
 {
-	public int Points { get;  private set; }
+	public int CurrentPoints { get;  private set; }
 
-	public Health(int points)
+	public Health(int startingPoints)
 	{
-		if (points < 1)
+		if (startingPoints < 1)
 		{
-			var msg = $"Value '{points}' for parameter 'points' is invalid, it should be higher than '0'";
-			throw new ArgumentOutOfRangeException(msg);
+			var paramName = nameof(startingPoints);
+			var message = $"Value '{startingPoints}' is invalid, it should be higher than '0'";
+			throw new ArgumentOutOfRangeException(paramName, message);
 		}
-		Points = points;
+		CurrentPoints = startingPoints;
 	}
 }
 `
@@ -103,8 +102,7 @@ using System;
 
 public class HealthTest
 {
-	[TestFixture]
-	public class PointsTest
+	public class CurrentPointsTest
 	{
 
 		[TestCase(12)]
@@ -112,7 +110,7 @@ public class HealthTest
 		public void HasStartingValue(int startingPoints)
 		{
 			var health = new Health(startingPoints);
-			Assert.That(health.Points, Is.EqualTo(startingPoints));
+			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
 		}
 
 		[TestCase(0)]
@@ -120,7 +118,8 @@ public class HealthTest
 		public void ThrowsError_WhenStartingValueIsInvalid(int startingPoints)
 		{
 			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate {
+			delegate
+			{
 				new Health(startingPoints);
 			});
 		}
