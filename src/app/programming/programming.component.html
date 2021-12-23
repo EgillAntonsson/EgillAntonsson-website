@@ -1,5 +1,40 @@
-<h2>Building with the bleeps and bloops and the 1s and 0s</h2>
+<h2>TDD-ing avatar health feature in C# using Unity</h2>
 
+<p>Date: 2021 December 23</p>
+
+<p>Circa a month ago, the evening before the 2 day MAG Jam (of every 5 weeks) at <a href="https://www.maginteractive.com">work</a>,<br>
+	were one can contribute in other ways than the 'day-to-day' work,<br>
+	I decided (rather spontaneously) to do a small workshop about unit testing in Unity (the main game engine we use at MAG).<br>
+	My rough idea for the workshop:<br>
+</p>
+<ul>
+	<li>Use TDD / Test-First approach (with brief introduction about it)</li>
+	<li>Screen share me implementing the requirements of a specific game functionality (encouraging participation)</li>
+</ul>
+<p>
+	In my experience as front-end game developer and developing shared packages for games,
+	nudging the unit test coverage upwards by writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great (and good) unit tests</a><br>
+	contributes greatly to baking-in the quality and maintainability of the projects.<br>
+	<br>
+	But many of the code bases out there have already been developed and established for some time with no unit tests written.<br>
+	Such code bases leave the door open for bad code design patterns to creep up along the way (although keeping up great design standard could prevent this),<br>
+	e.g. code is too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant, too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> defined and used, etc.<br>
+	By contrast a well and thoroughly tested code base pushes for and to some degree enforces the 'counter' good design patterns<br>
+	e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles...</a><br>
+	One of the negative consequence of the design rusted and untested code base is that it's very hard to write unit tests that 'late in the game'.<br>
+	<br>
+	When I'm on a task-to-task basis am adding, improving, changing, fixing functionality of such code base, my time and effort typically goes to:<br>
+	Try to squeeze in a couple of tests, especially if I'm doing a bug fix (to ensure same bug never occurs again)<br>
+	Implement the desired change<br>
+	Gradually refactoring the design in the right direction (which naturally comes with test improvements)<br>
+	All this will be combined in a ready Pull Request.<br>
+	Typically there is not time for more than this, unless dedicating a focused time on a specific strategy (which could be the proper thing to do in some cases).<br>
+	<br>
+	But for new projects I make sure tests are baked-in from the beginning<br>
+	These projects, and the ones the rust has been refactored out, are the cases where I apply TDD / Test-First approach,<br>
+	which IMO maximizes the benefits of unit testing and adds its own benefits.<br>
+<!-- TODO add links  -->
+</p>
 
 <p><a href='https://medium.com/pragmatic-programmers/3-3-the-tdd-cycle-red-green-refactor-b2d9925518a0'>The TDD Cycle: Red-Green-Refactor</a></p>
 
@@ -52,13 +87,13 @@
 
 <p>
 	We focus first on Health model's functional requirements.<br>
-	It can be broken into main 3 areas:
+	It can be broken into 3 parts:
 </p>
-<ul>
+<ol>
 	<li>Health starting state</li>
 	<li>Health taking damage</li>
 	<li>Health healing</li>
-</ul>
+</ol>
 <p>
 	In this blog post I'll focus on the first bulletin,<br>
 	and I'll flesh it further out, as I iterate through the TDD cycles.<br>
@@ -135,14 +170,9 @@
 	is also the proper generic solution,<br>
 	in other words I did <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step.<br>
 	<br>
-	The error message is informative and clear,<br>
-	e.g is using code would pass in value 0, it would be:<br>
+	If using code would pass in value 0, the message of the thrown exception would be:
 	<span class="code">System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
 		Parameter name: startingPoints</span><br>
-	<br>
-	A thought now occurs to me that the implementation might not handle a <span class="code">null</span> value,<br>
-	but as type	<span class="code">int</span> (and other number types) are (non nullable) Value types,<br>
-	this case can not happen.
 	<br>
 	<br>
 	I feel that no refactoring is needed in this cycle, as the code looks clean, so moving on.
