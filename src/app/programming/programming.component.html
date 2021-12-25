@@ -1,44 +1,93 @@
-<h2>TDD-ing avatar health feature in C# using Unity</h2>
+<h1>TDD avatar health in C# via Unity</h1>
+<h2>by Egill Antonsson, published on 2021 December 23</h2>
+<p>TODO put links to LinkedIn and GitHub</p>
 
-<p>Date: 2021 December 23</p>
-
-<p>Circa a month ago, the evening before the 2 day MAG Jam (of every 5 weeks) at <a href="https://www.maginteractive.com">work</a>,<br>
-	were one can contribute in other ways than the 'day-to-day' work,<br>
-	I decided (rather spontaneously) to do a small workshop about unit testing in Unity (the main game engine we use at MAG).<br>
-	My rough idea for the workshop:<br>
+<h2>What is TDD ?</h2>
+<p>
+	TDD is a workflow approach and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">Cycle: RED / GREEN / REFACTOR</a>
 </p>
+<ol>
+	<li><span class="redFail">RED:</span> Write a test that fails</li>
+	<li><span class="greenPass">GREEN:</span> Get the test to Pass, with minimal effort (all tests passing)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Clean up the structure and design (all tests passing)</li>
+</ol>
+<p>The cycle should focus on fulfilling a specific requirement on the object under test at a time,<br>
+	cycling through to the point when confidence is gained that the production code is generic enough to handle all input cases.<br>
+	At some interval you should stop and check if the code architecture on a wholistic level is still sound, and refactor if needed (all test passing).<br>
+	Uncle Bob elaborates additional cycles around RED / GREEN / REFACTOR in his <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> post.
+</p>
+
+<h2>Why do TDD ?</h2>
 <ul>
-	<li>Use TDD / Test-First approach (with brief introduction about it)</li>
-	<li>Screen share me implementing the requirements of a specific game functionality (encouraging participation)</li>
+	<li>Ensures you'll have a passing test suite with high code coverage that runs fast (within seconds or minutes),<br>
+		therefore you can clean the code without fear of breaking anything, thus always have confidence in the product quality, thus can ship it without fear.<br></li>
+	<li>Writing tests first requires beneficial decoupling (that other testing strategies do not)</li>
+	<li>Spend less time debugging.</li>
+	<li>The tests act as accurate, precise, and unambiguous documentation at the lowest level of the system.</li>
 </ul>
 <p>
-	In my experience as front-end game developer and developing shared packages for games,
-	nudging the unit test coverage upwards by writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great (and good) unit tests</a><br>
-	contributes greatly to baking-in the quality and maintainability of the projects.<br>
-	<br>
-	But many of the code bases out there have already been developed and established for some time with no unit tests written.<br>
-	Such code bases leave the door open for bad code design patterns to creep up along the way (although keeping up great design standard could prevent this),<br>
-	e.g. code is too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant, too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> defined and used, etc.<br>
-	By contrast a well and thoroughly tested code base pushes for and to some degree enforces the 'counter' good design patterns<br>
-	e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles...</a><br>
-	One of the negative consequence of the design rusted and untested code base is that it's very hard to write unit tests that 'late in the game'.<br>
-	<br>
-	When I'm on a task-to-task basis am adding, improving, changing, fixing functionality of such code base, my time and effort typically goes to:<br>
-	Try to squeeze in a couple of tests, especially if I'm doing a bug fix (to ensure same bug never occurs again)<br>
-	Implement the desired change<br>
-	Gradually refactoring the design in the right direction (which naturally comes with test improvements)<br>
-	All this will be combined in a ready Pull Request.<br>
-	Typically there is not time for more than this, unless dedicating a focused time on a specific strategy (which could be the proper thing to do in some cases).<br>
-	<br>
-	But for new projects I make sure tests are baked-in from the beginning<br>
-	These projects, and the ones the rust has been refactored out, are the cases where I apply TDD / Test-First approach,<br>
-	which IMO maximizes the benefits of unit testing and adds its own benefits.<br>
-<!-- TODO add links  -->
+	There are also criticisms on TDD, e.g. the post <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing.</a> but also responses to it, e.g the post <a href="https://blog.cleancoder.com/uncle-bob/2014/04/25/MonogamousTDD.html">Monogamous TDD</a>.
 </p>
 
-<p><a href='https://medium.com/pragmatic-programmers/3-3-the-tdd-cycle-red-green-refactor-b2d9925518a0'>The TDD Cycle: Red-Green-Refactor</a></p>
+<h2>Does TDD work for all scenarios ?</h2>
 
-<p><a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a></p>
+<h3>Boundary layers</h3>
+<p>
+	Bulk of my work experience has centered around games (front-end game developer, developing shared systems for games)<br>
+	and a big part of the (front-end) game is the graphic visuals and UI, user input, and sound.<br>
+	Should those parts be unit tested via TDD ?<br>
+	These parts can be described as layers close to the physical output/input boundaries.
+	We should design these boundary layers to be <a href="http://xunitpatterns.com/Humble%20Object.html">Humble</a>.<br>
+	by moving all the logic associated with them out into other modules for which we can easily write unit tests.<br>
+	Bulk of the logic is likely the domain logic that should be in the domain layer and not be coupled with any boundaries (thus easily unit testable).<br>
+	The edges of the boundary layers can be manually tested, e.g. seeing that the visuals drawn on screen properly.<br>
+	There likely comes a point where automating testing the boundary layers provides value, and the <a href="https://martinfowler.com/articles/practical-test-pyramid.html">Test Pyramid</a> could guide you with that.
+</p>
+
+<h3>Untested and design-rusted code bases</h3>
+<p>
+	Some code bases have been developed for some time where unit tests were never written.<br>
+	Such code bases leave the door open for bad code design to creep up along the way (although keeping up great design standard could prevent this).<br>
+	One example could be that too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> have been defined and used,<br>
+	which feeds into the bigger issue of code being too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant.<br>
+	By contrast a well and thoroughly tested code base pushes for, and to some degree enforces, the 'counter' good design<br>
+	e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles</a>.<br>
+	One of the negative consequence of the design rusted and untested code base is that it's very hard to start writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">good unit tests</a>, and even harder via TDD, 'that late in the game'.<br>
+	<br>
+	To get such a code base into a state where it's effortless to apply and continue with TDD,<br>
+	it could be done with a gradual approach:
+</p>
+<ul>
+	<li>Functional requirements (adding, improving, changing) continue to be done with some form of deadline pending</li>
+	<li>Focus on adding <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great or good unit tests</a>, not necessarily with Test-First approach</li>
+	<li>Fixing bugs provides good opportunity to apply TDD approach (write a test that fails due to the bug, fix the production code that passes the test)</li>
+	<li>for other functionality, try to squeeze in a couple of tests</li>
+	<li>Gradually refactor the design, ideally having sufficient tests to catch any breakages early</li>
+	<li>Thus the test coverage gradually nudges upwards (going downwards is not acceptable).<br>
+</ul>
+<p>
+	Another alternative	would be to dedicate a time period to focus only on refactoring the design, write <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great unit tests</a> thus improve the test coverage dramatically.
+</p>
+<h2>The chosen assignment: the avatar health</h2>
+<p>
+	I decided to do a short workshop about TDD at <a href="https://www.maginteractive.com">work</a> and for preparation I browsed the internet looking for a fitting assignment and I came across  <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1 post, by Charles Amat</a>, where his assignment is implementing the Life Gauge from a Zelda: Breath of the Wild game.<br>
+	I thought it was a fitting assignment for the workshop, but I did not watch his series (as I was running out of preparation time).<br>
+	 So instead I read through the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a>
+	(which was linked in the 'Part 1' post)<br>
+	(and also played the game to refresh my memory).<br>
+	I wrote down the Life Gauge behaviour from the user perspective (based on the wiki),<br>
+	and then broke it down into list of requirement for the developer perspective<br>
+	I focused first on the (non visual) domain logic, to implement all the requirements it should fulfill,<br>
+	as TDD can fully and easily be applied on the domain layer.<br>
+	Then the focus would shift to the visuals, where the value of TDD would likely dwindle the closer it got to the physical boundaries of the screen ('Boundary layers' section elaborates on this).<br>
+	With this preparation I held the short workshop, where I screen shared TDD-ing the implementation from scratch,<br>
+	and me and the participants collaboratively completed some of the domain logic requirements, when the time was up.<br>
+	After the workshop, I wanted continue and complete the assignment.<br>
+	I decided to watch the whole <a href="http://infalliblecode.com/unity-tdd-2/">TDD in Unity</a> series, which is in the format of <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a>.<br>
+	I both enjoyed and learning from watching Charles Amat implementing via TDD the Life Gauge,<br>
+
+</p>
+
 
 
 <p>
