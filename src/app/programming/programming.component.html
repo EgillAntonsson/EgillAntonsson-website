@@ -1,14 +1,14 @@
 
-<div class="allByContainer">
+<div class="treeContainer">
 	<div *ngFor="let series of blogSeries; let seriesIndex = index">
-		<div class="byContainer" (click)="onSeriesClick(seriesIndex)">
-				<div class="byIconContainer">
-						<div [ngClass]="{byIcon: true, animateClose: openedUiSeriesIndex != seriesIndex, animateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="branchIconContainer">
+						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != seriesIndex, branchAnimateOpen: openedUiSeriesIndex === seriesIndex}"></div>
 					</div>
 			<span>{{series.title}}</span>
 		</div>
-		<div class="trackContainer fadein" *ngIf="openedUiSeriesIndex === seriesIndex">
-			<div [ngClass]="{selectedTrack: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
 				{{post.title}}
 			</div>
 		</div>
@@ -27,16 +27,37 @@
 
  <hr>
 
- <div class="allByContainer">
+<h2>Comments</h2>
+
+<div class="commentForm">
+ <form [formGroup]="commentForm" novalidate name="comment" method="POST" data-netlify="true">
+	 <small>Your Comment</small>
+	 <br>
+		<textarea class="commentInput" type="text" formControlName="inputComment" (input)="commentInput()" (click)="commentClick()" [maxlength]="maximumCommentLength" rows="4"></textarea>
+	<br><br>
+	<small>Your Name / Handle (optional)</small>
+	<br>
+	<input type="text" formControlName="inputName" maxlength="30" size="35" (click)="nameClick()">
+	<br><br>
+	<small>Your Email (optional)</small>
+	<br>
+	<input type="text" formControlName="inputEmail" maxlength="30" size="35" (click)="nameClick()">
+	<br><br>
+	<button type="submit" [disabled]="commentForm.invalid">Send</button>
+</form>
+</div>
+
+<hr>
+<div class="treeContainer">
 	<div *ngFor="let series of blogSeries; let seriesIndex = index">
-		<div class="byContainer" (click)="onSeriesClick(seriesIndex)">
-				<div class="byIconContainer">
-						<div [ngClass]="{byIcon: true, animateClose: openedUiSeriesIndex != seriesIndex, animateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="branchIconContainer">
+						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != seriesIndex, branchAnimateOpen: openedUiSeriesIndex === seriesIndex}"></div>
 					</div>
 			<span>{{series.title}}</span>
 		</div>
-		<div class="trackContainer fadein" *ngIf="openedUiSeriesIndex === seriesIndex">
-			<div [ngClass]="{selectedTrack: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
 				{{post.title}}
 			</div>
 		</div>

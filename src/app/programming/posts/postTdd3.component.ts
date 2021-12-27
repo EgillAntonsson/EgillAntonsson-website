@@ -3,7 +3,10 @@ import { Post, BlogService } from '../../shared/services/blog.service'
 
 @Component({
 	selector: 'app-post-tdd-3',
-	templateUrl: './postTdd3.component.html'
+	templateUrl: './postTdd3.component.html',
+	styleUrls: [
+		'./../programming.component.css'
+	]
 })
 
 export class PostTdd3Component {

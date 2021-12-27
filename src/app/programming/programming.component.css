@@ -10,11 +10,15 @@
 	color: var(--colorGreenLightMed);
 }
 
-.code {
-	font-family: 'M PLUS 1 Code';
-}
-
 .outOfScope {
 	color: var(--colorGrayLight);
 	font-style: italic;
+}
+
+.commentForm {
+	padding: 1em;
+}
+
+.commentInput {
+	width: 300px;
 }
