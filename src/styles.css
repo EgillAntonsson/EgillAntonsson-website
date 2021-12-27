@@ -244,6 +244,14 @@ figcaption {
 	}
 }
 
+.selectedTrack {
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	 /* place it at the same y pos as the Lato font */
+	padding-top: 1.5px;
+	color: var(--colorActive);
+}
+
 /* ngx slider*/
 .slider .ngx-slider .ngx-slider-bar {
 	background:var(--colorGrayDark);

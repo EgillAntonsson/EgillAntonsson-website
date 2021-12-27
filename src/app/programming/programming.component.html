@@ -1,354 +1,44 @@
-<h1>TDD-ing Avatar Health in C# via Unity</h1>
-<h2>by Egill Antonsson, published on 2021 December 23</h2>
-<p>TODO put links to LinkedIn and GitHub</p>
 
-<h2>What is TDD ?</h2>
-<p>
-	TDD is a workflow approach and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">Cycle: RED / GREEN / REFACTOR</a>
-</p>
-<ol>
-	<li><span class="redFail">RED:</span> Write a test that fails</li>
-	<li><span class="greenPass">GREEN:</span> Get the test to Pass, with minimal effort (all tests passing)</li>
-	<li><span class="greenRefactor">REFACTOR:</span> Clean up the structure and design (all tests passing)</li>
-</ol>
-<p>The cycle should focus on fulfilling a specific requirement on the object under test at a time,<br>
-	cycling through to the point when confidence is gained that the production code is generic enough to handle all input cases.<br>
-	At some interval you should stop and check if the code architecture on a wholistic level is still sound, and refactor if needed (all test passing).<br>
-	Uncle Bob elaborates additional cycles around RED / GREEN / REFACTOR in his <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> post.
-</p>
+<div class="allByContainer">
+	<div *ngFor="let series of blogSeries; let seriesIndex = index">
+		<div class="byContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="byIconContainer">
+						<div [ngClass]="{byIcon: true, animateClose: openedUiSeriesIndex != seriesIndex, animateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+					</div>
+			<span>{{series.title}}</span>
+		</div>
+		<div class="trackContainer fadein" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{selectedTrack: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+				{{post.title}}
+			</div>
+		</div>
+	</div>
+</div>
 
-<h2>Why do TDD ?</h2>
-<ul>
-	<li>Ensures you'll have a passing test suite with high code coverage that runs fast (within seconds or minutes),<br>
-		therefore you can clean the code without fear of breaking anything, thus always have confidence in the product quality, thus can ship it without fear.<br></li>
-	<li>Writing tests first requires beneficial decoupling (that other testing strategies do not)</li>
-	<li>Spend less time debugging.</li>
-	<li>The tests act as accurate, precise, and unambiguous documentation at the lowest level of the system.</li>
-</ul>
-<p>
-	There are also criticisms on TDD, e.g. the post <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing.</a> but also responses to it, e.g the post <a href="https://blog.cleancoder.com/uncle-bob/2014/04/25/MonogamousTDD.html">Monogamous TDD</a>.
-</p>
+ <ng-container *ngIf="selectedPost.component === 'tdd-1'">
+	<app-post-tdd-1></app-post-tdd-1>
+ </ng-container>
+ <ng-container *ngIf="selectedPost.component === 'tdd-2'">
+	<app-post-tdd-2></app-post-tdd-2>
+ </ng-container>
+ <ng-container *ngIf="selectedPost.component === 'tdd-3'">
+	<app-post-tdd-3></app-post-tdd-3>
+ </ng-container>
 
-<h2>Does TDD work for all scenarios ?</h2>
+ <hr>
 
-<h3>Boundary layers</h3>
-<p>
-	Bulk of my work experience has centered around games (front-end game developer, developing shared systems for games)<br>
-	and a big part of a game is the graphic visuals and UI, user input, and sound.<br>
-	Should those parts be unit tested via TDD ?<br>
-	These parts can be described as layers close to the physical output/input boundaries.
-	We should design these boundary layers to be <a href="http://xunitpatterns.com/Humble%20Object.html">Humble</a>.<br>
-	by moving all the logic associated with them out into other modules for which we can easily write unit tests.<br>
-	Bulk of the logic is likely the domain logic that should be in the domain layer and not be coupled with any boundaries (thus easily unit testable).<br>
-	The edges of the boundary layers can be manually tested, e.g. seeing that the visuals drawn on screen properly.<br>
-	There likely comes a point where automating testing the boundary layers provides value, and the <a href="https://martinfowler.com/articles/practical-test-pyramid.html">Test Pyramid</a> could guide you with that.
-</p>
-
-<h3>Untested and design-rusted code bases</h3>
-<p>
-	Some code bases have been developed for some time where unit tests were never written.<br>
-	Such code bases leave the door open for bad code design to creep up along the way (although keeping up great design standard can prevent this).<br>
-	One example could be that too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> have been defined and used,<br>
-	which feeds into the bigger issue of code being too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant.<br>
-	By contrast a well and thoroughly tested code base pushes for, and to some degree enforces, the 'counter' good design<br>
-	e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles</a>.<br>
-	One of the negative consequence of the design rusted and untested code base is that it's very hard to start writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">good unit tests</a>, and even harder via TDD, 'that late in the game'.<br>
-	<br>
-	To get such a code base into a state where it's effortless to apply and continue with TDD,<br>
-	it could be done with a gradual approach:
-</p>
-<ul>
-	<li>Functional requirements (adding, improving, changing) continue to be done with some form of deadline pending</li>
-	<li>Focus on adding <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great or good unit tests</a>, not necessarily with Test-First approach</li>
-	<li>Fixing bugs provides good opportunity to apply TDD approach (write a test that fails due to the bug, fix the production code that passes the test)</li>
-	<li>for other functionality, try to squeeze in a couple of tests</li>
-	<li>Gradually refactor the design, ideally having sufficient tests to catch any breakages early</li>
-	<li>Thus the test coverage gradually nudges upwards (going downwards is not acceptable).<br>
-</ul>
-<p>
-	Another alternative	would be to dedicate a time period to focus only on refactoring the design<br>
-	and write <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great unit tests</a>, thus improve the test coverage dramatically.
-</p>
-
-<h2>The chosen assignment: the Avatar Health</h2>
-<p>
-	I decided to do a short workshop about TDD at <a href="https://www.maginteractive.com">work</a> and for preparation I browsed the internet looking for a fitting assignment and I came across <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1 post, by Charles Amat</a>, where his assignment is implementing the Life Gauge from a Zelda: Breath of the Wild game,<br>
-	and I thought it was a good and fitting assignment for the workshop.<br>
-	 So I read through the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a>
-	(which was linked in the 'Part 1' post), and also played the game a bit, focusing on the Life Gauge.<br>
-	But I did not go through the 'TDD in Unity' series, as I was running out of preparation time.<br>
-	My order both in my preparations and then to go through in the workshop:<br>
-</p>
-<ol>
-	<li>Write down the Life Gauge behavior from the user perspective (based on the wiki and my experience)</li>
-	<li>Break it down and filter into a list of requirements for the developer perspective</li>
-	<li>Focus first on the (non visual) domain logic and implement all the requirements it should fulfill,<br>
-		as TDD can fully and easily be applied on the domain layer.</li>
-	<li>Afterwards the focus would shift to the visuals,<br>
-		where the value of TDD potentially would dwindle the closer I got to the physical boundary of the screen ('Boundary layers' section above elaborates on this).</li>
-</ol>
-<p>
-	With this I held the short workshop where I screen shared TDD-ing the implementation from scratch,<br>
-	and I and the participants collaboratively completed some of the domain logic requirements, when the time was up.<br>
-</p>
-
-<h2>Comparing approaches of the assignment</h2>
-<p>
-	After the workshop, I was curious how Charles Amat solved it,<br>
-	so I watched on YouTube the whole <a href="http://infalliblecode.com/unity-tdd-2/">TDD in Unity</a> series.<br>
-	I both enjoyed and learned some things watching Charles Amat <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> and implementing the Life Gauge<br>
-	and his end result solution is good, and I thank Charles for his work.<br>
-	but I noticed that his focus order differed from mine, as he:<br>
-</p>
-<ol>
-	<li>Starts planning how he would go about creating the heart container in Unity, from a graphical UI perspective</li>
-	<li>Starts TDD-ing logic close to the graphical UI</li>
-	<li>Ends with TDD-ing the domain logic, the Player Health in <a href="http://infalliblecode.com/unity-tdd-7/">Part 7</a> and 8</li>
-	<li>The requirements on the domain logic are very simple and do not cover close to all the player health requirements of <i>Zelda: Breath of the Wild</i></li>
-</ol>
-
-<h3>TDD-ing the same assignment, but with my focus order</h3>
-<p>
-	This is why I wanted to do a blog post series with the same assignment:<br>
-	implement Avatar Health, based on <i>Zelda: Breath of the Wild</i>, but with my focus order:<br>
-	Focusing first on the domain logic, and implement all the Avatar Health requirements of <i>Zelda: Breath of the Wild</i>.<br>
-	When focusing on the domain logic, there will only be C# and .NET (though I'm using Unity and running tests via its Test Runner),<br>
-	as there should be no Unity visual specific code in the domain layer.<br>
-	When the focus later goes to the visuals, then there will be some Unity visual specific code.<br>
-	The visual implementation will likely be similar to the <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity series</a>,<br>
-	and I might even reference it heavily, instead of reinventing the wheel for that part.
-</p>
-
-<h3>The Life Gauge behavior from the user perspective</h3>
-<p>
-	The below list is based on the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a>,<br>
-</p>
-<ul>
-	<li>The Life Gauge measures Link's current amount of health, visually represented in the form of Hearts.</li>
-	<li>Health is visually represented in the form of Hearts, and they are in fractions of four</li>
-	<li>The Life Gauge starts with 3 Hearts
-	<br>
-	<li>Whenever Link (the avatar) takes damage, he will lose a certain amount of Heart fractions equal to the damage taken.<br>
-		When Link loses all of his Hearts, the game ends.</li>
-	<li>Link will take at least a quarter of a Heart of damage from any attack</li>
-	<li>Some enemies may do more damage in one hit than Link has health.<br>
-		As long as Link's Life Gauge is full, he is protected from any attack that would instantly kill him,<br>
-		and will instead be left alive with a quarter Heart remaining.<br>
-		However, this has limitations: if the damage is more than five Hearts above Link's maximum health, he will still die</li>
-	<br>
-	<li>Link's Life Gauge can be replenished by:<br>
-		picking up recovery Hearts,<br>
-		drinking recovery Potions<br>
-		or by resting while Sitting or Sleeping.
-		</li>
-	<li>The Life Gauge can be extended to a total of 30 Hearts</li>
-	<br>
-	<li>The Life Gauge can be temporarily extended by consuming certain Foods that grant Link yellow temporary Hearts.<br>
-		These Hearts are lost when Link takes damage and cannot be recovered.</li>
-</ul>
-
-<h3>Domain / Visual mapping of <i>Life Gauge</i></h3>
-<table>
-	<tr>
-		<th>Domain Layer / Model</th>
-		<th>Visual Layer / View</th>
-	</tr>
-	<tr>
-		<td class="center">
-			Avatar Health
-		</td>
-		<td class="center">
-			Heart Container
-		</td>
-	</tr>
-	<tr>
-		<td class="center">
-				-
-		</td>
-		<td class="center">
-			Heart (contains 4 Fractions)
-		</td>
-	</tr>
-	<tr>
-		<td class="center">
-			Health Points
-		</td>
-		<td class="center">
-			Heart Fraction
-		</td>
-	</tr>
-</table>
-<p>
-	This is a helpful separation of concerns for the code implementation (and team communication):<br>
-	<br>
-	Heart Container (with its Hearts and fractions) is a specific visual representation of the Avatar Health, the domain.<br>
-	<br>
-	We want the code coupling to be low / dependency to be minimal and one-way,<br>
-	The view can depend in some way on the model (but not vice-versa).<br>
-	<br>
-	I (or the team's game designer / artist) might decide to change the visually representation to a health bar, or simply a number,<br>
-	and with this separation of concern:
-<ul>
-	<li>As the model is not dependent on the View, the Model will be unaffected</li>
-	<li>The model code terminology will be unaffected.</li>
-</ul>
-<p>
-	I might end up having more than one visual representations simultaneously to fully illustrate this.<br>
-	It is common in game UI two have more than one visual representation of the same domain (although not for avatar's health specifically).
-</p>
-
-<h3>Concluding this first post</h3>
-<p>
-	I've now setup all the preparations to begin TDD-ing and implementing the domain logic,<br>
-	which will be done in the next blog post.
-</p>
-
-<p>
-	We focus first on Health model's functional requirements.<br>
-	It can be broken into 3 parts:
-</p>
-<ol>
-	<li>Health starting state</li>
-	<li>Health taking damage</li>
-	<li>Health healing</li>
-</ol>
-<p>
-	In this blog post I'll focus on the first bulletin,<br>
-	and I'll flesh it further out, as I iterate through the TDD cycles.<br>
-	(I aim to tackle the other areas in following blog posts of this series).
-</p>
-<ul>
-	<li>Health starting state</li>
-		<ul>
-			<li>Health Points starting value (12, which visually equals 3 Hearts)</li>
-			<li>...</li>
-		</ul>
-</ul>
-
-<hr>
-<h3>Health Points starting value (12)</h3>
-<p><span class="redFail">RED:</span>
-	We define our test class and our first test.<br>
-	The test is failing as the code does not even compile.
-</p>
-<pre><code [highlight]="test_1_Red"></code></pre>
-
-<p><span class="greenPass">GREEN:</span> Let's make the test pass with a simple implementation.
-</p>
-<pre><code [highlight]="impl_1_Green"></code></pre>
-
-<h4><span class="greenRefactor">REFACTOR</span></h4>
-
-<p>Now it comes to mind that from a game design perspective,<br>
-	it is good to be able to tweak the starting health points for game balancing<br>
-	thus I refactor the value to be passed as parameter into the constructor.<br>
-	<span class="outOfScope">A full-blown real-life system has accessible game balancing config<br>
-	that is well integrated in the code base,<br>
-	that would then use <span class="code">Health</span> class as designed (passing in value/s),<br>
-	but that is out of scope.<br></span>
-	<br>
-	I name the passed parameter <span class="code">startingPoints</span>.<br>
-	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
-	starting health points is passed into constructor which sets the current health points.<br>
-	<br>
-	I also encapsulate t with private setter,<br>
-	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.<br>
-	The only exposure should be for the class interface, that the tests will drive,<br>
-	the will gradually be established through the TDD cycles.
-</p>
-<pre><code [highlight]="code_1_Refactor"></code></pre>
-
-<hr>
-
-<h3>Handle invalid starting points values</h3>
-<p>
-	Now it comes to mind that invalid starting point values can be passed in,<br>
-	as our Link avatar should never start with less than 1 Health Points,<br>
-	because otherwise he'd start up being dead (and what a sad game play that would be :) )<br>
-	Thus I'll throw exceptions passed in value is invalid.<br>
-	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
-	(e.g. in the previously mentioned game balancing config, which is out of scope).<br></span>
-</p>
-
-<h4><span class="redFail">RED</span></h4>
-
-<pre><code [highlight]="test_2_Red"></code></pre>
-
-<p>
-	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
-	that includes an informative error message for my case.<br>
-	I chose the value 0 as it's on the invalid 'edge'. (as 1 is valid).
-</p>
-
-<h4><span class="greenPass">GREEN</span></h4>
-
-<pre><code [highlight]="impl_2_Green"></code></pre>
-
-<p>The <span class="greenPass">GREEN</span> implementation in this case,<br>
-	is also the proper generic solution,<br>
-	in other words I did <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step.<br>
-	<br>
-	If using code would pass in value 0, the message of the thrown exception would be:
-	<span class="code">System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
-		Parameter name: startingPoints</span><br>
-	<br>
-	<br>
-	I feel that no refactoring is needed in this cycle, as the code looks clean, so moving on.
-</p>
-
-<hr>
-
-<p>As the implementation is very simple I am confident that it works for any passed-in values.<br>
-	But let's test a few more values,<br>
-	to demonstrate how one can do so in a clean and maintainable way.
-</p>
-
-<h4><span class="greenRefactor">Refactor</span></h4>
-
-<p>Refactoring tests to add test cases where the value is close to the valid/invalid 'edge',<br>
-	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case attribute</a>.
-</p>
-<pre><code [highlight]="test_3_Green"></code></pre>
-
-<p>
-	This runs in total 4 test cases and Unity Test Runner looks like this:
-</p>
-<ul>
-	<li>HealthTest+PointsTest</li>
-		<ul>
-			<li>HasStartingValue
-				<ul>
-					<li>&#9989; HasStartingValue(12)</li>
-					<li> &#9989; HasStartingValue(1)</li>
-				</ul>
-			</li>
-			<li>ThrowsError_WhenStartingValueIsInvalid
-				<ul>
-					<li>&#9989; ThrowsError_WhenStartingValueIsInvalid(0)</li>
-					<li>&#9989; ThrowsError_WhenStartingValueIsInvalid(-1)</li>
-				</ul>
-			</li>
-		</ul>
-</ul>
-
-<hr>
-
-<p>This concludes the first bulletin on our requirement list, and this blog post.<br>
-	I aim to continue with the list in following blog posts, so let's end it with the viewing the list.
-</p>
-
-<ul>
-	<li>Health starting state</li>
-		<ul>
-			<li>Health Points starting value &#9989;</li>
-			<li>Handle invalid starting value for Health Points &#9989;</li>
-		</ul>
-	<li>Health taking damage</li>
-		<ul>
-			<li>... to be fleshed out</li>
-		</ul>
-	<li>Health healing</li>
-		<ul>
-			<li>... to be fleshed out</li>
-		</ul>
-</ul>
+ <div class="allByContainer">
+	<div *ngFor="let series of blogSeries; let seriesIndex = index">
+		<div class="byContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="byIconContainer">
+						<div [ngClass]="{byIcon: true, animateClose: openedUiSeriesIndex != seriesIndex, animateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+					</div>
+			<span>{{series.title}}</span>
+		</div>
+		<div class="trackContainer fadein" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{selectedTrack: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+				{{post.title}}
+			</div>
+		</div>
+	</div>
+</div>

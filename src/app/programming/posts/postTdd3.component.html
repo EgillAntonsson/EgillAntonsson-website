@@ -1,0 +1,153 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+
+<p>
+	We focus first on Health model's functional requirements.<br>
+	It can be broken into 3 parts:
+</p>
+<ol>
+	<li>Health starting state</li>
+	<li>Health taking damage</li>
+	<li>Health healing</li>
+</ol>
+<p>
+	In this blog post I'll focus on the first bulletin,<br>
+	and I'll flesh it further out, as I iterate through the TDD cycles.<br>
+	(I aim to tackle the other areas in following blog posts of this series).
+</p>
+<ul>
+	<li>Health starting state</li>
+		<ul>
+			<li>Health Points starting value (12, which visually equals 3 Hearts)</li>
+			<li>...</li>
+		</ul>
+</ul>
+
+<hr>
+<h3>Health Points starting value (12)</h3>
+<p><span class="redFail">RED:</span>
+	We define our test class and our first test.<br>
+	The test is failing as the code does not even compile.
+</p>
+<pre><code [highlight]="test_1_Red"></code></pre>
+
+<p><span class="greenPass">GREEN:</span> Let's make the test pass with a simple implementation.
+</p>
+<pre><code [highlight]="impl_1_Green"></code></pre>
+
+<h4><span class="greenRefactor">REFACTOR</span></h4>
+
+<p>Now it comes to mind that from a game design perspective,<br>
+	it is good to be able to tweak the starting health points for game balancing<br>
+	thus I refactor the value to be passed as parameter into the constructor.<br>
+	<span class="outOfScope">A full-blown real-life system has accessible game balancing config<br>
+	that is well integrated in the code base,<br>
+	that would then use <span class="code">Health</span> class as designed (passing in value/s),<br>
+	but that is out of scope.<br></span>
+	<br>
+	I name the passed parameter <span class="code">startingPoints</span>.<br>
+	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
+	starting health points is passed into constructor which sets the current health points.<br>
+	<br>
+	I also encapsulate t with private setter,<br>
+	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.<br>
+	The only exposure should be for the class interface, that the tests will drive,<br>
+	the will gradually be established through the TDD cycles.
+</p>
+<pre><code [highlight]="code_1_Refactor"></code></pre>
+
+<hr>
+
+<h3>Handle invalid starting points values</h3>
+<p>
+	Now it comes to mind that invalid starting point values can be passed in,<br>
+	as our Link avatar should never start with less than 1 Health Points,<br>
+	because otherwise he'd start up being dead (and what a sad game play that would be :) )<br>
+	Thus I'll throw exceptions passed in value is invalid.<br>
+	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
+	(e.g. in the previously mentioned game balancing config, which is out of scope).<br></span>
+</p>
+
+<h4><span class="redFail">RED</span></h4>
+
+<pre><code [highlight]="test_2_Red"></code></pre>
+
+<p>
+	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
+	that includes an informative error message for my case.<br>
+	I chose the value 0 as it's on the invalid 'edge'. (as 1 is valid).
+</p>
+
+<h4><span class="greenPass">GREEN</span></h4>
+
+<pre><code [highlight]="impl_2_Green"></code></pre>
+
+<p>The <span class="greenPass">GREEN</span> implementation in this case,<br>
+	is also the proper generic solution,<br>
+	in other words I did <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step.<br>
+	<br>
+	If using code would pass in value 0, the message of the thrown exception would be:
+	<span class="code">System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
+		Parameter name: startingPoints</span><br>
+	<br>
+	<br>
+	I feel that no refactoring is needed in this cycle, as the code looks clean, so moving on.
+</p>
+
+<hr>
+
+<p>As the implementation is very simple I am confident that it works for any passed-in values.<br>
+	But let's test a few more values,<br>
+	to demonstrate how one can do so in a clean and maintainable way.
+</p>
+
+<h4><span class="greenRefactor">Refactor</span></h4>
+
+<p>Refactoring tests to add test cases where the value is close to the valid/invalid 'edge',<br>
+	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case attribute</a>.
+</p>
+<pre><code [highlight]="test_3_Green"></code></pre>
+
+<p>
+	This runs in total 4 test cases and Unity Test Runner looks like this:
+</p>
+<ul>
+	<li>HealthTest+PointsTest</li>
+		<ul>
+			<li>HasStartingValue
+				<ul>
+					<li>&#9989; HasStartingValue(12)</li>
+					<li> &#9989; HasStartingValue(1)</li>
+				</ul>
+			</li>
+			<li>ThrowsError_WhenStartingValueIsInvalid
+				<ul>
+					<li>&#9989; ThrowsError_WhenStartingValueIsInvalid(0)</li>
+					<li>&#9989; ThrowsError_WhenStartingValueIsInvalid(-1)</li>
+				</ul>
+			</li>
+		</ul>
+</ul>
+
+<hr>
+
+<p>This concludes the first bulletin on our requirement list, and this blog post.<br>
+	I aim to continue with the list in following blog posts, so let's end it with the viewing the list.
+</p>
+
+<ul>
+	<li>Health starting state</li>
+		<ul>
+			<li>Health Points starting value &#9989;</li>
+			<li>Handle invalid starting value for Health Points &#9989;</li>
+		</ul>
+	<li>Health taking damage</li>
+		<ul>
+			<li>... to be fleshed out</li>
+		</ul>
+	<li>Health healing</li>
+		<ul>
+			<li>... to be fleshed out</li>
+		</ul>
+</ul>

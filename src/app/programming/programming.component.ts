@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-// import {Highlight } from 'ngx-highlightjs'
+import { BlogService, Post } from '../shared/services/blog.service'
 
 @Component({
 	selector: 'app-programming',
@@ -9,122 +9,37 @@ import { Component } from '@angular/core'
 	]
 })
 export class ProgrammingComponent {
-
-
+	openedUiSeriesIndex = 0
+	selectedSeriesIndex = 0
 	lineNumbers = true
 
-test_1_Red = `//HealthTest.cs
-using NUnit.Framework;
-
-public class HealthTest
-{
-	public class PointsTest
-	{
-		[Test]
-		public void HasStartingValue()
-		{
-			var health = new Health();
-			Assert.That(health.Points, Is.EqualTo(12));
-		}
+	get blogSeries() {
+		return this.blogService.blogSeries
 	}
-}
-`
 
-impl_1_Green = `//Health.cs
-public class Health
-{
-	public int Points = 12;
-}
-`
-
-code_1_Refactor = `//HealthTest.cs
-using NUnit.Framework;
-
-public class HealthTest
-{
-	public class CurrentPointsTest
-	{
-		[Test]
-		public void HasStartingValue()
-		{
-			int startingPoints = 12;
-			var health = new Health(startingPoints);
-			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-		}
+	get selectedPost() {
+		return this.blogService.selectedPost
 	}
-}
 
-//Health.cs
-public class Health
-{
-	public int CurrentPoints { get;  private set; }
+	constructor(private blogService: BlogService) {
 
-	public Health(int startingPoints)
-	{
-		CurrentPoints = startingPoints;
 	}
-}
-`
 
-test_2_Red = `//HealthTest.cs (only showing the new test)
-[Test]
-public void ThrowsError_WhenStartingValueIsInvalid()
-{
-	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate {
-		new Health(0);
-	});
-}
-`
+	onSeriesClick(seriesIndex: number) {
+		// deselect disabled, until more than one series is defined
+		// if (this.openedUiSeriesIndex === seriesIndex) {
 
-impl_2_Green = `//Health.cs
-using System;
-
-public class Health
-{
-	public int CurrentPoints { get;  private set; }
-
-	public Health(int startingPoints)
-	{
-		if (startingPoints < 1)
-		{
-			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be higher than '0'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints = startingPoints;
+			// this.openedUiSeriesIndex = -1
+		// } else {
+			this.openedUiSeriesIndex = seriesIndex
+		// }
 	}
-}
-`
-test_3_Green = `//HealthTest.cs
-using NUnit.Framework;
-using System;
 
-public class HealthTest
-{
-	public class CurrentPointsTest
-	{
+	onPostClick(post: Post) {
+		this.selectedSeriesIndex = this.openedUiSeriesIndex
+		this.blogService.selectedPost = post
 
-		[TestCase(12)]
-		[TestCase(1)]
-		public void HasStartingValue(int startingPoints)
-		{
-			var health = new Health(startingPoints);
-			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenStartingValueIsInvalid(int startingPoints)
-		{
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				new Health(startingPoints);
-			});
-		}
+		window.scroll(0, 0)
 	}
-}
-`
 
 }

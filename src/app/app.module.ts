@@ -6,7 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatRippleModule } from '@angular/material/core'
 import { NgxSliderModule } from '@angular-slider/ngx-slider'
 import { ReactiveFormsModule } from '@angular/forms'
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
@@ -18,6 +18,9 @@ import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
 import { RandomNumber, RandomNumberService } from './shared/services/randomNumber.service'
+import { PostTdd1Component } from './programming/posts/postTdd1.component'
+import { PostTdd2Component } from './programming/posts/postTdd2.component'
+import { PostTdd3Component } from './programming/posts/postTdd3.component'
 
 @NgModule({
 	imports: [
@@ -40,6 +43,9 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 		PageNotFoundComponent,
 		MyNumberPipe,
 		MinutesSecondsPipe,
+		PostTdd1Component,
+		PostTdd2Component,
+		PostTdd3Component
 	],
 	bootstrap: [AppComponent],
 	providers: [{
