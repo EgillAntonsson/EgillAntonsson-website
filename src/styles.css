@@ -9,7 +9,8 @@
 
 	--colorGrayLight: #969896;
 	--colorGrayLightMed: #8B91A2;
-	--colorGrayDark: #424242;
+	--colorGrayDarkMed: #424242;
+	--colorGrayDark: #212121;
 
 	--colorWhiteLight: #EEE;
 	--colorWhiteLightMed: #DDD;
@@ -51,30 +52,55 @@ body, input[text] {
 	color: var(--colorForeground);
 }
 
+input {
+	font-size: 102%;
+	font-family: Lato, Helvetica, sans-serif;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight)
+}
+
+textarea {
+	font-size: 102%;
+	font-family: Lato, Helvetica, sans-serif;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight)
+}
+
+button {
+	font-size: 102%;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight)
+}
+
+button:disabled{
+	background: var(--colorGrayDarkMed);
+	color: var(--colorGrayLightMed);
+}
+
 code {
 	font-family: 'M PLUS 1 Code';
-	font-size: 90%;
+	/* font-size: 90%; */
 	tab-size: 1;
 }
 
 h1 {
-	font-size: 190%;
+	/* font-size: 190%; */
 	text-align: center;
 }
 
 h2 {
-	font-size: 128%;
+	/* font-size: 128%; */
 	font-weight: lighter;
 	text-align: center;
 }
 
 h3 {
-	font-size: 120%;
+	/* font-size: 120%; */
 	font-weight: lighter;
 }
 
 p {
-	font-size: 95%;
+	/* font-size: 95%; */
 	padding-bottom: 1em;
 }
 
@@ -100,10 +126,6 @@ table th {
 	padding: 0.5em;
 }
 
-input {
-	text-align: center;
-}
-
 a {
 	cursor: pointer;
 	cursor: hand;
@@ -123,7 +145,7 @@ nav a {
 	margin-left: 1%;
 	margin-right: 1%;
 	display: inline-block;
-	background: var(--colorGrayDark);
+	background: var(--colorGrayDarkMed);
 	border-radius: 10px;
 	font-size: 120%;
 }
@@ -180,7 +202,7 @@ figcaption {
 	margin-top: -10px;
 	margin-left: -1px;
 	background: var(--colorBackground);
-	border-bottom: 1px solid var(--colorGrayDark);
+	border-bottom: 1px solid var(--colorGrayDarkMed);
 	z-index: 1;
 }
 
@@ -190,26 +212,27 @@ figcaption {
 	color: var(--colorOrangeLight);
 }
 
-.allByContainer {
-	width: 95%;
-	margin-left: 5%;
+/* #region tree branch node container */
+
+.treeContainer {
+	width: 100%;
+	/* margin-left: 5%; */
 	float: left;
-	/* margin-top: 2em; */
 	margin-bottom: 2em;
 	cursor: pointer;
 	}
 
-.byContainer {
+.branchContainer {
 	margin-top: 5px;
 	margin-bottom: 2px;
 }
 
-.byIconContainer {
+.branchIconContainer {
 	float: left;
 	margin-right: 0.75em;
 }
 
-.byIcon {
+.branchIcon {
 	background: #969896;
 	width: 8px;
 	height: 8px;
@@ -217,25 +240,25 @@ figcaption {
 	margin: auto;
 }
 
-.animateClose {
+.branchAnimateClose {
 	transform: translateY(6px) rotate(0deg);
 	transition: all 0.1s;
 }
 
-.animateOpen {
+.branchAnimateOpen {
 	transform: translateY(5px) rotate(225deg);
 	transition: all 0.4s ease-out;
 }
 
-.trackContainer {
+.nodeContainer {
 	margin-left: 2em;
 	line-height: 22px;
 }
 
-.fadein {
-	animation: fadein 0.5s linear;
+.nodeFadeIn {
+	animation: fadeIn 0.5s linear;
 }
-@keyframes fadein {
+@keyframes fadeIn {
 	0% {
 		opacity: 0;
 	}
@@ -244,17 +267,20 @@ figcaption {
 	}
 }
 
-.selectedTrack {
+.nodeSelected {
 	font-weight: bold;
-	font-family: Arial, Helvetica, sans-serif;
+	/* font-family: Arial, Helvetica, sans-serif; */
 	 /* place it at the same y pos as the Lato font */
 	padding-top: 1.5px;
 	color: var(--colorActive);
 }
 
-/* ngx slider*/
+/* #endregion */
+
+/*#region ngx slider */
+
 .slider .ngx-slider .ngx-slider-bar {
-	background:var(--colorGrayDark);
+	background:var(--colorGrayDarkMed);
 	height: 3px;
 }
 
@@ -283,7 +309,7 @@ figcaption {
 	height: 10px;
 	margin-left: 4px;
 	border-radius: 0;
-	background: var(--colorGrayDark);
+	background: var(--colorGrayDarkMed);
 	top: -1px;
 }
 
@@ -291,7 +317,10 @@ figcaption {
 	background: var(--colorActive);
 }
 
-/* loading animation from https://loading.io/css/ */
+/* #endregion */
+
+/*#region loading animation from https://loading.io/css/ */
+
 .lds-roller {
   display: inline-block;
   width: 80px;
@@ -381,8 +410,13 @@ figcaption {
   }
 }
 
-/* '@media screen' put last because order in file matters.
+/* #endregion */
+
+/*#region media screen */
+
+/* '@media screen' put last because order in this file matters.
 min width considered 360px (Galaxy S5) */
+
 @media screen and (max-width: 451px) {
 	.navContainer {
 		height: 85px;
@@ -390,51 +424,87 @@ min width considered 360px (Galaxy S5) */
 	.navBackground {
 		height: 105px;
 	}
+	.treeContainer {
+		margin-bottom: 1.5em;
+		/* width: 55%; */
+	}
 
 	/* debug */
-	/* h1 {
+	h1 {
 		color: green;
-	} */
+	}
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
+	body {
+		font-size: 105%;
+	}
+	.treeContainer {
+		width: 85%;
+		margin-left: 15%;
+	}
+
 	/* debug */
-	/* h1 {
+	h1 {
 		color: orange;
-	} */
+	}
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
+	body {
+		font-size: 110%;
+	}
 	p, h3 {
 		margin-left: 12.5%;
 		margin-right: 12.5%;
 	}
+	.treeContainer {
+		width: 70%;
+		margin-left: 30%;
+	}
 
 	/* debug */
-	/* h1 {
+	h1 {
 		color: purple;
-	} */
+	}
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
+	body {
+		font-size: 115%;
+	}
 	p, h3 {
 		margin-left: 20%;
 		margin-right: 20%;
 	}
+	.treeContainer {
+		width: 65%;
+		margin-left: 35%;
+	}
+
 	/* debug */
-	/* h1 {
+	h1 {
 		color: aqua;
-	} */
+	}
 }
 
 @media screen and (min-width: 1404px) {
+	body {
+		font-size: 120%;
+	}
 	p, h3 {
 		margin-left: 27.5%;
 		margin-right: 27.5%;
 	}
+	.treeContainer {
+		width: 60%;
+		margin-left: 40%;
+	}
 
 	/* debug */
-	/* h1 {
+	h1 {
 		color: red;
-	} */
+	}
 }
+
+/* #endregion */

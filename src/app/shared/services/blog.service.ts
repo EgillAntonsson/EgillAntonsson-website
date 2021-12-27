@@ -17,14 +17,14 @@ export class BlogService {
 		const dateDay = '27'
 		this.blogSeries = [
 			{title: seriesTddTitle, posts: [
-				new Post('Post 1 - TDD: What, Why, When', 'tdd-1', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post('Post 2 - The assignment: The Avatar Health', 'tdd-2', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post( 'Post 3 - The implementation begins', 'tdd-3', dateYear, dateMonth, dateDay, seriesTddTitle)
+				new Post('Part 1 - TDD: What, Why, When', 'tdd-1', dateYear, dateMonth, dateDay, seriesTddTitle),
+				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-2', dateYear, dateMonth, dateDay, seriesTddTitle),
+				new Post( 'Part 3 - The implementation begins', 'tdd-3', dateYear, dateMonth, dateDay, seriesTddTitle)
 			]
 		}
 		]
 
-		this.selectedPost = this.blogSeries[0].posts[0]
+		this.selectedPost = this.blogSeries[0].posts[2]
 
 		this.posts = []
 		let index = 0

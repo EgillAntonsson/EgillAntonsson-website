@@ -40,20 +40,12 @@
 }
 
 @media screen and (max-width: 451px) {
-	.allByContainer {
-		margin-bottom: 1.5em;
-		width: 55%;
-	}
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
 	.muteInnerContainer {
 		width: 75%;
 		left: 35%;
-	}
-	.allByContainer {
-		width: 45%;
-		margin-left: 5%;
 	}
 	.button {
 		margin-right: 5%;
@@ -75,10 +67,6 @@
 		width: 60%;
 		left: 40%;
 	}
-	.allByContainer {
-		width: 40%;
-		margin-left: 10%;
-	}
 	.button {
 		margin-right: 10%;
 	}
@@ -99,10 +87,6 @@
 		width: 40%;
 		left: 50%;
 	}
-	.allByContainer {
-		width: 35%;
-		margin-left: 15%;
-	}
 	.button {
 		margin-right: 15%;
 	}
@@ -122,10 +106,6 @@
 	.muteInnerContainer {
 		width: 30%;
 		left: 60%;
-	}
-	.allByContainer {
-		width: 30%;
-		margin-left: 20%;
 	}
 	.button {
 		margin-right: 20%;
