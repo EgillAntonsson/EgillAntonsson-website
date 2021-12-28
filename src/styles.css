@@ -439,6 +439,9 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 105%;
 	}
+	code {
+		tab-size: 2;
+	}
 	.treeContainer {
 		width: 85%;
 		margin-left: 15%;
@@ -457,6 +460,9 @@ min width considered 360px (Galaxy S5) */
 	p, h3 {
 		margin-left: 12.5%;
 		margin-right: 12.5%;
+	}
+	code {
+		tab-size: 3;
 	}
 	.treeContainer {
 		width: 70%;
@@ -477,6 +483,9 @@ min width considered 360px (Galaxy S5) */
 		margin-left: 20%;
 		margin-right: 20%;
 	}
+	code {
+		tab-size: 4;
+	}
 	.treeContainer {
 		width: 65%;
 		margin-left: 35%;
@@ -495,6 +504,9 @@ min width considered 360px (Galaxy S5) */
 	p, h3 {
 		margin-left: 27.5%;
 		margin-right: 27.5%;
+	}
+	code {
+		tab-size: 5;
 	}
 	.treeContainer {
 		width: 60%;

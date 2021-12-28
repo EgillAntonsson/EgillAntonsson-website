@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
-		<loc>https://www.egill.rocks</loc>
-		<priority>0.8</priority>
+		<loc>https://www.egill.rocks/home</loc>
+		<priority>0.7</priority>
 		<lastmod>2021-03-07</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
@@ -16,7 +16,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<priority>1.0</priority>
+		<priority>0.9</priority>
 		<lastmod>2021-07-17</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
@@ -27,7 +27,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
-		<priority>0.9</priority>
+		<priority>0.8</priority>
 		<lastmod>2021-12-15</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
@@ -42,5 +42,9 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 			<image:caption>Jón Páll Sigmarsson and Egill Antonsson circa 1988. We're both wearing fashionable 80s outfits</image:caption>
 			<image:geo_location>Reykjavik, Iceland</image:geo_location>
 		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/lifting</loc>
+		<priority>1.0</priority>
 	</url>
 </urlset>
