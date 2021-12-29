@@ -15,7 +15,7 @@ export class BlogService {
 		const seriesTddTitle = 'TDD-ing Avatar Health in C# via Unity'
 		const dateYear = '2021'
 		const dateMonth = 'December'
-		const dateDay = '27'
+		const dateDay = '30'
 		this.series = [
 			{title: seriesTddTitle, posts: [
 				new Post('Part 1 - TDD: What, Why, When', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),

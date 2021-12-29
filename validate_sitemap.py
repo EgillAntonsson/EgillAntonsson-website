@@ -19,9 +19,8 @@ tree = html.parse('src/app/app.component.html')
 parser.feed(html.tostring(tree).decode("utf-8"))
 parser.close()
 
-# Prune /home since it's a duplicate of base url
-
-# links.remove('/home')
+# Prune /blog since only it's children are used.
+links.remove('/blog')
 
 base_url = 'https://www.egill.rocks'
 missing_links = links.copy()
