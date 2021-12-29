@@ -3,7 +3,7 @@
 
 :root {
 
-	/* Should sync with color.ts enum */
+	/* Below should sync with color.ts enum */
 
 	--colorBlackLight: #111;
 
@@ -27,7 +27,7 @@
 	--colorOrangeMedDark: #7D2800;
 	--colorOrangeDark: #5D0800;
 
-	--colorRed: #ee4400;
+	--colorRed: #CC4400;
 
 	--colorBlueLight: #7AA6DA;
 
@@ -59,11 +59,16 @@ input {
 	color: var(--colorWhiteLight)
 }
 
+.formTextFields {
+	width: 100%;
+}
+
 textarea {
 	font-size: 102%;
 	font-family: Lato, Helvetica, sans-serif;
 	background: var(--colorGrayDark);
-	color: var(--colorWhiteLight)
+	color: var(--colorWhiteLight);
+	resize: vertical;
 }
 
 button {
@@ -79,36 +84,34 @@ button:disabled{
 
 code {
 	font-family: 'M PLUS 1 Code';
-	/* font-size: 90%; */
+	font-size: 95%;
 	tab-size: 1;
+	border-radius: 5%;
+}
+
+.code {
+	font-family: 'M PLUS 1 Code';
 }
 
 h1 {
-	/* font-size: 190%; */
+	font-size: 1.9em; /* default 2.0em */
 	text-align: center;
 }
 
 h2 {
-	/* font-size: 128%; */
+	font-size: 1.45em; /* default 1.5em */
 	font-weight: lighter;
 	text-align: center;
 }
 
 h3 {
-	/* font-size: 120%; */
+	font-size: 1.23em; /* default 1.17em */
 	font-weight: lighter;
 }
 
 p {
-	/* font-size: 95%; */
 	padding-bottom: 1em;
 }
-
-/* label {
-	font-size: 90%;
-	display: block;
-	text-align: center;
-} */
 
 /* table */
 table {
@@ -178,7 +181,7 @@ figure {
 }
 
 figcaption {
-	font-size: 90%;
+	font-size: 85%;
 	text-align: center;
 	padding-top: 0.3em;
 }
@@ -206,7 +209,9 @@ figcaption {
 	z-index: 1;
 }
 
-/* reused in many components */
+.horizontalLine {
+	border-bottom: 1px solid var(--colorGrayDarkMed);
+}
 
 .alert {
 	color: var(--colorOrangeLight);
@@ -269,11 +274,15 @@ figcaption {
 
 .nodeSelected {
 	font-weight: bold;
-	/* font-family: Arial, Helvetica, sans-serif; */
-	 /* place it at the same y pos as the Lato font */
-	padding-top: 1.5px;
 	color: var(--colorActive);
 }
+
+.commentForm {
+	padding: 1em;
+	text-align: center;
+	/* width: 95%; */
+}
+
 
 /* #endregion */
 
@@ -418,6 +427,10 @@ figcaption {
 min width considered 360px (Galaxy S5) */
 
 @media screen and (max-width: 451px) {
+	body {
+		font-size: 95%;
+	}
+
 	.navContainer {
 		height: 85px;
 	}
@@ -430,93 +443,157 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	h1 {
+	/* h1 {
 		color: green;
-	}
+	} */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
 	body {
-		font-size: 105%;
+		font-size: 100%;
 	}
 	code {
 		tab-size: 2;
 	}
+
+	.headerContainer, .headerBackground {
+		height: 105px;
+	}
+
 	.treeContainer {
-		width: 85%;
-		margin-left: 15%;
+		width: 80%;
+		margin-left: 20%;
 	}
 
 	/* debug */
-	h1 {
+	/* h1 {
 		color: orange;
-	}
+	} */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
 	body {
-		font-size: 110%;
+		font-size: 105%;
 	}
-	p, h3 {
-		margin-left: 12.5%;
-		margin-right: 12.5%;
+	p, h3, ol, ul, code {
+		margin-left: 5%;
+		margin-right: 5%;
 	}
 	code {
-		tab-size: 3;
+		tab-size: 2;
 	}
+
+	.headerContainer, .headerBackground {
+		height: 110px;
+	}
+
 	.treeContainer {
 		width: 70%;
 		margin-left: 30%;
 	}
 
-	/* debug */
-	h1 {
-		color: purple;
+	.formTextFields {
+		width: 80%;
 	}
+
+	/* debug */
+	/* h1 {
+		color: purple;
+	} */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
 	body {
-		font-size: 115%;
+		font-size: 110%;
 	}
-	p, h3 {
-		margin-left: 20%;
-		margin-right: 20%;
+	p, h3, ol, ul, code {
+		margin-left: 10%;
+		margin-right: 10%;
 	}
 	code {
-		tab-size: 4;
+		tab-size: 2;
 	}
+
+	.headerContainer, .headerBackground {
+		height: 115px;
+	}
+
 	.treeContainer {
 		width: 65%;
 		margin-left: 35%;
 	}
 
-	/* debug */
-	h1 {
-		color: aqua;
+	.formTextFields {
+		width: 60%;
 	}
+
+	/* debug */
+	/* h1 {
+		color: aqua;
+	} */
 }
 
-@media screen and (min-width: 1404px) {
+/* @media screen and (min-width: 1404px) { */
+@media screen and (min-width: 1404px) and (max-width: 2000px) {
 	body {
-		font-size: 120%;
+		font-size: 115%;
 	}
-	p, h3 {
-		margin-left: 27.5%;
-		margin-right: 27.5%;
+	p, h3, ol, ul, code {
+		margin-left: 20%;
+		margin-right: 20%;
 	}
 	code {
-		tab-size: 5;
+		tab-size: 3;
 	}
+
+	.headerContainer, .headerBackground {
+		height: 120px;
+	}
+
 	.treeContainer {
 		width: 60%;
 		margin-left: 40%;
 	}
 
-	/* debug */
-	h1 {
-		color: red;
+	.formTextFields {
+		width: 40%;
 	}
+
+	/* debug */
+	/* h1 {
+		color: red;
+	} */
 }
 
+@media screen and (min-width: 2001px) {
+
+	body {
+		font-size: 115%;
+	}
+	p, h3, ol, ul, code {
+		margin-left: 30%;
+		margin-right: 30%;
+	}
+	code {
+		tab-size: 4;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 120px;
+	}
+
+	.treeContainer {
+		width: 60%;
+		margin-left: 40%;
+	}
+
+	.formTextFields {
+		width: 40%;
+	}
+
+	/* debug */
+	/* h1 {
+		color: yellow;
+	} */
+}
 /* #endregion */

@@ -23,6 +23,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 			<image:loc>https://i1.sndcdn.com/artworks-000190333072-jdj443-t500x500.jpg</image:loc>
 			<image:title>Artwork for Vikings of Thule song</image:title>
 			<image:caption>Artwork by Þórir Karl Bragason Celin for Vikings of Thule song</image:caption>
+				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
 	<url>
@@ -31,7 +32,7 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 		<lastmod>2021-12-15</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/Egill_Antonsson_against_the_dragon_breath</image:loc>
+			<image:loc>https://www.egill.rocks/assets/Egill_Antonsson_against_the_dragon_breath.jpg</image:loc>
 			<image:title>Egill Antonsson dealing with the dragon's breath</image:title>
 			<image:caption>Egill Antonsson dealing with the the dragon's breath by wearing sunglasses like a boss!</image:caption>
 			<image:geo_location>Stockholm, Sweden</image:geo_location>
@@ -44,7 +45,26 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/lifting</loc>
+		<loc>https://www.egill.rocks/blog/tdd-health/part1</loc>
 		<priority>1.0</priority>
+		<lastmod>2021-12-28</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
+		<priority>1.0</priority>
+		<lastmod>2021-12-28</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
+		<priority>1.0</priority>
+		<lastmod>2021-12-28</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-using-TestCase.PNG</image:loc>
+			<image:title>Unity Test Runner: HealthTest using TestCase attribute</image:title>
+			<image:caption>Unity Test Runner: HealthTest using TestCase attribute in part 3 of blog series TDD-ing Avatar Health in C# in Unity</image:caption>
+		</image:image>
 	</url>
 </urlset>

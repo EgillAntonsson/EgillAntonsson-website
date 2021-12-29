@@ -248,6 +248,10 @@ ul {
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
+	.playerContainer {
+		margin: 5px 0%;
+	}
+
 	.playerRightButtonsContainer {
 		padding-right: 0%;
 		width: 40%;
@@ -261,7 +265,7 @@ ul {
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
 	.playerContainer {
-		margin: 0 5%;
+		margin: 10px 5%;
 		width: 80%;
 	}
 	.playerRightButtonsContainer {
@@ -280,7 +284,7 @@ ul {
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
 	.playerContainer {
-		margin: 0 10%;
+		margin: 15px 10%;
 		width: 70%;
 	}
 	.playerRightButtonsContainer {
@@ -299,7 +303,7 @@ ul {
 
 @media screen and (min-width: 1404px) {
 	.playerContainer {
-		margin: 0 15%;
+		margin: 20px 15%;
 		width: 60%;
 	}
 	.playerRightButtonsContainer {

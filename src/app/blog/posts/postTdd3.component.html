@@ -1,6 +1,8 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
-<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+<div class="byAndDate">
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+</div>
 
 <p>
 	Let's look closer to the <i>definition and start state</i> from the user perspective:
@@ -11,7 +13,8 @@
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
 <p>
-	Let's filter and transform this into a functional requirement focused only on the domain logic (as visual representation will be done later):
+	Let's filter and transform this into a functional requirement, focused only on the domain logic<br>
+	(as visual representation will be done later):
 </p>
 <ul>
 	<li>Avatar Health starts with 12 Health Points (equals to visual representation of 3 Hearts * 4 Fractions)</li>
@@ -24,8 +27,8 @@
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I define the test class and the first test.<br>
-	I start focusing on <code>Health</code> class implementation<br>
-	(which in the end will likely be associated with an <code>Avatar</code> class).<br>
+	I start focusing on <span class="code">Health</span> class implementation<br>
+	(which in the end will likely be associated with an <span class="code">Avatar</span> class).<br>
 	The test is failing as the code does not even compile.
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
@@ -42,25 +45,25 @@
 	thus I refactor the value to be passed as parameter into the constructor.<br>
 	<span class="outOfScope">An advanced system would have accessible game balancing config<br>
 	that is well integrated into the code base,<br>
-	that would then use <code>Health</code> class as designed (passing in value/s).<br>
+	that would then use <span class="code">Health</span> class as designed (passing in value/s).<br>
 	I might later implement a simplified version of game balancing config.</span><br>
 	<br>
-	I name the passed in parameter to <code>startingPoints</code>.<br>
-	I also rename the property to <code>CurrentPoints</code> to further clarify the logic:<br>
+	I name the passed in parameter <span class="code">startingPoints</span>.<br>
+	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
 	<br>
-	I also encapsulate <code>CurrentPoints</code> with private setter,<br>
+	I also encapsulate <span class="code">CurrentPoints</span> with private setter,<br>
 	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.<br>
 	The only exposure should be for the class interface, that the tests will drive,<br>
 	that will gradually be established through the TDD cycles.
 </p>
 <pre><code [highlight]="code_1_Refactor"></code></pre>
 
-<h2>Handle invalid <code>StartingPoints</code> values</h2>
+<h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
 <p>
-	Now it comes to mind that invalid <code>StartingPoints</code> values can be passed in,<br>
+	Now it comes to mind that invalid <span class="code">StartingPoints</span> values can be passed in,<br>
 	as our avatar should never start with less than 1 points,<br>
-	(because otherwise Link would start up being dead :) )<br>
+	(because otherwise Link would start up being dead :P )<br>
 	Thus I'll throw exceptions when the value is invalid.<br>
 	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
 	(in the previously mentioned game balancing config).<br></span>
@@ -71,7 +74,7 @@
 <pre><code [highlight]="test_2_Red"></code></pre>
 
 <p>
-	I deem I can use existing <code>ArgumentOutOfRangeException</code> from <code>System</code><br>
+	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
 	if I include an informative error message for my case.<br>
 	<br>
 	I chose the value 0 as it's on the edge of invalidation (as 1 is valid).
@@ -81,30 +84,29 @@
 
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
-<p>The implementation of the conditional '<code [highlight]="'if (startingPoint < 1)'"></code>'<br>
-	is also the proper generic solution (at least for now), as it was easy to come up with.<br>
+<p>The implementation of the conditional '<span class="code" [highlight]="'if (startingPoint < 1)'"></span>'<br>
+	was easy to come up with, and is also the proper generic solution (at least for now).<br>
 	<br>
-	The message of the thrown exception would be (if value 0 was passed in):
-	<span class="code">System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
-		Parameter name: startingPoints</span><br>
-	<br>
+	The message of the thrown exception would be (if value 0 was passed in):<br>
+	<i>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
+		Parameter name: startingPoints</i><br>
 	<br>
 	I feel that no refactoring is needed in this cycle,<br>
 	as I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step,<br>
-	for both the conditional and the thrown exception and its message,<br>
-	and overall the code looks clean, so moving on.
+	for both the conditional, and the thrown exception and its message.<br>
+	Overall the code looks clean, so moving on.
 </p>
 
 <h2>Let's test a few more values</h2>
 
-<p>As the implementation is very simple I am confident that it's the proper generic solution that works for any passed-in values.<br>
-	But let's test a few more values to demonstrate how to do it clean and maintainable way.
+<p>As the implementation is very simple I am confident that it's<br>the proper generic solution that works for any passed-in value.<br>
+	But let's test a few more values to demonstrate how to do it in a clean and maintainable way.
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
 <p>Refactoring the tests to add test cases where the value is close to the valid/invalid edge,<br>
-	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case attribute</a>.
+	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case</a> attribute.
 </p>
 <pre><code [highlight]="test_3_Green"></code></pre>
 
@@ -113,10 +115,9 @@
 </p>
 
 <figure>
-	<img src="../assets/images/blog/tdd/HealthTest-using-TestCase.PNG" alt="The family: Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri & Andri Reyr Ragnarsson" title="The family: Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri & Andri Reyr Ragnarsson" class="image">
+	<img src="../assets/images/blog/tdd/HealthTest-using-TestCase.PNG" alt="Unity Test Runner: HealthTest using TestCase" title="Unity Test Runner: HealthTest using TestCase attribute" class="image">
 	<figcaption>
-		The family, from left to right:<br>
-		Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri & Andri Reyr Ragnarsson
+		Unity Test Runner: <i>HealthTest</i> using <i>TestCase</i> attribute
 	</figcaption>
 </figure>
 

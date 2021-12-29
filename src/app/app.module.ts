@@ -10,17 +10,17 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
-import { ProgrammingComponent } from './programming/programming.component'
+import { BlogComponent } from './blog/blog.component'
 import { LiftingComponent } from './lifting/lifting.component'
 import { PageNotFoundComponent } from './pagenotfound.component'
-import { MusicPageComponent } from './music/musicPage.component'
+import { MusicPageComponent } from './musicPage/musicPage.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
 import { RandomNumber, RandomNumberService } from './shared/services/randomNumber.service'
-import { PostTdd1Component } from './programming/posts/postTdd1.component'
-import { PostTdd2Component } from './programming/posts/postTdd2.component'
-import { PostTdd3Component } from './programming/posts/postTdd3.component'
+import { PostTdd1Component } from './blog/posts/postTdd1.component'
+import { PostTdd2Component } from './blog/posts/postTdd2.component'
+import { PostTdd3Component } from './blog/posts/postTdd3.component'
 
 @NgModule({
 	imports: [
@@ -36,7 +36,7 @@ import { PostTdd3Component } from './programming/posts/postTdd3.component'
 	declarations: [
 		AppComponent,
 		HomeComponent,
-		ProgrammingComponent,
+		BlogComponent,
 		LiftingComponent,
 		MusicPageComponent,
 		MusicPlayerComponent,

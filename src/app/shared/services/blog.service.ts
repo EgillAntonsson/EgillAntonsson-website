@@ -6,69 +6,67 @@ import { Injectable } from '@angular/core'
 
 export class BlogService {
 
-	blogSeries: BlogSeries[]
+	series: Series[]
 	selectedPost: Post
 	posts: Post[]
+
 	constructor() {
 
 		const seriesTddTitle = 'TDD-ing Avatar Health in C# via Unity'
 		const dateYear = '2021'
 		const dateMonth = 'December'
 		const dateDay = '27'
-		this.blogSeries = [
+		this.series = [
 			{title: seriesTddTitle, posts: [
-				new Post('Part 1 - TDD: What, Why, When', 'tdd-1', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-2', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post( 'Part 3 - The implementation begins', 'tdd-3', dateYear, dateMonth, dateDay, seriesTddTitle)
+				new Post('Part 1 - TDD: What, Why, When', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
+				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', dateYear, dateMonth, dateDay, seriesTddTitle),
+				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', dateYear, dateMonth, dateDay, seriesTddTitle)
 			]
 		}
 		]
 
-		this.selectedPost = this.blogSeries[0].posts[2]
+		this.selectedPost = this.series[0].posts[0]
 
 		this.posts = []
 		let index = 0
-		for (let i = 0; i < this.blogSeries.length; i++) {
-			for (let j = 0; j < this.blogSeries[i].posts.length; j++) {
-				const post = this.blogSeries[i].posts[j]
+		for (let i = 0; i < this.series.length; i++) {
+			for (let j = 0; j < this.series[i].posts.length; j++) {
+				const post = this.series[i].posts[j]
 				post.index = index++
 				this.posts.push(post)
 			}
 		}
 	}
 
-}
+	// getPostWith(routePath: string) {
+	// 	this.posts.filter()
 
-// export interface IPost {
-// 	title: string
-// 	component: string
-// 	seriesTitle: string
-// 	dateYear: string
-// 	dateMonth: string
-// 	dateDay: string
-// 	index: number
-// }
+	// 	})
+	// 	return null
+	// }
+
+}
 
 export class Post {
 	readonly title: string
-	readonly component: string
+	readonly routePath: string
 	readonly seriesTitle: string
 	readonly dateYear: string
 	readonly dateMonth: string
 	readonly dateDay: string
 	index!: number
 
-	constructor(title: string, component: string, dateYear: string, dateMonth: string, dateDay: string, seriesTitle: string) {
+	constructor(title: string, routePath: string, dateYear: string, dateMonth: string, dateDay: string, seriesTitle: string) {
 		this.title = title
-		this.component = component
+		this.routePath = routePath
 		this.dateYear = dateYear
 		this.dateMonth = dateMonth
 		this.dateDay = dateDay
 		this.seriesTitle = seriesTitle
 	}
-
 }
-export interface BlogSeries {
+
+export interface Series {
 	title: string
 	posts: Post[]
 }

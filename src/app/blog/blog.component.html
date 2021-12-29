@@ -15,39 +15,32 @@
 	</div>
 </div>
 
- <ng-container *ngIf="selectedPost.component === 'tdd-1'">
-	<app-post-tdd-1></app-post-tdd-1>
- </ng-container>
- <ng-container *ngIf="selectedPost.component === 'tdd-2'">
-	<app-post-tdd-2></app-post-tdd-2>
- </ng-container>
- <ng-container *ngIf="selectedPost.component === 'tdd-3'">
-	<app-post-tdd-3></app-post-tdd-3>
- </ng-container>
+<router-outlet></router-outlet>
 
- <hr>
+<div class="horizontalLine"></div>
 
 <h2>Comments</h2>
 
-<div class="commentForm">
+<div class="commentForm" *ngIf=showCommentForm>
  <form [formGroup]="commentForm" novalidate name="comment" method="POST" data-netlify="true">
-	 <small>Your Comment</small>
+	 <label>Your Comment</label>
 	 <br>
-		<textarea class="commentInput" type="text" formControlName="inputComment" (input)="commentInput()" (click)="commentClick()" [maxlength]="maximumCommentLength" rows="4"></textarea>
+		<textarea  class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" [maxlength]="300" rows="5"></textarea>
 	<br><br>
 	<small>Your Name / Handle (optional)</small>
 	<br>
-	<input type="text" formControlName="inputName" maxlength="30" size="35" (click)="nameClick()">
+	<input  class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" maxlength="30">
 	<br><br>
 	<small>Your Email (optional)</small>
 	<br>
-	<input type="text" formControlName="inputEmail" maxlength="30" size="35" (click)="nameClick()">
+	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" maxlength="30" size="35">
 	<br><br>
-	<button type="submit" [disabled]="commentForm.invalid">Send</button>
+	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
 </div>
 
-<hr>
+<div class="horizontalLine"></div>
+
 <div class="treeContainer">
 	<div *ngFor="let series of blogSeries; let seriesIndex = index">
 		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">

@@ -1,0 +1,91 @@
+<!-- <h1>TDD-ing Avatar Health in C# via Unity</h1> -->
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+</div>
+
+<h2>What is TDD ?</h2>
+<p>
+	TDD is a workflow approach and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">Cycle: RED / GREEN / REFACTOR</a>
+</p>
+<ol>
+	<li><span class="redFail">RED:</span> Write a test that fails</li>
+	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort (all tests passing)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Clean up the structure and design (all tests passing)</li>
+</ol>
+<p>The cycle should focus on fulfilling a specific requirement on the object under test, one at a time,<br>
+	repeating it until the production code becomes generic enough to handle all input cases.<br>
+	At some interval you should stop and evaluate if the code architecture on a wholistic level is sound,<br>and refactor if needed (all test passing).<br>
+	this is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> and other sources.<br>
+	(Bob defines additional cycles around RED / GREEN / REFACTOR in his post).
+</p>
+
+<h2>Why do TDD ?</h2>
+<p>Here is a my non-exhaustive list in order of priority:</p>
+<ol>
+	<li>Ensures you'll have a passing test suite with high code coverage that runs fast (within seconds or minutes),<br>
+		therefore you can clean the code without fear of breaking it,<br>
+		thus have high confidence in the shipped product quality.<br></li>
+	<li>Testable code pushes for decoupling, which also benefits the design</li>
+	<li>The tests act as accurate, precise, and unambiguous documentation at the lowest level of the system.</li>
+</ol>
+<p>
+	There are also criticisms on TDD, e.g. the post <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing.</a><br>.
+	And also responses to it, e.g the post <a href="https://blog.cleancoder.com/uncle-bob/2014/04/25/MonogamousTDD.html">Monogamous TDD</a>.
+</p>
+
+<h2>Is TDD suitable for all areas / scenarios ?</h2>
+
+<p>
+	Here are some of my thoughts on areas / scenarios where TDD is not so suitable,<br>
+	based on my <a href="www.linkedin.com/in/egillantonsson">work experience</a> as front-end game developer, and shared game systems developer.
+</p>
+
+<h3>Boundary layers</h3>
+<p>
+	Bulk of my work experience has centered around games<br>
+	(front-end game development / shared systems development for games)<br>
+	and a big part of a game is the graphic visuals and UI, user input, and sound.<br>
+	Should those parts be unit tested via TDD?<br>
+	<br>
+	These parts can be described as layers close to the physical output/input boundaries (e.g. screen, speaker)<br>
+	The design can be driven to make these boundary layers thin and <a href="http://xunitpatterns.com/Humble%20Object.html">humble</a>,<br>
+	by extracting and moving their logic into other modules, that can be easily tested.<br>
+	It's likely that a good chunk of the logic belongs to the domain layer and should be moved there<br>
+	(the domain should not be coupled to any boundaries, thus be easily unit testable).<br>
+	<br>
+	The edges of the boundary layers can be manually tested, e.g making sure the UI is proper on the screen.<br>
+	If boundary bugs begin slipping into the production, as the project grows<br>
+	then it's time to replace some of the manual testing effort with automated tests<br>
+	where they bring the most bang for the buck (e.g integration and/or UI tests) <a href="https://martinfowler.com/articles/practical-test-pyramid.html">Test Pyramid</a> could guide you with that.
+</p>
+
+<h3>Untested and design-rusted code bases</h3>
+<p>
+	Some code bases have been developed for a long time where unit tests were never written (or couple 'hello word' tests at the beginning).<br>
+	Such code bases leave the door open for bad code design to creep up along the way,<br>
+	(although upholding great design and continuos code cleaning, without tests, does prevent this).<br>
+	One example could be that too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> have been defined and used,<br>
+	which feeds into the bigger issue of code being too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant.<br>
+	<br>
+	By contrast, a well and thoroughly tested code base pushes for, and to some degree enforces,<br>
+	the 'counter' good design, e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles</a>.<br>
+	<br>
+	One of the negative consequence of the design-rusted and untested code base<br>
+	is that it's very hard to start writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">good unit tests</a>, and even harder via TDD, 'that late in the game'.<br>
+	To get the code base into a good state (where it's effortless to apply and continue with TDD)<br>
+	could be done with a gradual approach:
+</p>
+<ul>
+	<li>Functional requirements (adding, improving, changing) continue to be done</li>
+	<li>Gradually add <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great or good unit tests</a>, not necessarily with TDD approach</li>
+	<li>Fixing bugs provides the best opportunity to apply TDD:<br>
+		write a test that fails due to the bug, fix the production code</li>
+	<li>Thus the test coverage gradually nudges upwards (going downwards is not acceptable).</li>
+	<li>Gradually refactor the design, ideally having sufficient test coverage to catch any breakages early</li>
+</ul>
+<p>
+	Another alternative	would be to dedicate a time period to focus only on refactoring the design<br>
+	and write <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great unit tests</a>, thus improve the test coverage dramatically.
+</p>
