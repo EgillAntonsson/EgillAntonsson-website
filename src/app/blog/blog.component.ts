@@ -64,7 +64,7 @@ On approval I'll publish the comment here.
 		// this.d
 		// document.body.appendChild(form);
 
-		this.showCommentForm = false
+		// this.showCommentForm = false
 	}
 
 
