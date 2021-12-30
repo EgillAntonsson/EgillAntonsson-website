@@ -58,9 +58,13 @@ On approval I'll publish the comment here.
 		// }
 	}
 
-	onSendClick() {
+	async onSendClick() {
 		console.log('Send clicked')
 		console.log(this.commentForm)
+
+		const response = await fetch('/.netlify/functions/hello_example/hello')
+
+		console.log('response', response)
 	}
 
 	ngOnDestroy(): void {
