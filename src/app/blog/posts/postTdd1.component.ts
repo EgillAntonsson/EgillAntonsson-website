@@ -13,5 +13,12 @@ export class PostTdd1Component {
 
 	constructor(private blogService: BlogService) {
 		this.post = this.blogService.selectedPost
+
+		const form  = document.getElementById('formId')
+		if (form) {
+			document.body.appendChild(form)
+		}
+
+
 	}
 }

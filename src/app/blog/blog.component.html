@@ -21,7 +21,7 @@
 
 <h2>Comments</h2>
 
-<div class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
+<div id="formId" class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
  <form [formGroup]="commentForm" novalidate (ngSubmit)="onSendClick()" name="blogCommentForm" method="POST" data-netlify="true">
 	 <label>Your Comment</label>
 	 <br>
