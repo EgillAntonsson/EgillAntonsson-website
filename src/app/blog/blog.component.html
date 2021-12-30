@@ -22,7 +22,7 @@
 <h2>Comments</h2>
 
 <div class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
- <form [formGroup]="commentForm" novalidate name="blogCommentForm" method="POST" data-netlify="true">
+ <form [formGroup]="commentForm" novalidate (ngSubmit)="onSendClick()" name="blogCommentForm" method="POST" data-netlify="true">
 	 <label>Your Comment</label>
 	 <br>
 		<textarea class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" name="inputComment" [maxlength]="300" rows="5"></textarea>
@@ -35,7 +35,7 @@
 	<br>
 	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" name="inputEmail" maxlength="30" size="35">
 	<br><br>
-	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
+	<button type="submit" [disabled]="commentForm.invalid">Send</button>
 </form>
 </div>
 

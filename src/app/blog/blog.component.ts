@@ -61,6 +61,9 @@ On approval I'll publish the comment here.
 	}
 
 	onSendClick() {
+		// this.d
+		// document.body.appendChild(form);
+
 		this.showCommentForm = false
 	}
 
