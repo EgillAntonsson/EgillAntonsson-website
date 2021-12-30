@@ -13,16 +13,19 @@ class MyHTMLParser(HTMLParser):
 				if name == 'routerlink':
 					links.append(value)
 
+# Get all the routerlinks from this .html
 parser = MyHTMLParser()
 tree = html.parse('src/app/app.component.html')
 parser.feed(html.tostring(tree).decode("utf-8"))
 parser.close()
 
-# prune /home since it's a duplicate of base url
-links.remove('/home')
+# Prune /blog since only it's children are used.
+links.remove('/blog')
+
 base_url = 'https://www.egill.rocks'
 missing_links = links.copy()
 
+# Check that sitemap has all the links that are routerlinks in .html
 tree = ET.parse('deploy/sitemap.xml')
 root = tree.getroot()
 url_el = list(root)
@@ -38,6 +41,8 @@ if len(missing_links) > 0:
 	print('base_url: ' + base_url)
 	print('Add/change them and then rerun script')
 	sys.exit(1)
+
+# Check done
 
 
 formatted_date = datetime.datetime.now().strftime("%Y-%m-%d")

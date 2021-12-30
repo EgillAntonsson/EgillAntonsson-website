@@ -1,21 +1,11 @@
-table td {
-	border: 1px solid #ccc;
-	padding: 0.5em;
-}
-
-table td.center {
-	text-align: center;
-}
-
-table th {
-	border: 1px solid #ccc;
-	padding: 0.5em;
-}
-
 ul {
 	list-style: none;
 }
 
 .converter {
+	text-align: center;
+}
+
+.convertInput {
 	text-align: center;
 }

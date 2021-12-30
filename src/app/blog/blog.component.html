@@ -1,0 +1,58 @@
+
+<div class="treeContainer">
+	<div *ngFor="let series of blogSeries; let seriesIndex = index">
+		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="branchIconContainer">
+						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != seriesIndex, branchAnimateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+					</div>
+			<span>{{series.title}}</span>
+		</div>
+		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+				{{post.title}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<router-outlet></router-outlet>
+
+<div class="horizontalLine"></div>
+
+<h2>Comments</h2>
+
+<div class="commentForm" *ngIf=showCommentForm>
+ <form [formGroup]="commentForm" novalidate name="comment" method="POST" data-netlify="true">
+	 <label>Your Comment</label>
+	 <br>
+		<textarea  class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" [maxlength]="300" rows="5"></textarea>
+	<br><br>
+	<small>Your Name / Handle (optional)</small>
+	<br>
+	<input  class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" maxlength="30">
+	<br><br>
+	<small>Your Email (optional)</small>
+	<br>
+	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" maxlength="30" size="35">
+	<br><br>
+	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
+</form>
+</div>
+
+<div class="horizontalLine"></div>
+
+<div class="treeContainer">
+	<div *ngFor="let series of blogSeries; let seriesIndex = index">
+		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
+				<div class="branchIconContainer">
+						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != seriesIndex, branchAnimateOpen: openedUiSeriesIndex === seriesIndex}"></div>
+					</div>
+			<span>{{series.title}}</span>
+		</div>
+		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === seriesIndex">
+			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
+				{{post.title}}
+			</div>
+		</div>
+	</div>
+</div>

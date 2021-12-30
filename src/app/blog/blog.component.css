@@ -1,0 +1,24 @@
+.redFail {
+	color: var(--colorRed);
+}
+
+.greenPass {
+	color: var(--colorGreenLight);
+}
+
+.greenRefactor {
+	color: var(--colorGreenLightMed);
+}
+
+.outOfScope {
+	color: var(--colorGrayLight);
+	font-style: italic;
+}
+
+.byAndDate {
+	text-align: center;
+}
+
+.noBulletinPoint {
+	list-style: none;
+}

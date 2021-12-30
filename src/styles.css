@@ -1,14 +1,16 @@
 @import '@angular/material/prebuilt-themes/purple-green.css';
+@import '~highlight.js/styles/tomorrow-night-bright.css';
 
 :root {
 
-	/* Should sync with color.ts enum */
+	/* Below should sync with color.ts enum */
 
 	--colorBlackLight: #111;
 
 	--colorGrayLight: #969896;
 	--colorGrayLightMed: #8B91A2;
-	--colorGrayDark: #424242;
+	--colorGrayDarkMed: #424242;
+	--colorGrayDark: #212121;
 
 	--colorWhiteLight: #EEE;
 	--colorWhiteLightMed: #DDD;
@@ -25,86 +27,106 @@
 	--colorOrangeMedDark: #7D2800;
 	--colorOrangeDark: #5D0800;
 
+	--colorRed: #CC4400;
+
 	--colorBlueLight: #7AA6DA;
 
 	--colorPurpleLight: #C397D8;
 
 
 	--colorBackground: var(--colorBlackLight);
-
 	--colorForeground: var(--colorWhiteLight);
-
 	--colorActive: var(--colorGreenLight);
-
 	--colorPending: var(--colorOrangeLight);
-
 	--colorDisabled: var(--colorGrayLightMed);
-
 	--colorLink: var(--colorBlueLight);
-
 	--colorLinkVisited: var(--colorPurpleLight);
 }
 
-h1 {
-	font-size: 190%;
-	text-align: center;
-}
-
-h2 {
-	font-size: 128%;
-	font-weight: lighter;
-	text-align: center;
-}
-
-h3 {
-	font-size: 120%;
-	font-weight: lighter;
-}
-
-p {
-	font-size: 95%;
-	padding-bottom: 1em;
-}
-
-label {
-	font-size: 90%;
-	display: block;
-	text-align: center;
-}
-
-table {
-	margin: 0 auto;
-}
-
 body {
+	font-family: Lato, Helvetica, sans-serif;
 	margin: 10px 5%;
 	background: var(--colorBackground);
 }
 body, input[text] {
 	color: var(--colorForeground);
-	font-family: Cambria, Georgia;
 }
 
 input {
+	font-size: 102%;
+	font-family: Lato, Helvetica, sans-serif;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight)
+}
+
+.formTextFields {
+	width: 100%;
+}
+
+textarea {
+	font-size: 102%;
+	font-family: Lato, Helvetica, sans-serif;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight);
+	resize: vertical;
+}
+
+button {
+	font-size: 102%;
+	background: var(--colorGrayDark);
+	color: var(--colorWhiteLight)
+}
+
+button:disabled{
+	background: var(--colorGrayDarkMed);
+	color: var(--colorGrayLightMed);
+}
+
+code {
+	font-family: 'M PLUS 1 Code';
+	font-size: 95%;
+	tab-size: 1;
+	border-radius: 5%;
+}
+
+.code {
+	font-family: 'M PLUS 1 Code';
+}
+
+h1 {
+	font-size: 1.9em; /* default 2.0em */
 	text-align: center;
 }
 
-.image {
-	width: 100%;
-	max-width: 575px;
-	border-radius: 5%;
-	display: block;
+h2 {
+	font-size: 1.45em; /* default 1.5em */
+	font-weight: lighter;
+	text-align: center;
+}
+
+h3 {
+	font-size: 1.23em; /* default 1.17em */
+	font-weight: lighter;
+}
+
+p {
+	padding-bottom: 1em;
+}
+
+/* table */
+table {
 	margin: 0 auto;
 }
-
-figure {
-	margin: 2em auto;
+table td {
+	border: 1px solid #ccc;
+	padding: 0.5em;
 }
-
-figcaption {
-	font-size: 90%;
+table td.center {
 	text-align: center;
-	padding-top: 0.3em;
+}
+table th {
+	border: 1px solid #ccc;
+	padding: 0.5em;
 }
 
 a {
@@ -126,7 +148,7 @@ nav a {
 	margin-left: 1%;
 	margin-right: 1%;
 	display: inline-block;
-	background: var(--colorGrayDark);
+	background: var(--colorGrayDarkMed);
 	border-radius: 10px;
 	font-size: 120%;
 }
@@ -149,6 +171,29 @@ nav {
 	z-index: 2;
 }
 
+nav li {
+	display: inline;
+}
+
+
+figure {
+	margin: 2em auto;
+}
+
+figcaption {
+	font-size: 85%;
+	text-align: center;
+	padding-top: 0.3em;
+}
+
+.image {
+	width: 100%;
+	max-width: 575px;
+	border-radius: 5%;
+	display: block;
+	margin: 0 auto;
+}
+
 .headerContainer {
 	height: 100px;
 }
@@ -160,44 +205,39 @@ nav {
 	margin-top: -10px;
 	margin-left: -1px;
 	background: var(--colorBackground);
-	border-bottom: 1px solid var(--colorGrayDark);
+	border-bottom: 1px solid var(--colorGrayDarkMed);
 	z-index: 1;
 }
 
-nav li {
-	display: inline;
+.horizontalLine {
+	border-bottom: 1px solid var(--colorGrayDarkMed);
 }
-
-* {
-	font-family: Lato, Arial, Helvetica, sans-serif;
-}
-
-/* reused in many components */
 
 .alert {
 	color: var(--colorOrangeLight);
 }
 
-.allByContainer {
-	width: 95%;
-	margin-left: 5%;
+/* #region tree branch node container */
+
+.treeContainer {
+	width: 100%;
+	/* margin-left: 5%; */
 	float: left;
-	/* margin-top: 2em; */
 	margin-bottom: 2em;
 	cursor: pointer;
 	}
 
-.byContainer {
+.branchContainer {
 	margin-top: 5px;
 	margin-bottom: 2px;
 }
 
-.byIconContainer {
+.branchIconContainer {
 	float: left;
 	margin-right: 0.75em;
 }
 
-.byIcon {
+.branchIcon {
 	background: #969896;
 	width: 8px;
 	height: 8px;
@@ -205,26 +245,25 @@ nav li {
 	margin: auto;
 }
 
-.animateClose {
+.branchAnimateClose {
 	transform: translateY(6px) rotate(0deg);
 	transition: all 0.1s;
 }
 
-.animateOpen {
+.branchAnimateOpen {
 	transform: translateY(5px) rotate(225deg);
 	transition: all 0.4s ease-out;
 }
 
-.trackContainer {
+.nodeContainer {
 	margin-left: 2em;
 	line-height: 22px;
 }
 
-.fadein {
-	animation: fadein 0.5s linear;
+.nodeFadeIn {
+	animation: fadeIn 0.5s linear;
 }
-
-@keyframes fadein {
+@keyframes fadeIn {
 	0% {
 		opacity: 0;
 	}
@@ -233,9 +272,24 @@ nav li {
 	}
 }
 
-/* ngx */
+.nodeSelected {
+	font-weight: bold;
+	color: var(--colorActive);
+}
+
+.commentForm {
+	padding: 1em;
+	text-align: center;
+	/* width: 95%; */
+}
+
+
+/* #endregion */
+
+/*#region ngx slider */
+
 .slider .ngx-slider .ngx-slider-bar {
-	background:var(--colorGrayDark);
+	background:var(--colorGrayDarkMed);
 	height: 3px;
 }
 
@@ -264,7 +318,7 @@ nav li {
 	height: 10px;
 	margin-left: 4px;
 	border-radius: 0;
-	background: var(--colorGrayDark);
+	background: var(--colorGrayDarkMed);
 	top: -1px;
 }
 
@@ -272,7 +326,10 @@ nav li {
 	background: var(--colorActive);
 }
 
-/* loading animation from https://loading.io/css/ */
+/* #endregion */
+
+/*#region loading animation from https://loading.io/css/ */
+
 .lds-roller {
   display: inline-block;
   width: 80px;
@@ -362,14 +419,27 @@ nav li {
   }
 }
 
-/* '@media screen' put last because order in file matters.
+/* #endregion */
+
+/*#region media screen */
+
+/* '@media screen' put last because order in this file matters.
 min width considered 360px (Galaxy S5) */
+
 @media screen and (max-width: 451px) {
+	body {
+		font-size: 95%;
+	}
+
 	.navContainer {
 		height: 85px;
 	}
 	.navBackground {
 		height: 105px;
+	}
+	.treeContainer {
+		margin-bottom: 1.5em;
+		/* width: 55%; */
 	}
 
 	/* debug */
@@ -379,6 +449,22 @@ min width considered 360px (Galaxy S5) */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
+	body {
+		font-size: 100%;
+	}
+	code {
+		tab-size: 2;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 105px;
+	}
+
+	.treeContainer {
+		width: 80%;
+		margin-left: 20%;
+	}
+
 	/* debug */
 	/* h1 {
 		color: orange;
@@ -386,9 +472,28 @@ min width considered 360px (Galaxy S5) */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	p, h3 {
-		margin-left: 12.5%;
-		margin-right: 12.5%;
+	body {
+		font-size: 105%;
+	}
+	p, h3, ol, ul, code {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+	code {
+		tab-size: 2;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 110px;
+	}
+
+	.treeContainer {
+		width: 70%;
+		margin-left: 30%;
+	}
+
+	.formTextFields {
+		width: 80%;
 	}
 
 	/* debug */
@@ -398,20 +503,60 @@ min width considered 360px (Galaxy S5) */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	p, h3 {
-		margin-left: 20%;
-		margin-right: 20%;
+	body {
+		font-size: 110%;
 	}
+	p, h3, ol, ul, code {
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	code {
+		tab-size: 2;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 115px;
+	}
+
+	.treeContainer {
+		width: 65%;
+		margin-left: 35%;
+	}
+
+	.formTextFields {
+		width: 60%;
+	}
+
 	/* debug */
 	/* h1 {
 		color: aqua;
 	} */
 }
 
-@media screen and (min-width: 1404px) {
-	p, h3 {
-		margin-left: 27.5%;
-		margin-right: 27.5%;
+/* @media screen and (min-width: 1404px) { */
+@media screen and (min-width: 1404px) and (max-width: 2000px) {
+	body {
+		font-size: 115%;
+	}
+	p, h3, ol, ul, code {
+		margin-left: 20%;
+		margin-right: 20%;
+	}
+	code {
+		tab-size: 3;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 120px;
+	}
+
+	.treeContainer {
+		width: 60%;
+		margin-left: 40%;
+	}
+
+	.formTextFields {
+		width: 40%;
 	}
 
 	/* debug */
@@ -419,3 +564,36 @@ min width considered 360px (Galaxy S5) */
 		color: red;
 	} */
 }
+
+@media screen and (min-width: 2001px) {
+
+	body {
+		font-size: 115%;
+	}
+	p, h3, ol, ul, code {
+		margin-left: 30%;
+		margin-right: 30%;
+	}
+	code {
+		tab-size: 4;
+	}
+
+	.headerContainer, .headerBackground {
+		height: 120px;
+	}
+
+	.treeContainer {
+		width: 60%;
+		margin-left: 40%;
+	}
+
+	.formTextFields {
+		width: 40%;
+	}
+
+	/* debug */
+	/* h1 {
+		color: yellow;
+	} */
+}
+/* #endregion */
