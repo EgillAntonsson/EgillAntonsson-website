@@ -4,6 +4,28 @@
 	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
 </div>
 
+<h2>Setting up Unity</h2>
+<p>
+	A new Unity project has by default the <i>Test Framework</i> package installed (current version 1.1.30).<br>
+	Its <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">documentation</a> details how setup tests for a project.<br>
+	I'm currently using  Unity version 2020.3.24f1, and run the tests via the Unity Test Runner.<br>
+	My project structure starts very simple:
+</p>
+	<ul>
+		<li>The test code is in: <i>Assets/Tests/EditMode/[ClassName]Test.cs</i></li>
+		<li>The production code is in: <i>Assets/Scripts/Runtime/[ClassName].cs</i></li>
+	</ul>
+<p>
+	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code<br>
+	<i>EditMode</i> test have access to the <i>Editor</i> code (only about extending the editor)<br>
+	in addition to the <i>Runtime</i> code (the runtime of the target platform, e.g iOS).<br>
+	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code,<br>
+	is that <i>PlayMode</i> tests take longer to run<br>
+	(as the startup and initialization of the player in the editor takes some time).<br>
+	Also, the domain and other logic does not need the <i>PlayMode</i> tests features<br> (tests can run as coroutine to step through Unity specific code).<br>
+	The documentation page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
+
+<h2>The first requirement</h2>
 <p>
 	Let's look closer to the <i>definition and start state</i> from the user perspective:
 </p>
@@ -13,7 +35,7 @@
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
 <p>
-	Let's filter and transform this into a functional requirement, focused only on the domain logic<br>
+	Let's filter and transform this into a requirement that's focused only on the domain logic<br>
 	(as visual representation will be done later):
 </p>
 <ul>
@@ -27,11 +49,17 @@
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I define the test class and the first test.<br>
-	I start focusing on <span class="code">Health</span> class implementation<br>
+	I start focusing on <span class="code">Health</span> class implementation.<br>
 	(which in the end will likely be associated with an <span class="code">Avatar</span> class).<br>
 	The test is failing as the code does not even compile.
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
+<p>
+	I'm trying out a new naming/structuring convention for the tests that I recently discovered from<br>
+	Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
+	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references<br>
+	Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> that references 3 other guys...
+</p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>Let's make the test pass with a simple implementation.
@@ -43,19 +71,19 @@
 <p>Now it comes to mind that from a game design perspective,<br>
 	it is good to be able to tweak the starting health points for game balancing,<br>
 	thus I refactor the value to be passed as parameter into the constructor.<br>
-	<span class="outOfScope">An advanced system would have accessible game balancing config<br>
-	that is well integrated into the code base,<br>
+	<span class="outOfScope">An advanced system would have an accessible game balancing config that's integrated into the code base,<br>
 	that would then use <span class="code">Health</span> class as designed (passing in value/s).<br>
-	I might later implement a simplified version of game balancing config.</span><br>
+	I might later decide to implement a very simplified game balancing config and integration.</span><br>
 	<br>
 	I name the passed in parameter <span class="code">startingPoints</span>.<br>
 	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
 	<br>
-	I also encapsulate <span class="code">CurrentPoints</span> with private setter,<br>
-	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57"> encapsulate the implementation</a> as much as possible.<br>
-	The only exposure should be for the class interface, that the tests will drive,<br>
-	that will gradually be established through the TDD cycles.
+	I also encapsulate <span class="code">CurrentPoints</span> with a private setter,<br>
+	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
+	The only exposure should be for the class interface that other production code will use and the tests<br>
+	(though no or minimal exposure should be only for the tests).<br>
+	The requirements and the TDD will gradually expose the required and proper interface.
 </p>
 <pre><code [highlight]="code_1_Refactor"></code></pre>
 
@@ -63,8 +91,8 @@
 <p>
 	Now it comes to mind that invalid <span class="code">StartingPoints</span> values can be passed in,<br>
 	as our avatar should never start with less than 1 points,<br>
-	(because otherwise Link would start up being dead :P )<br>
-	Thus I'll throw exceptions when the value is invalid.<br>
+	(because otherwise Link would start up being dead :P ).<br>
+	Thus I'll throw an exception when the value is invalid.<br>
 	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
 	(in the previously mentioned game balancing config).<br></span>
 </p>
@@ -74,8 +102,8 @@
 <pre><code [highlight]="test_2_Red"></code></pre>
 
 <p>
-	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
-	if I include an informative error message for my case.<br>
+	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from namespace <span class="code">System</span><br>
+	if I include an informative message for my case.<br>
 	<br>
 	I chose the value 0 as it's on the edge of invalidation (as 1 is valid).
 </p>
@@ -85,15 +113,14 @@
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
 <p>The implementation of the conditional '<span class="code" [highlight]="'if (startingPoint < 1)'"></span>'<br>
-	was easy to come up with, and is also the proper generic solution (at least for now).<br>
+	was easy to come up with, and is also the proper generic solution for this requirement.<br>
 	<br>
 	The message of the thrown exception would be (if value 0 was passed in):<br>
 	<i>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
 		Parameter name: startingPoints</i><br>
 	<br>
 	I feel that no refactoring is needed in this cycle,<br>
-	as I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step,<br>
-	for both the conditional, and the thrown exception and its message.<br>
+	as I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step, for both the conditional and the thrown exception.<br>
 	Overall the code looks clean, so moving on.
 </p>
 

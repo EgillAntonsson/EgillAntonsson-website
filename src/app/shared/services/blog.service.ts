@@ -18,7 +18,7 @@ export class BlogService {
 		const dateDay = '30'
 		this.series = [
 			{title: seriesTddTitle, posts: [
-				new Post('Part 1 - TDD: What, Why, When', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
+				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
 				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', dateYear, dateMonth, dateDay, seriesTddTitle),
 				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', dateYear, dateMonth, dateDay, seriesTddTitle)
 			]
