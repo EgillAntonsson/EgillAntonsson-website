@@ -19,6 +19,7 @@ export class PostTdd1Component implements OnDestroy {
 	inputCommentControl
 	inputNameControl
 	inputEmailControl
+	inputBotFieldControl
 	defaultCommentText = `Write your comment here.
 On 'Send' button press it will be pending for moderation.
 On approval I'll publish the comment here.
@@ -40,12 +41,13 @@ On approval I'll publish the comment here.
 			inputName: ['', []],
 			inputEmail: ['', [
 				Validators.email
-			]
-		],
+			]],
+			inputBotField: ['', []]
 		})
 		this.inputCommentControl = this.commentForm.controls['inputComment']
 		this.inputNameControl = this.commentForm.controls['inputName']
 		this.inputEmailControl = this.commentForm.controls['inputEmail']
+		this.inputBotFieldControl = this.commentForm.controls['inputBotField']
 
 		// this.form  = document.getElementById('formId')
 		// if (this.form) {
