@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { BlogService, Post } from '../../shared/services/blog.service'
 
 @Component({
@@ -7,18 +7,27 @@ import { BlogService, Post } from '../../shared/services/blog.service'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd1Component {
+export class PostTdd1Component implements OnDestroy {
 
 	post: Post
+
+	form
 
 	constructor(private blogService: BlogService) {
 		this.post = this.blogService.selectedPost
 
-		const form  = document.getElementById('formId')
-		if (form) {
-			document.body.appendChild(form)
+		this.form  = document.getElementById('formId')
+		if (this.form) {
+
+			this.form.parentNode?.removeChild(this.form)
+
+			document.body.appendChild(this.form)
 		}
+	}
 
-
+	ngOnDestroy(): void {
+		if (this.form) {
+			document.body.removeChild(this.form)
+		}
 	}
 }
