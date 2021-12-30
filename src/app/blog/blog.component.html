@@ -19,7 +19,7 @@
 
 <div class="horizontalLine"></div>
 
-<h2>Comments</h2>
+<!-- <h2>Comments</h2>
 
 <div id="formId" class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
  <form [formGroup]="commentForm" name="blogCommentForm" method="POST" data-netlify="true">
@@ -37,10 +37,10 @@
 	<br><br>
 	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
-</div>
+</div> -->
 
 <div class="horizontalLine"></div>
-
+<br>
 <div class="treeContainer">
 	<div *ngFor="let series of blogSeries; let seriesIndex = index">
 		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">

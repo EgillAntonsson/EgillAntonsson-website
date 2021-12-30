@@ -4,14 +4,14 @@
 	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
 </div>
 
-<h2>My workshop</h2>
+<h2>My short workshop</h2>
 <p>
 	I recently decided to do a short workshop about TDD at <a href="https://www.maginteractive.com">work</a><br>
 	and for preparation I browsed the internet looking for a fitting assignment,<br>
 	and I came across <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1 post, by Charles Amat</a>,<br>
 	where he sets up his assignment: to implement the <i>Life Gauge</i> from <i>Zelda: Breath of the Wild</i> game.<br>
 	<br>
-	I thought this assignment was a good and fitting for the workshop,<br>
+	I thought this assignment was good and fitting for the workshop,<br>
 	 thus I read the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a> (which was linked in the 'Part 1' post),<br>
 	and also played the game a bit, focusing on the Life Gauge.<br>
 	But I did not go through the 'TDD in Unity' series, as I was running out of preparation time.<br>
@@ -26,11 +26,11 @@
 		as TDD can fully and easily be applied on the domain layer.</li>
 	<li>Afterwards the focus would shift to the visuals,<br>
 		where the value of TDD potentially would dwindle the closer I got to the physical boundary of the screen.<br>
-		(<a href="https://egill.rocks/blog/tdd-health/part1">Boundary layers</a> section in 'Part 1' elaborates on this).</li>
+		(Boundary layers section in <a href="https://egill.rocks/blog/tdd-health/part1">Part 1</a> elaborates on this).</li>
 </ol>
 <p>
-	With this I held the short workshop where I screen shared TDD-ing the implementation,<br>
-	and I and the participants collaboratively completed some of the domain logic requirements,<br>
+	With this I held the workshop where I screen shared TDD-ing the implementation,<br>
+	and me and the participants collaboratively completed some of the domain logic requirements,<br>
 	when the bell rang and the time was up.<br>
 </p>
 
@@ -39,7 +39,7 @@
 	After the workshop I was curious how Charles Amat solved it,<br>
 	thus I watched on YouTube the whole <a href="http://infalliblecode.com/unity-tdd-2/">TDD in Unity</a> series.<br>
 	I both enjoyed it and learned from watching Charles Amat <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> and implementing the <i>Life Gauge</i><br>
-	and his end result solution is good and sound, and I thank Charles for his work.<br>
+	and his end result solution is good and sound, and I thank Charles for his work and contribution.<br>
 	but I noticed that his focus and task order quite differed from mine, as he:<br>
 </p>
 <ol>
@@ -49,28 +49,30 @@
 		The requirements on the domain logic are very simple<br>
 		and are far from covering all the health requirements of <i>Zelda: Breath of the Wild</i><br>
 		<span class="outOfScope">After re-reading the 'Part 1', I acknowledge that Charles does not indicate<br>
-			that he'll cover all the requirements, as he wrote:<br>
-			<q>The Life Gauge depletes when damage is taken and replenishes when health regenerating items are consumed. Besides some animations and effects, that’s all there is to it; the requirements for the Life Gauge are pretty straightforward.</q></span>
+			that he'll cover all or most of the requirements, as he wrote:<br>
+			<q>The Life Gauge depletes when damage is taken and replenishes when health regenerating items are consumed. Besides some animations and effects, that's all there is to it; the requirements for the Life Gauge are pretty straightforward.</q></span>
 	</li>
 </ol>
 
 <h3>TDD-ing the same assignment, but with my focus and task order</h3>
 <p>
-	This is why I wanted to do a blog post series with the same assignment:<br>
+	This is why I thing it's worth doing a blog post series with the same assignment:<br>
 	implement Avatar Health, based on <i>Zelda: Breath of the Wild</i>,<br>
-	but with my focus and task order (see my ordered bulletin list above in <i>Workshop</i> section).<br>
+	with my focus and task order (see my ordered bulletin list above in <i>Workshop</i> section).<br>
 	<br>
 	When focusing on the domain logic, there will mainly be .NET code and not much usage of the Unity editor<br>
-	(though I run the tests via Unity Test Runner),<br>
-	When the focus later goes to the visuals, then there will be some Unity visual specific code,<br> and object / component configuring via the Unity editor.<br>
+	(though I run the tests via Unity Test Runner).<br>
+	When the focus later goes to the visuals, then there will be more focus on Unity<br>
+	(e.g some Unity visual specific code, setting and configuring the visual layer in Unity editor).<br>
 	The visual implementation part will likely be similar to the <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity series</a>,<br>
-	thus I might decide to reference it heavily, instead of reinventing the wheel for that part.<br>
+	thus I might decide to reference it heavily, when I get to it.<br>
 	<br>
-	My format will also differ, as I will go through RED / GREEN / REFACTOR cycles<br>
-	and display the code classes (fully or partially) directly in the blog posts,<br>
-	and not <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> it (I might re-evaluate the format later).<br>
-	With this approach I filter the smallest 'back and forth' steps away,<br>
-	with the ambition that the code and my reasoning about it reads like soothing poetry of red green rhythmic loops.
+	My format will also differ:<br>
+	I will not <a href="https://en.wikipedia.org/wiki/Live_coding">live code</a> it, but instead<br>
+	I will write directly into the blog posts the <span class="redFail">RED</span> / <span class="greenPass">GREEN</span> / <span class="greenRefactor">REFACTOR</span> cycles<br> and display the code classes (fully or partially) appropriately for each cycle.<br>
+	With this approach I filter away the smallest 'back and forth' steps, and the smallest of cycles,<br>
+	and my ambition is to process the essence of the code changes and my reasoning about it via the cycles<br>
+	(and that it reads like a soothing poetry in a rhythmic red green refactor loop :) ).
 </p>
 
 <h3>The Life Gauge behavior from the user perspective</h3>
@@ -90,20 +92,20 @@
 	<li>Some enemies may do more damage in one hit than Link has health.<br>
 		As long as Link's Life Gauge is full, he is protected from any attack that would instantly kill him,<br>
 		and will instead be left alive with a quarter Heart remaining.<br>
-		However, this has limitations: if the damage is more than five Hearts above Link's maximum health, he will still die</li>
+		However, this has limitations:<br>
+		If the damage is more than five Hearts above Link's maximum health, he will still die</li>
 	<br>
 	<li class="noBulletinPoint"><b>Health Replenishing and maximum:</b></li>
 	<li>Link's Life Gauge can be replenished by:<br>
-		picking up recovery Hearts,<br>
-		drinking recovery Potions<br>
+		picking up recovery Hearts, drinking recovery Potions,<br>
 		or by resting while Sitting or Sleeping.
 		</li>
 	<li>The Life Gauge can be extended to a total of 30 Hearts</li>
-	<li>The Life Gauge can be temporarily extended by consuming certain Foods that grant Link yellow temporary Hearts.<br>
+	<li>It can be temporarily extended by consuming certain Foods that grant Link yellow temporary Hearts.<br>
 		These Hearts are lost when Link takes damage and cannot be recovered.</li>
 </ul>
 
-<h3>Domain / Visual SoC mapping of <i>Life Gauge</i></h3>
+<h3>Domain / Visual <i>SoC</i> mapping of <i>Life Gauge</i></h3>
 <table>
 	<tr>
 		<th>Domain Layer / Model</th>
@@ -135,20 +137,24 @@
 	</tr>
 </table>
 <p>
-	This is IMO a very helpful separation of concerns (SoC) mapping:<br>
-	Heart Container (with its Hearts and fractions) is a specific visual representation<br>
-	of the Avatar Health, the domain.<br>
+	This <i>Separation of Concerns (SoC)</i> mapping is helpful and good to establish early:<br>
+	<i>Heart Container (with its Hearts and fractions) is a specific visual representation<br>
+of the Avatar Health, the domain.</i><br>
 	<br>
-	We want the code dependency to be minimal and one-way,<br>
-	The view can depend in some way on the model (but not vice-versa).<br>
-	<br>
-	The team artist might decide to change the visual representation to a health bar or something else.<br>
+	In a real-life scenario things are likely to change along the way,<br>
+	e.g. the team might decide to change the visual representation to a health bar or something else.
+	<br><br>
+	I will make sure that my code dependency is minimal and one-way:<br>
+	<i>The view can depend in some way on the model, but not vice-versa.</i><br>
+	Also I'll aim that all the all domain logic is in the model, and the view is thin and humble (see Boundary layers section in <a href="https://www.egill.rocks/blog/tdd-health/part1">Part 1</a>)<br>
+	This will also be beneficial to the design and testability.<br>
+	When future change requests on the visual representation arrive, it will be effortless to handle:
+
 <ul>
-	<li class="noBulletinPoint">With this separation of concern:</li>
-	<li>As the model is not dependent on the View, the Model will be unaffected</li>
-	<li>The model code domain logic and naming will be unaffected.</li>
+	<li>The domain layer will be unaffected (as it does not depend on the view)</li>
+	<li>The domain layer naming and terminology will be unaffected (as it does not depend on the view)</li>
 </ul>
 <p>
-	I might decide to have more than one visual representations simultaneously to fully illustrate this.<br>
-	It is quite common in game UI to have more than one visual representation of the same domain object.
+	<span class="outOfScope">I might decide to have more than one visual representations simultaneously to fully illustrate this.<br>
+	It is quite common in game UI to have more than one visual representation of the same domain object.</span>
 </p>
