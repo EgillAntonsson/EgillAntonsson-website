@@ -22,3 +22,7 @@
 .noBulletinPoint {
 	list-style: none;
 }
+
+.hideForm {
+	display: none;
+}

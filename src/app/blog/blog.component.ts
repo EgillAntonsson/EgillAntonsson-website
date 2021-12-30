@@ -61,7 +61,10 @@ On approval I'll publish the comment here.
 	}
 
 	onSendClick() {
-		this.showCommentForm = false
+		console.log('Send clicked')
+		console.log(this.commentForm)
+
+		// this.showCommentForm = false
 	}
 
 

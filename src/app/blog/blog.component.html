@@ -21,19 +21,19 @@
 
 <h2>Comments</h2>
 
-<div class="commentForm" *ngIf=showCommentForm>
- <form [formGroup]="commentForm" novalidate name="comment" method="POST" data-netlify="true">
+<div id="formId" class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
+ <form [formGroup]="commentForm" name="blogCommentForm" method="POST" data-netlify="true">
 	 <label>Your Comment</label>
 	 <br>
-		<textarea  class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" [maxlength]="300" rows="5"></textarea>
+		<textarea class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" name="inputComment" [maxlength]="300" rows="5"></textarea>
 	<br><br>
 	<small>Your Name / Handle (optional)</small>
 	<br>
-	<input  class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" maxlength="30">
+	<input class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" name="inputName" maxlength="30">
 	<br><br>
 	<small>Your Email (optional)</small>
 	<br>
-	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" maxlength="30" size="35">
+	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" name="inputEmail" maxlength="30" size="35">
 	<br><br>
 	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
