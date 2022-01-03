@@ -25,23 +25,22 @@
 <p>
 	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code<br>
 	is that they run faster (as no startup of the Player is needed in the Unity editor).<br>
-	Also the domain logic should not need the <i>PlayMode</i> tests features<br> (tests can run as Unity <i>Coroutine</i> to step through the (coroutine based) code).<br>
+	Also the domain logic should not need the <i>PlayMode</i> tests features<br> (tests can run as Unity <i>Coroutine</i> to step through the (coroutine based) production code).<br>
 	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
 
-<h2>The requirement for <i>definition and start state</i></h2>
+<h2>The requirements for <i>definition and start state</i></h2>
 <p>
 	Let's recap these requirements from the user perspective:
 </p>
-<ul class="list">
+<ul class="list inline">
 	<li>The Life Gauge measures Link's current amount of health</li>
 	<li>Health is visually represented in the form of Hearts, and they are in fractions of four</li>
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
 <p>
-	Let's filter and transform this into a requirement that's focused only on the domain logic<br>
-	(as visual representation will be done later):
+	Let's filter and transform this into a requirement that's focused only on the domain (as GUI will be done later):
 </p>
-<ul>
+<ul class="list inline">
 	<li>Avatar Health starts with 12 Health Points (equals to visual representation of 3 Hearts * 4 Fractions)</li>
 </ul>
 <p>

@@ -12,7 +12,7 @@ export class BlogService {
 
 	constructor() {
 
-		const seriesTddTitle = 'TDD Avatar Health in C# via Unity'
+		const seriesTddTitle = 'TDD-ing Avatar Health in Unity (C# .NET)'
 		const dateYear = '2021'
 		const dateMonth = 'December'
 		const dateDay = '30'

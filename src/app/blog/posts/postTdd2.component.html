@@ -8,25 +8,25 @@
 <p>
 	I recently decided to do a short workshop about TDD at <a href="https://www.maginteractive.com">work</a><br>
 	and for preparation I browsed the internet looking for a fitting assignment,<br>
-	and I came across <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1 post, by Charles Amat</a>,<br>
-	where he sets up his assignment: to implement the <i>Life Gauge</i> from <i>Zelda: Breath of the Wild</i> game.<br>
+	and I came across <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> by Charles Amat, where he sets up his assignment:<br>
+	implementing the <i>Life Gauge</i> from <i>Zelda: Breath of the Wild</i> game.<br>
 	<br>
-	I thought this assignment was good and fitting for the workshop,<br>
-	 thus I read the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a> (which was linked in the 'Part 1' post),<br>
-	and also played the game a bit, focusing on the Life Gauge.<br>
+	I thought this assignment was fitting for the workshop,<br>
+	 thus I read the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda wiki</a> (which was linked in the 'Part 1' post),<br>
+	and also played the game a bit, focusing on the <i>Life Gauge</i> behavior.<br>
 	But I did not go through the 'TDD in Unity' series, as I was running out of preparation time.<br>
 	<br>
-	My task order in both my preparations and workshop walk-through:<br>
+	My focus and task order in both my preparations and workshop walk-through:<br>
 </p>
-<ol class="list">
+<ol class="list inline">
 	<li>Write down the <i>Life Gauge</i> behavior from the user perspective<br>
 		(based on the wiki, and to a lesser degree my experience, as I'm not so good in <i>Zelda: Breath of the Wild</i>)</li>
-	<li>Break it down and filter into a list of requirements for the developer perspective</li>
 	<li>Focus first on the (non visual) domain logic and implement all the requirements it should fulfill,<br>
-		as TDD can fully and easily be applied on the domain layer.</li>
-	<li>Afterwards the focus would shift to the visuals,<br>
-		where the value of TDD potentially would dwindle the closer I got to the physical boundary of the screen.<br>
-		(Boundary layers section in <a href="https://egill.rocks/blog/tdd-health/part1">Part 1</a> elaborates on this).</li>
+		as TDD can fully and easily be used in the domain model</li>
+	<li>Afterwards the focus would shift to the visual GUI,<br>
+		where the value of TDD likely would dwindle the closer I got to the physical boundary of the screen,<br>
+		ending with just manually testing with my eyes.<br>
+		(Boundary layers section in <a href="https://egill.rocks/blog/tdd-health/part1">Part 1</a> elaborates on 2. and 3.)</li>
 </ol>
 <p>
 	With this I held the workshop where I screen shared TDD-ing the implementation,<br>
@@ -38,48 +38,51 @@
 <p>
 	After the workshop I was curious how Charles Amat solved it,<br>
 	thus I watched on YouTube the whole <a href="http://infalliblecode.com/unity-tdd-2/">TDD in Unity</a> series.<br>
-	I both enjoyed it and learned from watching Charles Amat <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> and implementing the <i>Life Gauge</i><br>
-	and his end result solution is good, and I thank Charles for his work and contribution.<br>
+	I both enjoyed and learned from watching Charles Amat <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> and implementing the <i>Life Gauge</i><br>
+	and his end result solution is good and sound, and I thank Charles for his work and contribution.<br>
 	but I noticed that his focus and task order quite differed from mine, as he:<br>
 </p>
-<ol class="list">
-	<li>Starts planning how he would go about creating the heart container in Unity, from a graphical UI perspective</li>
-	<li>Starts TDD-ing logic close to the graphical UI</li>
-	<li>Ends with TDD-ing the domain logic, the Player Health in <a href="http://infalliblecode.com/unity-tdd-7/">Part 7</a> and <a href="http://infalliblecode.com/unity-tdd-8/">Part 8</a><br>
+<ol class="list inline">
+	<li>Starts planning how he would go about creating the heart container in Unity, from a GUI perspective</li>
+	<li>Starts TDD-ing logic close to the GUI</li>
+	<li>Ends with TDD-ing the domain logic, the Player Health in <a href="http://infalliblecode.com/unity-tdd-7/">Part 7</a> and <a href="http://infalliblecode.com/unity-tdd-8/">Part 8</a>.<br>
 		The requirements on the domain logic are very simple<br>
-		and are far from covering all the health requirements of <i>Breath of the Wild</i><br>
-		<span class="outOfScope">After re-reading the 'Part 1', I acknowledge that Charles does not indicate<br>
-			that he'll cover all or most of the requirements, as he wrote:<br>
-			<q>The Life Gauge depletes when damage is taken and replenishes when health regenerating items are consumed. Besides some animations and effects, that's all there is to it; the requirements for the Life Gauge are pretty straightforward.</q></span>
+		and are far from covering the requirements of <i>Breath of the Wild</i><br>
+		<span class="outOfScope">After re-reading the 'Part 1', I acknowledge that Charles does indicate<br>
+			that the domain logic requirements would be very simple, as he wrote:<br>
+			<q>The Life Gauge depletes when damage is taken<br>
+				and replenishes when health regenerating items are consumed.<br>
+				Besides some animations and effects, that's all there is to it;<br>
+				the requirements for the Life Gauge are pretty straightforward.</q></span>
 	</li>
 </ol>
 
 <h3>TDD-ing the same assignment, but with my focus and task order</h3>
 <p>
-	This is why I thing it's worth doing a blog post series with the same assignment:<br>
-	implement Avatar Health, based on <i>Zelda: Breath of the Wild</i>,<br>
-	with my focus and task order (see my ordered bulletin list above in <i>Workshop</i> section).<br>
+	This is why I think it's worth doing a blog post series with the same assignment,<br>
+	but with my focus and task order (see my ordered bulletin list above in <i>My workshop</i> section).<br>
 	<br>
 	When focusing on the domain logic, there will mainly be .NET code and not much usage of the Unity editor<br>
 	(though I run the tests via Unity Test Runner).<br>
-	When the focus later goes to the visuals, then there will be more focus on Unity<br>
-	(e.g some Unity visual specific code, setting and configuring the visual layer in Unity editor).<br>
-	The visual implementation part will likely be similar to the <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity series</a>,<br>
+	When the focus later goes to the GUI, then there will be more focus on Unity<br>
+	(e.g some Unity GUI specific code, setting and configuring the GUI in the Unity editor).<br>
+	The GUI implementation part will likely be similar to the <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity series</a>,<br>
 	thus I might decide to reference it heavily, when I get to it.<br>
 	<br>
 	My format will also differ:<br>
 	I will not <a href="https://en.wikipedia.org/wiki/Live_coding">live code</a> it, but instead<br>
 	I will write directly into the blog posts the <span class="redFail">RED</span> / <span class="greenPass">GREEN</span> / <span class="greenRefactor">REFACTOR</span> cycles<br> and display the code classes (fully or partially) appropriately for each cycle.<br>
 	With this approach I filter away the smallest 'back and forth' steps, and the smallest of cycles,<br>
-	and my ambition is to process the essence of the code changes and my reasoning about it via the cycles<br>
-	(and that it reads like a soothing poetry in a rhythmic red green refactor loop :) ).
+	and my ambition is to convey the essence of the code changes and my reasoning about it via the cycles,<br>
+	and that it reads like a soothing poetry of rhythmic red green refactor loops :).<br>
+	(I might re-evaluate the format depending on the task at hand).
 </p>
 
 <h3>The Life Gauge behavior from the user perspective</h3>
 <p>
 	The below list is the behaviour summary from<br>
 	the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game<br>
-	(Some streamlining done for the sake of the assignment):
+	(Small streamlining done for the sake of the assignment):
 
 </p>
 <ul class="list">
@@ -114,8 +117,8 @@
 <h3>Domain / Visual <i>SoC</i> mapping of <i>Life Gauge</i></h3>
 <table>
 	<tr>
-		<th>Domain Layer / Model</th>
-		<th>Visual Layer / View</th>
+		<th>Domain Model</th>
+		<th>GUI / View</th>
 	</tr>
 	<tr>
 		<td class="center">
@@ -144,23 +147,24 @@
 </table>
 <p>
 	This <i>Separation of Concerns (SoC)</i> mapping is helpful and good to establish early:<br>
-	<i>Heart Container (with its Hearts and fractions) is a specific visual representation<br>
-of the Avatar Health, the domain.</i><br>
+	<i>Heart Container (with its Hearts and fractions) is a specific GUI representation<br>
+of the Avatar Health, the domain model.</i><br>
 	<br>
 	In a real-life scenario things are likely to change along the way,<br>
-	e.g. the team might decide to change the visual representation to a health bar or something else.
+	e.g. the team might decide to change the GUI to a health bar or something else.
 	<br><br>
-	I will make sure that my code dependency is minimal and one-way:<br>
-	<i>The view can depend in some way on the model, but not vice-versa.</i><br>
-	Also I'll aim that all the all domain logic is in the model, and the view is thin and humble (see Boundary layers section in <a href="https://www.egill.rocks/blog/tdd-health/part1">Part 1</a>)<br>
-	This will also be beneficial to the design and testability.<br>
-	When future change requests on the visual representation arrive, it will be effortless to handle:
-
-<ul>
-	<li>The domain layer will be unaffected (as it does not depend on the view)</li>
-	<li>The domain layer naming and terminology will be unaffected (as it does not depend on the view)</li>
+	I'll apply the approach noted in the <i>Boundary layers</i> section in <a href="https://www.egill.rocks/blog/tdd-health/part1">Part 1</a>).<br>
+	Make sure that the code dependency is minimal and one-way:<br>
+	The view can depend in some way on the model, but not vice-versa.<br>
+	And put all the domain logic into the model and keep the view thin and humble.<br>
+	<br>
+	When future change requests on the GUI arrive, it will be effortless to handle as:
+</p>
+<ul class="list inline">
+	<li>The domain and its logic will be unaffected (as it does not depend on the view)</li>
+	<li>The model naming and terms will be unaffected (as it does not depend on the view)</li>
 </ul>
 <p>
-	<span class="outOfScope">I might decide to have more than one visual representations simultaneously to fully illustrate this.<br>
-	It is quite common in game UI to have more than one visual representation of the same domain object.</span>
+	<span class="outOfScope">I might decide to have more than one GUI representations simultaneously to fully illustrate this.<br>
+	It is quite common in game UI to have more than one GUI representation of the same model object.</span>
 </p>
