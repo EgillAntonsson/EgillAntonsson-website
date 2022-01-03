@@ -11,25 +11,28 @@
 	I'm currently using  Unity version 2020.3.24f1, and run the tests via the Unity Test Runner.<br>
 	My project structure starts very simple:
 </p>
-	<ul>
-		<li>The test code is in: <i>Assets/Tests/EditMode/[ClassName]Test.cs</i></li>
+	<ul class="list inline">
+		<li>The test code is in: <i>Assets/Scripts/Tests/EditMode/[ClassName]Test.cs</i></li>
 		<li>The production code is in: <i>Assets/Scripts/Runtime/[ClassName].cs</i></li>
 	</ul>
 <p>
-	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code<br>
-	<i>EditMode</i> test have access to the <i>Editor</i> code (only about extending the editor)<br>
-	in addition to the <i>Runtime</i> code (the runtime of the target platform, e.g iOS).<br>
-	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code,<br>
-	is that <i>PlayMode</i> tests take longer to run<br>
-	(as the startup and initialization of the player in the editor takes some time).<br>
-	Also, the domain and other logic does not need the <i>PlayMode</i> tests features<br> (tests can run as coroutine to step through Unity specific code).<br>
-	The documentation page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
-
-<h2>The first requirement</h2>
+	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code.<br>
+	<i>EditMode</i> test have access to both:
+	<ul class="list inline">
+		<li>the <i>Editor</i> code (only about extending the Unity editor)</li>
+		<li>the <i>Runtime</i> code (of the targeted platform, e.g iOS).</li>
+	</ul>
 <p>
-	Let's look closer to the <i>definition and start state</i> from the user perspective:
+	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code<br>
+	is that they run faster (as no startup of the Player is needed in the Unity editor).<br>
+	Also the domain logic should not need the <i>PlayMode</i> tests features<br> (tests can run as Unity <i>Coroutine</i> to step through the (coroutine based) code).<br>
+	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
+
+<h2>The requirement for <i>definition and start state</i></h2>
+<p>
+	Let's recap these requirements from the user perspective:
 </p>
-<ul>
+<ul class="list">
 	<li>The Life Gauge measures Link's current amount of health</li>
 	<li>Health is visually represented in the form of Hearts, and they are in fractions of four</li>
 	<li>The Life Gauge starts with 3 Hearts</li>
@@ -55,10 +58,12 @@
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
-	I'm trying out a new naming/structuring convention for the tests that I recently discovered from<br>
-	Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
+	I'm trying out a new naming/structuring convention by using nested classes.<br>
+	(that I discovered via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
 	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references<br>
-	Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> that references 3 other guys...
+	Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a>)<br>
+	Furhtermore the nested class naming is the unit under test, which typically is a method<br>
+	(in the above case the <i>Constructor</i> 'method')
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>

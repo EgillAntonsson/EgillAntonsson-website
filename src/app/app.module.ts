@@ -21,6 +21,7 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 import { PostTdd1Component } from './blog/posts/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/postTdd2.component'
 import { PostTdd3Component } from './blog/posts/postTdd3.component'
+import { PostTdd4Component } from './blog/posts/postTdd4.component'
 
 @NgModule({
 	imports: [
@@ -45,7 +46,8 @@ import { PostTdd3Component } from './blog/posts/postTdd3.component'
 		MinutesSecondsPipe,
 		PostTdd1Component,
 		PostTdd2Component,
-		PostTdd3Component
+		PostTdd3Component,
+		PostTdd4Component
 	],
 	bootstrap: [AppComponent],
 	providers: [{

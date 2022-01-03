@@ -328,6 +328,17 @@ figcaption {
 
 /* #endregion */
 
+.list
+{
+	margin-left: 0%;
+	margin-right: 0%;
+}
+
+.inline
+{
+	margin-block-start: -1.5em;
+}
+
 /*#region loading animation from https://loading.io/css/ */
 
 .lds-roller {
@@ -475,7 +486,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 105%;
 	}
-	p, h3, ol, ul, code {
+	p, h3, code, .list {
 		margin-left: 5%;
 		margin-right: 5%;
 	}
@@ -506,7 +517,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 110%;
 	}
-	p, h3, ol, ul, code {
+	p, h3, code, .list {
 		margin-left: 10%;
 		margin-right: 10%;
 	}
@@ -538,7 +549,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 115%;
 	}
-	p, h3, ol, ul, code {
+	p, h3, code, .list {
 		margin-left: 20%;
 		margin-right: 20%;
 	}
@@ -570,7 +581,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 115%;
 	}
-	p, h3, ol, ul, code {
+	p, h3, code, .list {
 		margin-left: 30%;
 		margin-right: 30%;
 	}

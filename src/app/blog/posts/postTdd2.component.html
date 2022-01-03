@@ -4,7 +4,7 @@
 	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
 </div>
 
-<h2>My short workshop</h2>
+<h2>My workshop</h2>
 <p>
 	I recently decided to do a short workshop about TDD at <a href="https://www.maginteractive.com">work</a><br>
 	and for preparation I browsed the internet looking for a fitting assignment,<br>
@@ -18,7 +18,7 @@
 	<br>
 	My task order in both my preparations and workshop walk-through:<br>
 </p>
-<ol>
+<ol class="list">
 	<li>Write down the <i>Life Gauge</i> behavior from the user perspective<br>
 		(based on the wiki, and to a lesser degree my experience, as I'm not so good in <i>Zelda: Breath of the Wild</i>)</li>
 	<li>Break it down and filter into a list of requirements for the developer perspective</li>
@@ -39,15 +39,15 @@
 	After the workshop I was curious how Charles Amat solved it,<br>
 	thus I watched on YouTube the whole <a href="http://infalliblecode.com/unity-tdd-2/">TDD in Unity</a> series.<br>
 	I both enjoyed it and learned from watching Charles Amat <a href="https://en.wikipedia.org/wiki/Live_coding">live coding</a> and implementing the <i>Life Gauge</i><br>
-	and his end result solution is good and sound, and I thank Charles for his work and contribution.<br>
+	and his end result solution is good, and I thank Charles for his work and contribution.<br>
 	but I noticed that his focus and task order quite differed from mine, as he:<br>
 </p>
-<ol>
+<ol class="list">
 	<li>Starts planning how he would go about creating the heart container in Unity, from a graphical UI perspective</li>
 	<li>Starts TDD-ing logic close to the graphical UI</li>
 	<li>Ends with TDD-ing the domain logic, the Player Health in <a href="http://infalliblecode.com/unity-tdd-7/">Part 7</a> and <a href="http://infalliblecode.com/unity-tdd-8/">Part 8</a><br>
 		The requirements on the domain logic are very simple<br>
-		and are far from covering all the health requirements of <i>Zelda: Breath of the Wild</i><br>
+		and are far from covering all the health requirements of <i>Breath of the Wild</i><br>
 		<span class="outOfScope">After re-reading the 'Part 1', I acknowledge that Charles does not indicate<br>
 			that he'll cover all or most of the requirements, as he wrote:<br>
 			<q>The Life Gauge depletes when damage is taken and replenishes when health regenerating items are consumed. Besides some animations and effects, that's all there is to it; the requirements for the Life Gauge are pretty straightforward.</q></span>
@@ -77,32 +77,38 @@
 
 <h3>The Life Gauge behavior from the user perspective</h3>
 <p>
-	The below list is based on the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge description on Zelda Wiki</a>:<br>
+	The below list is the behaviour summary from<br>
+	the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game<br>
+	(Some streamlining done for the sake of the assignment):
+
 </p>
-<ul>
-	<li class="noBulletinPoint"><b>Definition and start state:</b></li>
-	<li>The Life Gauge measures Link's current amount of health</li>
-	<li>Health is visually represented in the form of Hearts, and they are in fractions of four</li>
+<ul class="list">
+	<li class="noBulletinPoint"><b>Definition and Start State</b></li>
+	<li>The Life Gauge measures Link's (the avatar) current amount of health</li>
+	<li>Health is visually represented in the form of Hearts, and they are in fractions of 4</li>
 	<li>The Life Gauge starts with 3 Hearts</li>
 	<br>
-	<li class="noBulletinPoint"><b>Taking damage and dying:</b></li>
-	<li>Whenever Link (the avatar) takes damage, he will lose a certain amount of Heart fractions equal to the damage taken.<br>
-		When Link loses all of his Hearts, the game ends.</li>
-	<li>Link will take at least a quarter of a Heart of damage from any attack</li>
-	<li>Some enemies may do more damage in one hit than Link has health.<br>
-		As long as Link's Life Gauge is full, he is protected from any attack that would instantly kill him,<br>
-		and will instead be left alive with a quarter Heart remaining.<br>
-		However, this has limitations:<br>
-		If the damage is more than five Hearts above Link's maximum health, he will still die</li>
+	<li class="noBulletinPoint"><b>Taking Damage and Dying</b></li>
+	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
+		equal to the damage points taken (always losing at least 1 fraction)</li>
+	<li>When Link loses all of his Hearts the game ends</li>
+	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
+		and will instead be left alive with Hearth 1 fraction remaining</li>
+		<ul>
+			<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+		</ul>
 	<br>
-	<li class="noBulletinPoint"><b>Health Replenishing and maximum:</b></li>
+	<li class="noBulletinPoint"><b>Health Replenishing and Maximum</b></li>
 	<li>Link's Life Gauge can be replenished by:<br>
-		picking up recovery Hearts, drinking recovery Potions,<br>
-		or by resting while Sitting or Sleeping.
-		</li>
-	<li>The Life Gauge can be extended to a total of 30 Hearts</li>
-	<li>It can be temporarily extended by consuming certain Foods that grant Link yellow temporary Hearts.<br>
-		These Hearts are lost when Link takes damage and cannot be recovered.</li>
+		<ul>
+			<li>Picking up recovery Hearts / drinking recovery Potions</li>
+			<li>Resting while Sitting or Sleeping.</li>
+		</ul>
+	<li>The Life Gauge can be extended to a maximum of 30 Hearts</li>
+	<li>It can also be temporarily extended by consuming certain Foods that grant yellow temporary Hearts</li>
+		<ul>
+			<li>These yellow Hearts are lost when Link takes damage and cannot be recovered</li>
+		</ul>
 </ul>
 
 <h3>Domain / Visual <i>SoC</i> mapping of <i>Life Gauge</i></h3>

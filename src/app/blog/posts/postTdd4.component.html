@@ -1,0 +1,28 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+</div>
+
+<h2>The requirements for <i>taking damage and dying</i></h2>
+<p>
+	Let's recap these requirements from the user perspective:
+</p>
+<ul class='list'>
+	<li class="noBulletinPoint"><b>Taking Damage and Dying</b></li>
+	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
+		equal to the damage points taken (always losing at least 1 fraction)</li>
+	<li>When Link loses all of his Hearts the game ends</li>
+	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
+		and will instead be left alive with Hearth 1 fraction remaining</li>
+		<ul>
+			<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+		</ul>
+</ul>
+<p>
+	Let's one by one, filter and transform the requirement to focus only on the domain logic<br>
+	(as visual representation will be done later), making the first one:<br>
+</p>
+<ul class="list">
+	<li>Avatar will lose Health Points equal to Damage Points taken (always losing at last 1 Health Point)</li>
+</ul>
