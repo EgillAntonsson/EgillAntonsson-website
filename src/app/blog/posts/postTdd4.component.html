@@ -4,12 +4,12 @@
 	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
 </div>
 
-<h2>The first <i>Taking damage</i> requirement</h2>
+<h2>The first Taking Damage requirement</h2>
 <p>
-	Let's recap the first requirement under <i>Taking Damage</i> from the user perspective:
+	Let's recap the first requirement under <i>Taking Damage and Dying</i> from the user perspective<br>
+	(whole <i>Life Gauge behavior</i> list is in <a href="./blog/tdd-health/part2">Part 2</a>):
 </p>
 <ul class='list'>
-	<li class="noBulletinPoint"><b>Taking Damage</b></li>
 	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
 		equal to the damage points taken (always losing at least 1 fraction)</li>
 </ul>
@@ -20,7 +20,7 @@
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
 </ul>
 
-<h2>Taking Damage</h2>
+<h2>TDD cycling Taking Damage</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
@@ -51,7 +51,8 @@
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
-	It will be similar test to the existing <code>ThrowsError_</code> test but now the <i>entry point</i> is method <code>TakeDamage</code>.<br>
+	It will be similar test to the existing <code>ThrowsError_</code> test but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
+	and thus it will be under nested class <code>TakeDamage</code>
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
@@ -66,15 +67,33 @@
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <p>
-	Now the implementation code is starting to smell (as I duplicated code to simply make the test pass)<br>
-	Thus i refactor, and run all test as needed during
+	Now the implementation code is starting to smell, as I duplicated a chunk of code to simply make the test pass.<br>
+	(I also now notice that the hardcoded <code>0</code> in the message is not nice<br>
+	as it potentially later could get out of sync with the condition).<br>
+	Thus I refactor, and run all the tests as needed during it, to verify I haven't broken anything.<br>
+	After some time the implementation looks like this:
 </p>
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
-	Now this is more like it, now the code feels clean.<br>
-	I run the tests in the end to verify everything works.
+	This is more like it, now the code feels clean.<br>
+	<br>
+	I verify with my eyes the message is proper of the thrown exception,<br>
+	e.g if value <code>0</code> is passed in for <code>damagePoints</code>, the message is:<br>
+	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
+Parameter name: damagePoints</code><br>
+	<br>
+	I do this by temporarily commenting out the code of <code>ThrowsError_WhenDamagePointsIsInvalid</code> test case,<br>
+	only leaving <code [highlight]="'var health = new Health(12);'"></code><br>
+	then I run the test, see it fail, and then select the failed case where <code>0</code> was sent,<br>
+	and read the message from the stacktrace below.<br>
+	Afterwards I undo my commenting out in the test case.<br>
+	I feel that manually testing this with my eyes is sufficient<br>
+	(alternatively I could unit test and assert that the message includes certain key words).<br>
+	<br>
+	I run the tests in the end to verify everything works.<br>
+	Below is the whole <code>HealthTest.cs</code>, along showing last run in the Test Runner:
 </p>
-
+<pre><code [highlight]="test_final"></code></pre>
 <figure>
 	<img src="../assets/images/blog/tdd/HealthTest-ThrowsErrorRefactoring.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' code" title="Unity Test Runner: after refactoring 'ThrowsError' code" class="imageSmallText">
 	<figcaption>
