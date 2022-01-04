@@ -4,24 +4,17 @@
 	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
 </div>
 
-<h2>The requirements for <i>taking damage and dying</i></h2>
+<h2>The first <i>Taking damage</i> requirement</h2>
 <p>
-	Let's recap these requirements from the user perspective:
+	Let's recap the first requirement under <i>Taking Damage</i> from the user perspective:
 </p>
 <ul class='list'>
-	<li class="noBulletinPoint"><b>Taking Damage and Dying</b></li>
+	<li class="noBulletinPoint"><b>Taking Damage</b></li>
 	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
 		equal to the damage points taken (always losing at least 1 fraction)</li>
-	<li>When Link loses all of his Hearts the game ends</li>
-	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
-		and will instead be left alive with Hearth 1 fraction remaining</li>
-	<ul>
-		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
-	</ul>
 </ul>
 <p>
-	Let's one by one, filter and transform the requirement to focus only on the domain logic<br>
-	(as GUI will be done later), making the first one:<br>
+	Let's filter and transform this into a requirement that's focused only on the domain (as GUI will be done later):
 </p>
 <ul class="list">
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
