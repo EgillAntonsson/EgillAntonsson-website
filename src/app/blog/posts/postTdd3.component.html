@@ -130,7 +130,7 @@
 <p>
 	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from namespace <span class="code">System</span><br>
 	if I include an informative message for my case.<br>
-	I chose the value 0 as it's on the edge of invalidation (as 1 is valid).<br>
+	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
 	<br>
 	To elaborate on my test case naming convention, I use my template:<br>
 	<i>[Output behavior]</i> or <i>[expected behavior of Unit of Work]</i><br>
@@ -147,9 +147,9 @@
 <p>The implementation of the conditional '<span class="code" [highlight]="'if (startingPoint < 1)'"></span>'<br>
 	was easy to come up with, and is also the proper generic solution for this requirement.<br>
 	<br>
-	The message of the thrown exception would be (if value 0 was passed in):<br>
-	<i>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
-		Parameter name: startingPoints</i><br>
+	The message of the thrown exception would be (if value <code>0</code> was passed in):<br>
+	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
+		Parameter name: startingPoints</code><br>
 	<br>
 	I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step, for both the conditional and the thrown exception.<br>
 	I feel that no further refactoring is needed in this cycle, so moving on.<br>

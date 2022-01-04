@@ -499,8 +499,8 @@ min width considered 360px (Galaxy S5) */
 		font-size: 105%;
 	}
 	p, h3, pre, .list {
-		margin-left: 5%;
-		margin-right: 5%;
+		margin-left: 4%;
+		margin-right: 4%;
 	}
 	code {
 		tab-size: 2;
@@ -530,8 +530,8 @@ min width considered 360px (Galaxy S5) */
 		font-size: 110%;
 	}
 	p, h3, pre, .list {
-		margin-left: 10%;
-		margin-right: 10%;
+		margin-left: 8%;
+		margin-right: 8%;
 	}
 	code {
 		tab-size: 2;
@@ -562,8 +562,8 @@ min width considered 360px (Galaxy S5) */
 		font-size: 115%;
 	}
 	p, h3, pre, .list {
-		margin-left: 20%;
-		margin-right: 20%;
+		margin-left: 16%;
+		margin-right: 16%;
 	}
 	code {
 		tab-size: 3;
@@ -594,8 +594,8 @@ min width considered 360px (Galaxy S5) */
 		font-size: 115%;
 	}
 	p, h3, pre, .list {
-		margin-left: 30%;
-		margin-right: 30%;
+		margin-left: 24%;
+		margin-right: 24%;
 	}
 	code {
 		tab-size: 4;
