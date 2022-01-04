@@ -85,10 +85,10 @@ Parameter name: damagePoints</code><br>
 	I do this by temporarily commenting out the code of <code>ThrowsError_WhenDamagePointsIsInvalid</code> test case,<br>
 	only leaving <code [highlight]="'var health = new Health(12);'"></code><br>
 	then I run the test, see it fail, and then select the failed case where <code>0</code> was sent,<br>
-	and read the message from the stacktrace below.<br>
+	and read the message from the stacktrace below (in Unity Test Runner).<br>
 	Afterwards I undo my commenting out in the test case.<br>
 	I feel that manually testing this with my eyes is sufficient<br>
-	(alternatively I could unit test and assert that the message includes certain key words).<br>
+	(alternatively I could unit test and do assert/s on the thrown exception).<br>
 	<br>
 	I run the tests in the end to verify everything works.<br>
 	Below is the whole <code>HealthTest.cs</code>, along showing last run in the Test Runner:
