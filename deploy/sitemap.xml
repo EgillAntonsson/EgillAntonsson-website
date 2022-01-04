@@ -61,10 +61,26 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 		<priority>1.0</priority>
 		<lastmod>2021-12-28</lastmod>
 		<changefreq>weekly</changefreq>
+		image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-firstFail.PNG</image:loc>
+			<image:title>Unity Test Runner: first test fail</image:title>
+			<image:caption>Unity Test Runner: first test fail</image:caption>
+		</image:image>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-using-TestCase.PNG</image:loc>
-			<image:title>Unity Test Runner: HealthTest using TestCase attribute</image:title>
-			<image:caption>Unity Test Runner: HealthTest using TestCase attribute in part 3 of blog series TDD-ing Avatar Health in C# in Unity</image:caption>
+			<image:title>Unity Test Runner: tests using TestCase attribute</image:title>
+			<image:caption>Unity Test Runner: tests using TestCase attribute</image:caption>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd-health/part4</loc>
+		<priority>1.0</priority>
+		<lastmod>2021-12-28</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-ThrowsErrorRefactoring.PNG</image:loc>
+			<image:title>Unity Test Runner: after refactoring 'ThrowsError' code</image:title>
+			<image:caption>Unity Test Runner: after refactoring 'ThrowsError' code</image:caption>
 		</image:image>
 	</url>
 </urlset>

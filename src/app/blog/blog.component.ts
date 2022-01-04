@@ -42,6 +42,14 @@ On approval I'll publish the comment here.
 		if (this.location.isCurrentPathEqualTo(blogPath)) {
 			this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 		}
+		else {
+			const urlSplit = this.router.url.split('/')
+			const routePath = urlSplit[urlSplit.length - 2] + '/' + urlSplit[urlSplit.length - 1]
+			const foundPost = this.blogService.getPostWith(routePath)
+			if (foundPost) {
+				this.blogService.selectedPost = foundPost
+			}
+		}
 
 		this.commentForm = this.fb.group({
 			inputComment: ['', [

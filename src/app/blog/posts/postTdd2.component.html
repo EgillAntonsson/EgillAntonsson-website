@@ -71,12 +71,14 @@
 	<br>
 	My format will also differ:<br>
 	I will not <a href="https://en.wikipedia.org/wiki/Live_coding">live code</a> it, but instead<br>
-	I will write directly into the blog posts the <span class="redFail">RED</span> / <span class="greenPass">GREEN</span> / <span class="greenRefactor">REFACTOR</span> cycles<br> and display the code classes (fully or partially) appropriately for each cycle.<br>
-	With this approach I filter away the smallest 'back and forth' steps of the cycles and in my reasoning and logic,<br>
-	usually hiding the my missteps, unless I want to use them to showcase the benefits of TDD.<br>
-	Thus I will convey the core essence of how the cycles shape the code changes and my reasoning about it,<br>
+	I will write directly into the blog posts the <span class="redFail">RED</span> / <span class="greenPass">GREEN</span> / <span class="greenRefactor">REFACTOR</span> cycles<br>
+and show the appropriate code for each step.<br>
+	With this approach I filter away the smallest repetitive 'back and forth' steps of the cycles and in my reasoning,<br>
+	usually skipping over my missteps, unless I want to show them to showcase the value and benefits of TDD.<br>
+	Thus I will present a polished happy path (pretty much)<br>
+	but demonstrating how the requirements and cycles guide and shape the code and my reasoning,<br>
 	that will read like a soothing poetry of rhythmic red green refactor loops (at least that's my ambition).<br>
-	(I might though later re-evaluate the format depending on the task at hand).
+	There are pros and cons with each format, and I might later switch format depending on the task at hand.
 </p>
 
 <h3>The Life Gauge behavior from the user perspective</h3>
@@ -98,9 +100,9 @@
 	<li>When Link loses all of his Hearts the game ends</li>
 	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
 		and will instead be left alive with Hearth 1 fraction remaining</li>
-		<ul>
-			<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
-		</ul>
+	<ul>
+		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+	</ul>
 	<br>
 	<li class="noBulletinPoint"><b>Health Replenishing and Maximum</b></li>
 	<li>Link's Life Gauge can be replenished by:<br>
@@ -154,7 +156,7 @@ of the Avatar Health, the domain model.</i><br>
 	In a real-life scenario things are likely to change along the way,<br>
 	e.g. the team might decide to change the GUI to a health bar or something else.
 	<br><br>
-	I'll apply the approach noted in the <i>Boundary layers</i> section in <a href="https://www.egill.rocks/blog/tdd-health/part1">Part 1</a>).<br>
+	I'll apply the approach noted in the <i>Boundary layers</i> section in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
 	Make sure that the code dependency is minimal and one-way:<br>
 	The view can depend in some way on the model, but not vice-versa.<br>
 	And put all the domain logic into the model and keep the view thin and humble.<br>

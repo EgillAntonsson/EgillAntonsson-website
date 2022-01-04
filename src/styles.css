@@ -194,6 +194,14 @@ figcaption {
 	margin: 0 auto;
 }
 
+.imageSmallText
+{
+	max-width: 575px;
+	border-radius: 5%;
+	display: block;
+	margin: 0 auto;
+}
+
 .headerContainer {
 	height: 100px;
 }
@@ -453,6 +461,10 @@ min width considered 360px (Galaxy S5) */
 		/* width: 55%; */
 	}
 
+	.imageSmallText {
+		width: 100%;
+	}
+
 	/* debug */
 	/* h1 {
 		color: green;
@@ -486,7 +498,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 105%;
 	}
-	p, h3, code, .list {
+	p, h3, pre, .list {
 		margin-left: 5%;
 		margin-right: 5%;
 	}
@@ -517,7 +529,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 110%;
 	}
-	p, h3, code, .list {
+	p, h3, pre, .list {
 		margin-left: 10%;
 		margin-right: 10%;
 	}
@@ -549,7 +561,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 115%;
 	}
-	p, h3, code, .list {
+	p, h3, pre, .list {
 		margin-left: 20%;
 		margin-right: 20%;
 	}
@@ -581,7 +593,7 @@ min width considered 360px (Galaxy S5) */
 	body {
 		font-size: 115%;
 	}
-	p, h3, code, .list {
+	p, h3, pre, .list {
 		margin-left: 30%;
 		margin-right: 30%;
 	}

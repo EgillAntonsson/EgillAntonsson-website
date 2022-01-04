@@ -15,14 +15,84 @@
 	<li>When Link loses all of his Hearts the game ends</li>
 	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
 		and will instead be left alive with Hearth 1 fraction remaining</li>
-		<ul>
-			<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
-		</ul>
+	<ul>
+		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+	</ul>
 </ul>
 <p>
 	Let's one by one, filter and transform the requirement to focus only on the domain logic<br>
-	(as visual representation will be done later), making the first one:<br>
+	(as GUI will be done later), making the first one:<br>
 </p>
 <ul class="list">
-	<li>Avatar will lose Health Points equal to Damage Points taken (always losing at last 1 Health Point)</li>
+	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
 </ul>
+
+<h2>Taking Damage</h2>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I start by writing the test.<br>
+	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
+	Thus the write a nested test class with same name at the bottom<br>
+	and within it write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>)<br>
+	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
+</p>
+<pre><code [highlight]="test_1_Red"></code></pre>
+<p>
+	Just to test not always the same starting value, I use <code>11</code> here (instead of <code>12</code>).
+</p>
+
+<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
+<p>Let's make the test pass with a simple implementation of <code>TakeDamage</code>.
+</p>
+<pre><code [highlight]="impl_1_Green"></code></pre>
+<p>
+	The implementation was easy to come up with,<br>and I'm also confident that it's the proper generic solution for this requirement,<br>
+	A.K.A I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step for this implementation.<br>
+	I feel that no further refactoring is needed in this cycle,<br>
+	but I notice that invalid values can be passed in for <code>damagePoints</code> parameter.
+</p>
+
+<h2>Handle invalid <span class="code">damagePoints</span> values</h2>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I start by writing the test.<br>
+	It will be similar test to the existing <code>ThrowsError_</code> test but now the <i>entry point</i> is method <code>TakeDamage</code>.<br>
+</p>
+<pre><code [highlight]="test_2_Red"></code></pre>
+<p>
+	The number I pass into the constructor does not matter to the test case, and thus is not a <i>TestCase</i> parameter.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>Let's make the test pass with a simple implementation.<br>
+	I duplicate the Exception throwing from the constructor and simply fix the parameter to <code>damagePoints</code>.
+</p>
+<pre><code [highlight]="impl_2_Green"></code></pre>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<p>
+	Now the implementation code is starting to smell (as I duplicated code to simply make the test pass)<br>
+	Thus i refactor, and run all test as needed during
+</p>
+<pre><code [highlight]="impl_2_Refactor"></code></pre>
+<p>
+	Now this is more like it, now the code feels clean.<br>
+	I run the tests in the end to verify everything works.
+</p>
+
+<figure>
+	<img src="../assets/images/blog/tdd/HealthTest-ThrowsErrorRefactoring.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' code" title="Unity Test Runner: after refactoring 'ThrowsError' code" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: after refactoring 'ThrowsError' code
+	</figcaption>
+</figure>
+
+<h2>Concluding this part</h2>
+
+<p>This concludes these requirements and this part.<br>
+	The code with Unity project is in this <a href="https://github.com/EgillAntonsson/tdd-avatar-health/commit/9b1bffb35bf16a57ac613c50cb2fc6f49cdcd9b1">GitHub repo</a><br>
+	I aim to continue with the requirements and the implementation in later blog posts.
+</p>
+

@@ -39,12 +39,15 @@ export class BlogService {
 		}
 	}
 
-	// getPostWith(routePath: string) {
-	// 	this.posts.filter()
-
-	// 	})
-	// 	return null
-	// }
+	getPostWith(routePath: string) {
+		let foundPost = null;
+		this.posts.filter((post) => {
+			if (post.routePath === routePath) {
+				foundPost = post
+			}
+		})
+		return foundPost
+	}
 
 }
 
