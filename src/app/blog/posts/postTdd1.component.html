@@ -7,86 +7,139 @@
 
 <h2>What is TDD ?</h2>
 <p>
-	TDD is a workflow approach and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">Cycle: RED / GREEN / REFACTOR</a>
+	TDD is an acronym for <i>Test Driven Development</i><br>
+	and is a workflow discipline / approach for developers, focused on <b>when</b> to write unit tests,<br>
+	and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">RED / GREEN / REFACTOR cycle:</a>
 </p>
-<ol>
+<ol class="list">
 	<li><span class="redFail">RED:</span> Write a test that fails</li>
 	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> Clean up the structure and design (all tests passing)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> if needed: generalize the solution, clean up the structure / design / <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> (all tests passing)</li>
 </ol>
-<p>The cycle should focus on fulfilling a specific requirement on the object under test, one at a time,<br>
-	repeating it until the production code becomes generic enough to handle all input cases.<br>
-	At some interval you should stop and evaluate if the code design on a wholistic level is sound,<br>
+<p>The cycle should focus is on fulfilling a requirement on the Subject under Test (SUT)<br>
+	repeating it until you are confident that the production code has become generic enough to handle all input cases. (with test becoming more specific).<br>
+	At some interval you should stop and evaluate if the design of the overall system is sound,<br>
 	and refactor if needed (all test passing).<br>
 	This is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> and other sources.<br>
-	(Bob defines additional cycles around RED / GREEN / REFACTOR in his post).
+	(Bob terms additional cycles within and around RED / GREEN / REFACTOR in his post).
+</p>
+
+<h2>What is a good Unit Test ?</h2>
+<p>
+	Write good unit tests that are based on requirements and provide value (e.g. don't test a simple getters/setters specifically),<br>
+	and test code should be kept as clean as the production code. (REFACTOR step in TDD applies to both)<br>
+	Here are definitions from Roy Osherove in The Art of Unit testing, 3rd edition:<br>
+</p>
+
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/25">Unit of Work definition</a></h3>
+<p>
+A unit of work is the sum of actions that take place between the invocation of an entry point<br>
+up until a noticeable end result through one or more exit points.<br>
+The entry point is the thing we trigger.<br>
+Given a publicly visible function, for example:
+</p>
+<ul class="list inline">
+	<li>The function's body is all or part of the unit of work.</li>
+	<li>The function's declaration and signature are the entry point into the body.</li>
+	<li>The resulting outputs or behaviors of the function are its exit points.</li>
+</ul>
+
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/193">Good Unit Test definition</a></h3>
+<p>
+A unit test is an automated piece of code that invokes the unit of work<br>
+through an entry point, and then checks one of its exit points.<br>
+It can be written easily and runs quickly.<br>
+It's trustworthy, readable & maintainable.<br>
+It is consistent as long as the production code we control has not changed.
 </p>
 
 <h2>Why do TDD ?</h2>
 <p>Here is a my non-exhaustive list in order of priority:</p>
-<ol>
-	<li>Ensures you'll have a passing test suite<br>
-		with high code coverage that runs fast (within seconds or minutes),<br>
-		thus you can clean the code continuously without fear of breaking it,<br>
+<ol class="list inline">
+	<li>Ensures you'll have passing test suite with high production code coverage<br>
+		that runs fast (each case less than 0.1 sec) so you get feedback early,<br>
+		thus you can clean the code fast and continuously without fear of breaking it,<br>
 		thus have high confidence in the shipped product quality.<br></li>
-	<li>Testable code pushes for decoupling, which also benefits the design</li>
-	<li>The tests act accurate and unambiguous documentation of the tested objects,<br>
-		that can never get stale (unlike other documentation)</li>
+	<li>It pushes for good production code design and maintainability:</li>
+	<ul>
+		<li><a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a></li>
+		<li>code to be low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupled</a> / have few dependencies</li>
+		<li>each unit / object has readable and requirement-focused interface<br>
+		(internals should be <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulated</a>)</li>
+	</ul>
+	<li>The tests are accurate and up-to-date (developer focused) documentation<br>
+		of the behavior of the tested units.</li>
+	<li>Less time spent in the debugger</li>
 </ol>
 <p>
-	There are also criticisms on TDD, e.g. the post <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing</a>.<br>
-	And also responses to it, e.g the post <a href="https://blog.cleancoder.com/uncle-bob/2014/04/25/MonogamousTDD.html">Monogamous TDD</a>.
+	There are also criticisms on TDD, e.g. the post <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing</a>,<br>
+	and discussion about it, e.g. the YouTube series <a href="https://www.youtube.com/watch?v=z9quxZsLcfo">Is TDD dead ?</a><br>
+	and responses to it, e.g the post <a href="https://blog.cleancoder.com/uncle-bob/2014/04/25/MonogamousTDD.html">Monogamous TDD</a>.
 </p>
 
-<h2>Is TDD suitable for all areas / scenarios ?</h2>
+<h2>Is TDD suitable for all areas / situations ?</h2>
 
 <p>
-	Here are some of my thoughts on areas / scenarios where TDD is not so suitable,<br>
-	based on my <a href="https://www.linkedin.com/in/egillantonsson">work experience</a> as front-end game developer, and shared game systems developer.
+	Although I have over a decade long <a href="https://www.linkedin.com/in/egillantonsson">developer work experience</a><br>
+	mainly as front-end game developer, and shared game systems developer.<br>
+	I've gained some experience in writing good unit tests (and 'not so good' to begin with),<br>
+	but to a lesser degree using TDD, thus I'm currently not very seasoned in using TDD,<br>
+	but I'm open to use it more and get more experienced with it (writing this blog series is part of it).<br>
+	Why I haven't used TDD more often already, is to some degree because when facing many 'hard to influence' deadlines, I've opted for 'just get it done in time' mindset.<br>
+	But more often than not it's because I'm working in areas / situations that are not so suited or easy to use TDD.<br>
+	Below are the main areas / situations (and couple of ways to use TDD more effectively where / when applicable).
 </p>
 
 <h3>Boundary layers</h3>
 <p>
-	A big part of a game is the graphic visuals and UI, user input, and sound.<br>
-	Should those parts be unit tested via TDD ?<br>
+	A big part of a game is the graphic user interface (GUI) and visual effects, user input and sound,<br>
+	should these parts be unit tested ?<br>
 	<br>
 	These parts can be described as layers close to the physical output/input boundaries (e.g. screen, speaker)<br>
 	The design can be driven to make these boundary layers thin and <a href="http://xunitpatterns.com/Humble%20Object.html">humble</a>,<br>
-	by extracting and moving their logic into other modules, that can be easily tested.<br>
-	It's likely that a good chunk of the logic belongs to the domain layer and should be moved there<br>
-	(the domain should not be coupled to any boundaries, thus be easily unit testable).<br>
+	focusing on the responsibility of the boundary (e.g. disable/enable button), and extracting other logic into other modules that can be easily tested.<br>
 	<br>
-	The edges of the boundary layers can be manually tested, e.g making sure the UI is proper on the screen.<br>
+	It's likely that the logic to extract is in fact the <a href="https://enterprisecraftsmanship.com/posts/what-is-domain-logic/">domain logic</a> (a.k.a business logic),<br>
+	the code that makes (non-visual) game decisions (business)<br>
+	 and thus belongs to the <a href="https://enterprisecraftsmanship.com/posts/domain-model-isolation/">domain model</a> and then should be moved there<br>
+	(the domain model should not depend on any boundaries, thus be easily unit testable).<br>
+	<br>
+	The edges of the boundary layers can be manually tested, e.g making sure the button displays properly on the screen.<br>
 	If boundary bugs begin slipping into the production as the project grows,<br>
 	then it's time to replace some of the manual testing effort with automated tests (e.g integration and/or UI tests).<br>
 	The <a href="https://martinfowler.com/articles/practical-test-pyramid.html">Test Pyramid</a> could be a guide for that process.
 </p>
 
-<h3>Untested and design-rusted code bases</h3>
+<h3>Legacy Code</h3>
 <p>
-	Some code bases have been developed for a long time where unit tests were never written.<br>
-	Such code bases leave the door open for bad code design to creep up along the way,<br>
-	(although upholding great design and continuos code cleaning, without tests, does prevent this).<br>
-	One example could be that too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> have been defined and used,<br>
-	which feeds into the bigger issue of code being too <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly coupled</a> / highly dependant.<br>
-	<br>
-	By contrast, a well and thoroughly tested code base pushes for, and to some degree enforces,<br>
-	the 'counter' good design patterns, e.g <a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a>, <a href="https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/">Solid principles</a>.<br>
-	<br>
-	One of the negative consequence of the design-rusted and untested code base<br>
-	is that it's very hard to start writing <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">good unit tests</a>, and even harder via TDD that late in the production.<br>
-	Getting the code base into a better state (where it's effortless to apply and continue with TDD)<br>
-	could be done with a gradual approach:
+	Legacy code in a sentence is <a href="https://understandlegacycode.com/blog/what-is-legacy-code-is-it-code-without-tests/#code-youre-not-comfortable-changing">valuable code you are afraid to change</a><br>
+	It typically:
 </p>
-<ul>
-	<li>Functional requirements (adding, improving, changing) are prioritized as usual</li>
-	<li>Gradually add <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great or good unit tests</a>, not necessarily with TDD approach</li>
-	<li>Fixing bugs provides the best opportunity to TDD:<br>
-		write a test that fails due to the bug, fix the production code</li>
-	<li>Thus the test coverage gradually nudges upwards (going downwards is not acceptable).</li>
-	<li>Gradually refactor the design, ideally having sufficient test coverage to catch any breakages early</li>
+<ul class="list inline">
+	<li>has been developed for some time</li>
+	<li>is already 'working' (for most common scenarios / most of the time)</li>
+	<li>has some bad code design that has crept in with time<br>
+		(e.g. high coupling / high dependency in the form of too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a>)</li>
+	<li>is hard to read and understand and reason about</li>
+	<li>has no or few good unit tests / very low test coverage<br>
+		(or many very bad and brittle tests that are hard to read and understand</li>
 </ul>
 <p>
-	Another alternative	would be to dedicate a time period to focus only on refactoring the design<br>
-	and write <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/125">great unit tests</a>, thus improve the test coverage dramatically.
+	When you need to fix or change legacy code<br>
+	it is hard to do and have the confidence that the change did not break something else.<br>
+	A breakage is discovered late (QA manual testing or live production) which can be very costly<br>
+	(and it always takes effort to get again into the context to fix the bug).<br>
+	<br>
+	It's possible to prevent bad code design to creep up<br>
+	by strictly upholding great design principles, without writing unit tests.<br>
+	But using TDD complements this prevention very well (see <i>Why do TDD ?</i> section above)<br>
+	<br>
+	One of the negative consequence of legacy code is that it's very hard to write unit tests<br>
+	(e.g. likely need a lot of <a href="http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html">Test Doubles</a> to mute dependency interference, e.g. Singletons being very tricky).<br>
+	<br>
+	Legacy code needs to be carefully improved and refactored (ideally first covered with tests if possible) into a better state<br>
+	before the developers can use TDD effortlessly and to it's full potential.<br>
+	Improving legacy code is a big topic thus I'll leave it here<br>by referencing a book:
+	<a href="https://www.goodreads.com/book/show/44919.Working_Effectively_with_Legacy_Code">Working Effectively with Legacy Code</a>,<br>
+	and a post: <a href="https://devon.global/starting-tdd-legacy-code/">Starting TDD with legacy code</a>.
 </p>

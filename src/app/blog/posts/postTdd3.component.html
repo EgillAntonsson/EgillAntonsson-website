@@ -6,95 +6,121 @@
 
 <h2>Setting up Unity</h2>
 <p>
-	A new Unity project has by default the <i>Test Framework</i> package installed (current version 1.1.30).<br>
+	I'm using Unity version 2020.3.24f1 and I create a new project (3D is the default), and keep the default config,<br>
+	except that I update <i>Test Framework</i> package to latest version (currently 1.1.30).<br>
 	Its <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">documentation</a> details how setup tests for a project.<br>
-	I'm currently using  Unity version 2020.3.24f1, and run the tests via the Unity Test Runner.<br>
 	My project structure starts very simple:
 </p>
-	<ul>
-		<li>The test code is in: <i>Assets/Tests/EditMode/[ClassName]Test.cs</i></li>
-		<li>The production code is in: <i>Assets/Scripts/Runtime/[ClassName].cs</i></li>
+<ul class="list inline">
+	<li>The test code is in: <i>Scripts/Tests/EditMode/[ClassName]Test.cs</i></li>
+	<li>The production code is in: <i>Scripts/Runtime/[ClassName].cs</i></li>
+</ul>
+<p>
+	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code.<br>
+	<i>EditMode</i> test have access to both:
+	<ul class="list inline">
+		<li>the <i>Editor</i> code (only about extending the Unity editor)</li>
+		<li>the <i>Runtime</i> code (of the targeted platform, e.g iOS).</li>
 	</ul>
 <p>
-	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code<br>
-	<i>EditMode</i> test have access to the <i>Editor</i> code (only about extending the editor)<br>
-	in addition to the <i>Runtime</i> code (the runtime of the target platform, e.g iOS).<br>
-	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code,<br>
-	is that <i>PlayMode</i> tests take longer to run<br>
-	(as the startup and initialization of the player in the editor takes some time).<br>
-	Also, the domain and other logic does not need the <i>PlayMode</i> tests features<br> (tests can run as coroutine to step through Unity specific code).<br>
-	The documentation page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
+	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code<br>
+	is that they run faster (as no startup of the Player is needed in the Unity editor).<br>
+	Also the domain logic should not need the <i>PlayMode</i> tests features<br> (tests can run as Unity <i>Coroutine</i> to step through the (coroutine based) production code).<br>
+	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
 
-<h2>The first requirement</h2>
+<h2>The requirements for <i>definition and start state</i></h2>
 <p>
-	Let's look closer to the <i>definition and start state</i> from the user perspective:
+	Let's recap these requirements from the user perspective:
 </p>
-<ul>
-	<li>The Life Gauge measures Link's current amount of health</li>
-	<li>Health is visually represented in the form of Hearts, and they are in fractions of four</li>
+<ul class="list inline">
+	<li>The Life Gauge measures Link's (the avatar) current amount of health</li>
+	<li>Health is visually represented in the form of Hearts, and they are in fractions of 4</li>
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
 <p>
-	Let's filter and transform this into a requirement that's focused only on the domain logic<br>
-	(as visual representation will be done later):
+	Let's filter and transform this into a requirement that's focused only on the domain (as GUI will be done later):
 </p>
-<ul>
-	<li>Avatar Health starts with 12 Health Points (equals to visual representation of 3 Hearts * 4 Fractions)</li>
+<ul class="list inline">
+	<li>Avatar Health starts with 12 Health Points<br>
+		(equals to visual representation of 3 Hearts * 4 Fractions)</li>
 </ul>
 <p>
 </p>
 
 <h2>Health Points starting value</h2>
 
-<h3><span class="redFail">RED</span></h3>
+<h3><span class="redFail">RED (does not compile)</span></h3>
 <p>
-	I define the test class and the first test.<br>
-	I start focusing on <span class="code">Health</span> class implementation.<br>
-	(which in the end will likely be associated with an <span class="code">Avatar</span> class).<br>
-	The test is failing as the code does not even compile.
+	I start by writing the test.<br>
+	The domain model focus will be <code>Health</code> class (not created yet),<br>
+	<span class="outOfScope">which in the end will likely be owned by <code>Avatar</code> class.</span><br>
+	Thus the create test file <code>HealthTest.cs</code> and write the first test,<br>
+	that fails as the code does not compile.
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
-	I'm trying out a new naming/structuring convention for the tests that I recently discovered from<br>
-	Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
-	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references<br>
-	Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> that references 3 other guys...
+	I'm using a naming/structuring convention by using nested test classes.<br>
+	(that I recently discovered via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
+	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a>)<br>
+	I name the nested class after the <i>entry point</i> of the test,<br>
+	which in this case is the <i>Constructor</i> method, as the test invokes <code>new Health()</code><br>
+	(see <i>What is a good Unit Test section</i>i in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
+	<br>
+	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
+</p>
+
+<h3><span class="redFail">RED (test fails)</span></h3>
+<p>
+	I want to run the test and see it fail.<br>
+	This is done to verify that the test is not passing when it should not,<br>
+	(provides more value for more complex scenario).<br>
+	Thus I write the needed production code for the compiler to compile successfully,<br>
+	then run the tests via Unity Test Runner (menu item <i>Window > General > Test Runner</i>).<br>
+</p>
+<pre><code [highlight]="test_1_Red2"></code></pre>
+<figure>
+	<img src="../assets/images/blog/tdd/HealthTest-firstFail.PNG" alt="Unity Test Runner: first test fail" title="Unity Test Runner: first test fail" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: first test fail (the nested class displays nicely)
+	</figcaption>
+</figure>
+<p>
+	Going forward I will skip this step in the presentation (though I actually do it when coding),<br>
+	combining both 'does not compile' and test fail under <span class="redFail">RED</span>.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with a simple implementation.
+<p>Let's make the test pass with a very simple implementation.
 </p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<p>Now it comes to mind that from a game design perspective,<br>
+<p>Now it comes to mind that from a game design perspective<br>
 	it is good to be able to tweak the starting health points for game balancing,<br>
 	thus I refactor the value to be passed as parameter into the constructor.<br>
 	<span class="outOfScope">An advanced system would have an accessible game balancing config that's integrated into the code base,<br>
-	that would then use <span class="code">Health</span> class as designed (passing in value/s).<br>
+	that would then likely use <span class="code">Health</span> class as designed (passing in value/s).<br>
 	I might later decide to implement a very simplified game balancing config and integration.</span><br>
 	<br>
 	I name the passed in parameter <span class="code">startingPoints</span>.<br>
-	I also rename the property to <span class="code">CurrentPoints</span> to further clarify the logic:<br>
+	I also rename the property to <span class="code">CurrentPoints</span> (and thus the test case) to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
 	<br>
 	I also encapsulate <span class="code">CurrentPoints</span> with a private setter,<br>
 	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
 	The only exposure should be for the class interface that other production code will use and the tests<br>
 	(though no or minimal exposure should be only for the tests).<br>
-	The requirements and the TDD will gradually expose the required and proper interface.
+	The requirements and the TDD cycles will gradually expose the required and proper interface.
 </p>
 <pre><code [highlight]="code_1_Refactor"></code></pre>
 
 <h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
 <p>
 	Now it comes to mind that invalid <span class="code">StartingPoints</span> values can be passed in,<br>
-	as our avatar should never start with less than 1 points,<br>
-	(because otherwise Link would start up being dead :P ).<br>
+	as our avatar should never start with less than 1 points (because otherwise Link would start up being dead :P ).<br>
 	Thus I'll throw an exception when the value is invalid.<br>
-	<span class="outOfScope">Invalid values should also be handled where they are defined<br>
-	(in the previously mentioned game balancing config).<br></span>
+	<span class="outOfScope">Invalid values should also be handled where they are defined, in the previously mentioned game balancing config.<br></span>
 </p>
 
 <h3><span class="redFail">RED</span></h3>
@@ -104,11 +130,17 @@
 <p>
 	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from namespace <span class="code">System</span><br>
 	if I include an informative message for my case.<br>
+	I chose the value 0 as it's on the edge of invalidation (as 1 is valid).<br>
 	<br>
-	I chose the value 0 as it's on the edge of invalidation (as 1 is valid).
+	To elaborate on my test case naming convention, I use my template:<br>
+	<i>[Output behavior]</i> or <i>[expected behavior of Unit of Work]</i><br>
+	postfixing it with <i>_When[Scenario]</i> for other paths than the happy path.<br>
+	which translates to the two test cases:<br>
+	<code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
+	<code>CurrentPointsHasStartingValue</code>
 </p>
 
-<h3><span class="greenPass">GREEN</span></h3>
+<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
 
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
@@ -119,9 +151,8 @@
 	<i>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
 		Parameter name: startingPoints</i><br>
 	<br>
-	I feel that no refactoring is needed in this cycle,<br>
-	as I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step, for both the conditional and the thrown exception.<br>
-	Overall the code looks clean, so moving on.
+	I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step, for both the conditional and the thrown exception.<br>
+	I feel that no further refactoring is needed in this cycle, so moving on.<br>
 </p>
 
 <h2>Let's test a few more values</h2>
@@ -133,23 +164,17 @@
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
 <p>Refactoring the tests to add test cases where the value is close to the valid/invalid edge,<br>
-	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">Test Case</a> attribute.
+	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute.
 </p>
 <pre><code [highlight]="test_3_Green"></code></pre>
 
 <p>
-	This runs in total 4 test cases and Unity Test Runner looks like this (menu item <i>Window > General > Test Runner</i>):
+	This runs in total 4 test cases and Unity Test Runner looks like this:
 </p>
 
 <figure>
-	<img src="../assets/images/blog/tdd/HealthTest-using-TestCase.PNG" alt="Unity Test Runner: HealthTest using TestCase" title="Unity Test Runner: HealthTest using TestCase attribute" class="image">
+	<img src="../assets/images/blog/tdd/HealthTest-using-TestCase.PNG" alt="Unity Test Runner: tests using TestCase attribute" title="Unity Test Runner: tests using TestCase attribute" class="imageSmallText">
 	<figcaption>
-		Unity Test Runner: <i>HealthTest</i> using <i>TestCase</i> attribute
+		Unity Test Runner: tests using <i>TestCase</i> attribute
 	</figcaption>
 </figure>
-
-<h2>Concluding this part</h2>
-
-<p>This concludes the first requirement and this part.<br>
-	I aim to continue with the requirements and the implementation in later blog posts.
-</p>

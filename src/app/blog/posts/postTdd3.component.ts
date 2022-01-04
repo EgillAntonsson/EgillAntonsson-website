@@ -19,15 +19,22 @@ using NUnit.Framework;
 
 public class HealthTest
 {
-	public class PointsTest
+	public class Constructor
 	{
 		[Test]
-		public void HasStartingValue()
+		public void PointsHasStartingValue()
 		{
 			var health = new Health();
 			Assert.That(health.Points, Is.EqualTo(12));
 		}
 	}
+}
+`
+
+test_1_Red2 = `//Health.cs
+public class Health
+{
+	public int Points;
 }
 `
 
@@ -43,10 +50,10 @@ using NUnit.Framework;
 
 public class HealthTest
 {
-	public class CurrentPointsTest
+	public class Constructor
 	{
 		[Test]
-		public void HasStartingValue()
+		public void CurrentPointsHasStartingValue()
 		{
 			int startingPoints = 12;
 			var health = new Health(startingPoints);
@@ -104,12 +111,12 @@ using System;
 
 public class HealthTest
 {
-	public class CurrentPointsTest
+	public class Constructor
 	{
 
 		[TestCase(12)]
 		[TestCase(1)]
-		public void HasStartingValue(int startingPoints)
+		public void CurrentPointsHasStartingValue(int startingPoints)
 		{
 			var health = new Health(startingPoints);
 			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
