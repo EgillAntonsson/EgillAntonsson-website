@@ -12,23 +12,19 @@
 
 <h2>Comments</h2>
 
-<div id="formId" class="commentForm">
- <form [formGroup]="commentForm" name="blogCommentForm" method="POST" action="/home">
-	<input type="hidden" name="form-name" value="blogCommentForm">
+<div class="commentForm">
+ <form [formGroup]="commentForm" name={{formName}} method="POST">
+	<input type="hidden" name="form-name" value={{formName}}>
 	<p style='display: none;'>
 		<label>Don’t fill this out if you're human: <input name="bot-field" /></label>
 	</p>
 	<label>Your Comment</label>
 	 <br>
-		<textarea class="formTextFields" placeholder="placeholder text" type="text" formControlName="inputComment" name="inputComment" [maxlength]="300" rows="5"></textarea>
+		<textarea class="formTextFields" placeholder={{defaultCommentText}} type="text" formControlName={{commentKey}} name="inputComment" [maxlength]="300" rows="5"></textarea>
 	<br><br>
-	<!-- <small>Your Name / Handle (optional)</small>
+	<small>Your Name / Handle (optional)</small>
 	<br>
 	<input class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" name="inputName" maxlength="30">
-	<br><br>
-	<small>Your Email (optional)</small>
-	<br>
-	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" name="inputEmail" maxlength="30" size="35"> -->
 	<br><br>
 	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
