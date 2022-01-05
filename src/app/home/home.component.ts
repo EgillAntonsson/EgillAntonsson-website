@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
 	selector: 'app-home',
@@ -25,7 +25,7 @@ export class HomeComponent {
 
 	showCommentForm = true
 
-	constructor( private fb: FormBuilder, private http: HttpClient, private router: Router) {
+	constructor( private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute) {
 		this.commentForm = this.fb.group({
 			inputComment: ['', [
 					Validators.required
@@ -48,9 +48,6 @@ export class HomeComponent {
 		console.log('Send clicked')
 		console.log(this.commentForm)
 
-		// const body = new URLSearchParams()
-		// body.set('inputComment', 'this is a static input comment text string')
-
 		const body = new HttpParams()
 		.set('form-name', 'blogCommentForm')
 		.append('inputComment', 'this is a fixed comment message, whoop')
@@ -62,8 +59,13 @@ export class HomeComponent {
 		}
 
 		let url = this.router.url
-		url = '/index.html'
+		url = '/'
 		console.log(url)
+
+		// console.log(this.location
+		console.log(this.route)
+
+		this.router.navigateByUrl('/index.html')
 
 		this.http.post<any>(url, body.toString, httpOptions).subscribe(
 			res => {
