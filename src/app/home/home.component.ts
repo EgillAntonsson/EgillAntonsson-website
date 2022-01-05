@@ -60,7 +60,7 @@ export class HomeComponent {
 			})
 		}
 
-		const url = '/'
+		const url = '/home'
 		console.log(url)
 
 		this.http.post(url, body.toString, httpOptions).subscribe(
