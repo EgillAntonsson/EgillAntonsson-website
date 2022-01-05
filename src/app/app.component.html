@@ -13,7 +13,7 @@
 <h2>Comments</h2>
 
 <div id="formId" class="commentForm">
- <form [formGroup]="commentForm" name="blogCommentForm" method="POST">
+ <form [formGroup]="commentForm" name="blogCommentForm" method="POST" action="/home">
 	<input type="hidden" name="form-name" value="blogCommentForm">
 	<p style='display: none;'>
 		<label>Don’t fill this out if you're human: <input name="bot-field" /></label>

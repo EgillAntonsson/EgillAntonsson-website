@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpParams, HttpClient } from '@angular/common/http'
 
 @Component({
 	selector: 'app-root',
@@ -49,11 +49,11 @@ export class AppComponent {
 		.set('form-name', 'blogCommentForm')
 		.append('inputComment', 'this is a fixed comment message, whoop')
 
-		const httpOptions  = {
-			headers: new HttpHeaders({
-				'Content-Type': 'application/x-www-form-urlencoded'
-			})
-		}
+		// const httpOptions  = {
+		// 	headers: new HttpHeaders({
+		// 		'Content-Type': 'application/x-www-form-urlencoded'
+		// 	})
+		// }
 
 		// let url = this.router.url
 		const url = '/'
@@ -62,9 +62,8 @@ export class AppComponent {
 		// console.log(this.location
 		// console.log(this.route)
 
-		// this.router.navigateByUrl('/index.html')
 
-		this.http.post(url, body.toString, httpOptions).subscribe(
+		this.http.post(url, body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
 				console.log('post res')
 				console.log(res)
@@ -88,6 +87,18 @@ export class AppComponent {
 				}
 			}
 		)
+
+		// console.log(body.toString())
+
+		// this.http.post(url, body.toString(), httpOptions).toPromise()
+		// .then((suc) => {
+		// 	console.log('then')
+		// 	console.log(suc)
+		// })
+		// .catch((err) => {
+		// 	console.log('catcha')
+		// 	console.log(err)
+		// })
 
 		console.log('after posting')
 
