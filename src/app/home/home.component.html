@@ -29,3 +29,23 @@
 	They played music and painted pictures and according to family and friends were brilliant boys.<br>
 	I've digitalized their music that they recorded on a cassette in the early 1970s, you can listen to it under the <a href="/music;by=4;track=0">Jónas & Egill seniors</a> section in my <a href="/music">music player.</a><br>
 </p>
+
+<h2>Comments</h2>
+
+<div id="formId" class="commentForm" [ngClass]="{hideForm: !showCommentForm}">
+ <form [formGroup]="commentForm" name="blogCommentForm" method="POST" data-netlify="true">
+	 <label>Your Comment</label>
+	 <br>
+		<textarea class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formControlName="inputComment" name="inputComment" [maxlength]="300" rows="5"></textarea>
+	<br><br>
+	<small>Your Name / Handle (optional)</small>
+	<br>
+	<input class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" name="inputName" maxlength="30">
+	<br><br>
+	<small>Your Email (optional)</small>
+	<br>
+	<input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formControlName="inputEmail" name="inputEmail" maxlength="30" size="35">
+	<br><br>
+	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
+</form>
+</div>
