@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 
@@ -23,7 +24,7 @@ export class HomeComponent {
 
 	showCommentForm = true
 
-	constructor( private fb: FormBuilder) {
+	constructor( private fb: FormBuilder, private http: HttpClient) {
 		this.commentForm = this.fb.group({
 			inputComment: ['', [
 					Validators.required
@@ -42,11 +43,37 @@ export class HomeComponent {
 
 
 	onSendClick() {
+		// console.log(e)
 		console.log('Send clicked')
 		console.log(this.commentForm)
+
+		const body = new URLSearchParams()
+		body.set('inputComment', 'this is a static input comment text string')
+
+		const httpOptions  = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/x-www-form-urlencoded'
+			})
+		}
+
+		this.http.post('/', body, httpOptions)
+
+		console.log('after posting')
+
+		// fetch('/', {
+		// 	method: 'POST',
+		// 	headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		// 	body: encode({ 'form-name': 'blogCommentForm', ...this.state })
+		// })
+		// 	.then(() => alert("Success!"))
+		// 	.catch(error => alert(error));
+
+		// e.preventDefault();
+
 
 		// this.showCommentForm = false
 	}
 
 
 }
+
