@@ -31,7 +31,7 @@
 </script>
 
 <div id="formId" class="commentForm" [ngclass]="{hideForm: !showCommentForm}">
-	<form [formgroup]="commentForm" name="blogCommentForm" method="POST" data-netlify="true">
+	<form [formgroup]="commentForm" name="blogCommentForm" method="POST" data-netlify="true" (onsubmit)="onSendClick()">
 	 <label>Your Comment</label>
 		<br>
 		 <textarea class="formTextFields" placeholder="{{defaultCommentText}}" type="text" formcontrolname="inputComment" name="inputComment" [maxlength]="300" rows="5"></textarea>
@@ -44,11 +44,11 @@
 	 <br>
 	 <input class="formTextFields" type="text" placeholder="{{defaultEmailText}}" formcontrolname="inputEmail" name="inputEmail" maxlength="30" size="35">
 	 <br><br>
-	 <button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
+	 <button type="submit" [disabled]="commentForm.invalid">Send</button>
  </form>
  </div>
 
 <app-root></app-root>
-<script src="runtime.52e4ae0966382b5a.js" type="module"></script><script src="polyfills.7d5a036a9aa167bc.js" type="module"></script><script src="main.87386ae7f13fbea4.js" type="module"></script>
+<script src="runtime.52e4ae0966382b5a.js" type="module"></script><script src="polyfills.7d5a036a9aa167bc.js" type="module"></script><script src="main.81771c435afbf804.js" type="module"></script>
 
 </body></html>
