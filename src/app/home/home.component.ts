@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent {
 
 	showCommentForm = true
 
-	constructor( private fb: FormBuilder, private http: HttpClient) {
+	constructor( private fb: FormBuilder, private http: HttpClient, private router: Router) {
 		this.commentForm = this.fb.group({
 			inputComment: ['', [
 					Validators.required
@@ -60,10 +61,11 @@ export class HomeComponent {
 			})
 		}
 
-		const url = '/home'
+		let url = this.router.url
+		url = '/index.html'
 		console.log(url)
 
-		this.http.post(url, body.toString, httpOptions).subscribe(
+		this.http.post<any>(url, body.toString, httpOptions).subscribe(
 			res => {
 				console.log('post res')
 				console.log(res)
