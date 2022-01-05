@@ -41,44 +41,35 @@ export class AppComponent {
 	}
 
 	onSendClick() {
-		// console.log(e)
 		console.log('Send clicked')
 		console.log(this.commentForm)
 
+		console.log(this.inputCommentControl)
+
 		const body = new HttpParams()
 		.set('form-name', 'blogCommentForm')
-		.append('inputComment', 'this is a fixed comment message, whoop')
+		.append('inputComment', this.inputCommentControl.value)
 
-		// const httpOptions  = {
-		// 	headers: new HttpHeaders({
-		// 		'Content-Type': 'application/x-www-form-urlencoded'
-		// 	})
-		// }
-
-		// let url = this.router.url
 		const url = '/'
 		console.log(url)
 
-		// console.log(this.location
-		// console.log(this.route)
-
-
 		this.http.post(url, body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
-				console.log('post res')
-				console.log(res)
+				console.log('result handler from post', res)
 			},
 			err => {
 				if (err instanceof ErrorEvent) {
 					// client side error
-					alert('Something went wrong when sending your message.')
+					alert('Something went wrong when sending your comment.')
+					console.log('client side error:')
 					console.log(err.error.message)
 				} else {
 					// backend error. If status is 200, then the message successfully sent
 					if (err.status === 200) {
-						alert('Your message has been sent!, but backend error')
+						alert('Your message has been sent')
 					} else {
-						alert('Something went wrong when sending your message (backend error).');
+						alert('Something went wrong when sending your comment')
+						console.log('backend side error')
 						console.log('Error status:')
 						console.log(err.status)
 						console.log('Error body:')
@@ -88,31 +79,5 @@ export class AppComponent {
 			}
 		)
 
-		// console.log(body.toString())
-
-		// this.http.post(url, body.toString(), httpOptions).toPromise()
-		// .then((suc) => {
-		// 	console.log('then')
-		// 	console.log(suc)
-		// })
-		// .catch((err) => {
-		// 	console.log('catcha')
-		// 	console.log(err)
-		// })
-
-		console.log('after posting')
-
-		// fetch('/', {
-		// 	method: 'POST',
-		// 	headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		// 	body: encode({ 'form-name': 'blogCommentForm', ...this.state })
-		// })
-		// 	.then(() => alert("Success!"))
-		// 	.catch(error => alert(error));
-
-		// e.preventDefault();
-
-
-		// this.showCommentForm = false
 	}
 }
