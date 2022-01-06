@@ -37,8 +37,9 @@ After approval I will publish it here
 		})
 
 		this.commentForm = this.fb.group({
+			[this.botFieldName]: ['', []],
 			[this.commentName]: ['', [Validators.required]],
-			[this.botFieldName]: ['', [Validators.required]]
+			[this.handleName]: ['', [Validators.required]]
 		})
 
 	}
@@ -47,6 +48,7 @@ After approval I will publish it here
 
 		const body = new HttpParams()
 		.set(this.netlifyFormName, this.formName)
+		.append(this.botFieldName, this.commentForm.value[this.botFieldName])
 		.append(this.commentName, this.commentForm.value[this.commentName])
 		.append(this.handleName, this.commentForm.value[this.handleName])
 
