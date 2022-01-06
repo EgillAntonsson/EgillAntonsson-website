@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { HttpParams, HttpClient } from '@angular/common/http'
+import { NavigationEnd, Router } from '@angular/router'
+import { filter } from 'rxjs/operators'
 
 @Component({
 	selector: 'app-root',
@@ -8,39 +10,45 @@ import { HttpParams, HttpClient } from '@angular/common/http'
 })
 export class AppComponent {
 
-	commentForm: FormGroup
-	// inputCommentControl
-	// inputNameControl
 
-	defaultCommentText = `Write your comment here.
-On 'Send' button press it will be pending for moderation.
-On approval I'll publish the comment here.
+	placeholderComment = `This is a required field.
+After you press 'Send' button:
+* the comment will be pending for moderation
+* This comment form will hide
+After approval I will publish it here
 (I might also add a short response).`
-	defaultNameText = 'Anonymous'
-	defaultEmailText = 'email@domain.com'
+	placeholderHandle = 'This is a required field'
 
 	showCommentForm = true
 
-	formName = 'blogCommentForm'
-	commentKey = 'comment'
+	commentForm: FormGroup
+	formName = 'CommentForm'
+	netlifyFormName = 'form-name'
+	commentName = 'Comment'
+	handleName = 'Handle'
+	botFieldName = 'BotField'
 
-	constructor(private fb: FormBuilder, private http: HttpClient) {
-		this.commentForm = this.fb.group({
-			[this.commentKey]: ['', [Validators.required]],
-			inputName: ['', [Validators.required]
-		]
+	url = ''
+
+	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+
+		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
+			this.url = (e as NavigationEnd).urlAfterRedirects
 		})
-		// this.inputCommentControl = this.commentForm.controls['inputComment']
-		// this.inputNameControl = this.commentForm.controls['inputName']
+
+		this.commentForm = this.fb.group({
+			[this.commentName]: ['', [Validators.required]],
+			[this.botFieldName]: ['', [Validators.required]]
+		})
+
 	}
 
 	onSendClick() {
 
-		// console.log(this.inputCommentControl)
-
 		const body = new HttpParams()
-		.set('form-name', this.formName)
-		.append('inputComment', this.commentForm.value[this.commentKey])
+		.set(this.netlifyFormName, this.formName)
+		.append(this.commentName, this.commentForm.value[this.commentName])
+		.append(this.handleName, this.commentForm.value[this.handleName])
 
 		const url = '/'
 		console.log(url)

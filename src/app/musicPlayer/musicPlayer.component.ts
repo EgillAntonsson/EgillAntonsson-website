@@ -91,7 +91,7 @@ export class MusicPlayerComponent {
 		this._gainsDisabled.on(EmitterEvent.Change, this.enableGains)
 
 		this.subscription = this.messageService.onMessage().subscribe(message => {
-			if (message.messageType === MessageType.Play) {
+			if (message.type === MessageType.Play) {
 				this.play()
 			}
 		})

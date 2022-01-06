@@ -33,8 +33,10 @@
 </script>
 
  <!-- note that the form below is hidden, but necessary for auto-form handling with Netlify -->
- <form name="blogCommentForm" method="post" netlify netlify-honeypot="bot-field" hidden>
-	<textarea name="comment"></textarea>
+ <form name="CommentForm" method="post" netlify netlify-honeypot="BotField" hidden>
+	<input name="BotField" />
+	<textarea name="Comment"/>
+	<input name="Handle"/>
 </form>
 
 <app-root></app-root>

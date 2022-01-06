@@ -12,7 +12,6 @@
 
 .outOfScope {
 	color: var(--colorGrayLight);
-	font-style: italic;
 }
 
 .byAndDate {
@@ -21,8 +20,4 @@
 
 .noBulletinPoint {
 	list-style: none;
-}
-
-.hideForm {
-	display: none;
 }

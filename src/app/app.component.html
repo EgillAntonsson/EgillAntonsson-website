@@ -10,21 +10,24 @@
 </div>
 <router-outlet></router-outlet>
 
+<div class="horizontalLine"></div>
+
 <h2>Comments</h2>
 
 <div class="commentForm">
  <form [formGroup]="commentForm" name={{formName}} method="POST">
 	<input type="hidden" name="form-name" value={{formName}}>
-	<p style='display: none;'>
-		<label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+	<p class="hide">
+		<label>Don't, fill this field out if you're human:</label>
+		<input name="{{botFieldName}}" />
 	</p>
-	<label>Your Comment</label>
+	<label>* Your Comment:</label>
 	 <br>
-		<textarea class="formTextFields" placeholder={{defaultCommentText}} type="text" formControlName={{commentKey}} name="inputComment" [maxlength]="300" rows="5"></textarea>
+		<textarea class="formTextFields" type="text" placeholder={{placeholderComment}} formControlName={{commentName}} name="{{commentName}}" [maxlength]="300" rows="6"></textarea>
 	<br><br>
-	<small>Your Name / Handle (optional)</small>
+	<label>* Your Name / Handle:</label>
 	<br>
-	<input class="formTextFields" type="text" placeholder="{{defaultNameText}}" formControlName="inputName" name="inputName" maxlength="30">
+	<input class="formTextFields" type="text" placeholder="{{placeholderHandle}}" formControlName="{{handleName}}" name="{{handleName}}" maxlength="32">
 	<br><br>
 	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
