@@ -70,7 +70,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
 			this.clearVisuals()
 		})
-
 	}
 
 	ngOnInit(): void {
@@ -103,7 +102,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		}
 		this.selectedByIndex = this.openedUiByIndex
 		this.musicService.nextSelectedTrack = track
-		this.messageService.sendMessage(MessageType.Play)
+		this.messageService.sendMessage({type: MessageType.Play})
 	}
 
 	onByClick(byIndex: number) {

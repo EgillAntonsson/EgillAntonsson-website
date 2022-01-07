@@ -32,7 +32,7 @@ import { PostTdd4Component } from './blog/posts/postTdd4.component'
 		NgxSliderModule,
 		MatButtonToggleModule,
 		ReactiveFormsModule,
-		HighlightModule
+		HighlightModule,
 	],
 	declarations: [
 		AppComponent,
@@ -55,7 +55,10 @@ import { PostTdd4Component } from './blog/posts/postTdd4.component'
 	}, {
 		provide: HIGHLIGHT_OPTIONS,
 		useValue: {
-			fullLibraryLoader: () => import('highlight.js'),
+			coreLibraryLoader: () => import('highlight.js/lib/core'),
+			languages: {
+				typescript: () => import('highlight.js/lib/languages/csharp')
+			}
 		}
 	}]
 })

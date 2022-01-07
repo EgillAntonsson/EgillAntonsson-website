@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs'
 export class MessageService {
 	private subject = new Subject<IMessage>()
 
-	sendMessage(messageType: MessageType) {
-			this.subject.next({ messageType: messageType })
+	sendMessage(message: IMessage) {
+			this.subject.next(message)
 	}
 
 	onMessage(): Observable<IMessage> {
@@ -15,9 +15,11 @@ export class MessageService {
 }
 
 export const enum MessageType {
-	Play = 'Play'
+	Play = 'Play',
+	Page = 'Page'
 }
 
 export interface IMessage {
-	messageType: MessageType
+	type: MessageType
+	msg?: string
 }

@@ -26,8 +26,8 @@
 <p>
 	I start by writing the test.<br>
 	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
-	Thus the write a nested test class with same name at the bottom<br>
-	and within it write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>)<br>
+	Thus the write a nested test class with same name at the bottom,<br>
+	and within it write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
 	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
@@ -40,10 +40,12 @@
 </p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 <p>
-	The implementation was easy to come up with,<br>and I'm also confident that it's the proper generic solution for this requirement,<br>
-	A.K.A I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step for this implementation.<br>
-	I feel that no further refactoring is needed in this cycle,<br>
-	but I notice that invalid values can be passed in for <code>damagePoints</code> parameter.
+	I'm confident that the implementation is the proper generic solution for this requirement,<br>
+	and it was also easy to come up with, and thus does not need additional steps to generalize.<br>
+	<br>
+	I feel that no other refactoring is needed in this cycle,<br>
+	but I notice that invalid values can be passed in for <code>damagePoints</code> parameter,<br>
+	so let's do a cycle for that.
 </p>
 
 <h2>Handle invalid <span class="code">damagePoints</span> values</h2>
@@ -51,44 +53,39 @@
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
-	It will be similar test to the existing <code>ThrowsError_</code> test but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
-	and thus it will be under nested class <code>TakeDamage</code>
+	A minus value for <code>damagePoints</code> is clearly invalid but what about <code>0</code> ?<br>
+	I conclude that <code>0</code> is also invalid,<br>
+	as an outside 'damage checker and calculator' logic should take care of this earlier<br>
+	and not process further when <code>damagePoints</code> is <code>0</code> or less (thus <code>TakeDamage won't be called)</code>.<br>
+	This also makes the design streamlined as it ensures that<br>
+	<code>CurrentPoints</code> will always decrease on <code>TakeDamage</code> call.<br>
+	<br>
+	This will be similar test to the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code> test<br>
+	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
+	and thus it will be under nested class <code>TakeDamage.</code>
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
-	The number I pass into the constructor does not matter to the test case, and thus is not a <i>TestCase</i> parameter.
+	The number I pass into the constructor does not matter to this test, and thus is not a <i>TestCase</i> parameter.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>Let's make the test pass with a simple implementation.<br>
-	I duplicate the Exception throwing from the constructor and simply fix the parameter to <code>damagePoints</code>.
+	I duplicate the exception throwing code from the constructor and simply fix the parameter to <code>damagePoints</code>.<br>
+	(knowing that I'll refactor this code smell right away in the next step).
 </p>
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <p>
-	Now the implementation code is starting to smell, as I duplicated a chunk of code to simply make the test pass.<br>
-	(I also now notice that the hardcoded <code>0</code> in the message is not nice<br>
-	as it potentially later could get out of sync with the condition).<br>
-	Thus I refactor, and run all the tests as needed during it, to verify I haven't broken anything.<br>
-	After some time the implementation looks like this:
+	I refactor the duplicated code smell away,<br>
+	and I run all the tests as needed during it, to verify I haven't broken anything.<br>
+	After some time the implementation feels fully refactored for the requirements:
 </p>
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
-	This is more like it, now the code feels clean.<br>
-	<br>
-	I verify with my eyes the message is proper of the thrown exception,<br>
-	e.g if value <code>0</code> is passed in for <code>damagePoints</code>, the message is:<br>
-	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
-Parameter name: damagePoints</code><br>
-	<br>
-	I do this by temporarily commenting out the code of <code>ThrowsError_WhenDamagePointsIsInvalid</code> test case,<br>
-	only leaving <code [highlight]="'var health = new Health(12);'"></code><br>
-	then I run the test, see it fail, and then select the failed case where <code>0</code> was sent,<br>
-	and read the message from the stacktrace below (in Unity Test Runner).<br>
-	Afterwards I undo my commenting out in the test case.<br>
-	I feel that manually testing this with my eyes is sufficient<br>
-	(alternatively I could unit test and do assert/s on the thrown exception).<br>
+	Having <code>lowestValidValue</code> as sent in parameter for method <code>ValidatePoints</code><br>
+	makes the method easy to reuse, if another case comes later with different  <code>lowestValidValue</code>.<br>
 	<br>
 	I run the tests in the end to verify everything works.<br>
 	Below is the whole <code>HealthTest.cs</code>, along showing last run in the Test Runner:
@@ -104,7 +101,7 @@ Parameter name: damagePoints</code><br>
 <h2>Concluding this part</h2>
 
 <p>This concludes these requirements and this part.<br>
-	The code with Unity project is in this <a href="https://github.com/EgillAntonsson/tdd-avatar-health/commit/9b1bffb35bf16a57ac613c50cb2fc6f49cdcd9b1">GitHub repo</a><br>
+	The code and Unity project is in this <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub repo</a><br>
 	I aim to continue with the requirements and the implementation in later blog posts.
 </p>
 
