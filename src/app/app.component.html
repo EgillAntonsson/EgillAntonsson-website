@@ -10,37 +10,36 @@
 </div>
 <router-outlet></router-outlet>
 
-<div *ngIf="showCommentForm">
 <div class="horizontalLine"></div>
 
-<h2>Comments</h2>
+<h2>{{headerText}}</h2>
 
 <div class="commentForm">
- <form [formGroup]="commentForm" name={{formName}} method="POST">
+ <form [formGroup]="messageForm" name={{formName}} method="POST">
 	<input type="hidden" name="form-name" value={{formName}}>
 	<p class="hide">
 		<label>Don't, fill this field out if you're human:</label>
 		<input name="{{botFieldName}}" />
 	</p>
-	<label>* Your Comment:</label>
+	<label>{{messageLabel}}</label>
 	 <br>
-		<textarea class="formTextFields" type="text" placeholder={{placeholderComment}} formControlName={{commentName}} name="{{commentName}}" [maxlength]="300" rows="6"></textarea>
+		<textarea class="formTextFields" type="text" placeholder={{placeholderComment}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
 	<br><br>
 	<label>* Your Name / Handle:</label>
 	<br>
 	<input class="formTextFields" type="text" placeholder="{{placeholderHandle}}" formControlName="{{handleName}}" name="{{handleName}}" maxlength="32">
 	<br><br>
+	<div *ngIf="urlEnd === '/home'">
 	<label>* Your Email:</label>
 	<br>
 	<input class="formTextFields" type="text" placeholder="{{placeholderEmail}}" formControlName="{{emailName}}" name="{{emailName}}" maxlength="32">
 	<div *ngIf="emailControl.invalid" class="alert">
-		<div *ngIf="emailControl.errors?.email">
+		<div *ngIf="emailControl.errors?.pattern">
 			<label>Has to be a valid email address</label>
 		</div>
 	</div>
 	<br><br>
-	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
+	</div>
+	<button type="submit" [disabled]="messageForm.invalid" (click)="onSendClick()">Send</button>
 </form>
-</div>
-
 </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { BlogService, Post } from '../shared/services/blog.service'
-import {Location} from '@angular/common'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router'
+import { filter } from 'rxjs/operators'
 
 @Component({
 	selector: 'app-blog',
@@ -22,19 +22,16 @@ export class BlogComponent {
 		return this.blogService.selectedPost
 	}
 
-	constructor(private blogService: BlogService, private location: Location, private router: Router, private route: ActivatedRoute) {
-		const blogPath = '/blog/'
-		if (this.location.isCurrentPathEqualTo(blogPath)) {
-			this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
-		}
-		else {
-			const urlSplit = this.router.url.split('/')
-			const routePath = urlSplit[urlSplit.length - 2] + '/' + urlSplit[urlSplit.length - 1]
-			const foundPost = this.blogService.getPostWith(routePath)
-			if (foundPost) {
-				this.blogService.selectedPost = foundPost
+	constructor(private blogService: BlogService, private router: Router, private route: ActivatedRoute) {
+
+		const blogPath = '/blog'
+
+		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
+			const urlEnd = (e as NavigationEnd).urlAfterRedirects
+			if (urlEnd === blogPath) {
+				this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 			}
-		}
+		})
 
 	}
 

@@ -15,40 +15,63 @@ export class AppComponent {
 After you press 'Send' button:
 * the comment will become pending for moderation.
 * This comment form will become hidden.
-After approval I will publish it here
+After approval I will publish the Comment and Name here.
 (I might also add a short response).`
+
+placeholderMessage = `This is a required field.
+After you press 'Send' button,
+the Contact form will become hidden.
+I have your email to get back to you if it's appropriate.`
 	placeholderHandle = 'This is a required field'
-	placeholderEmail = 'This is an optional field that can be skipped'
+	placeholderEmail = 'Required field, I will never give to 3rd party'
 
 	showCommentForm = false
 
-	commentForm: FormGroup
-	formName = 'CommentForm'
+	headerText = ''
+	messageForm: FormGroup
+	formName = 'MessageForm'
 	netlifyFormName = 'form-name'
 	botFieldName = 'BotField'
-	commentName = 'Comment'
+	messageName = 'Message'
+	messageLabel = ''
 	handleName = 'Handle'
 	emailName = 'Email'
 	emailControl
 
+	emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	urlEndName = 'UrlEnd'
 	urlEnd = ''
+
+	formType: FormType = FormType.Contact
 
 	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			this.urlEnd = (e as NavigationEnd).urlAfterRedirects
-			this.showCommentForm = this.urlEnd === '/home' ? false : true
+			this.formType = this.urlEnd === '/home' ? FormType.Contact : FormType.Comment
+
+			if (this.formType === FormType.Contact) {
+				this.headerText = 'Contact'
+				this.messageLabel = '* Your Message:'
+				this.emailControl.addValidators(Validators.required)
+
+			} else {
+				this.headerText = 'Comments'
+				this.messageLabel = '* Your Comment:'
+				this.emailControl.removeValidators(Validators.required)
+			}
+
+			this.emailControl.reset('')
 		})
 
-		this.commentForm = this.fb.group({
+		this.messageForm = this.fb.group({
 			[this.botFieldName]: ['', []],
-			[this.commentName]: ['', [Validators.required]],
+			[this.messageName]: ['', [Validators.required]],
 			[this.handleName]: ['', [Validators.required]],
-			[this.emailName]: ['', [Validators.email]]
+			[this.emailName]: ['', [Validators.pattern(this.emailRegex)]]
 		})
 
-		this.emailControl = this.commentForm.controls[this.emailName]
+		this.emailControl = this.messageForm.controls[this.emailName]
 
 	}
 
@@ -56,21 +79,18 @@ After approval I will publish it here
 
 		const body = new HttpParams()
 		.set(this.netlifyFormName, this.formName)
-		.append(this.botFieldName, this.commentForm.value[this.botFieldName])
-		.append(this.commentName, this.commentForm.value[this.commentName])
-		.append(this.handleName, this.commentForm.value[this.handleName])
-		.append(this.emailName, this.commentForm.value[this.emailName])
-		.append(this.urlEndName, this.commentForm.value[this.urlEnd])
-
-		const url = '/'
-		console.log(url)
+		.append(this.botFieldName, this.messageForm.value[this.botFieldName])
+		.append(this.messageName, this.messageForm.value[this.messageName])
+		.append(this.handleName, this.messageForm.value[this.handleName])
+		.append(this.emailName, this.messageForm.value[this.emailName])
+		.append(this.urlEndName, this.messageForm.value[this.urlEnd])
 
 		console.log('Send clicked')
-		console.log(this.commentForm)
+		console.log(this.messageForm)
 		console.log('body')
 		console.log(body)
 
-		this.http.post(url, body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
+		this.http.post('/', body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
 				console.log('result handler from post', res)
 			},
@@ -97,4 +117,10 @@ After approval I will publish it here
 		)
 
 	}
+}
+
+export const enum FormType {
+	Comment = 'Comment',
+	Contact = 'Contact'
+
 }
