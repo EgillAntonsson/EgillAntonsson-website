@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { HttpParams, HttpClient } from '@angular/common/http'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
+import { LogService } from './shared/services/log.service'
+import { LogType } from 'shared/enums/logType'
 
 @Component({
 	selector: 'app-root',
@@ -25,7 +27,7 @@ I have your email to get back to you if it's appropriate.`
 	placeholderHandle = 'This is a required field'
 	placeholderEmail = 'Required field, I will never give to 3rd party'
 
-	showCommentForm = false
+	showCommentForm = true
 
 	headerText = ''
 	messageForm: FormGroup
@@ -44,9 +46,12 @@ I have your email to get back to you if it's appropriate.`
 
 	formType: FormType = FormType.Contact
 
-	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private logService: LogService) {
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
+			this.showCommentForm = true
+			this.emailControl.reset('')
+
 			this.urlEnd = (e as NavigationEnd).urlAfterRedirects
 			this.formType = this.urlEnd === '/home' ? FormType.Contact : FormType.Comment
 
@@ -61,7 +66,6 @@ I have your email to get back to you if it's appropriate.`
 				this.emailControl.removeValidators(Validators.required)
 			}
 
-			this.emailControl.reset('')
 		})
 
 		this.messageForm = this.fb.group({
@@ -83,38 +87,42 @@ I have your email to get back to you if it's appropriate.`
 		.append(this.messageName, this.messageForm.value[this.messageName])
 		.append(this.handleName, this.messageForm.value[this.handleName])
 		.append(this.emailName, this.messageForm.value[this.emailName])
-		.append(this.urlEndName, this.messageForm.value[this.urlEnd])
+		.append(this.urlEndName, this.urlEnd)
 
-		console.log('Send clicked')
-		console.log(this.messageForm)
-		console.log('body')
-		console.log(body)
+		this.logService.log(LogType.Info, 'form send clicked and doing http post with:')
+		this.logService.log(LogType.Info, 'messageForm:')
+		this.logService.log(LogType.Info, this.messageForm)
+		this.logService.log(LogType.Info, 'body:')
+		this.logService.log(LogType.Info, body)
 
 		this.http.post('/', body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
-				console.log('result handler from post', res)
+				this.logService.log(LogType.Info, 'result handler')
+				this.logService.log(LogType.Info, res)
 			},
 			err => {
 				if (err instanceof ErrorEvent) {
 					// client side error
-					console.log('Something went wrong when sending your comment')
-					console.log('client side error:')
-					console.log(err.error.message)
+					this.logService.log(LogType.Error, 'Client side error: Something went wrong when sending your comment')
+					this.logService.log(LogType.Error, err.error)
 				} else {
 					// backend error. If status is 200, then the message successfully sent
 					if (err.status === 200) {
-						console.log('Your comment has been sent')
+						this.logService.log(LogType.Info, 'Your comment has been successfully sent (status == 200)')
 					} else {
-						console.log('Something went wrong when sending your comment')
-						console.log('backend side error')
-						console.log('Error status:')
-						console.log(err.status)
-						console.log('Error body:')
-						console.log(err.error)
+						this.logService.log(LogType.Error, 'Backend side error: Something went wrong when sending your comment:')
+						this.logService.log(LogType.Error, 'Error status:')
+						this.logService.log(LogType.Error, err.status)
+						this.logService.log(LogType.Error, 'Error body:')
+						this.logService.log(LogType.Error, err.error)
 					}
 				}
 			}
 		)
+
+		this.showCommentForm = false
+		this.headerText = 'Thank you for sending :)'
+		this.messageForm.reset()
 
 	}
 }

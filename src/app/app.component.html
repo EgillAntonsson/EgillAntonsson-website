@@ -14,7 +14,7 @@
 
 <h2>{{headerText}}</h2>
 
-<div class="commentForm">
+<div class="commentForm" *ngIf=showCommentForm>
  <form [formGroup]="messageForm" name={{formName}} method="POST">
 	<input type="hidden" name="form-name" value={{formName}}>
 	<p class="hide">
