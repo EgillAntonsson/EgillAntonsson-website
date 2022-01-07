@@ -57,7 +57,6 @@ I have your email to get back to you if it's appropriate.`
 			this.logService.log(LogType.Info, 'urlEnd:', this.urlEnd)
 			this.logService.log(LogType.Info, 'emailControl before:', this.emailControl)
 
-			this.messageForm.reset()
 
 			if (this.formType === FormType.Contact) {
 				this.headerText = 'Contact'
@@ -70,12 +69,13 @@ I have your email to get back to you if it's appropriate.`
 				this.emailControl.removeValidators(Validators.required)
 			}
 
+			this.messageForm.reset()
 			this.logService.log(LogType.Info, 'emailControl after:', this.emailControl)
 
 		})
 
 		this.messageForm = this.fb.group({
-			[this.botFieldName]: ['', []],
+			[this.botFieldName]: ['smu', []],
 			[this.messageName]: ['', [Validators.required]],
 			[this.handleName]: ['', [Validators.required]],
 			[this.emailName]: ['', [Validators.pattern(this.emailRegex)]]
@@ -87,16 +87,24 @@ I have your email to get back to you if it's appropriate.`
 
 	onSendClick() {
 
-		const body = new HttpParams()
+		let body = new HttpParams()
 		.set(this.netlifyFormName, this.formName)
 		.append(this.botFieldName, this.messageForm.value[this.botFieldName])
 		.append(this.messageName, this.messageForm.value[this.messageName])
 		.append(this.handleName, this.messageForm.value[this.handleName])
-		.append(this.emailName, this.messageForm.value[this.emailName])
 		.append(this.urlEndName, this.urlEnd)
 
+		if (this.formType === FormType.Contact) {
+			console.log('if ***********')
+			body = body.append(this.emailName, this.messageForm.value[this.emailName])
+		} else {
+			console.log('else ***********')
+			body = body.append(this.emailName, 'not used for form')
+		}
+
 		this.logService.log(LogType.Info, 'form send clicked and doing http post with:')
-		this.logService.log(LogType.Info, 'messageForm:', this.messageForm)
+		this.logService.log(LogType.Info, 'messageForm:')
+		this.logService.log(LogType.Info, this.messageForm)
 		this.logService.log(LogType.Info, 'body:', body)
 
 		this.http.post('/', body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
