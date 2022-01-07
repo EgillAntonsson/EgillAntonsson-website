@@ -75,7 +75,7 @@ I have your email to get back to you if it's appropriate.`
 		})
 
 		this.messageForm = this.fb.group({
-			[this.botFieldName]: ['smu', []],
+			// [this.botFieldName]: ['smu', []],
 			[this.messageName]: ['', [Validators.required]],
 			[this.handleName]: ['', [Validators.required]],
 			[this.emailName]: ['', [Validators.pattern(this.emailRegex)]]
@@ -89,7 +89,7 @@ I have your email to get back to you if it's appropriate.`
 
 		let body = new HttpParams()
 		.set(this.netlifyFormName, this.formName)
-		.append(this.botFieldName, this.messageForm.value[this.botFieldName])
+		// .append(this.botFieldName, this.messageForm.value[this.botFieldName])
 		.append(this.messageName, this.messageForm.value[this.messageName])
 		.append(this.handleName, this.messageForm.value[this.handleName])
 		.append(this.urlEndName, this.urlEnd)
