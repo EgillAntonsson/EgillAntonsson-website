@@ -13,34 +13,42 @@ export class AppComponent {
 
 	placeholderComment = `This is a required field.
 After you press 'Send' button:
-* the comment will be pending for moderation
-* This comment form will hide
+* the comment will become pending for moderation.
+* This comment form will become hidden.
 After approval I will publish it here
 (I might also add a short response).`
 	placeholderHandle = 'This is a required field'
+	placeholderEmail = 'This is an optional field that can be skipped'
 
-	showCommentForm = true
+	showCommentForm = false
 
 	commentForm: FormGroup
 	formName = 'CommentForm'
 	netlifyFormName = 'form-name'
+	botFieldName = 'BotField'
 	commentName = 'Comment'
 	handleName = 'Handle'
-	botFieldName = 'BotField'
+	emailName = 'Email'
+	emailControl
 
-	url = ''
+	urlEndName = 'UrlEnd'
+	urlEnd = ''
 
 	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
-			this.url = (e as NavigationEnd).urlAfterRedirects
+			this.urlEnd = (e as NavigationEnd).urlAfterRedirects
+			this.showCommentForm = this.urlEnd === '/home' ? false : true
 		})
 
 		this.commentForm = this.fb.group({
 			[this.botFieldName]: ['', []],
 			[this.commentName]: ['', [Validators.required]],
-			[this.handleName]: ['', [Validators.required]]
+			[this.handleName]: ['', [Validators.required]],
+			[this.emailName]: ['', [Validators.email]]
 		})
+
+		this.emailControl = this.commentForm.controls[this.emailName]
 
 	}
 
@@ -51,6 +59,8 @@ After approval I will publish it here
 		.append(this.botFieldName, this.commentForm.value[this.botFieldName])
 		.append(this.commentName, this.commentForm.value[this.commentName])
 		.append(this.handleName, this.commentForm.value[this.handleName])
+		.append(this.emailName, this.commentForm.value[this.emailName])
+		.append(this.urlEndName, this.commentForm.value[this.urlEnd])
 
 		const url = '/'
 		console.log(url)

@@ -34,13 +34,13 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 			</div>
 			<sub>kg number in text field is converts to below:</sub><br>
 			<div *ngIf="inputKgControl.invalid" class="alert">
-				<div *ngIf="this.inputKgControl.errors?.pattern">
+				<div *ngIf="inputKgControl.errors?.pattern">
 					Only numbers are allowed (and ' . ' for fraction)
 				</div>
-				<div *ngIf="this.inputKgControl.errors?.max">
+				<div *ngIf="inputKgControl.errors?.max">
 					number is too big, reduce it
 				</div>
-				<div *ngIf="this.inputKgControl.errors?.min">
+				<div *ngIf="inputKgControl.errors?.min">
 					number is to small, increase it
 				</div>
 			</div>

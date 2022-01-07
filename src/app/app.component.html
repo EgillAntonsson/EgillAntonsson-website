@@ -10,6 +10,7 @@
 </div>
 <router-outlet></router-outlet>
 
+<div *ngIf="showCommentForm">
 <div class="horizontalLine"></div>
 
 <h2>Comments</h2>
@@ -29,6 +30,17 @@
 	<br>
 	<input class="formTextFields" type="text" placeholder="{{placeholderHandle}}" formControlName="{{handleName}}" name="{{handleName}}" maxlength="32">
 	<br><br>
+	<label>* Your Email:</label>
+	<br>
+	<input class="formTextFields" type="text" placeholder="{{placeholderEmail}}" formControlName="{{emailName}}" name="{{emailName}}" maxlength="32">
+	<div *ngIf="emailControl.invalid" class="alert">
+		<div *ngIf="emailControl.errors?.email">
+			<label>Has to be a valid email address</label>
+		</div>
+	</div>
+	<br><br>
 	<button type="submit" [disabled]="commentForm.invalid" (click)="onSendClick()">Send</button>
 </form>
+</div>
+
 </div>

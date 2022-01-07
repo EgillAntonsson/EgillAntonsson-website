@@ -33,14 +33,14 @@
 
 	--colorPurpleLight: #C397D8;
 
-
 	--colorBackground: var(--colorBlackLight);
 	--colorForeground: var(--colorWhiteLight);
 	--colorActive: var(--colorGreenLight);
 	--colorPending: var(--colorOrangeLight);
-	--colorDisabled: var(--colorGrayLightMed);
 	--colorLink: var(--colorBlueLight);
 	--colorLinkVisited: var(--colorPurpleLight);
+
+	--screenWidth0: 451px;
 }
 
 body {
@@ -53,6 +53,9 @@ body, input[text] {
 }
 
 input {
+	border-style: solid;
+	border-width: 1px;
+	border-color: var(--colorGrayLightMed);
 	font-size: 102%;
 	font-family: Lato, Helvetica, sans-serif;
 	background: var(--colorGrayDark);
@@ -64,6 +67,9 @@ input {
 }
 
 textarea {
+	border-style: solid;
+	border-width: 1px;
+	border-color: var(--colorGrayLightMed);
 	font-size: 102%;
 	font-family: Lato, Helvetica, sans-serif;
 	background: var(--colorGrayDark);
@@ -72,14 +78,24 @@ textarea {
 }
 
 button {
+	width: 7em;
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--colorGreenLight);
 	font-size: 102%;
-	background: var(--colorGrayDark);
-	color: var(--colorWhiteLight)
+	background: var(--colorGreenMedDark);
+	color: var(--colorWhiteLight);
 }
 
-button:disabled{
+button:hover {
+	cursor: pointer;
+}
+
+button:disabled {
+	border-color: var(--colorGrayLightMed);
 	background: var(--colorGrayDarkMed);
 	color: var(--colorGrayLightMed);
+	cursor: auto;
 }
 
 code {
@@ -289,7 +305,7 @@ hr {
 }
 
 .commentForm {
-	padding: 1em;
+	padding: 1em 1em 3em 1em;
 	text-align: center;
 	/* width: 95%; */
 }
@@ -482,9 +498,7 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	/* h1 {
-		color: green;
-	} */
+	h1 { color: green; }
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -587,7 +601,6 @@ min width considered 360px (Galaxy S5) */
 	}
 }
 
-/* @media screen and (min-width: 1404px) { */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
 	body {
 		font-size: 115%;
