@@ -33,12 +33,14 @@ I have your email to get back to you if it's appropriate.`
 	messageForm: FormGroup
 	formName = 'MessageForm'
 	netlifyFormName = 'form-name'
-	botFieldName = 'BotField'
 	messageName = 'Message'
 	messageLabel = ''
 	handleName = 'Handle'
 	emailName = 'Email'
 	emailControl
+
+	honeyLabel = 'Do not, fill this field out if you are human'
+	honeyValue = 'Do not, fill this field out if you are human'
 
 	emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	urlEndName = 'UrlEnd'
@@ -75,7 +77,6 @@ I have your email to get back to you if it's appropriate.`
 		})
 
 		this.messageForm = this.fb.group({
-			// [this.botFieldName]: ['smu', []],
 			[this.messageName]: ['', [Validators.required]],
 			[this.handleName]: ['', [Validators.required]],
 			[this.emailName]: ['', [Validators.pattern(this.emailRegex)]]
@@ -86,20 +87,16 @@ I have your email to get back to you if it's appropriate.`
 	}
 
 	onSendClick() {
-
 		let body = new HttpParams()
 		.set(this.netlifyFormName, this.formName)
-		// .append(this.botFieldName, this.messageForm.value[this.botFieldName])
 		.append(this.messageName, this.messageForm.value[this.messageName])
 		.append(this.handleName, this.messageForm.value[this.handleName])
 		.append(this.urlEndName, this.urlEnd)
 
 		if (this.formType === FormType.Contact) {
-			console.log('if ***********')
 			body = body.append(this.emailName, this.messageForm.value[this.emailName])
 		} else {
-			console.log('else ***********')
-			body = body.append(this.emailName, 'not used for form')
+			body = body.append(this.emailName, 'notusedforcomment@gmail.com')
 		}
 
 		this.logService.log(LogType.Info, 'form send clicked and doing http post with:')

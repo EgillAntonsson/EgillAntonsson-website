@@ -17,10 +17,6 @@
 <div class="commentForm" *ngIf=showCommentForm>
  <form [formGroup]="messageForm" name={{formName}} method="POST">
 	<input type="hidden" name="form-name" value={{formName}}>
-	<p class="hide">
-		<label>Don't, fill this field out if you're human:</label>
-		<input name="{{botFieldName}}"/>
-	</p>
 	<label>{{messageLabel}}</label>
 	 <br>
 		<textarea class="formTextFields" type="text" placeholder={{placeholderComment}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
