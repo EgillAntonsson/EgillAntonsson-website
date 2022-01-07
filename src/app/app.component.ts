@@ -50,7 +50,6 @@ I have your email to get back to you if it's appropriate.`
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			this.showCommentForm = true
-			this.emailControl.reset('')
 
 			this.urlEnd = (e as NavigationEnd).urlAfterRedirects
 			this.formType = this.urlEnd === '/home' ? FormType.Contact : FormType.Comment
@@ -103,16 +102,22 @@ I have your email to get back to you if it's appropriate.`
 		this.http.post('/', body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
 				this.logService.log(LogType.Info, 'result handler:', res)
+				this.showCommentForm = false
+				this.headerText = 'Thank you for sending :)'
 			},
 			err => {
+				this.showCommentForm = false
 				if (err instanceof ErrorEvent) {
 					// client side error
 					this.logService.log(LogType.Error, 'Client side error: Something went wrong when sending your comment:', err.error)
+					this.headerText = 'Something went wrong with sending'
 				} else {
 					// backend error. If status is 200, then the message successfully sent
 					if (err.status === 200) {
+						this.headerText = 'Thank you for sending :)'
 						this.logService.log(LogType.Info, 'Your comment has been successfully sent (status == 200)')
 					} else {
+						this.headerText = 'Something went wrong with sending'
 						this.logService.log(LogType.Error, 'Backend side error: Something went wrong when sending your comment:')
 						this.logService.log(LogType.Error, 'Error status:', err.status)
 						this.logService.log(LogType.Error, 'Error body:', err.error)
@@ -121,8 +126,7 @@ I have your email to get back to you if it's appropriate.`
 			}
 		)
 
-		this.showCommentForm = false
-		this.headerText = 'Thank you for sending :)'
+
 		this.messageForm.reset()
 
 	}
