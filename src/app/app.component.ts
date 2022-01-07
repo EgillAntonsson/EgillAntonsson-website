@@ -55,6 +55,11 @@ I have your email to get back to you if it's appropriate.`
 			this.urlEnd = (e as NavigationEnd).urlAfterRedirects
 			this.formType = this.urlEnd === '/home' ? FormType.Contact : FormType.Comment
 
+			this.logService.log(LogType.Info, 'urlEnd:', this.urlEnd)
+			this.logService.log(LogType.Info, 'emailControl before:', this.emailControl)
+
+			this.messageForm.reset()
+
 			if (this.formType === FormType.Contact) {
 				this.headerText = 'Contact'
 				this.messageLabel = '* Your Message:'
@@ -65,6 +70,8 @@ I have your email to get back to you if it's appropriate.`
 				this.messageLabel = '* Your Comment:'
 				this.emailControl.removeValidators(Validators.required)
 			}
+
+			this.logService.log(LogType.Info, 'emailControl after:', this.emailControl)
 
 		})
 
@@ -90,31 +97,25 @@ I have your email to get back to you if it's appropriate.`
 		.append(this.urlEndName, this.urlEnd)
 
 		this.logService.log(LogType.Info, 'form send clicked and doing http post with:')
-		this.logService.log(LogType.Info, 'messageForm:')
-		this.logService.log(LogType.Info, this.messageForm)
-		this.logService.log(LogType.Info, 'body:')
-		this.logService.log(LogType.Info, body)
+		this.logService.log(LogType.Info, 'messageForm:', this.messageForm)
+		this.logService.log(LogType.Info, 'body:', body)
 
 		this.http.post('/', body.toString(), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).subscribe(
 			res => {
-				this.logService.log(LogType.Info, 'result handler')
-				this.logService.log(LogType.Info, res)
+				this.logService.log(LogType.Info, 'result handler:', res)
 			},
 			err => {
 				if (err instanceof ErrorEvent) {
 					// client side error
-					this.logService.log(LogType.Error, 'Client side error: Something went wrong when sending your comment')
-					this.logService.log(LogType.Error, err.error)
+					this.logService.log(LogType.Error, 'Client side error: Something went wrong when sending your comment:', err.error)
 				} else {
 					// backend error. If status is 200, then the message successfully sent
 					if (err.status === 200) {
 						this.logService.log(LogType.Info, 'Your comment has been successfully sent (status == 200)')
 					} else {
 						this.logService.log(LogType.Error, 'Backend side error: Something went wrong when sending your comment:')
-						this.logService.log(LogType.Error, 'Error status:')
-						this.logService.log(LogType.Error, err.status)
-						this.logService.log(LogType.Error, 'Error body:')
-						this.logService.log(LogType.Error, err.error)
+						this.logService.log(LogType.Error, 'Error status:', err.status)
+						this.logService.log(LogType.Error, 'Error body:', err.error)
 					}
 				}
 			}
