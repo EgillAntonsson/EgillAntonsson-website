@@ -4,7 +4,7 @@ import subprocess
 import shutil
 
 print('Building with ng')
-subprocess.run(["ng", "build", "--prod"], shell=True)
+subprocess.run(["ng", "build", "--configuration production"], shell=True)
 print('----------')
 
 
