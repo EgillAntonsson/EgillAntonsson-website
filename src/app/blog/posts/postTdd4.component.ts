@@ -64,10 +64,11 @@ public class Health
 
 	public Health(int startingPoints)
 	{
-		if (startingPoints < 1)
+		int lowestValidValue = 1;
+		if (startingPoints < lowestValidValue)
 		{
 			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be higher than '0'";
+			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
 			throw new ArgumentOutOfRangeException(paramName, message);
 		}
 		CurrentPoints = startingPoints;
@@ -103,10 +104,11 @@ public class Health
 
 	public Health(int startingPoints)
 	{
-		if (startingPoints < 1)
+		int lowestValidValue = 1;
+		if (startingPoints < lowestValidValue)
 		{
 			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be higher than '0'";
+			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
 			throw new ArgumentOutOfRangeException(paramName, message);
 		}
 		CurrentPoints = startingPoints;
@@ -114,10 +116,11 @@ public class Health
 
 	public void TakeDamage(int damagePoints)
 	{
-		if (damagePoints < 1)
+		int lowestValidValue = 1;
+		if (damagePoints < lowestValidValue)
 		{
 			var paramName = nameof(damagePoints);
-			var message = $"Value '{damagePoints}' is invalid, it should be higher than '0'";
+			var message = $"Value '{damagePoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
 			throw new ArgumentOutOfRangeException(paramName, message);
 		}
 		CurrentPoints -= damagePoints;

@@ -76,7 +76,7 @@ public class Health
 
 	test_2_Red = `//HealthTest.cs (only showing the new test)
 [Test]
-public void ThrowsError_WhenStartingValueIsInvalid()
+public void ThrowsError_WhenStartingPointsIsInvalid()
 {
 	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
 	delegate {
@@ -96,8 +96,27 @@ public class Health
 	{
 		if (startingPoints < 1)
 		{
+			throw new ArgumentOutOfRangeException("startingPoints", "Invalid value");
+		}
+		CurrentPoints = startingPoints;
+	}
+}
+`
+
+impl_2_Refactor = `//Health.cs
+using System;
+
+public class Health
+{
+	public int CurrentPoints { get;  private set; }
+
+	public Health(int startingPoints)
+	{
+		int lowestValidValue = 1;
+		if (startingPoints < lowestValidValue)
+		{
 			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be higher than '0'";
+			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
 			throw new ArgumentOutOfRangeException(paramName, message);
 		}
 		CurrentPoints = startingPoints;
@@ -124,7 +143,7 @@ public class HealthTest
 
 		[TestCase(0)]
 		[TestCase(-1)]
-		public void ThrowsError_WhenStartingValueIsInvalid(int startingPoints)
+		public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
 		{
 			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
 			delegate

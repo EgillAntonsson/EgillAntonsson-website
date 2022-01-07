@@ -8,7 +8,7 @@
 <p>
 	I'm using Unity version 2020.3.24f1 and I create a new project (3D is the default), and keep the default config,<br>
 	except that I update <i>Test Framework</i> package to latest version (currently 1.1.30).<br>
-	Its <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">documentation</a> details how setup tests for a project.<br>
+	The <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">documentation</a> details how setup tests for a project.<br>
 	My project structure starts very simple:
 </p>
 <ul class="list inline">
@@ -38,7 +38,8 @@
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
 <p>
-	Let's filter and transform this into a requirement that's focused only on the domain (as GUI will be done later):
+	Let's filter and transform this into a requirement that's focused only on the domain<br>
+	(as GUI will be done later):
 </p>
 <ul class="list inline">
 	<li>Avatar Health starts with 12 Health Points<br>
@@ -54,7 +55,7 @@
 	I start by writing the test.<br>
 	The domain model focus will be <code>Health</code> class (not created yet),<br>
 	<span class="outOfScope">which in the end will likely be owned by <code>Avatar</code> class.</span><br>
-	Thus the create test file <code>HealthTest.cs</code> and write the first test,<br>
+	Thus I create test file <code>HealthTest.cs</code> and write the first test,<br>
 	that fails as the code does not compile.
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
@@ -64,7 +65,7 @@
 	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a>)<br>
 	I name the nested class after the <i>entry point</i> of the test,<br>
 	which in this case is the <i>Constructor</i> method, as the test invokes <code>new Health()</code><br>
-	(see <i>What is a good Unit Test section</i>i in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
+	(see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
 	<br>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
 </p>
@@ -72,21 +73,21 @@
 <h3><span class="redFail">RED (test fails)</span></h3>
 <p>
 	I want to run the test and see it fail.<br>
-	This is done to verify that the test is not passing when it should not,<br>
+	This is done to verify that the test is not passing when it should not<br>
 	(provides more value for more complex scenario).<br>
 	Thus I write the needed production code for the compiler to compile successfully,<br>
 	then run the tests via Unity Test Runner (menu item <i>Window > General > Test Runner</i>).<br>
 </p>
 <pre><code [highlight]="test_1_Red2"></code></pre>
 <figure>
-	<img src="../assets/images/blog/tdd/HealthTest-firstFail.PNG" alt="Unity Test Runner: first test fail" title="Unity Test Runner: first test fail" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/HealthTest-firstFail.PNG" alt="Unity Test Runner: first test fail  (the nested class displays nicely)" title="Unity Test Runner: first test fail (the nested class displays nicely)" class="imageSmallText">
 	<figcaption>
 		Unity Test Runner: first test fail (the nested class displays nicely)
 	</figcaption>
 </figure>
 <p>
-	Going forward I will skip this step in the presentation (though I actually do it when coding),<br>
-	combining both 'does not compile' and test fail under <span class="redFail">RED</span>.
+	Going forward I will skip this step here in the blog posts (though I actually do it when coding),<br>
+	thus combining both 'does not compile' and test fail under <span class="redFail">RED</span>.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -118,7 +119,8 @@
 <h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
 <p>
 	Now it comes to mind that invalid <span class="code">StartingPoints</span> values can be passed in,<br>
-	as our avatar should never start with less than 1 points (because otherwise Link would start up being dead :P ).<br>
+	as our avatar should never start with less than 1 points<br>
+	(because otherwise Link would start up being dead :P ).<br>
 	Thus I'll throw an exception when the value is invalid.<br>
 	<span class="outOfScope">Invalid values should also be handled where they are defined, in the previously mentioned game balancing config.<br></span>
 </p>
@@ -140,19 +142,40 @@
 	<code>CurrentPointsHasStartingValue</code>
 </p>
 
-<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
+<h3><span class="greenPass">GREEN</span></h3>
 
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
-<p>The implementation of the conditional '<span class="code" [highlight]="'if (startingPoint < 1)'"></span>'<br>
-	was easy to come up with, and is also the proper generic solution for this requirement.<br>
+<p>
+	I'm confident that the implementation of the conditional is the proper generic solution for this requirement,<br>
+	and it was also easy to come up with, and thus does not need additional steps to generalize.<br>
 	<br>
-	The message of the thrown exception would be (if value <code>0</code> was passed in):<br>
-	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be higher than '0'<br>
-		Parameter name: startingPoints</code><br>
+	However I just did the bare minimum for the exception message,<br>
+	and I will refactor it in the next step.<br>
 	<br>
-	I did both <span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span> in one step, for both the conditional and the thrown exception.<br>
-	I feel that no further refactoring is needed in this cycle, so moving on.<br>
+	I feel that manually testing the exception message with my eyes will be sufficient<br>
+	(alternatively I could do assert/s on it via the thrown exception in the test case).<br>
+	<br>
+	I do this by temporarily commenting out the code of <code>ThrowsError_WhenStartingPointsIsInvalid</code> test case,<br>
+	only leaving the line '<code [highlight]="'new Health(0);'"></code>'<br>
+	Then I run the test, see it fail, and then select the failed case<br>
+	and read the message from the stacktrace below (in Unity Test Runner).<br>
+	Afterwards I undo my commenting out in the test case, make sure the test passes again.<br>
+	<br>
+</p>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+
+<pre><code [highlight]="impl_2_Refactor"></code></pre>
+<p>
+	To make the exception message very informative and clear<br>
+	I create and use the variable <code>lowestValidValue</code><br>
+	to make sure the conditional and the exception message are in-sync.<br>
+	I also get the name of the sent in parameter with <code>nameof(startingPoints)</code>.<br>
+	<br>
+	The message displays, if value <code>0</code> was passed in:<br>
+	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
+		Parameter name: startingPoints</code>
 </p>
 
 <h2>Let's test a few more values</h2>

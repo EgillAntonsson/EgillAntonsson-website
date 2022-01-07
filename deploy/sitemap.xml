@@ -19,12 +19,6 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 		<priority>0.9</priority>
 		<lastmod>2021-12-30</lastmod>
 		<changefreq>monthly</changefreq>
-		<image:image>
-			<image:loc>https://i1.sndcdn.com/artworks-000190333072-jdj443-t500x500.jpg</image:loc>
-			<image:title>Artwork for Vikings of Thule song</image:title>
-			<image:caption>Artwork by Þórir Karl Bragason Celin for Vikings of Thule song</image:caption>
-				<image:geo_location>Iceland</image:geo_location>
-		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
@@ -59,28 +53,13 @@ Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnars
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
 		<priority>1.0</priority>
-		<lastmod>2021-12-28</lastmod>
+		<lastmod>2022-01-07</lastmod>
 		<changefreq>weekly</changefreq>
-		image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-firstFail.PNG</image:loc>
-			<image:title>Unity Test Runner: first test fail</image:title>
-			<image:caption>Unity Test Runner: first test fail</image:caption>
-		</image:image>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-using-TestCase.PNG</image:loc>
-			<image:title>Unity Test Runner: tests using TestCase attribute</image:title>
-			<image:caption>Unity Test Runner: tests using TestCase attribute</image:caption>
-		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part4</loc>
 		<priority>1.0</priority>
-		<lastmod>2021-12-28</lastmod>
+		<lastmod>2022-01-07</lastmod>
 		<changefreq>weekly</changefreq>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/HealthTest-ThrowsErrorRefactoring.PNG</image:loc>
-			<image:title>Unity Test Runner: after refactoring 'ThrowsError' code</image:title>
-			<image:caption>Unity Test Runner: after refactoring 'ThrowsError' code</image:caption>
-		</image:image>
 	</url>
 </urlset>
