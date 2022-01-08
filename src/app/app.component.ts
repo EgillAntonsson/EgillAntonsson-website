@@ -15,15 +15,20 @@ export class AppComponent {
 
 	placeholderComment = `This is a required field.
 After you press 'Send' button:
-* the comment will become pending for moderation.
-* This comment form will become hidden.
-After approval I will publish the Comment and Name here.
+* the comment will pend for moderation
+* this comment form will become hidden
+After approval I will publish
+the Comment and Name here.
 (I might also add a short response).`
 
-placeholderMessage = `This is a required field.
-After you press 'Send' button,
-the Contact form will become hidden.
-I have your email to get back to you if it's appropriate.`
+
+	placeholderMessage = `This is a required field.
+After you press 'Send' button
+this Contact form will become hidden.
+I have your email as a means to get back to you,
+I'll never give it to 3rd party or display it publicly.`
+
+	placeholderText = ''
 	placeholderHandle = 'This is a required field'
 	placeholderEmail = 'Required field, I will never give to 3rd party'
 
@@ -57,22 +62,22 @@ I have your email to get back to you if it's appropriate.`
 			this.formType = this.urlEnd === '/home' ? FormType.Contact : FormType.Comment
 
 			this.logService.log(LogType.Info, 'urlEnd:', this.urlEnd)
-			this.logService.log(LogType.Info, 'emailControl before:', this.emailControl)
 
 
 			if (this.formType === FormType.Contact) {
 				this.headerText = 'Contact'
 				this.messageLabel = '* Your Message:'
+				this.placeholderText = this.placeholderMessage
 				this.emailControl.addValidators(Validators.required)
 
 			} else {
 				this.headerText = 'Comments'
 				this.messageLabel = '* Your Comment:'
+				this.placeholderText = this.placeholderComment
 				this.emailControl.removeValidators(Validators.required)
 			}
 
 			this.messageForm.reset()
-			this.logService.log(LogType.Info, 'emailControl after:', this.emailControl)
 
 		})
 

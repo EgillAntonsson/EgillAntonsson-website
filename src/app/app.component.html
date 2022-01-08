@@ -14,12 +14,12 @@
 
 <h2>{{headerText}}</h2>
 
-<div class="commentForm" *ngIf=showCommentForm>
+<div class="messageForm" *ngIf=showCommentForm>
  <form [formGroup]="messageForm" name={{formName}} method="POST">
 	<input type="hidden" name="form-name" value={{formName}}>
 	<label>{{messageLabel}}</label>
 	 <br>
-		<textarea class="formTextFields" type="text" placeholder={{placeholderComment}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
+		<textarea class="formTextFields" type="text" placeholder={{placeholderText}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
 	<br><br>
 	<label>* Your Name / Handle:</label>
 	<br>
@@ -39,3 +39,4 @@
 	<button type="submit" [disabled]="messageForm.invalid" (click)="onSendClick()">Send</button>
 </form>
 </div>
+<br><br>

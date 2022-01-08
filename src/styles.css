@@ -304,10 +304,9 @@ hr {
 	color: var(--colorActive);
 }
 
-.commentForm {
-	padding: 1em 1em 3em 1em;
+.messageForm {
 	text-align: center;
-	/* width: 95%; */
+
 }
 
 
