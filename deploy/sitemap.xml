@@ -47,7 +47,7 @@
 		<loc>https://www.egill.rocks/blog/tdd-health/part1</loc>
 		<priority>1.0</priority>
 		<lastmod>2022-01-08</lastmod>
-		<changefreq>montly</changefreq>
+		<changefreq>monthly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
