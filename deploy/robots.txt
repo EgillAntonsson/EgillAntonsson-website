@@ -1,4 +1,4 @@
-eUser-Agent: *
+User-Agent: *
 Disallow:
 
 Sitemap: https://www.egill.rocks/sitemap.xml

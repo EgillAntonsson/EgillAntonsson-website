@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
-		<loc>https://egill.rocks</loc>
+		<loc>https://egill.rocks/</loc>
 		<priority>0.7</priority>
 		<lastmod>2022-01-08</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/Egill_Antonsson_family.jpg</image:loc>
 			<image:title>Egill Antonsson with his family</image:title>
-			<image:caption>The family, from left to right: Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri & Andri Reyr Ragnarsson</image:caption>
+			<image:caption>The family, from left to right: Egill Antonsson, Soffía Rós Egilsdóttir, Jantra Phosri and Andri Reyr Ragnarsson</image:caption>
 			<image:geo_location>Stockholm, Sweden</image:geo_location>
 		</image:image>
 	</url>

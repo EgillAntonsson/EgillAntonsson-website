@@ -19,8 +19,10 @@ tree = html.parse('src/app/app.component.html')
 parser.feed(html.tostring(tree).decode("utf-8"))
 parser.close()
 
-# Prune /blog since only it's children are used.
+# Prune '/blog' since only it's children are used.
 links.remove('/blog')
+# Prune '/home', at least until I figure out the proper way to optimize 'base vs /home' in Google Search console
+links.remove('/home')
 
 base_url = 'https://www.egill.rocks'
 missing_links = links.copy()
