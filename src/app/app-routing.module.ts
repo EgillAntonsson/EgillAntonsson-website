@@ -13,7 +13,7 @@ import { PostTdd4Component } from './blog/posts/postTdd4.component'
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
-	{path: 'home',  component: HomeComponent},
+	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
 		{path: 'tdd-health/part1', component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},

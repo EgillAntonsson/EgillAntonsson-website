@@ -101,11 +101,11 @@
 }
 
 .shuffleOn {
-	background:transparent url('/assets/shuffle-on.svg') center top no-repeat;
+	background:transparent url('/assets/images/music/shuffle-on.svg') center top no-repeat;
 }
 
 .shuffleOff {
-	background:transparent url('/assets/shuffle-off.svg') center top no-repeat;
+	background:transparent url('/assets/images/music/shuffle-off.svg') center top no-repeat;
 }
 
 
