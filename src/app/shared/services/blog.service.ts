@@ -16,6 +16,20 @@ export class BlogService {
 		const dateYear = '2021'
 		const dateMonth = 'December'
 		const dateDay = '30'
+
+		const part1Comments = Array<Comment>()
+		part1Comments.push( {
+			handle: 'Fabio Paes Pedro',
+			comment:
+`I'm no expert but the value TDD provides became clear to me quite fast.
+I believe this requires a mindset/process change though, a different way of thinking things through that might extend outside of our team, into a company level.
+I can't wait to read the rest of this series!`,
+			myResponse:
+`Thank you for your comment Fabio.
+I agree that TDD requires a mindset/process change, where ideally the whole team and the company are aligned on using TDD to reap its benefits (maybe synced on a sensible approach, e.g. that the value of TDD dwindles near boundary edges).
+I aim to continue writing blog post parts and complete this series at an appropriate point, stay tuned :)`
+})
+
 		this.series = [
 			{title: seriesTddTitle, posts: [
 				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
@@ -73,5 +87,11 @@ export class Post {
 export interface Series {
 	title: string
 	posts: Post[]
+}
+
+export interface Comment {
+	handle: string
+	comment: string
+	myResponse: string
 }
 

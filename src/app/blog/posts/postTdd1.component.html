@@ -54,7 +54,7 @@ It is consistent as long as the production code we control has not changed.
 </p>
 
 <h2>Why do TDD ?</h2>
-<p>Here is a my non-exhaustive list in order of priority:</p>
+<p>Here is a my non-exhaustive list of the benefits of TDD in order of priority:</p>
 <ol class="list inline">
 	<li>Ensures you'll have passing test suite with high production code coverage<br>
 		that runs fast (each case less than 0.1 sec) so you get feedback early,<br>
@@ -119,7 +119,7 @@ It is consistent as long as the production code we control has not changed.
 	<li>has been developed for some time</li>
 	<li>is already 'working' (for most common scenarios / most of the time)</li>
 	<li>has some bad code design that has crept in with time<br>
-		(e.g. high coupling / high dependency in the form of too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a>)</li>
+		(e.g. high coupling / high dependency)</li>
 	<li>is hard to read and understand and reason about</li>
 	<li>has no or few good unit tests / very low test coverage<br>
 		(or many very bad and brittle tests that are hard to read and understand</li>
@@ -135,7 +135,7 @@ It is consistent as long as the production code we control has not changed.
 	But using TDD complements this prevention very well (see <i>Why do TDD ?</i> section above)<br>
 	<br>
 	One of the negative consequence of legacy code is that it's very hard to write unit tests<br>
-	(e.g. likely need a lot of <a href="http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html">Test Doubles</a> to mute dependency interference, e.g. Singletons being very tricky).<br>
+	(e.g. likely need a lot of <a href="http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html">Test Doubles</a> to mute dependency interference, e.g. static objects and <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> being very tricky).<br>
 	<br>
 	Legacy code needs to be carefully improved and refactored (ideally first covered with tests if possible) into a better state<br>
 	before the developers can use TDD effortlessly and to it's full potential.<br>
@@ -143,3 +143,7 @@ It is consistent as long as the production code we control has not changed.
 	<a href="https://www.goodreads.com/book/show/44919.Working_Effectively_with_Legacy_Code">Working Effectively with Legacy Code</a>,<br>
 	and a post: <a href="https://devon.global/starting-tdd-legacy-code/">Starting TDD with legacy code</a>.
 </p>
+
+<div class="horizontalLine"></div>
+
+<h2>Comments:</h2>
