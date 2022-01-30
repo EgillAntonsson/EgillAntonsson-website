@@ -14,8 +14,9 @@ export class BlogService {
 
 		const seriesTddTitle = 'TDD-ing Avatar Health in Unity (C# .NET)'
 		const dateYear = '2021'
-		const dateMonth = 'December'
+		const dateMonth = 'Dec'
 		const dateDay = '30'
+
 		this.series = [
 			{title: seriesTddTitle, posts: [
 				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
@@ -29,11 +30,9 @@ export class BlogService {
 		this.selectedPost = this.series[0].posts[0]
 
 		this.posts = []
-		let index = 0
 		for (let i = 0; i < this.series.length; i++) {
 			for (let j = 0; j < this.series[i].posts.length; j++) {
 				const post = this.series[i].posts[j]
-				post.index = index++
 				this.posts.push(post)
 			}
 		}
@@ -58,7 +57,6 @@ export class Post {
 	readonly dateYear: string
 	readonly dateMonth: string
 	readonly dateDay: string
-	index!: number
 
 	constructor(title: string, routePath: string, dateYear: string, dateMonth: string, dateDay: string, seriesTitle: string) {
 		this.title = title
@@ -73,5 +71,11 @@ export class Post {
 export interface Series {
 	title: string
 	posts: Post[]
+}
+
+export interface Comment {
+	handle: string
+	comment: string
+	response: string
 }
 

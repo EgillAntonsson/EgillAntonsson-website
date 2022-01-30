@@ -71,7 +71,7 @@ I'll never give it to 3rd party or display it publicly.`
 				this.emailControl.addValidators(Validators.required)
 
 			} else {
-				this.headerText = 'Comments'
+				this.headerText = 'Write a Comment'
 				this.messageLabel = '* Your Comment:'
 				this.placeholderText = this.placeholderComment
 				this.emailControl.removeValidators(Validators.required)

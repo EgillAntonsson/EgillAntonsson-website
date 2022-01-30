@@ -2,7 +2,7 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}} (updated on 2022 Jan 30)</small>
 </div>
 
 <h2>What is TDD ?</h2>
@@ -54,7 +54,7 @@ It is consistent as long as the production code we control has not changed.
 </p>
 
 <h2>Why do TDD ?</h2>
-<p>Here is a my non-exhaustive list in order of priority:</p>
+<p>Here is a my non-exhaustive list of the benefits of TDD in order of priority:</p>
 <ol class="list inline">
 	<li>Ensures you'll have passing test suite with high production code coverage<br>
 		that runs fast (each case less than 0.1 sec) so you get feedback early,<br>
@@ -80,14 +80,20 @@ It is consistent as long as the production code we control has not changed.
 <h2>Is TDD suitable for all areas / situations ?</h2>
 
 <p>
-	Although I have over a decade long <a href="https://www.linkedin.com/in/egillantonsson">developer work experience</a><br>
+	I have over a decade long <a href="https://www.linkedin.com/in/egillantonsson">developer work experience</a><br>
 	mainly as front-end game developer, and shared game systems developer.<br>
-	I've gained some experience in writing good unit tests (and 'not so good' to begin with),<br>
-	but to a lesser degree using TDD, thus I'm currently not very seasoned in using TDD,<br>
-	but I'm open to use it more and get more experienced with it (writing this blog series is part of it).<br>
-	Why I haven't used TDD more often already, is to some degree because when facing many 'hard to influence' deadlines, I've opted for 'just get it done in time' mindset.<br>
-	But more often than not it's because I'm working in areas / situations that are not so suited or easy to use TDD.<br>
-	Below are the main areas / situations (and couple of ways to use TDD more effectively where / when applicable).
+	I've gained some experience in writing good unit tests (being 'not so good' at the start of the journey).<br>
+	but I've used TDD to a lesser degree, thus I'm currently not very seasoned in using TDD.<br>
+	The reason why I haven't used TDD more is mainly two-fold:
+</p>
+	<ul class="list inline">
+		<li>Sometimes when facing many 'hard to influence' deadlines,<br>
+			I've chosen the (not ideal) 'get it done in time' approach (Thus writing unit tests later).</li>
+		<li>I'm working in areas / situations where it is not so suited or easy to use TDD.</li>
+	</ul>
+<p>
+	Below are areas / situations where it is not so suited or easy to use TDD<br>
+	(and some tips how to work TDD more into them).
 </p>
 
 <h3>Boundary layers</h3>
@@ -119,7 +125,7 @@ It is consistent as long as the production code we control has not changed.
 	<li>has been developed for some time</li>
 	<li>is already 'working' (for most common scenarios / most of the time)</li>
 	<li>has some bad code design that has crept in with time<br>
-		(e.g. high coupling / high dependency in the form of too many <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a>)</li>
+		(e.g. high coupling / high dependency)</li>
 	<li>is hard to read and understand and reason about</li>
 	<li>has no or few good unit tests / very low test coverage<br>
 		(or many very bad and brittle tests that are hard to read and understand</li>
@@ -135,11 +141,44 @@ It is consistent as long as the production code we control has not changed.
 	But using TDD complements this prevention very well (see <i>Why do TDD ?</i> section above)<br>
 	<br>
 	One of the negative consequence of legacy code is that it's very hard to write unit tests<br>
-	(e.g. likely need a lot of <a href="http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html">Test Doubles</a> to mute dependency interference, e.g. Singletons being very tricky).<br>
+	They likely need a lot of <a href="http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html">Test Doubles</a> to mute dependency interference<br>
+	(where static objects and <a href="https://medium.com/aia-sg-techblog/why-singleton-pattern-is-considered-as-anti-design-pattern-c81dd8b7e757">Singletons</a> become very tricky).<br>
 	<br>
-	Legacy code needs to be carefully improved and refactored (ideally first covered with tests if possible) into a better state<br>
-	before the developers can use TDD effortlessly and to it's full potential.<br>
-	Improving legacy code is a big topic thus I'll leave it here<br>by referencing a book:
-	<a href="https://www.goodreads.com/book/show/44919.Working_Effectively_with_Legacy_Code">Working Effectively with Legacy Code</a>,<br>
-	and a post: <a href="https://devon.global/starting-tdd-legacy-code/">Starting TDD with legacy code</a>.
+	Legacy code needs to be carefully refactored (ideally first covered with tests) into a better state<br>
+	before TDD can be used effortlessly and to it's full potential.<br>
+	Improving legacy code is a big topic thus I'll leave it here by<br>
+	referencing one book: <a href="https://www.goodreads.com/book/show/44919.Working_Effectively_with_Legacy_Code">Working Effectively with Legacy Code</a>,<br>
+	and one post: <a href="https://devon.global/starting-tdd-legacy-code/">Starting TDD with legacy code</a>.
 </p>
+
+<h3>Prototype code</h3>
+<p>
+	The focus of prototyping is to get out an idea as fast as possible to get feedback on it.<br>
+	It should be time boxed and at the end of the period it should be decided if the idea should become a real production project or not,<br>
+	and there should be a <b>clear agreement that the prototype code will be thrown away</b>.<br>
+	It is fine to not (or sparsely) use TDD in the prototyping phase, if the consensus is it slows things down,<br>
+	but TDD should be used when the production project codebase is started from scratch.<br>
+</p>
+
+<div class="horizontalLine"></div>
+
+<h2>Comments</h2>
+
+<h4>Fabio Paes Pedro</h4>
+
+<p>
+	I'm no expert but the value TDD provides became clear to me quite fast.<br>
+	I believe this requires a mindset/process change though,<br>
+	a different way of thinking things through that might extend outside of our team, into a company level.<br>
+	I can't wait to read the rest of this series!
+</p>
+<h4>My response</h4>
+<p>
+	Thank you for your comment Fabio.<br>
+	I agree that TDD requires a mindset/process change,<br>
+	where ideally the whole team and the company are aligned on using TDD to reap its benefits,<br>
+	(synced on an approach that recognizes that in some areas / situations the value of TDD can be limited (as the sections above go through).<br>
+	I aim to continue writing blog post and complete this series, so stay tuned :)
+</p>
+<div class="horizontalLine"></div>
+
