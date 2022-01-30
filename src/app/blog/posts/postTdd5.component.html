@@ -1,0 +1,54 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+</div>
+
+<h2>The rest of Taking Damage requirements</h2>
+<p>
+	Let's recap the rest of the requirements (2nd and 3rd) under <i>Taking Damage and Dying</i> from the user perspective<br>
+	(whole <i>Life Gauge behavior</i> list is in <a href="./blog/tdd-health/part2">Part 2</a>):
+</p>
+<ul class="list">
+	<li class="noBulletinPoint"><b>Taking Damage and Dying</b></li>
+	<li>When Link loses all of his Hearts the game ends</li>
+	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
+		and will instead be left alive with Hearth 1 fraction remaining</li>
+	<ul>
+		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+	</ul>
+</ul>
+<p>
+	Let's tweak this to focus on our current domain model (<code>Health</code> class):
+</p>
+<ul class="list">
+	<li>When Avatar loses all of his Health <code>CurrentPoints</code> he dies (and game ends)</li>
+	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health <code>CurrentPoints</code> are full<br>
+		and will instead be left alive with 1 Health <code>CurrentPoints</code> remaining</li>
+	<ul>
+		<li>However, if the damage is more than 20 <code>damagePoints</code> above his full Health <code>CurrentPoints</code>, he will still die</li>
+	</ul>
+</ul>
+
+<h2>TDD cycling Death</h2>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I start by writing the test.<br>
+	The domain model focus will be a new Property named <code>IsDead</code>,<br>
+	Thus the write a nested test class with same name at the bottom,<br>
+	and within it write the test case <code>CurrentPointsDecrease</code>,<br>
+	that fails as the code does not compile (<code>IsDead</code> not yet written).
+</p>
+<pre><code [highlight]="test_1_Red"></code></pre>
+
+<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
+<p>Let's make the test pass with simple implementation of <code>IsDead</code>.
+</p>
+<pre><code [highlight]="impl_1_Green"></code></pre>
+<p>
+	I make <code>IsDead</code> simply return <code>false</code> and that makes the test pass.<br>
+	I made it a readonly getter to fully encapsulate it, so it can not be set from the outside code.<br>
+	I know that simply returning <code>false</code> will not hold for the coming TDD cycles,<br>
+	but I'll use those TDD cycles to generalize the <code>IsDead</code> property, thus moving on.<br>
+</p>
