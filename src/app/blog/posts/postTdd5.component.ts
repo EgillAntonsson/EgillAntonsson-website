@@ -14,7 +14,7 @@ export class PostTdd5Component {
 	constructor(private blogService: BlogService) {
 		this.post = this.blogService.selectedPost
 	}
-	test_1_Red = `//HealthTest.cs
+	test_1_red = `//HealthTest.cs
 using NUnit.Framework;
 using System;
 
@@ -40,6 +40,13 @@ public class HealthTest
 				new Health(startingPoints);
 			});
 		}
+
+		[Test]
+		public void IsDeadIsFalse()
+		{
+			var health = new Health(12);
+			Assert.That(health.IsDead, Is.False);
+		}
 	}
 
 	public class TakeDamage
@@ -64,20 +71,10 @@ public class HealthTest
 			});
 		}
 	}
-
-	public class IsDead
-	{
-		[Test]
-		public void IsFalse_AtStart()
-		{
-			var health = new Health(12);
-			Assert.That(health.IsDead, Is.False);
-		}
-	}
 }
 `
 
-impl_1_Green = `//Health.cs
+impl_1_green = `//Health.cs
 using System;
 
 public class Health
@@ -108,70 +105,59 @@ public class Health
 }
 `
 
-test_2_Red = `//HealthTest.cs (only showing the new test)
-[TestCase(0)]
-[TestCase(-1)]
-public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
+test_2_red = `//HealthTest.cs (only showing the new test)
+[Test]
+public void IsDead_InTwoTakeDamageCalls()
 {
-	var health = new Health(12);
-	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		health.TakeDamage(damagePoints);
-	});
+	var health = new Health(10);
+	health.TakeDamage(9);
+	Assert.That(health.IsDead, Is.False);
+	health.TakeDamage(1);
+	Assert.That(health.IsDead, Is.True);
 }
 `
 
-impl_2_Green = `//Health.cs
+impl_2_green = `//Health.cs (only showing the new implementation)
+public bool IsDead => CurrentPoints < 1;
+`
+
+test_3_red = `//HealthTest.cs (only showing the new test inside nested Constructor class)
+[TestCase(12)]
+[TestCase(1)]
+public void FullPointsHasStartingValue(int startingPoints)
+{
+	var health = new Health(startingPoints);
+	Assert.That(health.FullPoints, Is.EqualTo(startingPoints));
+}
+`
+
+impl_3_green = `//Health.cs
 using System;
 
 public class Health
 {
 	public int CurrentPoints { get; private set; }
-
-	public Health(int startingPoints)
-	{
-		int lowestValidValue = 1;
-		if (startingPoints < lowestValidValue)
-		{
-			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints = startingPoints;
-	}
-
-	public void TakeDamage(int damagePoints)
-	{
-		int lowestValidValue = 1;
-		if (damagePoints < lowestValidValue)
-		{
-			var paramName = nameof(damagePoints);
-			var message = $"Value '{damagePoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints -= damagePoints;
-	}
-}
-`
-
-impl_2_Refactor = `//Health.cs
-using System;
-
-public class Health
-{
-	public int CurrentPoints { get; private set; }
+	public int FullPoints { get; private set; }
+	public bool IsDead => CurrentPoints < 1;
 
 	public Health(int startingPoints)
 	{
 		ValidatePoints(startingPoints, 1, nameof(startingPoints));
-		CurrentPoints = startingPoints;
+		FullPoints = CurrentPoints = startingPoints;
 	}
 
 	public void TakeDamage(int damagePoints)
 	{
 		ValidatePoints(damagePoints, 1, nameof(damagePoints));
-		CurrentPoints -= damagePoints;
+
+		if (CurrentPoints < FullPoints || CurrentPoints > damagePoints || damagePoints > CurrentPoints + 20)
+		{
+			CurrentPoints -= damagePoints;
+		}
+		else
+		{
+			CurrentPoints = 1;
+		}
 	}
 
 	private void ValidatePoints(int points, int lowestValidValue, string paramName)
@@ -185,56 +171,16 @@ public class Health
 }
 `
 
-test_final = `//HealthTest.cs
-using NUnit.Framework;
-using System;
-
-public class HealthTest
+test_4_red =  `//HealthTest.cs (only showing the new test inside nested TakeDamage)
+[TestCase(1, 2, 2)]
+[TestCase(1, 2, 3)]
+[TestCase(1, 2, 22)]
+[TestCase(-21, 2, 23)]
+public void CurrentPoints_WhenStartingPoints_andDamagePoints(int currentPoints, int startingPoints, int damagePoints)
 {
-	public class Constructor
-	{
-		[TestCase(12)]
-		[TestCase(1)]
-		public void CurrentPointsHasStartingValue(int startingPoints)
-		{
-			var health = new Health(startingPoints);
-			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
-		{
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				new Health(startingPoints);
-			});
-		}
-	}
-
-	public class TakeDamage
-	{
-		[Test]
-		public void CurrentPointsDecrease()
-		{
-			var health = new Health(12);
-			health.TakeDamage(1);
-			Assert.That(health.CurrentPoints, Is.EqualTo(11));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
-		{
-			var health = new Health(12);
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				health.TakeDamage(damagePoints);
-			});
-		}
-	}
+	var health = new Health(startingPoints);
+	health.TakeDamage(damagePoints);
+	Assert.That(health.CurrentPoints, Is.EqualTo(currentPoints));
 }
 `
 

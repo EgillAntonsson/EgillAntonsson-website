@@ -26,8 +26,8 @@
 <p>
 	I start by writing the test.<br>
 	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
-	Thus the write a nested test class with same name at the bottom,<br>
-	and within it write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
+	thus I write nested class with same name at the bottom,<br>
+	and within it I write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
 	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
@@ -62,7 +62,7 @@
 	<br>
 	This will be similar test to the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code> test<br>
 	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
-	and thus it will be under nested class <code>TakeDamage.</code>
+	and thus it will be inside nested class <code>TakeDamage.</code>
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
