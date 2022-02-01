@@ -191,9 +191,9 @@ public class HealthTest
 		[Test]
 		public void CurrentPointsDecrease()
 		{
-			var health = new Health(12);
+			var health = new Health(11);
 			health.TakeDamage(1);
-			Assert.That(health.CurrentPoints, Is.EqualTo(11));
+			Assert.That(health.CurrentPoints, Is.EqualTo(10));
 		}
 
 		[TestCase(0)]

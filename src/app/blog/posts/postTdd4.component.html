@@ -14,20 +14,20 @@
 		equal to the damage points taken (always losing at least 1 fraction)</li>
 </ul>
 <p>
-	Let's filter and transform this into a requirement that's focused only on the domain (as GUI will be done later):
+	Let's tweak this to focus on our current domain model (<code>Health</code> class):
 </p>
 <ul class="list">
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
 </ul>
 
-<h2>TDD cycling Taking Damage</h2>
+<h2>TDD cycling</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
 	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
-	Thus the write a nested test class with same name at the bottom,<br>
-	and within it write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
+	thus I write nested class with same name at the bottom,<br>
+	and within it I write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
 	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
@@ -62,7 +62,7 @@
 	<br>
 	This will be similar test to the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code> test<br>
 	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
-	and thus it will be under nested class <code>TakeDamage.</code>
+	and thus it will be inside nested class <code>TakeDamage.</code>
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
