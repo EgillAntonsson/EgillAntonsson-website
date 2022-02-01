@@ -23,7 +23,7 @@ export class BlogService {
 				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', dateYear, dateMonth, dateDay, seriesTddTitle),
 				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', dateYear, dateMonth, dateDay, seriesTddTitle),
 				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', '2022', 'January', '4', seriesTddTitle),
-				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', '2022', 'January', '30', seriesTddTitle)
+				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', '2022', 'February', '1', seriesTddTitle)
 			]
 		}
 		]
