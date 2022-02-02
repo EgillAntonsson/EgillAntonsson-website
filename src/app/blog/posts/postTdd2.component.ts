@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Post, BlogService } from '../../shared/services/blog.service'
+import { BlogService } from '../../shared/services/blog.service'
 
 @Component({
 	selector: 'app-post-tdd-2',
@@ -9,10 +9,11 @@ import { Post, BlogService } from '../../shared/services/blog.service'
 
 export class PostTdd2Component {
 
-	post: Post
-
-	constructor(private blogService: BlogService) {
-		this.post = this.blogService.selectedPost
+	get post() {
+		return this.blogService.selectedPost
 	}
+
+
+	constructor(private blogService: BlogService) {}
 
 }

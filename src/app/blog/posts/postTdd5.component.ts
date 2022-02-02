@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Post, BlogService } from '../../shared/services/blog.service'
+import {BlogService } from '../../shared/services/blog.service'
 
 @Component({
 	selector: 'app-post-tdd-5',
@@ -9,11 +9,12 @@ import { Post, BlogService } from '../../shared/services/blog.service'
 
 export class PostTdd5Component {
 
-	post: Post
-
-	constructor(private blogService: BlogService) {
-		this.post = this.blogService.selectedPost
+	get post() {
+		return this.blogService.selectedPost
 	}
+
+	constructor(private blogService: BlogService) {}
+
 	test_1_red = `//HealthTest.cs
 using NUnit.Framework;
 using System;

@@ -34,6 +34,7 @@ export class BlogService {
 		for (let i = 0; i < this.series.length; i++) {
 			for (let j = 0; j < this.series[i].posts.length; j++) {
 				const post = this.series[i].posts[j]
+				post.index = j
 				this.posts.push(post)
 			}
 		}
@@ -58,6 +59,7 @@ export class Post {
 	readonly dateYear: string
 	readonly dateMonth: string
 	readonly dateDay: string
+	index!: number
 
 	constructor(title: string, routePath: string, dateYear: string, dateMonth: string, dateDay: string, seriesTitle: string) {
 		this.title = title
