@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "~13.1.2",
+    "@angular-devkit/build-angular": "^13.3.0",
     "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "^13.1.1",
     "@angular/cdk": "^13.1.1",
