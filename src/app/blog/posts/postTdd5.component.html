@@ -6,11 +6,9 @@
 
 <h2>The Dying requirements</h2>
 <p>
-	Let's recap the rest of the requirements (2nd and 3rd) under <i>Taking Damage and Dying</i> from the user perspective<br>
-	(whole <i>Life Gauge behavior</i> list is in <a href="./blog/tdd-health/part2">Part 2</a>):
+	Let's recap the rest of the <i>Taking Damage and Dying</i> requirements from the user perspective:
 </p>
 <ul class="list">
-	<li class="noBulletinPoint"><b>Taking Damage and Dying</b></li>
 	<li>When Link loses all of his Hearts the game ends</li>
 	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
 		and will instead be left alive with Hearth 1 fraction remaining</li>
@@ -18,119 +16,177 @@
 		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
 	</ul>
 </ul>
+<sup>Whole requirement list from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>
 <p>
-	Let's tweak this to focus on our current domain model (<code>Health</code> class):
+	Let's reword this focusing on our domain model and using its terminology:
 </p>
 <ul class="list">
-	<li>When Avatar loses all of his Health <code>CurrentPoints</code> he dies (and game ends)</li>
-	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health <code>CurrentPoints</code> are full<br>
-		and will instead be left alive with 1 Health <code>CurrentPoints</code> remaining</li>
+	<li>When Avatar loses all of his Health Points he dies (and game ends)</li>
+	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health Points are full<br>
+		and will instead be left alive with 1 Health Points remaining</li>
 	<ul>
-		<li>However, if the damage is more than 20 <code>damagePoints</code> above his full Health <code>CurrentPoints</code>, he will still die</li>
+		<li>However, if the damage is more than 20 points above his full Health Points, he will still die</li>
 	</ul>
 </ul>
 
-<h2>Die TDD cycling</h2>
+<h2>The code</h2>
+<p>
+	The code presented below is usually only partial, focused on the current TDD cycle.<br>
+	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a> (and other parts are in previous posts).
+</p>
+
+<h2>Death cycling</h2>
+
+<p>
+	I start cycling the first dying requirement.<br>
+	The domain model focus will be a new property named <code>IsDead</code>.
+</p>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	I start by writing the test.<br>
-	The domain model focus will be a new property named <code>IsDead</code>,<br>
-	Thus the write a new test case <code>IsDeadIsFalse</code> inside the nested <code>Constructor</code> class.<br>
-	This test fails as the code does not compile (<code>IsDead</code> not yet written).
+	I write a new test case <code>IsDeadIsFalse</code>, and it fails as <code>IsDead</code> is not yet defined.
 </p>
 <pre><code [highlight]="test_1_red"></code></pre>
 
-<h3><span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span></h3>
+<h3><span class="greenPass">GREEN</span></h3>
 <p>Let's make the test pass with simple implementation of <code>IsDead</code>.
 </p>
 <pre><code [highlight]="impl_1_green"></code></pre>
 <p>
-	I make <code>IsDead</code> simply return <code>false</code> and that makes the test pass.<br>
-	I made it a readonly getter to fully encapsulate it, so it can not be set from the outside code (the implicit REFACTOR step).<br>
+	I made <code>IsDead</code> simply return <code>false</code> and that made the test pass.<br>
+	<br>
+	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
+	by encapsulating it as much as possible.<br>
+	<br>
 	I know that simply returning <code>false</code> for <code>IsDead</code><br>
 	will not hold as the generalized solution that satisfies all the requirements,<br>
-	but I'll start a new cycle to achieve that.<br>
+	but I'll do a new cycle to achieve that.<br>
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	Still Focusing on the dying requirement, but also having the 'protected from instant kill' case in mind,<br>
-	I'll write a test case that reduces the <code>CurrentPoints</code> to <code>0</code> in two <code>TakeDamage</code> calls,<br>
-	as I know that that case should always kill the Avatar.
+	Still Focusing on the first dying requirement, but also having the 'protected from instant kill' case in mind,<br>
+	I write a new test case that reduces the <code>CurrentPoints</code> to <code>0</code> after two <code>TakeDamage</code> invocations,<br>
+	as I know that that case should always kill the Avatar.<br>
 </p>
 <pre><code [highlight]="test_2_red"></code></pre>
 <p>
-	The test fails currently as I've made the Avatar immortal!<br>
+	The test fails as currently the Avatar is immortal!<br>
 	Of course that's no good, so let's fix that and make the test pass.
 </p>
 
-<h3><span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span></h3>
+<h3><span class="greenPass">GREEN</span></h3>
 <p>
-	I change the implementation change of the <code>IsDead</code> property that makes the test (and all tests) pass.<br>
-	I'm confident that now I have the generic solution for this property,<br>
-	and I feel no refactoring needs to be done,<br>
-	thus I'll start a new cycle for the 'protected from instant kill' requirement.
+	I change the implementation of the <code>IsDead</code> property that makes the test (and the previous test) pass.<br>
 </p>
 <pre><code [highlight]="impl_2_green"></code></pre>
+<p>
+	I'm confident that now I have the generic solution for this property,<br>
+	and it is already fully refactored.<br>
+	Thus I'll start a new cycle for the next requirement.
+</p>
 
-<h2>The Near Death Requirement</h2>
+<h2>Protected from instant kill</h2>
 <p>
 	Now it's time to take focus on the below requirement and cycle it.
 </p>
 <ul class="list inline">
-	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health <code>CurrentPoints</code> are full<br>
-		and will instead be left alive with 1 Health <code>CurrentPoints</code> remaining</li>
+	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health Points are full<br>
+		and will instead be left alive with 1 Health Points remaining</li>
 	<ul>
-		<li>However, if the damage is more than 20 <code>damagePoints</code> above his full Health <code>CurrentPoints</code>, he will still die</li>
+		<li>However, if the damage is more than 20 points above his full Health Points, he will still die</li>
 	</ul>
 </ul>
 <p>
-	I take further note of the concept of 'full Health' in the requirement<br>
+	I now take further note of the concept of 'full Health Points' in the requirement,<br>
 	and realize that it's an implementation that the requirement needs, so I start cycling it.
 </p>
 
-<h2> Full Health TDD cycling</h2>
+<h2>Full Health cycle</h2>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_3_red"></code></pre>
 <p>
-	This test fails as the code does not compile (<code>FullPoints</code> is not yet written).<br>
-	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code> but it's testing a different output,<br>
-	and thus the duplication is justified.
+	This test fails as <code>FullPoints</code> is not yet defined.<br>
+	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code> but the key difference is that it's testing a different exit point.
 </p>
 
-<h3><span class="greenPass">GREEN</span> and <span class="greenRefactor">REFACTOR</span></h3>
+<h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="impl_3_green"></code></pre>
 <p>
-	I made <code>FullPoints</code> a readonly getter to fully encapsulate it (the implicit REFACTOR step),<br>
-	and set <code>FullPoints</code> to the value of passed-in parameter <code>startingPoints</code> (same as for <code>CurrentPoints</code>).<br>
-	I'm confident that I this is generic solution for this property (at least for now),<br>
-	and I feel no refactoring needs to be done,<br>
-	thus I'll start a new cycle.<br>
+	I set <code>FullPoints</code> property to the value of passed-in parameter <code>startingPoints</code> (same as <code>CurrentPoints</code>).<br>
+	<br>
+	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
+	by encapsulating it a much as possible.<br>
+	<br>
+	The property solution now satisfies all the current addressed requirement cases (but likely will be revisited with the Health Replenishing requirements).<br>
+	Thus I'll start a new cycle.<br>
 </p>
 
-<h2>Near Death TDD cycling</h2>
+<h2>Protected (and not) cycle</h2>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_4_red"></code></pre>
 <p>
 	I focus on the output of <code>CurrentPoints</code> as the 'protected from instant kill' case should leave the value at <code>1</code>.<br>
-	The last <code>TestCase</code> tests the 'exception': when the damage is so much that it kills the Avatar regardless.<br>
+	The last <code>TestCase</code> tests the 'exception' case:<br>
+	when the damage is so much that it kills the Avatar regardless.<br>
 	The test run is shown below.
 </p>
-<figure>
-	<img src="../assets/images/blog/tdd/TestRunner_tests-protected-death.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
-	<figcaption>
-		Unity Test Runner: test cases for 'protected from instant kill'
-	</figcaption>
-</figure>
 
 <h2>Experience the value of TDD</h2>
 <p>
-	Now we are at the point that we have enough tests to make sure the implementation will be correct by passing them all.<br>
-	It took me a couple of tries where at first I thought I had it correct,<br>
-	but running the tests proved that I broke some of them (not always the last written test above).<br>
-	I'll intentionally stop here, and encourage you to implement the solution so that all tests passes to experience the value of TDD,<br>
-	and feel free to send in a comment below with the solution.<br>
-	You can get the code up to this point on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/tree/rest-of-damage-requirements--part-5/Assets/Scripts">GitHub</a>.<br>
-	After couple of weeks I aim write a new blog post with the solution and carry on, so stay tuned :)
+	Now the value of TDD starts to shine as my first couple of attempts<br>
+	did not pass the new test cases and/or broke existing ones.<br>
+	I suggest you try it out yourself before reading my <span class="greenPass">GREEN</span> solution below.<br>
+	You can get the current state of the code:
+<p>
+<ul class="list inline">
+	<li><a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Tests/EditMode/HealthTest.cs">HealthTest.cs</a></li>
+	<li><a href="	https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Runtime/Health.cs">Health.cs</a></li>
+</ul>
+<p>
+	The Unity Test Runner at this moment outputs:
+	<figure>
+		<img src="../assets/images/blog/tdd/TestRunner_tests-protected-from-instant-kill.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
+		<figcaption>
+			Unity Test Runner: test cases for 'protected from instant kill'
+		</figcaption>
+	</figure>
+</p>
+<p>
+	Have you tried it out ?<br>
+	Great !<br>
+	Then you can compare with my solution below :)
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="impl_4_green"></code></pre>
+<p>
+	I got all tests passing with this solution, but it could be cleaned up,<br>
+	thus onward to the refactoring step.
+</p>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="impl_4_refactor"></code></pre>
+<p>
+	To me it is more readable to 'flip' the <code>if</code> check,<br>
+	which then checks for the 'protection' case, and returns early (instead of having <code>else</code>).
+	I'll do a second pass on the 'magic' number.
+</p>
+
+<h3><span class="greenRefactor">REFACTOR, second pass</span></h3>
+<pre><code [highlight]="impl_4_refactor_2"></code></pre>
+<p>
+	I replace the 'magic' number with a variable that names what it is,<br>
+	and set its type as <code>uint</code> to signal that the value should be positive.<br>
+	Now I feel that the refactoring focused on the method is done.<br>
+	Zoom out a bit and looking at the overall implementation,<br>
+	it might be handy for the game design perspective to tweak this variable,<br>
+	but I'll leave it like this (at least for now).
+</p>
+
+<h3>Concluding this part</h3>
+<p>
+	This concludes these requirements and this part.<br>
+	I aim to continue with the remaining requirements in a new blog posts.<br>
+	Stay tuned :)
 </p>
