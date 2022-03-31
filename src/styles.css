@@ -535,7 +535,7 @@ min width considered 360px (Galaxy S5) */
 	p, li, code, .nodeContainer {
 		line-height: 23px;
 	}
-	p, h3, h4, pre, label, .list {
+	p, h3, h4, pre, label, sup, .list {
 		margin-left: 5%;
 		margin-right: 5%;
 	}
@@ -569,7 +569,7 @@ min width considered 360px (Galaxy S5) */
 	p, li, code, .nodeContainer {
 		line-height: 23px;
 	}
-	p, h3, h4, pre, label, .list {
+	p, h3, h4, pre, label, sup, .list {
 		margin-left: 15%;
 		margin-right: 15%;
 	}
@@ -603,7 +603,7 @@ min width considered 360px (Galaxy S5) */
 	p, li, code, .nodeContainer {
 		line-height: 24px;
 	}
-	p, h3, h4, pre, label, .list {
+	p, h3, h4, pre, label, sup, .list {
 		margin-left: 25%;
 		margin-right: 25%;
 	}
@@ -637,7 +637,7 @@ min width considered 360px (Galaxy S5) */
 	p, li, code, .nodeContainer {
 		line-height: 24px;
 	}
-	p, h3, h4, pre, label, .list {
+	p, h3, h4, pre, label, sup, .list {
 		margin-left: 30%;
 		margin-right: 30%;
 	}
