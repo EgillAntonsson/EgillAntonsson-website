@@ -190,13 +190,9 @@ ul {
  .muteAndSliderContainer {
 	width: 40%;
 	height: 24px;
-
-	/* float: left;
-	width: 100%; */
 }
 
 .muteContainer {
-	/* float: left; */
 	transform: translateY(-8%);
 	transform: translateX(25px);
 	display: block;
