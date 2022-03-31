@@ -85,10 +85,10 @@
 		<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part5</loc>
 		<priority>1.0</priority>
-		<lastmod>2022-02-01</lastmod>
+		<lastmod>2022-03-31</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_tests-protected-death.PNG</image:loc>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_tests-protected-from-instant-kill.PNG</image:loc>
 			<image:title>Unity Test Runner: test cases for 'protected from instant kill'</image:title>
 			<image:caption>Unity Test Runner: test cases for 'protected from instant kill'</image:caption>
 		</image:image>
