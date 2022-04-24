@@ -1,0 +1,83 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+</div>
+
+<h2>The Replenish requirements requirements</h2>
+<p>
+	Let's recap the replenish requirements from the user perspective:
+</p>
+
+<ul class="list">
+	<li>Link's Life Gauge can be replenished by:<br>
+		<ul>
+			<li>Picking up recovery Hearts / drinking recovery Potions</li>
+			<li>Resting while Sitting or Sleeping.</li>
+		</ul>
+	</li>
+</ul>
+<sup>The complete requirement list, from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>
+
+<p>
+	Let's reword this focusing on the domain model and using its terminology:
+</p>
+<ul class="list">
+	<li>Avatar Health can replenish <code>CurrentPoints</code> by:<br>
+		<ul>
+			<li>some game items</li>
+			<li>Resting action</li>
+		</ul>
+	</li>
+</ul>
+
+<h2>The code</h2>
+<p>
+	The code presented below is usually only partial, focused on the current TDD cycle.<br>
+	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
+</p>
+
+<h2>Replenish from items cycling</h2>
+
+<p>
+	The domain model focus will be a new method named <code>Replenish</code>.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I write a new test case and it fails as <code>Replenish</code> is not yet defined.
+</p>
+<pre><code [highlight]="test_1_red"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	The test passes with an implementation of empty <code>Replenish</code> method.
+</p>
+<pre><code [highlight]="impl_1_green"></code></pre>
+<p>
+	Of course this will not hold in the long run,<br>
+	but I'll add more test cases to drive the implementation.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="test_2_red"></code></pre>
+<p>
+	Now we have a failing test case when replenish should increase <code>CurrentPoints</code>.<br>
+	Before implementing and passing the tests,<br>
+	I will add more test cases and refactor, to cover all meaning cases.<br>
+</p>
+
+<h3><span class="redFail">RED, all meaningful test cases refactored into one test</span></h3>
+<pre><code [highlight]="test_refactor_red"></code></pre>
+
+<p>
+	I added test cases and refactored into one test<br>
+	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute (Like I've done in earlier tests).<br>
+	The test cases cover all meaningful cases:<br>
+	when the <code>replenishPoints</code> value, in relation with <code>startingPoints</code> and <code>damagePoints</code><br>
+	conveys a certain valid case / code flow (I will test invalid <br>
+	Thus this new test covers my previous two written tests (and more cases), thus I remove them.<br>
+	Thus a implementation passing all these cases will be the proper generic one.<br>
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
