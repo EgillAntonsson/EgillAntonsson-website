@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import {BlogService } from '../../shared/services/blog.service'
+import { PostComponent } from './post.component'
 
 @Component({
 	selector: 'app-post-tdd-6',
@@ -7,13 +7,23 @@ import {BlogService } from '../../shared/services/blog.service'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd6Component {
+export class PostTdd6Component extends PostComponent {
 
-	get post() {
-		return this.blogService.selectedPost
-	}
-
-	constructor(private blogService: BlogService) {}
+	test_invalid_value_red = `// HealthTest.cs
+// inside nested Replenish class.
+[TestCase(0)]
+[TestCase(-1)]
+public void ThrowsError_WhenReplenishPointsIsInvalid(int replenishPoints)
+{
+	var health = new Health(12);
+	Exception ex = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+	delegate
+	{
+		health.Replenish(replenishPoints);
+	});
+	Assert.That(ex.Message, Does.Match("invalid").IgnoreCase);
+}
+`
 
 	test_1_red = `// HealthTest.cs
 // inside nested Replenish class.

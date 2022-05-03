@@ -13,18 +13,15 @@ export class BlogService {
 	constructor() {
 
 		const seriesTddTitle = 'TDD-ing Avatar Health in Unity (C# .NET)'
-		const dateYear = '2021'
-		const dateMonth = 'Dec'
-		const dateDay = '30'
 
 		this.series = [
 			{title: seriesTddTitle, posts: [
-				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', dateYear, dateMonth, dateDay, seriesTddTitle),
-				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', '2022', 'January', '4', seriesTddTitle),
-				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', '2022', 'February', '1', seriesTddTitle),
-				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', '2022', 'April', '1', seriesTddTitle)
+				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 0, 30)),
+				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30)),
+				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', seriesTddTitle, new Date(2021, 11, 30)),
+				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4)),
+				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 2, 31)),
+				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 3, 25))
 			]
 		}
 		]
@@ -57,18 +54,16 @@ export class Post {
 	readonly title: string
 	readonly routePath: string
 	readonly seriesTitle: string
-	readonly dateYear: string
-	readonly dateMonth: string
-	readonly dateDay: string
+	readonly publishedDate: Date
+	readonly updatedDate?: Date
 	index!: number
 
-	constructor(title: string, routePath: string, dateYear: string, dateMonth: string, dateDay: string, seriesTitle: string) {
+	constructor(title: string, routePath: string, seriesTitle: string, publishedDate: Date, updatedDate?: Date) {
 		this.title = title
 		this.routePath = routePath
-		this.dateYear = dateYear
-		this.dateMonth = dateMonth
-		this.dateDay = dateDay
 		this.seriesTitle = seriesTitle
+		this.publishedDate = publishedDate
+		this.updatedDate = updatedDate
 	}
 }
 

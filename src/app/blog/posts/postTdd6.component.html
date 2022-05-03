@@ -1,7 +1,12 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
 </div>
 
 <h2>The Replenish requirements requirements</h2>
@@ -40,10 +45,30 @@
 <h2>Replenish from items cycling</h2>
 
 <p>
-	The domain model focus will be a new method named <code>Replenish</code>.
+	The domain model focus will be a new method named <code>Replenish</code>.<br>
+	I'll start with testing invalid value cases.
 </p>
+<h2>Invalid value cases</h2>
 
 <h3><span class="redFail">RED</span></h3>
+<p>
+	I write test cases using inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute<br>
+	and it fails as <code>Replenish</code> is not yet defined.
+</p>
+<pre><code [highlight]="test_invalid_value_red"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	The test passes by implementing <code>Replenish</code> method that reuses the existing <code>ValidatePoints</code> method.<br>
+	Of course this will not hold for valid values cases so I do a new TDD cycle for those.
+</p>
+
+<p>
+	Of course this will not hold in the long run,<br>
+	but I'll add more test cases to drive the implementation.
+</p>
+
+<h3><span class="redFail">RED SMUUU</span></h3>
 <p>
 	I write a new test case and it fails as <code>Replenish</code> is not yet defined.
 </p>

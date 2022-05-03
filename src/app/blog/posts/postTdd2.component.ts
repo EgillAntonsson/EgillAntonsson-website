@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { BlogService } from '../../shared/services/blog.service'
+import { PostComponent } from './post.component'
 
 @Component({
 	selector: 'app-post-tdd-2',
@@ -7,13 +7,4 @@ import { BlogService } from '../../shared/services/blog.service'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd2Component {
-
-	get post() {
-		return this.blogService.selectedPost
-	}
-
-
-	constructor(private blogService: BlogService) {}
-
-}
+export class PostTdd2Component extends PostComponent {}
