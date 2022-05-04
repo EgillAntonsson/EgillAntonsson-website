@@ -31,31 +31,32 @@
 
 <h2>What is a good Unit Test ?</h2>
 <p>
-	Write good unit tests that are based on requirements and provide value (e.g. don't test a simple getters/setters specifically),<br>
-	and test code should be kept as clean as the production code. (REFACTOR step in TDD applies to both)<br>
+	A good unit tests is testing the a requirement logic of the SUT <i>(subject/unit under test)</i><br>
+	The test code should be kept as clean as the production code(<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
 	Here are definitions from Roy Osherove in The Art of Unit testing, 3rd edition:<br>
+	(for him the word 'unit' in unit testing stands for 'unit of work')
 </p>
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/25">Unit of Work definition</a></h3>
 <p>
-A unit of work is the sum of actions that take place between the invocation of an entry point<br>
-up until a noticeable end result through one or more exit points.<br>
-The entry point is the thing we trigger.<br>
+A <i>unit of work</i> is the sum of actions that take place between the invocation of an <i>entry point</i><br>
+up until a noticeable end result through one or more <i>exit points</i>.<br>
+The <i>entry point</i> is the thing we trigger.<br>
 Given a publicly visible function, for example:
 </p>
 <ul class="list inline">
-	<li>The function's body is all or part of the unit of work.</li>
-	<li>The function's declaration and signature are the entry point into the body.</li>
-	<li>The resulting outputs or behaviors of the function are its exit points.</li>
+	<li>The function's body is all or part of the <i>unit of work</i>.</li>
+	<li>The function's declaration and signature are the <i>entry point</i> into the body.</li>
+	<li>The resulting outputs or behaviors of the function are its <i>exit points</i>.</li>
 </ul>
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/193">Good Unit Test definition</a></h3>
 <p>
-A unit test is an automated piece of code that invokes the unit of work<br>
+A <i>unit test</i> is an automated piece of code that invokes the unit of work<br>
 through an entry point, and then checks one of its exit points.<br>
 It can be written easily and runs quickly.<br>
-It's trustworthy, readable & maintainable.<br>
-It is consistent as long as the production code we control has not changed.
+<b>It's trustworthy, readable & maintainable.<br>
+It is consistent as long as the production code we control has not changed.</b>
 </p>
 
 <h2>Why do TDD ?</h2>

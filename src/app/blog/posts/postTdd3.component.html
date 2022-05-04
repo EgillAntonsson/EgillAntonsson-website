@@ -63,11 +63,12 @@
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
 	I'm using a naming/structuring convention by using nested test classes.<br>
-	(that I discovered via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
-	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a>)<br>
 	I name the nested class after the <i>entry point</i> of the test,<br>
-	which in this case is the constructor<br>
+	which in this case is the constructor method<br>
 	(see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
+	that I discovered this convention via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a><br>
+	that references Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
+	that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a><br>
 	<br>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
 </p>
@@ -165,7 +166,7 @@
 
 <p>
 	I'm confident that the implementation of the conditional<br>
-	is the proper generic solution for this requirement (easy to come up with).<br>
+	is the proper generic solution for this requirement.<br>
 	However I just did the bare minimum for the exception message,<br>
 	and I will refactor it in the next step.<br>
 </p>
@@ -188,9 +189,9 @@
 
 <h2>Let's test a few more values</h2>
 
-<p>I am confident that the implementation for the requirement is<br>
-	the proper generic one that works for any passed in parameter value.<br>
-	But I'll test a few more values to verify it<br>
+<p>I'm confident that the implementation of the requirement<br>
+	will work for any passed-in parameter value.<br>
+	But I'll test a few more values to verify it,<br>
 	and to demonstrate how to do it in a clean and maintainable way.
 </p>
 

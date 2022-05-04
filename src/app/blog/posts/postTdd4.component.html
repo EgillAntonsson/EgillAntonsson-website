@@ -25,58 +25,57 @@
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
 </ul>
 
+<div [innerHTML]="aboutCodeBlock"></div>
+
 <h2>TDD cycling</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
-	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
+	The entry point will be a new method named <code>TakeDamage</code>,<br>
 	thus I write nested class with same name at the bottom,<br>
-	and within it I write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
-	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
+	and within it I write the test case <code>CurrentPointsDecrease</code><br>
+	(according to my naming convention, explained in <a href="./blog/tdd-health/part3">Part 3</a>).<br>
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
-	Just to test not always the same starting value, I use <code>11</code> here (instead of <code>12</code>).
+	The test fails as the code does not compile (<code>TakeDamage</code> method not yet written).
 </p>
 
-<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
-<p>Let's make the test pass with a simple implementation of <code>TakeDamage</code>.
+<h3><span class="greenPass">GREEN</span></h3>
+<p>Let's make the test pass with a simple implementation of <code>TakeDamage</code> method.
 </p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 <p>
-	I'm confident that the implementation is the proper generic solution for this requirement,<br>
-	and it was also easy to come up with, and thus does not need additional steps to generalize.<br>
-	<br>
-	I feel that no other refactoring is needed in this cycle,<br>
-	but I notice that invalid values can be passed in for <code>damagePoints</code> parameter,<br>
-	so let's do a cycle for that.
+	This effortless <span class="greenPass">GREEN</span> step implementation<br>
+	fulfills the requirement for all valid passed-in parameter values, and does not need any refactoring,<br>
+	but I should handle invalid values, so let's do a cycle for that.
 </p>
 
 <h2>Handle invalid <span class="code">damagePoints</span> values</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	I start by writing the test.<br>
 	A minus value for <code>damagePoints</code> is clearly invalid but what about <code>0</code> ?<br>
 	I conclude that <code>0</code> is also invalid,<br>
 	as an outside 'damage checker and calculator' logic should take care of this earlier<br>
-	and not process further when <code>damagePoints</code> is <code>0</code> or less (thus <code>TakeDamage won't be called)</code>.<br>
+	(thus <code>TakeDamage won't be called)</code>.<br>
 	This also makes the design streamlined as it ensures that<br>
 	<code>CurrentPoints</code> will always decrease on <code>TakeDamage</code> call.<br>
 	<br>
-	This will be similar test to the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code> test<br>
+	This will be a similar test as the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
 	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
-	and thus it will be inside nested class <code>TakeDamage.</code>
+	and thus it will be inside the nested class <code>TakeDamage.</code>
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
-	The number I pass into the constructor does not matter to this test, and thus is not a <i>TestCase</i> parameter.
+	The value I pass into the constructor has no significance to this test, and thus is not a <i>TestCase</i> parameter.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with a simple implementation.<br>
-	I duplicate the exception throwing code from the constructor and simply fix the parameter to <code>damagePoints</code>.<br>
+<p>I make the test pass by<br>
+	duplicating the exception throwing code from the constructor,<br>
+	and simply change the parameter to <code>damagePoints</code>.<br>
 	(knowing that I'll refactor this code smell right away in the next step).
 </p>
 <pre><code [highlight]="impl_2_Green"></code></pre>
