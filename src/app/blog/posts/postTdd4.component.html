@@ -69,43 +69,39 @@
 </p>
 <pre><code [highlight]="test_2_Red"></code></pre>
 <p>
-	The value I pass into the constructor has no significance to this test, and thus is not a <i>TestCase</i> parameter.
+	The value I pass into the constructor has no significance to this test,<br>
+	and thus is not a <i>TestCase</i> parameter.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>I make the test pass by<br>
 	duplicating the exception throwing code from the constructor,<br>
-	and simply change the parameter to <code>damagePoints</code>.<br>
+	and then changing the parameter to <code>damagePoints</code><br>
 	(knowing that I'll refactor this code smell right away in the next step).
 </p>
 <pre><code [highlight]="impl_2_Green"></code></pre>
-
+<br>
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <p>
-	I refactor the duplicated code smell away,<br>
-	and I run all the tests as needed during it, to verify I haven't broken anything.<br>
-	After some time the implementation feels fully refactored for the requirements:
+	I refactor the duplicated code smell away.<br>
 </p>
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
+	When exception is thrown,<br>
+	the message is followed by the stack trace in the console,<br>
+	and therefore it is sufficient that the param name will simply be <i>points</i><br>
+	as you can follow the trace to see which method called <code>ValidatePoints</code>.<br>
+  <br>
 	Having <code>lowestValidValue</code> as sent in parameter for method <code>ValidatePoints</code><br>
-	makes the method easy to reuse, if another case comes later with different  <code>lowestValidValue</code>.<br>
+	makes the method easy to reuse,<br>
+	if another case comes later with different  <code>lowestValidValue</code>.<br>
 	<br>
-	I run the tests in the end to verify everything works.<br>
-	Below is the whole <code>HealthTest.cs</code>, along showing last run in the Test Runner:
+	I run all the tests (and also did as needed while refactoring) to verify everything works.<br>
+	Now the Test Runner looks like this:
 </p>
-<pre><code [highlight]="test_final"></code></pre>
 <figure>
 	<img src="../assets/images/blog/tdd/TestRunner_after-refactoring-ThrowsError-impl.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
 	<figcaption>
 		Unity Test Runner: after refactoring 'ThrowsError' implementation
 	</figcaption>
 </figure>
-
-<h2>Concluding this part</h2>
-
-<p>This concludes these requirements and this part.<br>
-	The code and Unity project is in this <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub repo</a><br>
-	I aim to continue with the requirements and the implementation in later blog posts.
-</p>
-

@@ -68,7 +68,8 @@ public class Health
 public void ThrowsError_WhenStartingPointsIsInvalid()
 {
 	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate {
+	delegate
+	{
 		new Health(0);
 	});
 	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
@@ -88,6 +89,7 @@ public class Health
 		{
 			throw new ArgumentOutOfRangeException("startingPoints", "Invalid value");
 		}
+
 		CurrentPoints = startingPoints;
 	}
 }
@@ -99,10 +101,11 @@ public Health(int startingPoints)
 	int lowestValidValue = 1;
 	if (startingPoints < lowestValidValue)
 	{
-		var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
+		var message = $"Value 'startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
 		var paramName = nameof(startingPoints);
 		throw new ArgumentOutOfRangeException(paramName, message);
 	}
+
 	CurrentPoints = startingPoints;
 }
 `
