@@ -21,7 +21,7 @@
 		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
 	</ul>
 </ul>
-<sup>Whole requirement list from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>
+<div [innerHTML]="completeRequirementListHtml"></div>
 
 <p>
 	Let's reword this focusing on our domain model and using its terminology:
@@ -35,11 +35,7 @@
 	</ul>
 </ul>
 
-<h2>The code</h2>
-<p>
-	The code presented below is usually only partial, focused on the current TDD cycle.<br>
-	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a> (and other parts are in previous posts).
-</p>
+<div [innerHTML]="aboutCodeHtml"></div>
 
 <h2>Death cycling</h2>
 
@@ -55,18 +51,16 @@
 <pre><code [highlight]="test_1_red"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with simple implementation of <code>IsDead</code>.
+<p>
+	I make <code>IsDead</code> simply return <code>false</code> to pass the test pass.
 </p>
 <pre><code [highlight]="impl_1_green"></code></pre>
 <p>
-	I made <code>IsDead</code> simply return <code>false</code> and that made the test pass.<br>
-	<br>
-	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
-	by encapsulating it as much as possible.<br>
+	At the same time I encapsulated the property into a 'getter' (via <a href="https://davefancher.com/2014/08/25/c-6-0-expression-bodied-members/">Expression-Bodied Members syntax</a>).<br>
 	<br>
 	I know that simply returning <code>false</code> for <code>IsDead</code><br>
 	will not hold as the generalized solution that satisfies all the requirements,<br>
-	but I'll do a new cycle to achieve that.<br>
+	thus I'll now do a new cycle to achieve that.<br>
 </p>
 
 <h3><span class="redFail">RED</span></h3>
@@ -94,26 +88,18 @@
 
 <h2>Protected from instant kill</h2>
 <p>
-	Now it's time to take focus on the below requirement and cycle it.
-</p>
-<ul class="list inline">
-	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health Points are full<br>
-		and will instead be left alive with 1 Health Points remaining</li>
-	<ul>
-		<li>However, if the damage is more than 20 points above his full Health Points, he will still die</li>
-	</ul>
-</ul>
-<p>
-	I now take further note of the concept of 'full Health Points' in the requirement,<br>
+	Now focusing on the latter requirement (listed at start of this post),<br>
+	I now take further note of the concept 'full Health Points' in the requirement,<br>
 	and realize that it's an implementation that the requirement needs, so I start cycling it.
 </p>
 
-<h2>Full Health cycle</h2>
+<h2>Full Health Points cycle</h2>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_3_red"></code></pre>
 <p>
 	This test fails as <code>FullPoints</code> is not yet defined.<br>
-	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code> but the key difference is that it's testing a different exit point.
+	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code><br>
+	but the key difference is that it's testing a different exit point.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>

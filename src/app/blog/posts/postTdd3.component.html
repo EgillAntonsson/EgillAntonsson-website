@@ -112,8 +112,8 @@
 	I also rename the property to <span class="code">CurrentPoints</span> (and thus the test case) to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
 	<br>
-	I also encapsulate <span class="code">CurrentPoints</span> with a private setter,<br>
-	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
+	I also encapsulate <span class="code">CurrentPoints</span> into a 'getter, private setter'.<br>
+	In general I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
 	The only exposed interface should come from<br>
 	the requirements that the TDD cycles will drive,<br>
 	and if the tests need additional exposure no top of that<br>

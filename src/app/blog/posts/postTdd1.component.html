@@ -21,7 +21,7 @@
 	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
 	<li><span class="greenRefactor">REFACTOR:</span> if needed: generalize the solution, clean up the structure / design / <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> (all tests passing)</li>
 </ol>
-<p>The cycle should focus is on fulfilling a requirement on the Subject under Test (SUT)<br>
+<p>The cycle should focus is on fulfilling a requirement on the SUT (Subject/Unit Under Test)<br>
 	repeating it until you are confident that the production code has become generic enough to handle all input cases. (with test becoming more specific).<br>
 	At some interval you should stop and evaluate if the design of the overall system is sound,<br>
 	and refactor if needed (all test passing).<br>
@@ -31,10 +31,11 @@
 
 <h2>What is a good Unit Test ?</h2>
 <p>
-	A good unit tests is testing the a requirement logic of the SUT <i>(subject/unit under test)</i><br>
-	The test code should be kept as clean as the production code(<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
-	Here are definitions from Roy Osherove in The Art of Unit testing, 3rd edition:<br>
-	(for him the word 'unit' in unit testing stands for 'unit of work')
+	A good unit test is focused on a specific SUT requirement,<br>
+	of meaningful logic (e.g. don't test simple getter properties on their own).<br>
+	The test code should be kept as clean as the production code (<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
+	Here are definitions from Roy Osherove in <i>The Art of Unit testing, 3rd edition</i><br>
+	(for him the word 'unit' in unit testing stands for 'unit of work'):
 </p>
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/25">Unit of Work definition</a></h3>
@@ -52,8 +53,8 @@ Given a publicly visible function, for example:
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/193">Good Unit Test definition</a></h3>
 <p>
-A <i>unit test</i> is an automated piece of code that invokes the unit of work<br>
-through an entry point, and then checks one of its exit points.<br>
+A <i>unit test</i> is an automated piece of code that invokes the <i>unit of work</i><br>
+through an <i>entry point</i>, and then checks one of its <i>exit points</i>.<br>
 It can be written easily and runs quickly.<br>
 <b>It's trustworthy, readable & maintainable.<br>
 It is consistent as long as the production code we control has not changed.</b>
