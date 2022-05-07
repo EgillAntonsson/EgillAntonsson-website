@@ -19,12 +19,13 @@
 <ol class="list">
 	<li><span class="redFail">RED:</span> Write a test that fails</li>
 	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> if needed: generalize the solution, clean up the structure / design / <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> (all tests passing)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Evaluate if there is a <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smell</a> that should be refactored out (if not, then skip step)</li>
 </ol>
 <p>The cycle should focus is on fulfilling a requirement on the SUT (Subject/Unit Under Test)<br>
-	repeating it until you are confident that the production code has become generic enough to handle all input cases. (with test becoming more specific).<br>
+	repeating it until you are confident that the SUT has become generic enough to handle all meaningful cases<br>
+	(as the tests become more specific).<br>
 	At some interval you should stop and evaluate if the design of the overall system is sound,<br>
-	and refactor if needed (all test passing).<br>
+	and refactor if needed (making sure all test are passing).<br>
 	This is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> and other sources.<br>
 	(Bob terms additional cycles within and around RED / GREEN / REFACTOR in his post).
 </p>
@@ -34,7 +35,7 @@
 	A good unit test is focused on a specific SUT requirement,<br>
 	of meaningful logic (e.g. don't test simple getter properties on their own).<br>
 	The test code should be kept as clean as the production code (<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
-	Here are definitions from Roy Osherove in <i>The Art of Unit testing, 3rd edition</i><br>
+	Here are definitions from <b>Roy Osherove</b> in <i>The Art of Unit testing, 3rd edition</i><br>
 	(for him the word 'unit' in unit testing stands for 'unit of work'):
 </p>
 

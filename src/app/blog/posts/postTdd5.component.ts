@@ -19,11 +19,11 @@ public void IsDeadIsFalse()
 }
 `
 
-impl_1_green = `// Health.cs
+	impl_1_green = `// Health.cs
 public bool IsDead => false;
 `
 
-test_2_red = `// HealthTest.cs
+	test_2_red = `// HealthTest.cs
 // inside nested TakeDamage class.
 [Test]
 public void IsDead_AfterTwoInvocations()
@@ -36,7 +36,7 @@ public void IsDead_AfterTwoInvocations()
 }
 `
 
-impl_2_green = `// Health.cs
+	impl_2_green = `// Health.cs
 public bool IsDead => CurrentPoints < 1;
 `
 
@@ -51,22 +51,21 @@ public void FullPointsHasStartingValue(int startingPoints)
 }
 `
 
-impl_3_green = `// Health.cs
+	impl_3_green = `// Health.cs
 public class Health
 {
 	public int CurrentPoints { get; private set; }
 	public int FullPoints { get; private set; }
-	public bool IsDead => CurrentPoints < 1;
 
 	public Health(int startingPoints)
 	{
-		ValidatePoints(startingPoints, 1, nameof(startingPoints)); // method not shown
+		ValidatePoints(startingPoints, 1); // method not shown
 		FullPoints = CurrentPoints = startingPoints;
 	}
 }
 `
 
-test_4_red =  `// HealthTest.cs
+	test_4_red =  `// HealthTest.cs
 // inside nested TakeDamage class
 [TestCase(1, 2, 2)]
 [TestCase(1, 2, 3)]
@@ -83,7 +82,7 @@ public void CurrentPoints_WhenStartingPoints_andDamagePoints(
 }
 `
 
-impl_4_green = `// Health.cs
+	impl_4_green = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
 	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
@@ -101,7 +100,7 @@ public void TakeDamage(int damagePoints)
 }
 `
 
-impl_4_refactor = `// Health.cs
+	impl_4_refactor = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
 	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
@@ -118,7 +117,7 @@ public void TakeDamage(int damagePoints)
 }
 `
 
-impl_4_refactor_2 = `// Health.cs
+	impl_4_refactor_2 = `// Health.cs
 public const uint MaxNegativePointsForInstantKillProtection = 20;
 
 public void TakeDamage(int damagePoints)

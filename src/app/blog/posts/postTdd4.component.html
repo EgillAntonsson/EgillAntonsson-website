@@ -11,15 +11,16 @@
 
 <h2>The first Taking Damage requirement</h2>
 <p>
-	Let's recap the first requirement under <i>Taking Damage and Dying</i> from the user perspective<br>
-	(whole <i>Life Gauge behavior</i> list is in <a href="./blog/tdd-health/part2">Part 2</a>):
+	Let's recap the first requirement under <i>Taking Damage and Dying</i> from the user perspective:
 </p>
 <ul class='list'>
 	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
 		equal to the damage points taken (always losing at least 1 fraction)</li>
 </ul>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
 <p>
-	Let's tweak this to focus on our current domain model (<code>Health</code> class):
+	{{rewordRequirement}}
 </p>
 <ul class="list">
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
@@ -47,9 +48,9 @@
 </p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 <p>
-	This effortless <span class="greenPass">GREEN</span> step implementation<br>
-	fulfills the requirement for all valid passed-in parameter values, and does not need any refactoring,<br>
-	but I should handle invalid values, so let's do a cycle for that.
+	My minimal effort implementation fulfills the requirement for all valid passed-in values (I'm confident),<br>
+	and does not need a <span class="greenRefactor">REFACTOR</span> step.<br>
+	But invalid values can be passed in, so I'll do a cycle for handling those.
 </p>
 
 <h2>Handle invalid <span class="code">damagePoints</span> values</h2>
@@ -76,7 +77,7 @@
 <h3><span class="greenPass">GREEN</span></h3>
 <p>I make the test pass by<br>
 	duplicating the exception throwing code from the constructor,<br>
-	and then changing the parameter to <code>damagePoints</code><br>
+	and then renaming the parameter to <code>damagePoints</code><br>
 	(knowing that I'll refactor this code smell right away in the next step).
 </p>
 <pre><code [highlight]="impl_2_Green"></code></pre>

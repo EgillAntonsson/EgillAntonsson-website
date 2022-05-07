@@ -55,4 +55,8 @@ export class PostComponent {
 		return `<sup>The complete requirement list, from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>`
 	}
 
+	get rewordRequirement() {
+		return `Let's reword this focusing on the domain model and using its terminology:`
+	}
+
 }

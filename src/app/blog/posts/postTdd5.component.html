@@ -24,7 +24,7 @@
 <div [innerHTML]="completeRequirementListHtml"></div>
 
 <p>
-	Let's reword this focusing on our domain model and using its terminology:
+	{{rewordRequirement}}
 </p>
 <ul class="list">
 	<li>When Avatar loses all of his Health Points he dies (and game ends)</li>
@@ -52,14 +52,13 @@
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>
-	I make <code>IsDead</code> simply return <code>false</code> to pass the test pass.
+	I make <code>IsDead</code> simply return <code>false</code> to pass the test.
 </p>
 <pre><code [highlight]="impl_1_green"></code></pre>
 <p>
-	At the same time I encapsulated the property into a 'getter' (via <a href="https://davefancher.com/2014/08/25/c-6-0-expression-bodied-members/">Expression-Bodied Members syntax</a>).<br>
+	I encapsulated the property into a 'getter' via <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Members syntax</a>.<br>
 	<br>
-	I know that simply returning <code>false</code> for <code>IsDead</code><br>
-	will not hold as the generalized solution that satisfies all the requirements,<br>
+	I know that simply returning <code>false</code> for <code>IsDead</code> will not hold as the generic solution that satisfies all cases,<br>
 	thus I'll now do a new cycle to achieve that.<br>
 </p>
 
@@ -82,7 +81,6 @@
 <pre><code [highlight]="impl_2_green"></code></pre>
 <p>
 	I'm confident that now I have the generic solution for this property,<br>
-	and it is already fully refactored.<br>
 	Thus I'll start a new cycle for the next requirement.
 </p>
 
@@ -90,28 +88,28 @@
 <p>
 	Now focusing on the latter requirement (listed at start of this post),<br>
 	I now take further note of the concept 'full Health Points' in the requirement,<br>
-	and realize that it's an implementation that the requirement needs, so I start cycling it.
+	and realize that it's part of the requirement, so I start cycling it.
 </p>
 
 <h2>Full Health Points cycle</h2>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_3_red"></code></pre>
 <p>
-	This test fails as <code>FullPoints</code> is not yet defined.<br>
+	This test fails as <code>FullPoints</code> property is not yet defined.<br>
 	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code><br>
-	but the key difference is that it's testing a different exit point.
+	but the key difference is that it's testing a different <i>exit point</i> (see <a href="./blog/tdd-health/part1">Good Unit Test definition</a>).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="impl_3_green"></code></pre>
 <p>
-	I set <code>FullPoints</code> property to the value of passed-in parameter <code>startingPoints</code> (same as <code>CurrentPoints</code>).<br>
+	I set <code>FullPoints</code> to the <code>startingPoints</code> parameter value (same as <code>CurrentPoints</code>).<br>
 	<br>
-	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
-	by encapsulating it a much as possible.<br>
+	I also encapsulate <code>CurrentPoints</code> into a 'getter, private setter'.<br>
 	<br>
-	The property solution now satisfies all the current addressed requirement cases (but likely will be revisited with the Health Replenishing requirements).<br>
-	Thus I'll start a new cycle.<br>
+	The property solution now satisfies all the current requirements<br>
+	(but likely will be revisited later with the Replenishing requirements).<br>
+	Thus now I'll start a new cycle to fulfill the 'Protected from instant kill' requirement.<br>
 </p>
 
 <h2>Protected (and not) cycle</h2>
