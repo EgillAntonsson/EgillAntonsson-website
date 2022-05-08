@@ -57,8 +57,8 @@
 <p>
 	A minus value for <code>damagePoints</code> is clearly invalid but what about <code>0</code> ?<br>
 	I conclude that <code>0</code> is also invalid,<br>
-	as an outside 'damage checker and calculator' logic should take care of this earlier<br>
-	(thus <code>TakeDamage won't be called)</code>.<br>
+	as an outside 'damage calculator' logic should take care of this earlier<br>
+	(thus <code>TakeDamage won't be invoked)</code>.<br>
 	This also makes the design streamlined as it ensures that<br>
 	<code>CurrentPoints</code> will always decrease on <code>TakeDamage</code> call.<br>
 	<br>

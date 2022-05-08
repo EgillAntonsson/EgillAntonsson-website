@@ -89,3 +89,23 @@
 	<br>
 	But I have to handle invalid input, so let's do a cycle for those.
 </p>
+
+<h2>Handle invalid input values</h2>
+<h3><span class="redFail">RED</span></h3>
+<p>
+	As this will be similar to the 'take damage' handling,<br>
+	I copy the 'take damage throws error' test<br>
+	and paste it under the nested <code>Replenish</code> class<br>
+	and change to 'replenish' appropriately.
+</p>
+<pre><code [highlight]="test_invalid_input_red"></code></pre>
+<p>
+	This particular copy / paste of test cases makes sense and does not 'smell'.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	I invoke the existing <code>ValidatePoints</code> method<br>
+	passing in <code>replenishPoints</code> and <code>1</code> for <code>lowestValidValue</code>
+</p>
+<pre><code [highlight]="test_invalid_input_green"></code></pre>

@@ -21,7 +21,7 @@ export class BlogService {
 				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', seriesTddTitle, new Date(2021, 11, 30)),
 				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4)),
 				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 2, 31)),
-				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 3, 25))
+				new Post( 'Part 6 - Replenished by items', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9))
 			]
 		}
 		]
