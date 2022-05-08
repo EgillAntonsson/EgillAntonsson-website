@@ -10,7 +10,7 @@ import { PostComponent } from './post.component'
 export class PostTdd6Component extends PostComponent {
 
 	test_invalid_value_red = `// HealthTest.cs
-// inside nested Replenish class.
+// inside nested class Replenish
 [TestCase(0)]
 [TestCase(-1)]
 public void ThrowsError_WhenReplenishPointsIsInvalid(int replenishPoints)
@@ -25,10 +25,27 @@ public void ThrowsError_WhenReplenishPointsIsInvalid(int replenishPoints)
 }
 `
 
+	test_invalid_value_green = `// Health.cs
+public void Replenish(int replenishPoints)
+{
+	ValidatePoints(replenishPoints, 1);
+}
+
+private void ValidatePoints(int points, int lowestValidValue)
+{
+	if (points < lowestValidValue)
+	{
+		var message = $"Value {points} is invalid, it should be equal or higher than {lowestValidValue}";
+		var paramName = nameof(points);
+		throw new ArgumentOutOfRangeException(paramName, message);
+	}
+}
+`
+
 	test_1_red = `// HealthTest.cs
-// inside nested Replenish class.
+// inside nested class Replenish
 [Test]
-public void CurrentPointsSame_WhenFull()
+public void CurrentPoints_WhenFullHealth()
 {
 	var health = new Health(12);
 	health.Replenish(1);
@@ -37,38 +54,25 @@ public void CurrentPointsSame_WhenFull()
 `
 
 	impl_1_green = `// Health.cs
-public void Replenish(int points) { }
+public void Replenish(int replenishPoints) { }
 `
 
 	test_2_red = `// HealthTest.cs
-// inside nested Replenish class.
+// inside nested class Replenish
 [Test]
-public void CurrentPointsReplenish_WhenNotFull()
+public void CurrentPoints_WhenNotFullHealth()
 {
 	var health = new Health(12);
-	health.TakeDamage(1);
+	health.TakeDamage(2);
 	health.Replenish(1);
-	Assert.That(health.CurrentPoints, Is.EqualTo(12));
+	Assert.That(health.CurrentPoints, Is.EqualTo(11));
 }
 `
 
-	test_refactor_red = `// HealthTest.cs
-// replacing previous two tests
-[TestCase(4, 4, 0, 1)]
-[TestCase(4, 4, 3, 4)]
-[TestCase(4, 4, 3, 3)]
-[TestCase(3, 4, 3, 2)]
-[TestCase(2, 4, 3, 1)]
-public void CurrentPoints_WhenStartingPoints_ThenDamagePoints_ThenReplenishPoints(
-	int currentPoints,
-	int startingPoints,
-	int damagePoints,
-	int replenishPoints)
+	test_2_green = `// Health.cs
+public void Replenish(int replenishPoints)
 {
-	var health = new Health(startingPoints);
-	health.TakeDamage(damagePoints);
-	health.Replenish(replenishPoints);
-	Assert.That(health.CurrentPoints, Is.EqualTo(currentPoints));
+	CurrentPoints = Math.Min(replenishPoints + CurrentPoints, FullPoints);
 }
 `
 

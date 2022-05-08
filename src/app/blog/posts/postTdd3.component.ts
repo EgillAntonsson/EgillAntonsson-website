@@ -111,7 +111,7 @@ public Health(int startingPoints)
 `
 
 	test_3_Green = `// HealthTest.cs
-// inside nested Constructor class.
+// inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
 public void CurrentPointsHasStartingValue(int startingPoints)

@@ -28,24 +28,22 @@
 
 <div [innerHTML]="aboutCodeHtml"></div>
 
-<h2>TDD cycling</h2>
+<h2>Take Damage cycling</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
 	The entry point will be a new method named <code>TakeDamage</code>,<br>
-	thus I write nested class with same name at the bottom,<br>
+	thus I write a nested class with same name,<br>
 	and within it I write the test case <code>CurrentPointsDecrease</code><br>
 	(according to my naming convention, explained in <a href="./blog/tdd-health/part3">Part 3</a>).<br>
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
-	The test fails as the code does not compile (<code>TakeDamage</code> method not yet written).
+	The test fails as the <code>TakeDamage</code> method is not defined.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with a simple implementation of <code>TakeDamage</code> method.
-</p>
 <pre><code [highlight]="impl_1_Green"></code></pre>
 <p>
 	My minimal effort implementation fulfills the requirement for all valid passed-in values (I'm confident),<br>
@@ -53,7 +51,7 @@
 	But invalid values can be passed in, so I'll do a cycle for handling those.
 </p>
 
-<h2>Handle invalid <span class="code">damagePoints</span> values</h2>
+<h2>Handle invalid input values</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>

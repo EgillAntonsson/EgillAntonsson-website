@@ -10,7 +10,7 @@ import { PostComponent } from './post.component'
 export class PostTdd5Component extends PostComponent {
 
 	test_1_red = `// HealthTest.cs
-// inside nested Constructor class.
+// inside nested class Constructor
 [Test]
 public void IsDeadIsFalse()
 {
@@ -24,7 +24,7 @@ public bool IsDead => false;
 `
 
 	test_2_red = `// HealthTest.cs
-// inside nested TakeDamage class.
+// inside nested class TakeDamage
 [Test]
 public void IsDead_AfterTwoInvocations()
 {
@@ -41,7 +41,7 @@ public bool IsDead => CurrentPoints < 1;
 `
 
 test_3_red = `// HealthTest.cs
-// inside nested Constructor class
+// inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
 public void FullPointsHasStartingValue(int startingPoints)
@@ -66,12 +66,12 @@ public class Health
 `
 
 	test_4_red =  `// HealthTest.cs
-// inside nested TakeDamage class
+// inside nested class TakeDamage
 [TestCase(1, 2, 2)]
 [TestCase(1, 2, 3)]
 [TestCase(1, 2, 22)]
 [TestCase(-21, 2, 23)]
-public void CurrentPoints_WhenStartingPoints_andDamagePoints(
+public void CurrentPoints_WhenStartingPoints_ThenDamagePoints(
 	int currentPoints,
 	int startingPoints,
 	int damagePoints)
@@ -85,7 +85,7 @@ public void CurrentPoints_WhenStartingPoints_andDamagePoints(
 	impl_4_green = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints < FullPoints
 		|| CurrentPoints > damagePoints
@@ -103,7 +103,7 @@ public void TakeDamage(int damagePoints)
 	impl_4_refactor = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints == FullPoints
 		&& damagePoints >= FullPoints
@@ -122,7 +122,7 @@ public const uint MaxNegativePointsForInstantKillProtection = 20;
 
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints == FullPoints
 		&& damagePoints >= FullPoints

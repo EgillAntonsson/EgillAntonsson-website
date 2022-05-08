@@ -9,7 +9,7 @@
 	</small>
 </div>
 
-<h2>The Replenish requirements requirements</h2>
+<h2>The Replenish requirements</h2>
 <p>
 	Let's recap the Replenish requirements from the user perspective:
 </p>
@@ -22,87 +22,70 @@
 		</ul>
 	</li>
 </ul>
-<sup>The complete requirement list, from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>
+<div [innerHTML]="completeRequirementListHtml"></div>
 
 <p>
-	Let's reword this focusing on the domain model and using its terminology:
+	{{rewordRequirement}}
 </p>
 <ul class="list">
-	<li>Avatar Health can replenish <code>CurrentPoints</code> by:<br>
+	<li>Avatar Health / <code>CurrentPoints</code> can be replenished by:<br>
 		<ul>
-			<li>some game items</li>
+			<li>Various items</li>
 			<li>Resting action</li>
 		</ul>
 	</li>
 </ul>
-
-<h2>The code</h2>
 <p>
-	The code presented below is usually only part for the class, focused on the current TDD cycle step.<br>
-	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
+	This part focuses on replenished by items.
 </p>
 
-<h2>Replenish from items cycling</h2>
+<div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Replenished by items cycling</h2>
 
 <p>
 	The domain model focus will be a new method named <code>Replenish</code>.<br>
-	I'll start with testing invalid value cases.
 </p>
-<h2>Invalid value cases</h2>
-
 <h3><span class="redFail">RED</span></h3>
 <p>
-	I write test cases using inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute<br>
-	and it fails as <code>Replenish</code> is not yet defined.
-</p>
-<pre><code [highlight]="test_invalid_value_red"></code></pre>
-
-<h3><span class="greenPass">GREEN</span></h3>
-<p>
-	The test passes by implementing <code>Replenish</code> method that reuses the existing <code>ValidatePoints</code> method.<br>
-	Of course this will not hold for valid values cases so I do a new TDD cycle for those.
-</p>
-
-<p>
-	Of course this will not hold in the long run,<br>
-	but I'll add more test cases to drive the implementation.
-</p>
-
-<h3><span class="redFail">RED SMUUU</span></h3>
-<p>
-	I write a new test case and it fails as <code>Replenish</code> is not yet defined.
+	One case is if the player decides to make the Avatar<br>
+	use an item that replenishes when Health is full,<br>
+	a complete waste of an item as <code>CurrentPoints</code> don't increase,<br>
+	but a valid case regardless.
 </p>
 <pre><code [highlight]="test_1_red"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>
-	The test passes with an implementation of empty <code>Replenish</code> method.
+	I effortlessly pass the test by adding an empty <code>Replenish</code> method.
 </p>
 <pre><code [highlight]="impl_1_green"></code></pre>
 <p>
-	Of course this will not hold in the long run,<br>
-	but I'll add more test cases to drive the implementation.
+	Of course this will not hold for other cases,<br>
+	so I'll cycle in more test cases to drive the implementation.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
+<p>
+	Let's do a test for a more sensible valid case,<br>
+	when replenish will actually increase the <code>CurrentPoints</code>.
+</p>
 <pre><code [highlight]="test_2_red"></code></pre>
 <p>
-	Now we have a failing test case when replenish should increase <code>CurrentPoints</code>.<br>
-	Before implementing and passing the tests,<br>
-	I will add more test cases and refactor, to cover all meaning cases.<br>
-</p>
-
-<h3><span class="redFail">RED, all meaningful test cases refactored into one test</span></h3>
-<pre><code [highlight]="test_refactor_red"></code></pre>
-
-<p>
-	I added test cases and refactored into one test<br>
-	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute (Like I've done in earlier tests).<br>
-	The test cases cover all meaningful cases:<br>
-	when the <code>replenishPoints</code> value, in relation with <code>startingPoints</code> and <code>damagePoints</code><br>
-	conveys a certain valid case / code flow (I will test invalid <br>
-	Thus this new test covers my previous two written tests (and more cases), thus I remove them.<br>
-	Thus a implementation passing all these cases will be the proper generic one.<br>
+	I use the existing method <code>TakeDamage</code> to decrease the <code>CurrentPoints</code><br>
+	before the method <code>Replenish</code> is invoked (the <i>entry point</i> of this test).<br>
+	(<code>TakeDamage</code> has already been tested and thus will work as expected).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="test_2_green"></code></pre>
+<p>
+	I'm confident that this is the generic solution for any valid input<br>
+	so I feel I don't have to write more tests cases
+	<br>
+	Note that there are special items that can revive Link from the dead,<br>
+	but I deem that that logic should be handled outside of the <code>Health</code> class<br>
+	and <code>Replenish</code> would be invoked when appropriate.<br>
+	<br>
+	But I have to handle invalid input, so let's do a cycle for those.
+</p>

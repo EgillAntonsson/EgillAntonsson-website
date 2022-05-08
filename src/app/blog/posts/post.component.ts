@@ -46,7 +46,8 @@ export class PostComponent {
 	get aboutCodeHtml() {
 		return `<h2>The code</h2>
 <p>
-	The displayed code is focused on the current cycle step, thus likely shows only relevant part/s of said class.<br>
+	The displayed code is focused on the current cycle step,<br>
+	thus likely shows only relevant part/s of said class.<br>
 	The complete code and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
 </p>`
 	}

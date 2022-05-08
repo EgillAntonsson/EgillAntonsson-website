@@ -89,9 +89,9 @@
 	</figcaption>
 </figure>
 <p>
-	Going forward I will skip demonstrating the step from 'does not compile' to 'test fails'<br>
-	(although I actually do it when coding),<br>
-	thus having only one <span class="redFail">RED</span> step.
+	Going forward I will skip demonstrating both steps<br>
+	'does not compile' and 'test fails' (although I do them both when coding),<br>
+	thus demonstrating only one <span class="redFail">RED</span> step.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -147,15 +147,17 @@
 	if I include an informative message for my case.<br>
 	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
 	<br>
-	I'm asserting that the exception message only contains <i>invalid</i> (ignoring case)<br>
+	I'm asserting that the exception message only contains <i>invalid</i> (ignoring case)
 	which should be the 'keyword' in the message.<br>
 	I don't want to assert the full message as that would make the test fragile,<br>
 	e.g. the test would fail when a dev tweaks the wording of the message (although keeping the keyword).<br>
 	<br>
-	Elaborating further on my test case naming convention, I use my template:<br><br>
-	<i>[exit point]</i> or <i>[expected behavior of Unit of Work]</i><br>
-	then adding <i>_When[Scenario]</i> for other scenarios than the basic scenario.<br><br>
-	which translates to the two test cases:<br>
+	Elaborating further on my test case naming convention, I use my template:<br>
+	<br>
+	[<i>exit point</i> (state)] or [expected behavior of <i>Unit of Work</i>]<br>
+	then adding <i>_When[Scenario]</i> for other scenarios than the basic one.<br>
+	<br>
+	Thus these two test cases get named accordingly:<br>
 	<code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
 	<code>CurrentPointsHasStartingValue</code>
 </p>
