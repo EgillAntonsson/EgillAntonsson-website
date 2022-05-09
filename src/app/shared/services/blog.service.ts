@@ -16,11 +16,11 @@ export class BlogService {
 
 		this.series = [
 			{title: seriesTddTitle, posts: [
-				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 0, 30)),
-				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30)),
-				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', seriesTddTitle, new Date(2021, 11, 30)),
-				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4)),
-				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 2, 31)),
+				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 9)),
+				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 9)),
+				new Post( 'Part 3 - The implementation begins', 'tdd-health/part3', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 9)),
+				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 9)),
+				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 9)),
 				new Post( 'Part 6 - Replenished by items', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9))
 			]
 		}
