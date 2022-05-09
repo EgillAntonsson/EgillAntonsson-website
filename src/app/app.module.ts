@@ -23,6 +23,7 @@ import { PostTdd2Component } from './blog/posts/postTdd2.component'
 import { PostTdd3Component } from './blog/posts/postTdd3.component'
 import { PostTdd4Component } from './blog/posts/postTdd4.component'
 import { PostTdd5Component } from './blog/posts/postTdd5.component'
+import { PostTdd6Component } from './blog/posts/postTdd6.component'
 
 @NgModule({
 	imports: [
@@ -49,7 +50,8 @@ import { PostTdd5Component } from './blog/posts/postTdd5.component'
 		PostTdd2Component,
 		PostTdd3Component,
 		PostTdd4Component,
-		PostTdd5Component
+		PostTdd5Component,
+		PostTdd6Component
 	],
 	bootstrap: [AppComponent],
 	providers: [{

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { BlogService } from '../../shared/services/blog.service'
+import { PostComponent } from './post.component'
 
 @Component({
 	selector: 'app-post-tdd-4',
@@ -7,157 +7,95 @@ import { BlogService } from '../../shared/services/blog.service'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd4Component {
+export class PostTdd4Component extends PostComponent {
 
-	get post() {
-		return this.blogService.selectedPost
-	}
-
-
-	constructor(private blogService: BlogService) {}
-
-	test_1_Red = `//HealthTest.cs
-using NUnit.Framework;
-using System;
-
-public class HealthTest
+test_1_Red = `// HealthTest.cs
+// inside nested class TakeDamage
+[Test]
+public void CurrentPointsDecrease()
 {
-	public class Constructor
-	{
-		[TestCase(12)]
-		[TestCase(1)]
-		public void CurrentPointsHasStartingValue(int startingPoints)
-		{
-			var health = new Health(startingPoints);
-			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
-		{
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				new Health(startingPoints);
-			});
-		}
-	}
-
-	public class TakeDamage
-	{
-		[Test]
-		public void CurrentPointsDecrease()
-		{
-			var health = new Health(11);
-			health.TakeDamage(1);
-			Assert.That(health.CurrentPoints, Is.EqualTo(10));
-		}
-	}
+	var health = new Health(12);
+	health.TakeDamage(1);
+	Assert.That(health.CurrentPoints, Is.EqualTo(11));
 }
 `
 
-impl_1_Green = `//Health.cs
-using System;
+impl_1_Green = `// Health.cs
+public int CurrentPoints { get; private set; }
 
-public class Health
+public void TakeDamage(int damagePoints)
 {
-	public int CurrentPoints { get; private set; }
-
-	public Health(int startingPoints)
-	{
-		int lowestValidValue = 1;
-		if (startingPoints < lowestValidValue)
-		{
-			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints = startingPoints;
-	}
-
-	public void TakeDamage(int damagePoints)
-	{
-		CurrentPoints -= damagePoints;
-	}
+	CurrentPoints -= damagePoints;
 }
 `
 
-test_2_Red = `//HealthTest.cs (only showing the new test)
+test_2_Red = `// HealthTest.cs
+// inside nested class TakeDamage
 [TestCase(0)]
 [TestCase(-1)]
 public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
 {
 	var health = new Health(12);
-	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
 	delegate
 	{
 		health.TakeDamage(damagePoints);
 	});
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
 
-impl_2_Green = `//Health.cs
-using System;
-
-public class Health
+impl_2_Green = `// Health.cs
+public Health(int startingPoints)
 {
-	public int CurrentPoints { get; private set; }
-
-	public Health(int startingPoints)
+	int lowestValidValue = 1;
+	if (startingPoints < lowestValidValue)
 	{
-		int lowestValidValue = 1;
-		if (startingPoints < lowestValidValue)
-		{
-			var paramName = nameof(startingPoints);
-			var message = $"Value '{startingPoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints = startingPoints;
+		var message = $"Value {startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
+		var paramName = nameof(startingPoints);
+		throw new ArgumentOutOfRangeException(paramName, message);
 	}
 
-	public void TakeDamage(int damagePoints)
+	CurrentPoints = startingPoints;
+}
+
+public void TakeDamage(int damagePoints)
+{
+	int lowestValidValue = 1;
+	if (damagePoints < lowestValidValue)
 	{
-		int lowestValidValue = 1;
-		if (damagePoints < lowestValidValue)
-		{
-			var paramName = nameof(damagePoints);
-			var message = $"Value '{damagePoints}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
-		CurrentPoints -= damagePoints;
+		var message = $"Value {damagePoints} is invalid, it should be equal or higher than {lowestValidValue}";
+		var paramName = nameof(damagePoints);
+		throw new ArgumentOutOfRangeException(paramName, message);
 	}
+
+	CurrentPoints -= damagePoints;
 }
 `
 
-impl_2_Refactor = `//Health.cs
-using System;
-
-public class Health
+impl_2_Refactor = `// Health.cs
+public Health(int startingPoints)
 {
-	public int CurrentPoints { get; private set; }
+	ValidatePoints(startingPoints, 1);
+	CurrentPoints = startingPoints;
+}
 
-	public Health(int startingPoints)
-	{
-		ValidatePoints(startingPoints, 1, nameof(startingPoints));
-		CurrentPoints = startingPoints;
-	}
+public void TakeDamage(int damagePoints)
+{
+	ValidatePoints(damagePoints, 1);
+	CurrentPoints -= damagePoints;
+}
 
-	public void TakeDamage(int damagePoints)
+private void ValidatePoints(int points, int lowestValidValue)
+{
+	if (points < lowestValidValue)
 	{
-		ValidatePoints(damagePoints, 1, nameof(damagePoints));
-		CurrentPoints -= damagePoints;
-	}
-
-	private void ValidatePoints(int points, int lowestValidValue, string paramName)
-	{
-		if (points < lowestValidValue)
-		{
-			var message = $"Value '{points}' is invalid, it should be equal or higher than '{lowestValidValue}'";
-			throw new ArgumentOutOfRangeException(paramName, message);
-		}
+		var message = $"Value {points} is invalid, it should be equal or higher than {lowestValidValue}";
+		var paramName = nameof(startingPoints);
+		throw new ArgumentOutOfRangeException(nameof(points), message);
 	}
 }
+
 `
 
 test_final = `//HealthTest.cs

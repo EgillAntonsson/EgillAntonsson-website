@@ -2,7 +2,12 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}} (updated on 2022 Jan 30)</small>
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
 </div>
 
 <h2>What is TDD ?</h2>
@@ -14,43 +19,46 @@
 <ol class="list">
 	<li><span class="redFail">RED:</span> Write a test that fails</li>
 	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> if needed: generalize the solution, clean up the structure / design / <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> (all tests passing)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Evaluate if there is a <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smell</a> that should be refactored out (if not, then skip step)</li>
 </ol>
-<p>The cycle should focus is on fulfilling a requirement on the Subject under Test (SUT)<br>
-	repeating it until you are confident that the production code has become generic enough to handle all input cases. (with test becoming more specific).<br>
+<p>The cycle should focus is on fulfilling a requirement on the SUT (Subject/Unit Under Test)<br>
+	repeating it until you are confident that the SUT has become generic enough to handle all meaningful cases<br>
+	(as the tests become more specific).<br>
 	At some interval you should stop and evaluate if the design of the overall system is sound,<br>
-	and refactor if needed (all test passing).<br>
+	and refactor if needed (making sure all test are passing).<br>
 	This is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a> and other sources.<br>
 	(Bob terms additional cycles within and around RED / GREEN / REFACTOR in his post).
 </p>
 
 <h2>What is a good Unit Test ?</h2>
 <p>
-	Write good unit tests that are based on requirements and provide value (e.g. don't test a simple getters/setters specifically),<br>
-	and test code should be kept as clean as the production code. (REFACTOR step in TDD applies to both)<br>
-	Here are definitions from Roy Osherove in The Art of Unit testing, 3rd edition:<br>
+	A good unit test is focused on a specific SUT requirement,<br>
+	of meaningful logic (e.g. don't test simple getter properties on their own).<br>
+	The test code should be kept as clean as the production code (<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
+	Here are definitions from <b>Roy Osherove</b> in <i>The Art of Unit testing, 3rd edition</i><br>
+	(for him the word 'unit' in unit testing stands for 'unit of work'):
 </p>
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/25">Unit of Work definition</a></h3>
 <p>
-A unit of work is the sum of actions that take place between the invocation of an entry point<br>
-up until a noticeable end result through one or more exit points.<br>
-The entry point is the thing we trigger.<br>
+A <i>unit of work</i> is the sum of actions that take place between the invocation of an <i>entry point</i><br>
+up until a noticeable end result through one or more <i>exit points</i>.<br>
+The <i>entry point</i> is the thing we trigger.<br>
 Given a publicly visible function, for example:
 </p>
 <ul class="list inline">
-	<li>The function's body is all or part of the unit of work.</li>
-	<li>The function's declaration and signature are the entry point into the body.</li>
-	<li>The resulting outputs or behaviors of the function are its exit points.</li>
+	<li>The function's body is all or part of the <i>unit of work</i>.</li>
+	<li>The function's declaration and signature are the <i>entry point</i> into the body.</li>
+	<li>The resulting outputs or behaviors of the function are its <i>exit points</i>.</li>
 </ul>
 
 <h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/193">Good Unit Test definition</a></h3>
 <p>
-A unit test is an automated piece of code that invokes the unit of work<br>
-through an entry point, and then checks one of its exit points.<br>
+A <i>unit test</i> is an automated piece of code that invokes the <i>unit of work</i><br>
+through an <i>entry point</i>, and then checks one of its <i>exit points</i>.<br>
 It can be written easily and runs quickly.<br>
-It's trustworthy, readable & maintainable.<br>
-It is consistent as long as the production code we control has not changed.
+<b>It's trustworthy, readable & maintainable.<br>
+It is consistent as long as the production code we control has not changed.</b>
 </p>
 
 <h2>Why do TDD ?</h2>
@@ -128,7 +136,7 @@ It is consistent as long as the production code we control has not changed.
 		(e.g. high coupling / high dependency)</li>
 	<li>is hard to read and understand and reason about</li>
 	<li>has no or few good unit tests / very low test coverage<br>
-		(or many very bad and brittle tests that are hard to read and understand</li>
+		(or many very bad and fragile tests that are hard to read and understand</li>
 </ul>
 <p>
 	When you need to fix or change legacy code<br>

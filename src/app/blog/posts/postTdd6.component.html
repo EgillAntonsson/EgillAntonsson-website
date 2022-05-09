@@ -1,0 +1,121 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+
+<h2>The Replenish requirements</h2>
+<p>
+	Let's recap the Replenish requirements from the user perspective:
+</p>
+
+<ul class="list">
+	<li>Link's Life Gauge can be replenished by:<br>
+		<ul>
+			<li>Picking up recovery Hearts / drinking recovery Potions</li>
+			<li>Resting while Sitting or Sleeping.</li>
+		</ul>
+	</li>
+</ul>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
+<p>
+	{{rewordRequirement}}
+</p>
+<ul class="list">
+	<li>Avatar Health / <code>CurrentPoints</code> can be replenished by:<br>
+		<ul>
+			<li>Various items</li>
+			<li>Resting action</li>
+		</ul>
+	</li>
+</ul>
+<p>
+	This part focuses on replenished by items.
+</p>
+
+<div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Replenished by items cycling</h2>
+
+<p>
+	The domain model focus will be a new method named <code>Replenish</code>.<br>
+</p>
+<h3><span class="redFail">RED</span></h3>
+<p>
+	One case is if the player decides to make the Avatar<br>
+	use an item that replenishes when Health is full,<br>
+	a complete waste of an item as <code>CurrentPoints</code> don't increase,<br>
+	but a valid case regardless.
+</p>
+<pre><code [highlight]="test_1_red"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	I effortlessly pass the test by adding an empty <code>Replenish</code> method.
+</p>
+<pre><code [highlight]="impl_1_green"></code></pre>
+<p>
+	Of course this will not hold for other cases,<br>
+	so I'll cycle in more test cases to drive the implementation.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	Let's do a test for a more sensible valid case,<br>
+	when replenish will actually increase the <code>CurrentPoints</code>.
+</p>
+<pre><code [highlight]="test_2_red"></code></pre>
+<p>
+	I use the existing method <code>TakeDamage</code> to decrease the <code>CurrentPoints</code><br>
+	before the method <code>Replenish</code> is invoked (the <i>entry point</i> of this test).<br>
+	(<code>TakeDamage</code> has already been tested and thus will work as expected).
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="test_2_green"></code></pre>
+<p>
+	I'm confident that this is the generic solution for any valid input<br>
+	so I feel I don't have to write more tests cases
+	<br>
+	Note that there are special items that can revive Link from the dead,<br>
+	but I deem that that logic should be handled outside of the <code>Health</code> class<br>
+	and <code>Replenish</code> would be invoked when appropriate.<br>
+	<br>
+	But I have to handle invalid input, so let's do a cycle for those.
+</p>
+
+<h2>Handle invalid input values</h2>
+<h3><span class="redFail">RED</span></h3>
+<p>
+	As this will be similar to the 'take damage' handling,<br>
+	I copy the 'take damage throws error' test<br>
+	and paste it under the nested <code>Replenish</code> class<br>
+	and change to 'replenish' appropriately.
+</p>
+<pre><code [highlight]="test_invalid_input_red"></code></pre>
+<p>
+	This particular copy / paste of test cases makes sense and does not 'smell'.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	I invoke the existing <code>ValidatePoints</code> method<br>
+	passing in <code>replenishPoints</code> and <code>1</code> for <code>lowestValidValue</code>
+</p>
+<pre><code [highlight]="test_invalid_input_green"></code></pre>
+
+<p>
+	Now the Unity Test Runner looks like this:
+</p>
+<figure>
+	<img src="../assets/images/blog/tdd/TestRunner_after-replenish-tests.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: after adding Replenish tests
+	</figcaption>
+</figure>

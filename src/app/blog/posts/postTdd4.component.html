@@ -1,107 +1,107 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
 </div>
 
 <h2>The first Taking Damage requirement</h2>
 <p>
-	Let's recap the first requirement under <i>Taking Damage and Dying</i> from the user perspective<br>
-	(whole <i>Life Gauge behavior</i> list is in <a href="./blog/tdd-health/part2">Part 2</a>):
+	Let's recap the first requirement under <i>Taking Damage and Dying</i> from the user perspective:
 </p>
 <ul class='list'>
 	<li>Whenever Link takes damage he will lose a certain amount of Heart fractions<br>
 		equal to the damage points taken (always losing at least 1 fraction)</li>
 </ul>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
 <p>
-	Let's tweak this to focus on our current domain model (<code>Health</code> class):
+	{{rewordRequirement}}
 </p>
 <ul class="list">
 	<li>Avatar will lose Health <code>CurrentPoints</code> equal to Damage Points taken (always losing at last 1 Health Point)</li>
 </ul>
 
-<h2>TDD cycling</h2>
+<div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Take Damage cycling</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I start by writing the test.<br>
-	The domain model focus will be a new method named <code>TakeDamage</code>,<br>
-	thus I write nested class with same name at the bottom,<br>
-	and within it I write the test case <code>CurrentPointsDecrease</code> (I elaborate on my naming convention in <a href="./blog/tdd-health/part3">Part 3</a>),<br>
-	that fails as the code does not compile (<code>TakeDamage</code> not yet written).
+	The entry point will be a new method named <code>TakeDamage</code>,<br>
+	thus I write a nested class with same name,<br>
+	and within it I write the test case <code>CurrentPointsDecrease</code><br>
+	(according to my naming convention, explained in <a href="./blog/tdd-health/part3">Part 3</a>).<br>
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
-	Just to test not always the same starting value, I use <code>11</code> here (instead of <code>12</code>).
-</p>
-
-<h3><span class="greenPass">GREEN</span> -> <span class="greenRefactor">REFACTOR</span></h3>
-<p>Let's make the test pass with a simple implementation of <code>TakeDamage</code>.
-</p>
-<pre><code [highlight]="impl_1_Green"></code></pre>
-<p>
-	I'm confident that the implementation is the proper generic solution for this requirement,<br>
-	and it was also easy to come up with, and thus does not need additional steps to generalize.<br>
-	<br>
-	I feel that no other refactoring is needed in this cycle,<br>
-	but I notice that invalid values can be passed in for <code>damagePoints</code> parameter,<br>
-	so let's do a cycle for that.
-</p>
-
-<h2>Handle invalid <span class="code">damagePoints</span> values</h2>
-
-<h3><span class="redFail">RED</span></h3>
-<p>
-	I start by writing the test.<br>
-	A minus value for <code>damagePoints</code> is clearly invalid but what about <code>0</code> ?<br>
-	I conclude that <code>0</code> is also invalid,<br>
-	as an outside 'damage checker and calculator' logic should take care of this earlier<br>
-	and not process further when <code>damagePoints</code> is <code>0</code> or less (thus <code>TakeDamage won't be called)</code>.<br>
-	This also makes the design streamlined as it ensures that<br>
-	<code>CurrentPoints</code> will always decrease on <code>TakeDamage</code> call.<br>
-	<br>
-	This will be similar test to the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code> test<br>
-	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
-	and thus it will be inside nested class <code>TakeDamage.</code>
-</p>
-<pre><code [highlight]="test_2_Red"></code></pre>
-<p>
-	The number I pass into the constructor does not matter to this test, and thus is not a <i>TestCase</i> parameter.
+	The test fails as the <code>TakeDamage</code> method is not defined.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with a simple implementation.<br>
-	I duplicate the exception throwing code from the constructor and simply fix the parameter to <code>damagePoints</code>.<br>
+<pre><code [highlight]="impl_1_Green"></code></pre>
+<p>
+	I'm confident that this effortless implementation<br>
+	fulfills the requirement for all valid inputs.<br>
+	It's clean and thus does not need a <span class="greenRefactor">REFACTOR</span> step.<br>
+	But invalid values can be passed in, so I'll do a cycle for handling those.
+</p>
+
+<h2>Handle invalid input values</h2>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	A minus value for <code>damagePoints</code> is clearly invalid but what about <code>0</code> ?<br>
+	I conclude that <code>0</code> is also invalid,<br>
+	as an outside 'damage calculator' logic should take care of this earlier<br>
+	(thus <code>TakeDamage won't be invoked)</code>.<br>
+	This also makes the design streamlined as it ensures that<br>
+	<code>CurrentPoints</code> will always decrease on <code>TakeDamage</code> call.<br>
+	<br>
+	This will be a similar test as the existing <code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
+	but now the <i>entry point</i> is method <code>TakeDamage</code>,<br>
+	and thus it will be inside the nested class <code>TakeDamage.</code>
+</p>
+<pre><code [highlight]="test_2_Red"></code></pre>
+<p>
+	The value I pass into the constructor has no significance to this test,<br>
+	and thus is not a <i>TestCase</i> parameter.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>I make the test pass by<br>
+	duplicating the exception throwing code from the constructor,<br>
+	and then renaming the parameter to <code>damagePoints</code><br>
 	(knowing that I'll refactor this code smell right away in the next step).
 </p>
 <pre><code [highlight]="impl_2_Green"></code></pre>
-
+<br>
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <p>
-	I refactor the duplicated code smell away,<br>
-	and I run all the tests as needed during it, to verify I haven't broken anything.<br>
-	After some time the implementation feels fully refactored for the requirements:
+	I refactor the duplicated code smell away.<br>
 </p>
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
+	When exception is thrown,<br>
+	the message is followed by the stack trace in the console,<br>
+	and therefore it is sufficient that the param name will simply be <i>points</i><br>
+	as you can follow the trace to see which method called <code>ValidatePoints</code>.<br>
+  <br>
 	Having <code>lowestValidValue</code> as sent in parameter for method <code>ValidatePoints</code><br>
-	makes the method easy to reuse, if another case comes later with different  <code>lowestValidValue</code>.<br>
+	makes the method easy to reuse,<br>
+	if another case comes later with different  <code>lowestValidValue</code>.<br>
 	<br>
-	I run the tests in the end to verify everything works.<br>
-	Below is the whole <code>HealthTest.cs</code>, along showing last run in the Test Runner:
+	I run all the tests (and also did as needed while refactoring) to verify everything works.<br>
+	Now the Test Runner looks like this:
 </p>
-<pre><code [highlight]="test_final"></code></pre>
 <figure>
 	<img src="../assets/images/blog/tdd/TestRunner_after-refactoring-ThrowsError-impl.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
 	<figcaption>
 		Unity Test Runner: after refactoring 'ThrowsError' implementation
 	</figcaption>
 </figure>
-
-<h2>Concluding this part</h2>
-
-<p>This concludes these requirements and this part.<br>
-	The code and Unity project is in this <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub repo</a><br>
-	I aim to continue with the requirements and the implementation in later blog posts.
-</p>
-

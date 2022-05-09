@@ -1,7 +1,12 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}} (updated on 2022 March 31)</small>
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
 </div>
 
 <h2>The Dying requirements</h2>
@@ -16,9 +21,10 @@
 		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
 	</ul>
 </ul>
-<sup>Whole requirement list from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
 <p>
-	Let's reword this focusing on our domain model and using its terminology:
+	{{rewordRequirement}}
 </p>
 <ul class="list">
 	<li>When Avatar loses all of his Health Points he dies (and game ends)</li>
@@ -29,11 +35,7 @@
 	</ul>
 </ul>
 
-<h2>The code</h2>
-<p>
-	The code presented below is usually only partial, focused on the current TDD cycle.<br>
-	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a> (and other parts are in previous posts).
-</p>
+<div [innerHTML]="aboutCodeHtml"></div>
 
 <h2>Death cycling</h2>
 
@@ -44,23 +46,20 @@
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	I write a new test case <code>IsDeadIsFalse</code>, and it fails as <code>IsDead</code> is not yet defined.
+	I write a new test case <code>IsDeadIsFalse</code>, and it fails as <code>IsDead</code> is not defined.
 </p>
 <pre><code [highlight]="test_1_red"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with simple implementation of <code>IsDead</code>.
+<p>
+	I make <code>IsDead</code> simply return <code>false</code> to pass the test.
 </p>
 <pre><code [highlight]="impl_1_green"></code></pre>
 <p>
-	I made <code>IsDead</code> simply return <code>false</code> and that made the test pass.<br>
+	I encapsulated the property into a 'getter' via <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Members syntax</a>.<br>
 	<br>
-	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
-	by encapsulating it as much as possible.<br>
-	<br>
-	I know that simply returning <code>false</code> for <code>IsDead</code><br>
-	will not hold as the generalized solution that satisfies all the requirements,<br>
-	but I'll do a new cycle to achieve that.<br>
+	I know that simply returning <code>false</code> for <code>IsDead</code> will not hold as the generic solution that satisfies all cases,<br>
+	thus I'll now do a new cycle to achieve that.<br>
 </p>
 
 <h3><span class="redFail">RED</span></h3>
@@ -82,69 +81,61 @@
 <pre><code [highlight]="impl_2_green"></code></pre>
 <p>
 	I'm confident that now I have the generic solution for this property,<br>
-	and it is already fully refactored.<br>
 	Thus I'll start a new cycle for the next requirement.
 </p>
 
 <h2>Protected from instant kill</h2>
 <p>
-	Now it's time to take focus on the below requirement and cycle it.
-</p>
-<ul class="list inline">
-	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health Points are full<br>
-		and will instead be left alive with 1 Health Points remaining</li>
-	<ul>
-		<li>However, if the damage is more than 20 points above his full Health Points, he will still die</li>
-	</ul>
-</ul>
-<p>
-	I now take further note of the concept of 'full Health Points' in the requirement,<br>
-	and realize that it's an implementation that the requirement needs, so I start cycling it.
+	Now focusing on the latter requirement (listed at start of this post),<br>
+	I now take further note of the concept 'full Health Points' in the requirement,<br>
+	and realize that it's part of the requirement, so I start cycling it.
 </p>
 
-<h2>Full Health cycle</h2>
+<h2>Full Health Points cycle</h2>
+<p>
+	The domain model focus will be a new property named <code>FullPoints</code>.
+</p>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_3_red"></code></pre>
 <p>
-	This test fails as <code>FullPoints</code> is not yet defined.<br>
-	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code> but the key difference is that it's testing a different exit point.
+	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code><br>
+	but the key difference is that it's testing a different <i>exit point</i> (see <i>Good Unit Test definition</i> in <a href="./blog/tdd-health/part1">part 1</a>).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="impl_3_green"></code></pre>
 <p>
-	I set <code>FullPoints</code> property to the value of passed-in parameter <code>startingPoints</code> (same as <code>CurrentPoints</code>).<br>
+	I set <code>FullPoints</code> to the <code>startingPoints</code> parameter value (same as <code>CurrentPoints</code>).<br>
 	<br>
-	<span class="greenRefactor">REFACTOR</span> for the property done at the same time,<br>
-	by encapsulating it a much as possible.<br>
+	I also encapsulate <code>CurrentPoints</code> into a 'getter, private setter'.<br>
 	<br>
-	The property solution now satisfies all the current addressed requirement cases (but likely will be revisited with the Health Replenishing requirements).<br>
-	Thus I'll start a new cycle.<br>
+	This <code>FullPoints</code> implementation satisfies the current requirements,<br>
+	but likely will be extended on later with the Replenishing requirements.<br>
+	Thus now I'll start a new cycle to fulfill the 'Protected from instant kill' requirement.<br>
 </p>
 
-<h2>Protected (and not) cycle</h2>
+<h2>Protected from instant kill cycling</h2>
+
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_4_red"></code></pre>
 <p>
-	I focus on the output of <code>CurrentPoints</code> as the 'protected from instant kill' case should leave the value at <code>1</code>.<br>
+	I assert on the output <code>CurrentPoints</code> as the 'protected from instant kill' case should leave the value at <code>1</code>.<br>
 	The last <code>TestCase</code> tests the 'exception' case:<br>
 	when the damage is so much that it kills the Avatar regardless.<br>
-	The test run is shown below.
+	<br>
+	Elaborating further on my test case naming convention,<br>
+	the scenario starts with <code>_When</code> and can continue with <code>_Then</code> as needed.<br>
+	The whole scenario 'plays out' before the assertion / <i>exit point</i> check.<br>
+	(<code>_Then</code> indicates occurring later in the internal scenario order).
 </p>
 
 <h2>Experience the value of TDD</h2>
 <p>
-	Now the value of TDD starts to shine as my first couple of attempts<br>
-	did not pass the new test cases and/or broke existing ones.<br>
+	Now the value of TDD starts to shine as my first attempts to make test pass<br>
+	failed and/or failed existing ones.<br>
 	I suggest you try it out yourself before reading my <span class="greenPass">GREEN</span> solution below.<br>
-	You can get the current state of the code:
-<p>
-<ul class="list inline">
-	<li><a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Tests/EditMode/HealthTest.cs">HealthTest.cs</a></li>
-	<li><a href="	https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Runtime/Health.cs">Health.cs</a></li>
-</ul>
-<p>
-	The Unity Test Runner at this moment outputs:
+	You can get the current state of the code here: <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Tests/EditMode/HealthTest.cs">HealthTest.cs</a>, <a href="	https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Runtime/Health.cs">Health.cs</a><br>
+	At this moment the Unity Test Runner looks like this:
 	<figure>
 		<img src="../assets/images/blog/tdd/TestRunner_tests-protected-from-instant-kill.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
 		<figcaption>
@@ -168,26 +159,20 @@
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <pre><code [highlight]="impl_4_refactor"></code></pre>
 <p>
-	To me it is more readable to 'flip' the <code>if</code> check,<br>
-	which then checks for the 'protection' case, and returns early (instead of having <code>else</code>).
-	I'll do a second pass on the 'magic' number.
+	I 'flipped' the <code>if</code> check, which then checks for the 'protection' case,<br>
+	and returns early (instead of having <code>else</code>).<br>
+	This makes the code more readable and streamlined, IMO.<br>
+	<br>
+	I don't like that the number <code>20</code> has no explanation to it ('magic' number),<br>
+	so I'll do an iteration on it.
 </p>
 
-<h3><span class="greenRefactor">REFACTOR, second pass</span></h3>
+<h3><span class="greenRefactor">REFACTOR (2nd iteration)</span></h3>
 <pre><code [highlight]="impl_4_refactor_2"></code></pre>
 <p>
-	I replace the 'magic' number with a variable that names what it is,<br>
-	and set its type as <code>uint</code> to signal that the value should be positive.<br>
-	Now I feel that the refactoring focused on the method is done.<br><br>
-	Zooming out a bit and looking at the overall implementation,<br>
-	for the game design perspective, it might be handy for the to be able to tweak this variable,<br>
-	(in a similar manner as <code>startingPoints</code>)<br>
-	but I'll leave it like this (at least for now).
-</p>
-
-<h3>Concluding this part</h3>
-<p>
-	This concludes these requirements and this part.<br>
-	I aim to continue with the remaining requirements in a new blog posts.<br>
-	Stay tuned :)
+	I replace the 'magic' number with a constant and its name explains the meaning of the number.<br>
+	I set its type as <code>uint</code> to signal that the value should be positive.<br>
+	<br>
+	It might be valuable for game balancing to be able to try out other values<br>
+	but I'll leave it like this, at least for now.
 </p>

@@ -1,9 +1,13 @@
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
-	<small>by Egill Antonsson, published on {{post.dateYear}} {{post.dateMonth}} {{post.dateDay}}</small>
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
 </div>
-
 <h2>Setting up Unity</h2>
 <p>
 	I'm using Unity version 2020.3.24f1 and I create a new project (3D is the default), and keep the default config,<br>
@@ -45,8 +49,6 @@
 	<li>Avatar Health starts with 12 Health Points<br>
 		(equals to visual representation of 3 Hearts * 4 Fractions)</li>
 </ul>
-<p>
-</p>
 
 <h2>Health Points starting value</h2>
 
@@ -61,11 +63,12 @@
 <pre><code [highlight]="test_1_Red"></code></pre>
 <p>
 	I'm using a naming/structuring convention by using nested test classes.<br>
-	(that I recently discovered via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a> that references<br>
-	Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a>)<br>
 	I name the nested class after the <i>entry point</i> of the test,<br>
-	which in this case is the <i>Constructor</i> method, as the test invokes <code>new Health()</code><br>
+	which in this case is the constructor method<br>
 	(see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
+	that I discovered this convention via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a><br>
+	that references Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
+	that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a><br>
 	<br>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
 </p>
@@ -86,9 +89,9 @@
 	</figcaption>
 </figure>
 <p>
-	Going forward I will skip demonstrating the step from 'does not compile' to 'test fails'<br>
-	(although I actually do it when coding),<br>
-	thus having only one <span class="redFail">RED</span> step.
+	Going forward I will skip demonstrating both steps<br>
+	'does not compile' and 'test fails' (although I do them both when coding),<br>
+	thus demonstrating only one <span class="redFail">RED</span> step.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -99,31 +102,40 @@
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
 <p>Now it comes to mind that from a game design perspective<br>
-	it is good to be able to tweak the starting health points for game balancing,<br>
+	it's good to be able to tweak the starting points for game balancing,<br>
 	thus I refactor the value to be passed as parameter into the constructor.<br>
-	<span class="outOfScope">An advanced system would have an accessible game balancing config that's integrated into the code base,<br>
-	that would then likely use <span class="code">Health</span> class as designed (passing in value/s).<br>
-	I might later decide to implement a very simplified game balancing config and integration.</span><br>
+	<span class="outOfScope">An advanced system would have an accessible<br>
+		game balancing config that the code would read the values<br>
+		and then pass them into the <span class="code">Health</span> constructor.</span><br>
 	<br>
 	I name the passed in parameter <span class="code">startingPoints</span>.<br>
 	I also rename the property to <span class="code">CurrentPoints</span> (and thus the test case) to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
 	<br>
-	I also encapsulate <span class="code">CurrentPoints</span> with a private setter,<br>
-	as I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
-	The only exposure should be for the class interface that other production code will use and the tests<br>
-	(though no or minimal exposure should be only for the tests).<br>
-	The requirements and the TDD cycles will gradually expose the required and proper interface.
+	I also encapsulate <span class="code">CurrentPoints</span> into a 'getter, private setter'.<br>
+	In general I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
+	The only exposed interface should come from<br>
+	the requirements that the TDD cycles will drive,<br>
+	and if the tests need additional exposure no top of that<br>
+	(should be kept to a minimum).
 </p>
-<pre><code [highlight]="code_1_Refactor"></code></pre>
+<pre><code [highlight]="test_1_refactor"></code></pre>
+<pre><code [highlight]="impl_1_refactor"></code></pre>
+
+<p>
+	From now on the code will mostly be presented as a part of the class,<br>
+	focused on the current TDD cycle.<br>
+	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
+</p>
 
 <h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
 <p>
-	Now it comes to mind that invalid <span class="code">StartingPoints</span> values can be passed in,<br>
+	Now it comes to mind that invalid values can be passed in,<br>
 	as our avatar should never start with less than 1 points<br>
 	(because otherwise Link would start up being dead :P ).<br>
 	Thus I'll throw an exception when the value is invalid.<br>
-	<span class="outOfScope">Invalid values should also be handled where they are defined, in the previously mentioned game balancing config.<br></span>
+	<span class="outOfScope">Invalid values should also be handled where they are defined,<br>
+		in the previously mentioned game balancing config.</span>
 </p>
 
 <h3><span class="redFail">RED</span></h3>
@@ -131,14 +143,21 @@
 <pre><code [highlight]="test_2_Red"></code></pre>
 
 <p>
-	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from namespace <span class="code">System</span><br>
+	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
 	if I include an informative message for my case.<br>
 	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
 	<br>
-	To elaborate on my test case naming convention, I use my template:<br>
-	<i>[Output behavior]</i> or <i>[expected behavior of Unit of Work]</i><br>
-	postfixing it with <i>_When[Scenario]</i> for other paths than the happy path.<br>
-	which translates to the two test cases:<br>
+	I'm asserting that the exception message only contains <i>invalid</i> (ignoring case)
+	which should be the 'keyword' in the message.<br>
+	I don't want to assert the full message as that would make the test fragile,<br>
+	e.g. the test would fail when a dev tweaks the wording of the message (although keeping the keyword).<br>
+	<br>
+	Elaborating further on my test case naming convention, I use my template:<br>
+	<br>
+	[<i>exit point</i> (state)] or [expected behavior of <i>Unit of Work</i>]<br>
+	then adding <i>_When[Scenario]</i> for other scenarios than the basic one.<br>
+	<br>
+	Thus these two test cases get named accordingly:<br>
 	<code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
 	<code>CurrentPointsHasStartingValue</code>
 </p>
@@ -148,47 +167,40 @@
 <pre><code [highlight]="impl_2_Green"></code></pre>
 
 <p>
-	I'm confident that the implementation of the conditional is the proper generic solution for this requirement,<br>
-	and it was also easy to come up with, and thus does not need additional steps to generalize.<br>
-	<br>
+	I'm confident that the implementation of the conditional<br>
+	is the proper generic solution for this requirement.<br>
 	However I just did the bare minimum for the exception message,<br>
 	and I will refactor it in the next step.<br>
-	<br>
-	I feel that manually testing the exception message with my eyes will be sufficient<br>
-	(alternatively I could do assert/s on it via the thrown exception in the test case).<br>
-	<br>
-	I do this by temporarily commenting out the code of <code>ThrowsError_WhenStartingPointsIsInvalid</code> test case,<br>
-	only leaving the line '<code [highlight]="'new Health(0);'"></code>'<br>
-	Then I run the test, see it fail, and then select the failed case<br>
-	and read the message from the stacktrace below (in Unity Test Runner).<br>
-	Afterwards I undo my commenting out in the test case, make sure the test passes again.<br>
-	<br>
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
-	To make the exception message very informative and clear<br>
-	I create and use the variable <code>lowestValidValue</code><br>
+	To make the message more informative.<br>
+	I define the variable <code>lowestValidValue</code><br>
 	to make sure the conditional and the exception message are in-sync.<br>
-	I also get the name of the sent in parameter with <code>nameof(startingPoints)</code>.<br>
+	I get the name of the sent in parameter with <code>nameof(startingPoints)</code>.<br>
 	<br>
-	The message displays, if value <code>0</code> was passed in:<br>
+	I check the message in TestRunner by temporarily commenting out<br>
+	all lines in the test except the constructor invocation.<br>
+	The message displays when value <code>0</code> was passed in:<br>
 	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
 		Parameter name: startingPoints</code>
 </p>
 
 <h2>Let's test a few more values</h2>
 
-<p>As the implementation is very simple I am confident that it's<br>
-	the proper generic solution that works for any passed-in value.<br>
-	But let's test a few more values to demonstrate how to do it in a clean and maintainable way.
+<p>I'm confident that the implementation of the requirement<br>
+	will work for any passed-in parameter value.<br>
+	But I'll test a few more values to verify it,<br>
+	and to demonstrate how to do it in a clean and maintainable way.
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<p>Refactoring the tests to add test cases where the value is close to the valid/invalid edge,<br>
+<p>Refactoring the tests to add test cases<br>
+	where the value is close to the valid or invalid edge,<br>
 	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute.
 </p>
 <pre><code [highlight]="test_3_Green"></code></pre>

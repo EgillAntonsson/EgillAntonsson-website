@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import {BlogService } from '../../shared/services/blog.service'
+import { PostComponent } from './post.component'
 
 @Component({
 	selector: 'app-post-tdd-5',
@@ -7,16 +7,10 @@ import {BlogService } from '../../shared/services/blog.service'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd5Component {
-
-	get post() {
-		return this.blogService.selectedPost
-	}
-
-	constructor(private blogService: BlogService) {}
+export class PostTdd5Component extends PostComponent {
 
 	test_1_red = `// HealthTest.cs
-// inside nested Constructor class.
+// inside nested class Constructor
 [Test]
 public void IsDeadIsFalse()
 {
@@ -25,12 +19,12 @@ public void IsDeadIsFalse()
 }
 `
 
-impl_1_green = `// Health.cs
+	impl_1_green = `// Health.cs
 public bool IsDead => false;
 `
 
-test_2_red = `// HealthTest.cs
-// inside nested TakeDamage class.
+	test_2_red = `// HealthTest.cs
+// inside nested class TakeDamage
 [Test]
 public void IsDead_AfterTwoInvocations()
 {
@@ -42,12 +36,12 @@ public void IsDead_AfterTwoInvocations()
 }
 `
 
-impl_2_green = `// Health.cs
+	impl_2_green = `// Health.cs
 public bool IsDead => CurrentPoints < 1;
 `
 
 test_3_red = `// HealthTest.cs
-// inside nested Constructor class
+// inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
 public void FullPointsHasStartingValue(int startingPoints)
@@ -57,28 +51,27 @@ public void FullPointsHasStartingValue(int startingPoints)
 }
 `
 
-impl_3_green = `// Health.cs
+	impl_3_green = `// Health.cs
 public class Health
 {
 	public int CurrentPoints { get; private set; }
 	public int FullPoints { get; private set; }
-	public bool IsDead => CurrentPoints < 1;
 
 	public Health(int startingPoints)
 	{
-		ValidatePoints(startingPoints, 1, nameof(startingPoints)); // method not shown
+		ValidatePoints(startingPoints, 1); // method not shown
 		FullPoints = CurrentPoints = startingPoints;
 	}
 }
 `
 
-test_4_red =  `// HealthTest.cs
-// inside nested TakeDamage class
+	test_4_red =  `// HealthTest.cs
+// inside nested class TakeDamage
 [TestCase(1, 2, 2)]
 [TestCase(1, 2, 3)]
 [TestCase(1, 2, 22)]
 [TestCase(-21, 2, 23)]
-public void CurrentPoints_WhenStartingPoints_andDamagePoints(
+public void CurrentPoints_WhenStartingPoints_ThenDamagePoints(
 	int currentPoints,
 	int startingPoints,
 	int damagePoints)
@@ -89,10 +82,10 @@ public void CurrentPoints_WhenStartingPoints_andDamagePoints(
 }
 `
 
-impl_4_green = `// Health.cs
+	impl_4_green = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints < FullPoints
 		|| CurrentPoints > damagePoints
@@ -107,10 +100,10 @@ public void TakeDamage(int damagePoints)
 }
 `
 
-impl_4_refactor = `// Health.cs
+	impl_4_refactor = `// Health.cs
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints == FullPoints
 		&& damagePoints >= FullPoints
@@ -124,12 +117,12 @@ public void TakeDamage(int damagePoints)
 }
 `
 
-impl_4_refactor_2 = `// Health.cs
+	impl_4_refactor_2 = `// Health.cs
 public const uint MaxNegativePointsForInstantKillProtection = 20;
 
 public void TakeDamage(int damagePoints)
 {
-	ValidatePoints(damagePoints, 1, nameof(damagePoints)); // method not shown
+	ValidatePoints(damagePoints, 1); //method not shown
 
 	if (CurrentPoints == FullPoints
 		&& damagePoints >= FullPoints
