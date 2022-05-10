@@ -1,0 +1,103 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+
+<h2>The extending to maximum requirements</h2>
+<p>
+	Let's recap the next requirement from the user perspective:
+</p>
+
+<ul class="list">
+	<li>The Life Gauge can be extended to a maximum of 30 Hearts</li>
+</ul>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
+<p>
+	{{rewordRequirement}}
+</p>
+<ul class="list">
+	<li><code>FullPoints</code> can be permanently increased from 4 <code>HealthPoints</code> up to a maximum of 120 <code>HealthPoints</code><br></li>
+</ul>
+
+<p>
+	For this requirement it makes sense to define a new unit in <code>Health</code><br>
+	that equals to 4 Health Points<br>
+	(that visually is represented as a Heart (or something else)),<br>
+	as the increase should always be in that unit.<br>
+</p>
+<h3>Domain / Visual SoC mapping, revisited</h3>
+<table>
+	<tr>
+		<th>Domain Model</th>
+		<th>GUI / View</th>
+	</tr>
+	<tr>
+		<td class="center">
+			(Avatar) Health
+		</td>
+		<td class="center">
+			Life Gauge
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+			<b><i>Unit Container</i></b>
+		</td>
+		<td class="center">
+			Heart Container
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+				<b><i>Unit</i></b>
+		</td>
+		<td class="center">
+			Heart (equals 4 Fractions)
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+			Points
+		</td>
+		<td class="center">
+			Heart Fraction
+		</td>
+	</tr>
+</table>
+<p>
+	I add nem domain definitions <i>Unit Container</i> and <i>Unit</i> to the mapping.<br>
+	now let's reword the requirement with this new definition:<br>
+</p>
+<ul class="list">
+	<li><code>FullPoints</code> can be permanently increased by 1 <i>Unit Container</i> up to a maximum of 30 <i>Unit Containers</i></li>
+	<ul>
+		<li>the <code>CurrentPoints</code> are also increased by the same <i>Unit</i> amount</li>
+	</ul>
+</ul>
+
+<div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Increase cycling</h2>
+
+<p>
+	The domain model focus will be a new method named <code>IncreaseByUnit</code>.<br>
+</p>
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I write a test for the existing <i>exit point</i> <code> FullPoints</code> property.
+</p>
+<pre><code [highlight]="test_red_fullPointsIncrease"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<p>
+	I make the test pass with an effortless implementation.
+</p>
+<pre><code [highlight]="impl_green_fullPointsIncrease"></code></pre>
