@@ -10,9 +10,12 @@
 </div>
 <h2>Setting up Unity</h2>
 <p>
-	I'm using Unity version 2020.3.24f1 and I create a new project (3D is the default), and keep the default config,<br>
-	except that I update <i>Test Framework</i> package to latest version (currently 1.1.30).<br>
-	The <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">documentation</a> details how setup tests for a project.<br>
+	I create a new Unity (3D) project and keep the default config,<br>
+	except that I update <i>Test Framework</i> package to latest version (currently 1.1.31),<br>
+	it uses a Unity integration of <a href="https://nunit.org">NUnit</a> library.<br>
+
+	The <i>Test Framework </i> <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">docs</a> details how to setup tests for a project.<br>
+	<br>
 	My project structure starts very simple:
 </p>
 <ul class="list inline">
@@ -20,7 +23,8 @@
 	<li>The production code is in: <i>Scripts/Runtime/[ClassName].cs</i></li>
 </ul>
 <p>
-	As the folder structure implies, I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code.<br>
+	As the folder structure implies,<br>
+	I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code.<br>
 	<i>EditMode</i> test have access to both:
 	<ul class="list inline">
 		<li>the <i>Editor</i> code (only about extending the Unity editor)</li>
@@ -28,9 +32,10 @@
 	</ul>
 <p>
 	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code<br>
-	is that they run faster (as no startup of the Player is needed in the Unity editor).<br>
-	Also the domain logic should not need the <i>PlayMode</i> tests features<br> (tests can run as Unity <i>Coroutine</i> to step through the (coroutine based) production code).<br>
-	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains their difference further.
+	is that they run faster (Player startup and run in editor not done).<br>
+	Also the domain logic should not need the <i>PlayMode</i> tests features<br>
+	(tests don't need to run as Unity <i>Coroutine</i> to 'step' through the code).<br>
+	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
 
 <h2>The requirements for <i>definition and start state</i></h2>
 <p>
@@ -54,9 +59,7 @@
 
 <h3><span class="redFail">RED (does not compile)</span></h3>
 <p>
-	I start by writing the test.<br>
-	The domain model focus will be <code>Health</code> class (not created yet),<br>
-	<span class="outOfScope">which in the end will likely be owned by <code>Avatar</code> class.</span><br>
+	The domain model focus will be the <code>Health</code> class (not created yet),<br>
 	Thus I create test file <code>HealthTest.cs</code> and write the first test,<br>
 	that fails as the code does not compile.
 </p>
@@ -66,8 +69,7 @@
 	I name the nested class after the <i>entry point</i> of the test,<br>
 	which in this case is the constructor method<br>
 	(see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
-	that I discovered this convention via Charles Amat via <a href="http://infalliblecode.com/unity-tdd-1/">TDD in Unity - Part 1</a><br>
-	that references Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
+	I discovered this convention from Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
 	that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a><br>
 	<br>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
@@ -111,7 +113,9 @@
 	I name the passed in parameter <span class="code">startingPoints</span>.<br>
 	I also rename the property to <span class="code">CurrentPoints</span> (and thus the test case) to further clarify the logic:<br>
 	<i>starting points is passed into the constructor which sets the current points.</i><br>
-	<br>
+</p>
+<pre><code [highlight]="test_1_refactor"></code></pre>
+<p>
 	I also encapsulate <span class="code">CurrentPoints</span> into a 'getter, private setter'.<br>
 	In general I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
 	The only exposed interface should come from<br>
@@ -119,9 +123,7 @@
 	and if the tests need additional exposure no top of that<br>
 	(should be kept to a minimum).
 </p>
-<pre><code [highlight]="test_1_refactor"></code></pre>
 <pre><code [highlight]="impl_1_refactor"></code></pre>
-
 <p>
 	From now on the code will mostly be presented as a part of the class,<br>
 	focused on the current TDD cycle.<br>
@@ -177,16 +179,18 @@
 
 <pre><code [highlight]="impl_2_Refactor"></code></pre>
 <p>
-	To make the message more informative.<br>
-	I define the variable <code>lowestValidValue</code><br>
-	to make sure the conditional and the exception message are in-sync.<br>
+	I define <code>lowestValidValue</code> and use it both in the condition and the message.<br>
+	This both makes the exception message more readable<br>
+	and makes sure the conditional and message will always be in-sync.<br>
 	I get the name of the sent in parameter with <code>nameof(startingPoints)</code>.<br>
 	<br>
 	I check the message in TestRunner by temporarily commenting out<br>
 	all lines in the test except the constructor invocation.<br>
 	The message displays when value <code>0</code> was passed in:<br>
 	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
-		Parameter name: startingPoints</code>
+	Parameter name: startingPoints</code><br>
+	<br>
+	That's reads pretty clear to me.
 </p>
 
 <h2>Let's test a few more values</h2>

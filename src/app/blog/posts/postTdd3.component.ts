@@ -51,14 +51,11 @@ public void CurrentPointsHasStartingValue()
 }
 `
 	impl_1_refactor = `// Health.cs
-public class Health
-{
-	public int CurrentPoints { get;  private set; }
+public int CurrentPoints { get; private set; }
 
-	public Health(int startingPoints)
-	{
-		CurrentPoints = startingPoints;
-	}
+public Health(int startingPoints)
+{
+	CurrentPoints = startingPoints;
 }
 `
 
@@ -77,33 +74,27 @@ public void ThrowsError_WhenStartingPointsIsInvalid()
 `
 
 	impl_2_Green = `//Health.cs
-using System;
+public int CurrentPoints { get;  private set; }
 
-public class Health
+public Health(int startingPoints)
 {
-	public int CurrentPoints { get;  private set; }
-
-	public Health(int startingPoints)
+	if (startingPoints < 1)
 	{
-		if (startingPoints < 1)
-		{
-			throw new ArgumentOutOfRangeException("startingPoints", "Invalid value");
-		}
-
-		CurrentPoints = startingPoints;
+		throw new ArgumentOutOfRangeException(nameof(startingPoints), "Invalid value");
 	}
+
+	CurrentPoints = startingPoints;
 }
 `
 
 impl_2_Refactor = `//Health.cs
 public Health(int startingPoints)
 {
-	int lowestValidValue = 1;
+	const int lowestValidValue = 1;
 	if (startingPoints < lowestValidValue)
 	{
-		var message = $"Value 'startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
-		var paramName = nameof(startingPoints);
-		throw new ArgumentOutOfRangeException(paramName, message);
+		var message = $"Value {startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
+		throw new ArgumentOutOfRangeException(nameof(startingPoints), message);
 	}
 
 	CurrentPoints = startingPoints;

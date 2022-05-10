@@ -48,12 +48,11 @@ public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
 impl_2_Green = `// Health.cs
 public Health(int startingPoints)
 {
-	int lowestValidValue = 1;
+	const int lowestValidValue = 1;
 	if (startingPoints < lowestValidValue)
 	{
 		var message = $"Value {startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
-		var paramName = nameof(startingPoints);
-		throw new ArgumentOutOfRangeException(paramName, message);
+		throw new ArgumentOutOfRangeException(nameof(startingPoints), message);
 	}
 
 	CurrentPoints = startingPoints;
@@ -61,12 +60,11 @@ public Health(int startingPoints)
 
 public void TakeDamage(int damagePoints)
 {
-	int lowestValidValue = 1;
+	const int lowestValidValue = 1;
 	if (damagePoints < lowestValidValue)
 	{
 		var message = $"Value {damagePoints} is invalid, it should be equal or higher than {lowestValidValue}";
-		var paramName = nameof(damagePoints);
-		throw new ArgumentOutOfRangeException(paramName, message);
+		throw new ArgumentOutOfRangeException(nameof(damagePoints), message);
 	}
 
 	CurrentPoints -= damagePoints;
@@ -86,67 +84,12 @@ public void TakeDamage(int damagePoints)
 	CurrentPoints -= damagePoints;
 }
 
-private void ValidatePoints(int points, int lowestValidValue)
+private static void ValidatePoints(int points, int lowestValidValue)
 {
 	if (points < lowestValidValue)
 	{
 		var message = $"Value {points} is invalid, it should be equal or higher than {lowestValidValue}";
-		var paramName = nameof(startingPoints);
 		throw new ArgumentOutOfRangeException(nameof(points), message);
-	}
-}
-
-`
-
-test_final = `//HealthTest.cs
-using NUnit.Framework;
-using System;
-
-public class HealthTest
-{
-	public class Constructor
-	{
-		[TestCase(12)]
-		[TestCase(1)]
-		public void CurrentPointsHasStartingValue(int startingPoints)
-		{
-			var health = new Health(startingPoints);
-			Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
-		{
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				new Health(startingPoints);
-			});
-		}
-	}
-
-	public class TakeDamage
-	{
-		[Test]
-		public void CurrentPointsDecrease()
-		{
-			var health = new Health(11);
-			health.TakeDamage(1);
-			Assert.That(health.CurrentPoints, Is.EqualTo(10));
-		}
-
-		[TestCase(0)]
-		[TestCase(-1)]
-		public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
-		{
-			var health = new Health(12);
-			Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-			delegate
-			{
-				health.TakeDamage(damagePoints);
-			});
-		}
 	}
 }
 `
