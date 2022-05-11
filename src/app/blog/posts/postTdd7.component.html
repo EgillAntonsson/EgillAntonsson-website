@@ -96,7 +96,6 @@
 <pre><code [highlight]="red_fullPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
-
 <p>
 	I make the test pass with an effortless implementation.
 </p>
@@ -112,9 +111,26 @@
 <p>
 	I replaced the 'magic' number with a constant member<br>
 	and gave it a meaningful name that explains the number.<br>
-	I set the access level of the constant to <code>public</code>,<br>
-	as it could be handy for outside code to use.<br>
+	I set the access modifier of the constant to <code>public</code>,<br>
+	as it provides value to the users of the system to know about and potentially use.<br>
 	<br>
+	I feel confident that I have the generic solution, but let's add test cases with different inputs to verify
+</p>
+
+<h3><span class="greenRefactor">REFACTOR (add test cases)</span></h3>
+
+<pre><code [highlight]="refactor_fullPointsIncrease_addTests"></code></pre>
+<p>
+	I replaced the previous test with this one.<br>
+	When selecting the values for the test cases, it crossed my mind that sending 0 for param unit would be a big 'nono',
+	so let's cycle the invalid values
+</p>
+
+
+
+
+<p>
+	--------
 	This requirement also states that <code>CurrentPoints</code> should increase by the same <code>Unit</code> amount.<br>
 	This should be another test case as <code>CurrentPoints</code> is a different <i>exit point</i><br>
 	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>), so we cycle it.
@@ -122,5 +138,10 @@
 
 <h3><span class="redFail">RED</span></h3>
 
-<pre><code [highlight]="red_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="red_fullPointsIncrease_currentPoints"></code></pre>
 
+<p>Let's make it pass</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<pre><code [highlight]="green_fullPointsIncrease"></code></pre>
