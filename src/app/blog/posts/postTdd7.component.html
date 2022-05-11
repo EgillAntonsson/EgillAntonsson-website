@@ -129,6 +129,7 @@
 </p>
 
 <h2>Handle invalid input</h2>
+
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I copy / paste ThrowsError_WhenReplenishPointsIsInvalid and update accordingly
@@ -166,8 +167,23 @@
 
 <pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>
 
-<p>Let's make it pass</p>
-
 <h3><span class="greenPass">GREEN</span></h3>
 
 <pre><code [highlight]="green_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+<p>
+	Now all the tests pass. I see I can refactor the points increase multiplication to be done just once.
+</p>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+
+<pre><code [highlight]="refactor_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+
+<p>
+	Now the last part of the requirement is that <code>FullPoints</code> can increase to a maximum of 30 Units.
+</p>
+
+<h2>Maximum increase</h2>
+
+<h3><span class="redFail">RED</span></h3>
+
+<pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>

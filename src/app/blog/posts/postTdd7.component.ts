@@ -36,7 +36,7 @@ public void IncreaseByUnit(int unit)
 }
 `
 
-refactor_fullPointsIncrease_addTests = `// Health.cs
+	refactor_fullPointsIncrease_addTests = `// Health.cs
 // inside nested class IncreaseByUnit
 [TestCase(8, 4, 1)]
 [TestCase(12, 4, 2)]
@@ -52,7 +52,7 @@ public void FullPoints_WhenStartingPoints_ThenIncreaseByUnit(
 }
 `
 
-red_fullPointsIncrease_invalidInput = `// HealthTest.cs
+	red_fullPointsIncrease_invalidInput = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [TestCase(0)]
 [TestCase(-1)]
@@ -68,7 +68,7 @@ public void ThrowsError_WhenUnitParamIsInvalid(int unit)
 }
 `
 
-green_fullPointsIncrease_invalidInput = `// HealthTest.cs
+	green_fullPointsIncrease_invalidInput = `// HealthTest.cs
 public void IncreaseByUnit(int unit)
 {
 	ValidatePoints(unit, 1); // method not shown
@@ -96,7 +96,7 @@ public void IncreaseByUnit(int unit)
 }
 `
 
-red_fullPointsIncrease_currentPoints_moreCases = `// HealthTest.cs
+	red_fullPointsIncrease_currentPoints_moreCases = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [TestCase(7, 4, 1, 1)]
 [TestCase(6, 4, 2, 1)]
@@ -115,7 +115,7 @@ public void CurrentPoints_WhenStartingPoints_ThenDamagePoints_ThenIncreaseByUnit
 }
 `
 
-green_fullPointsIncrease_currentPoints_moreCases = `// Health.cs
+	green_fullPointsIncrease_currentPoints_moreCases = `// Health.cs
 public void IncreaseByUnit(int unit)
 {
 	ValidatePoints(unit, 1);
@@ -124,5 +124,14 @@ public void IncreaseByUnit(int unit)
 }
 `
 
+	refactor_fullPointsIncrease_currentPoints_moreCases = `// Health.cs
+public void IncreaseByUnit(int unit)
+{
+	ValidatePoints(unit, 1);
+	var pointsIncrease = unit * PointsPerUnit;
+	FullPoints += pointsIncrease;
+	CurrentPoints += pointsIncrease;
 }
+`
 
+}
