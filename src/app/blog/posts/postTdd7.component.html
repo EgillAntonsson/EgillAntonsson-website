@@ -84,11 +84,13 @@
 
 <div [innerHTML]="aboutCodeHtml"></div>
 
-<h2>Increase cycling</h2>
+<h2>Entry point<code>IncreaseByUnit</code></h2>
 
 <p>
 	The domain model focus will be a new method named <code>IncreaseByUnit</code>.<br>
 </p>
+
+<h2>Exit point <code>FullPoints</code></h2>
 <h3><span class="redFail">RED</span></h3>
 <p>
 	I write a test for the existing <i>exit point</i> <code> FullPoints</code> property.
@@ -123,14 +125,24 @@
 <p>
 	I replaced the previous test with this one.<br>
 	When selecting the values for the test cases, it crossed my mind that sending 0 for param unit would be a big 'nono',
-	so let's cycle the invalid values
+	so let's cycle the invalid <input type="button" value="">.
 </p>
 
-
-
-
+<h2>Handle invalid input</h2>
+<h3><span class="redFail">RED</span></h3>
 <p>
-	--------
+	I copy / paste ThrowsError_WhenReplenishPointsIsInvalid and update accordingly
+</p>
+<pre><code [highlight]="red_fullPointsIncrease_invalidInput"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	I make the test pass with an effortless implementation, reusing ValidatePoints method.
+</p>
+<pre><code [highlight]="green_fullPointsIncrease_invalidInput"></code></pre>
+
+<h2>Exit point <code>CurrentPoints</code></h2>
+<p>
 	This requirement also states that <code>CurrentPoints</code> should increase by the same <code>Unit</code> amount.<br>
 	This should be another test case as <code>CurrentPoints</code> is a different <i>exit point</i><br>
 	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>), so we cycle it.
@@ -144,4 +156,18 @@
 
 <h3><span class="greenPass">GREEN</span></h3>
 
-<pre><code [highlight]="green_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="green_fullPointsIncrease_currentPoints"></code></pre>
+<p>
+	I effortlessly added the last line to the method, and then the test passes.<br>
+	I think this will not hold for other cases, so lets to another cycle to drive it.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+
+<pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+
+<p>Let's make it pass</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<pre><code [highlight]="green_fullPointsIncrease_currentPoints_moreCases"></code></pre>
