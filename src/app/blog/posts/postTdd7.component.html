@@ -15,20 +15,35 @@
 </p>
 
 <ul class="list">
-	<li>The Life Gauge can be extended to a maximum of 30 Hearts</li>
+	<li>The Life Gauge can be increased by 1 full Heart at a time,<br>
+		up to a maximum of 30 Hearts</li>
 </ul>
+<p>
+	Example of case when Life Gauge is not full when the increase is done:<br>
+</p>
+<ul class="list inline">
+	<li>Before increase: 1 Fraction filled of total 3 Hearts</li>
+	<li>After increase: 1 Hearth + 1 Fraction filled of total 4 Hearts</li>
+</ul>
+<p>
+	In <i>Zelda: Breath of the Wild</i> this is a 'big' gameplay event<br>
+	and thus the increase is always 1 full Heart each time and no more (and no less).
+</p>
 <div [innerHTML]="completeRequirementListHtml"></div>
 
 <p>
 	{{rewordRequirement}}
 </p>
 <ul class="list">
-	<li><code>FullPoints</code> can be permanently increased from 4 <code>HealthPoints</code> up to a maximum of 120 <code>HealthPoints</code><br></li>
+	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
+		by 4 <code>Points</code> at a time,<br>
+		up to a maximum of 120 <code>HealthPoints</code><br>
+	</li>
 </ul>
 
 <p>
-	For this requirement it makes sense to define a new unit in <code>Health</code><br>
-	that equals to 4 Health Points<br>
+	Now it makes sense to define a new unit in <code>Health</code><br>
+	that equals to 4 <code>Points</code><br>
 	(that visually is represented as a Heart (or something else)),<br>
 	as the increase should always be in that unit.<br>
 </p>
@@ -48,14 +63,6 @@
 	</tr>
 	<tr>
 		<td class="center">
-			<b><i>Unit Container</i></b>
-		</td>
-		<td class="center">
-			Heart Container
-		</td>
-	</tr>
-	<tr>
-		<td class="center">
 				<b><i>Unit</i></b>
 		</td>
 		<td class="center">
@@ -67,34 +74,37 @@
 			Points
 		</td>
 		<td class="center">
-			Heart Fraction
+			Heart Fractions
 		</td>
 	</tr>
 </table>
 <p>
-	I add nem domain definitions <i>Unit Container</i> and <i>Unit</i> to the mapping.<br>
-	now let's reword the requirement with this new definition:<br>
+	I add a new domain definition <i>Unit</i> that maps to the visualized <i>Heart</i><br>
+	now let's reword the requirement again:<br>
 </p>
 <ul class="list">
-	<li><code>FullPoints</code> can be permanently increased by 1 <i>Unit Container</i> up to a maximum of 30 <i>Unit Containers</i></li>
-	<ul>
-		<li>the <code>CurrentPoints</code> are also increased by the same <i>Unit</i> amount</li>
-	</ul>
+	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
+		by 1 <code>Unit</code> at a time,<br>
+		up to a maximum of 30 <code>Units</code><br>
+	</li>
 </ul>
+<p>
+	It's also good that using <code>Units</code> makes the numbers smaller (e.g 120 -> 30)
+</p>
 
 <div [innerHTML]="aboutCodeHtml"></div>
 
-<h2>Entry point<code>IncreaseByUnit</code></h2>
-
+<h2>Entry point <code>IncreaseByUnit</code></h2>
 <p>
 	The domain model focus will be a new method named <code>IncreaseByUnit</code>.<br>
 </p>
 
 <h2>Exit point <code>FullPoints</code></h2>
-<h3><span class="redFail">RED</span></h3>
 <p>
-	I write a test for the existing <i>exit point</i> <code> FullPoints</code> property.
+	Focusing first on the existing <code>FullPoints</code> property.
 </p>
+<h3><span class="redFail">RED</span></h3>
+
 <pre><code [highlight]="red_fullPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -103,87 +113,66 @@
 </p>
 <pre><code [highlight]="green_fullPointsIncrease"></code></pre>
 <p>
-	I don't like the 'magic' number <code>4</code> and thus I'll refactor it.
+	I don't like that the 'magic' number <code>4</code> does not explain<br>
+	the relationship between <code>Points</code> and <code>Unit</code>.<br>
+	Thus I refactor it.
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
 <pre><code [highlight]="refactor_fullPointsIncrease"></code></pre>
-
 <p>
-	I replaced the 'magic' number with a constant member<br>
-	and gave it a meaningful name that explains the number.<br>
-	I set the access modifier of the constant to <code>public</code>,<br>
-	as it provides value to the users of the system to know about and potentially use.<br>
-	<br>
-	I feel confident that I have the generic solution, but let's add test cases with different inputs to verify
+	Now it's replaced with a meaningfully named constant member<br>
+	that defines and documents well this relationship (in the code itself).<br>
+	For this reason, and also so outside code could potentially use it,<br>
+	I set the access to <code>public</code>.
 </p>
-
-<h3><span class="greenRefactor">REFACTOR (add test cases)</span></h3>
-
-<pre><code [highlight]="refactor_fullPointsIncrease_addTests"></code></pre>
-<p>
-	I replaced the previous test with this one.<br>
-	When selecting the values for the test cases, it crossed my mind that sending 0 for param unit would be a big 'nono',
-	so let's cycle the invalid <input type="button" value="">.
-</p>
-
-<h2>Handle invalid input</h2>
-
-<h3><span class="redFail">RED</span></h3>
-<p>
-	I copy / paste ThrowsError_WhenReplenishPointsIsInvalid and update accordingly
-</p>
-<pre><code [highlight]="red_fullPointsIncrease_invalidInput"></code></pre>
-
-<h3><span class="greenPass">GREEN</span></h3>
-<p>
-	I make the test pass with an effortless implementation, reusing ValidatePoints method.
-</p>
-<pre><code [highlight]="green_fullPointsIncrease_invalidInput"></code></pre>
 
 <h2>Exit point <code>CurrentPoints</code></h2>
 <p>
-	This requirement also states that <code>CurrentPoints</code> should increase by the same <code>Unit</code> amount.<br>
-	This should be another test case as <code>CurrentPoints</code> is a different <i>exit point</i><br>
-	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>), so we cycle it.
+	Now I focus on the remaining <i>exit point</i> for this requirement,<br>
+	the existing <code>CurrentPoints</code> property.<br>
+	This should be a new test as it's about a different <i>exit point</i><br>
+	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>).
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 
 <pre><code [highlight]="red_fullPointsIncrease_currentPoints"></code></pre>
 
-<p>Let's make it pass</p>
-
 <h3><span class="greenPass">GREEN</span></h3>
 
 <pre><code [highlight]="green_fullPointsIncrease_currentPoints"></code></pre>
 <p>
-	I effortlessly added the last line to the method, and then the test passes.<br>
-	I think this will not hold for other cases, so lets to another cycle to drive it.
+	I effortlessly add the line <code>CurrentPoints = FullPoints</code>,<br>
+	which is enough to make the test pass,<br>
+	but I know that it only holds for this particular case, and not for others.<br>
+	Thus I'll cycle the other cases.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
-
 <pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+<p>
+	For readability, I select <code>4</code> for <code>startingPoints</code> parameter value,<br>
+	which also keeps the other numbers low.
+</p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 
 <pre><code [highlight]="green_fullPointsIncrease_currentPoints_moreCases"></code></pre>
 <p>
-	Now all the tests pass. I see I can refactor the points increase multiplication to be done just once.
+	--- I am here...... ------
 </p>
 
-<h3><span class="greenRefactor">REFACTOR</span></h3>
-
-<pre><code [highlight]="refactor_fullPointsIncrease_currentPoints_moreCases"></code></pre>
-
 <p>
+
 	Now the last part of the requirement is that <code>FullPoints</code> can increase to a maximum of 30 Units.
 </p>
 
 <h2>Maximum increase</h2>
 
+<p>
+	Thinking about the maximum, the outside / using code should...
+</p>
 <h3><span class="redFail">RED</span></h3>
 
-<pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>
