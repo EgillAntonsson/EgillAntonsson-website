@@ -93,18 +93,34 @@
 <p>
 	I write a test for the existing <i>exit point</i> <code> FullPoints</code> property.
 </p>
-<pre><code [highlight]="test_red_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="red_fullPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 
 <p>
 	I make the test pass with an effortless implementation.
 </p>
-<pre><code [highlight]="impl_green_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="green_fullPointsIncrease"></code></pre>
 <p>
-	I don't like the 'magic' number <code>4</code> and thus convert it into a variable with a meaningful name.
+	I don't like the 'magic' number <code>4</code> and thus I'll refactor it.
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<pre><code [highlight]="impl_green_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="refactor_fullPointsIncrease"></code></pre>
+
+<p>
+	I replaced the 'magic' number with a constant member<br>
+	and gave it a meaningful name that explains the number.<br>
+	I set the access level of the constant to <code>public</code>,<br>
+	as it could be handy for outside code to use.<br>
+	<br>
+	This requirement also states that <code>CurrentPoints</code> should increase by the same <code>Unit</code> amount.<br>
+	This should be another test case as <code>CurrentPoints</code> is a different <i>exit point</i><br>
+	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>), so we cycle it.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+
+<pre><code [highlight]="red_fullPointsIncrease"></code></pre>
+

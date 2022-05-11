@@ -118,7 +118,7 @@ public void TakeDamage(int damagePoints)
 `
 
 	impl_4_refactor_2 = `// Health.cs
-public const uint MaxNegativePointsForInstantKillProtection = 20;
+private const uint MaxNegativePointsForInstantKillProtection = 20;
 
 public void TakeDamage(int damagePoints)
 {

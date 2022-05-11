@@ -9,7 +9,7 @@ import { PostComponent } from './post.component'
 
 export class PostTdd7Component extends PostComponent {
 
-	test_red_fullPointsIncrease = `// HealthTest.cs
+	red_fullPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
 public void FullPointsIncrease()
@@ -20,10 +20,30 @@ public void FullPointsIncrease()
 }
 `
 
-	impl_green_fullPointsIncrease = `// Health.cs
+	green_fullPointsIncrease = `// Health.cs
 public void IncreaseByUnit(int unit)
 {
 	FullPoints += unit * 4;
+}
+`
+
+	refactor_fullPointsIncrease = `// Health.cs
+public const int PointsPerUnit = 4;
+
+public void IncreaseByUnit(int unit)
+{
+	FullPoints += unit * PointsPerUnit;
+}
+`
+
+	red_fullPointsIncrease_currentPoints = `// HealthTest.cs
+// inside nested class IncreaseByUnit
+[Test]
+public void FullPointsIncrease()
+{
+	var health = new Health(12);
+	health.IncreaseByUnit(1);
+	Assert.That(health.FullPoints, Is.EqualTo(16));
 }
 `
 
