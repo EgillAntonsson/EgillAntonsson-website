@@ -9,7 +9,7 @@ import { PostComponent } from './post.component'
 
 export class PostTdd7Component extends PostComponent {
 
-	red_fullPointsIncrease = `// HealthTest.cs
+	red_increaseByUnit_fullPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
 public void FullPointsIncrease()
@@ -20,23 +20,23 @@ public void FullPointsIncrease()
 }
 `
 
-	green_fullPointsIncrease = `// Health.cs
+	green_increaseByUnit_fullPointsIncrease = `// Health.cs
 public void IncreaseByUnit()
 {
 	FullPoints += 4;
 }
 `
 
-	refactor_fullPointsIncrease = `// Health.cs
+	refactor_increaseByUnit_fullPointsIncrease = `// Health.cs
 public const int PointsPerUnit = 4;
 
-public void IncreaseByUnit(int unit)
+public void IncreaseByUnit()
 {
 	FullPoints += PointsPerUnit;
 }
 `
 
-	red_fullPointsIncrease_currentPoints = `// HealthTest.cs
+	red_increaseByUnit_currentPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
 public void CurrentPointsIncrease()
@@ -47,15 +47,15 @@ public void CurrentPointsIncrease()
 }
 `
 
-	green_fullPointsIncrease_currentPoints = `// Health.cs
-public void IncreaseByUnit(int unit)
+	green_increaseByUnit_currentPointsIncrease = `// Health.cs
+public void IncreaseByUnit()
 {
 	FullPoints += PointsPerUnit;
 	CurrentPoints = FullPoints;
 }
 `
 
-	red_fullPointsIncrease_currentPoints_moreCases = `// HealthTest.cs
+	red_increaseByUnit_currentPoints_moreCases = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [TestCase(7, 4, 1)]
 [TestCase(6, 4, 2)]
@@ -72,12 +72,35 @@ public void CurrentPoints_WhenStartingPoints_ThenDamagePoints(
 }
 `
 
-	green_fullPointsIncrease_currentPoints_moreCases = `// Health.cs
+	green_increaseByUnit_currentPoints_moreCases = `// Health.cs
 public void IncreaseByUnit()
 {
 	FullPoints += PointsPerUnit;
 	CurrentPoints += PointsPerUnit;
 }
+`
+
+	red_maxFullPoints_hasDefinedValue = `// HealthTest.cs
+// inside nested class IsMaxFullPointsReached
+[Test]
+public void ReturnsFalse()
+{
+	var health = new Health(Health.MaxFullPoints / 2);
+	Assert.That(health.IsMaxFullPointsReached, Is.False);
+}
+
+[Test]
+public void ReturnsTrue()
+{
+	var health = new Health(Health.MaxFullPoints);
+	Assert.That(health.IsMaxFullPointsReached, Is.True);
+}
+`
+
+	green_maxFullPoints_hasDefinedValue = `// Health.cs
+public const int MaxFullPoints = 120;
+
+public bool IsMaxFullPointsReached => FullPoints == MaxFullPoints;
 `
 
 }

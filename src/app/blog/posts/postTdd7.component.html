@@ -27,7 +27,7 @@
 </ul>
 <p>
 	In <i>Zelda: Breath of the Wild</i> this is a 'big' gameplay event<br>
-	and thus the increase is always 1 full Heart each time and no more (and no less).
+	and thus the increase is always 1 full Heart each time and no more.
 </p>
 <div [innerHTML]="completeRequirementListHtml"></div>
 
@@ -105,13 +105,13 @@
 </p>
 <h3><span class="redFail">RED</span></h3>
 
-<pre><code [highlight]="red_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="red_increaseByUnit_fullPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>
 	I make the test pass with an effortless implementation.
 </p>
-<pre><code [highlight]="green_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="green_increaseByUnit_fullPointsIncrease"></code></pre>
 <p>
 	I don't like that the 'magic' number <code>4</code> does not explain<br>
 	the relationship between <code>Points</code> and <code>Unit</code>.<br>
@@ -120,7 +120,7 @@
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<pre><code [highlight]="refactor_fullPointsIncrease"></code></pre>
+<pre><code [highlight]="refactor_increaseByUnit_fullPointsIncrease"></code></pre>
 <p>
 	Now it's replaced with a meaningfully named constant member<br>
 	that defines and documents well this relationship (in the code itself).<br>
@@ -138,11 +138,11 @@
 
 <h3><span class="redFail">RED</span></h3>
 
-<pre><code [highlight]="red_fullPointsIncrease_currentPoints"></code></pre>
+<pre><code [highlight]="red_increaseByUnit_currentPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 
-<pre><code [highlight]="green_fullPointsIncrease_currentPoints"></code></pre>
+<pre><code [highlight]="green_increaseByUnit_currentPointsIncrease"></code></pre>
 <p>
 	I effortlessly add the line <code>CurrentPoints = FullPoints</code>,<br>
 	which is enough to make the test pass,<br>
@@ -151,7 +151,7 @@
 </p>
 
 <h3><span class="redFail">RED</span></h3>
-<pre><code [highlight]="red_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+<pre><code [highlight]="red_increaseByUnit_currentPoints_moreCases"></code></pre>
 <p>
 	For readability, I select <code>4</code> for <code>startingPoints</code> parameter value,<br>
 	which also keeps the other numbers low.
@@ -159,20 +159,42 @@
 
 <h3><span class="greenPass">GREEN</span></h3>
 
-<pre><code [highlight]="green_fullPointsIncrease_currentPoints_moreCases"></code></pre>
+<pre><code [highlight]="green_increaseByUnit_currentPoints_moreCases"></code></pre>
 <p>
-	--- I am here...... ------
+	I could have taken a bigger step in the previous <span class="greenPass">GREEN</span> step<br>
+	and come straight away with the generic solution,<br>
+	but both paths should lead to the same result, both solution and tests,<br>
+	the path presented here is a bit more... presentable :)
 </p>
 
+<h2>Maximum</h2>
 <p>
-
-	Now the last part of the requirement is that <code>FullPoints</code> can increase to a maximum of 30 Units.
+	All that is left of the requirement is the maximum part.<br>
+	The game will only give the user the option to spend resources<br>
+	to increase the health if the maximum <code>FullPoints</code> has not been reached.
+	Thus the outside code will query <code>Health</code> if maximum has been reached<br>
+	and only invoke <code>IncreaseByUnit</code> if not.
 </p>
 
-<h2>Maximum increase</h2>
-
-<p>
-	Thinking about the maximum, the outside / using code should...
-</p>
 <h3><span class="redFail">RED</span></h3>
+<p>
+	The domain model focus will be a new property named <code>IsMaxFullPointsReached</code>.<br>
+</p>
 
+<pre><code [highlight]="red_maxFullPoints_hasDefinedValue"></code></pre>
+<p>
+	I'm presenting a bigger step, adding 2 test at the same time,<br>
+	(thus skipping the smaller cycles I did within it).<br>
+	It uses a new constant <code>MaxFullPoints</code>,<br>
+	and the test has two compile errors as both<br>
+	<code>MaxFullPoints</code> and <code>IsMaxFullPointsReached</code> are not defined.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="green_maxFullPoints_hasDefinedValue"></code></pre>
+<p>
+	I define the constant <code>MaxFullPoints</code> and give it the proper value<br>
+	and the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
+	<br>
+	
+</p>
