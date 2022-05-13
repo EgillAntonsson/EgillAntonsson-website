@@ -80,7 +80,7 @@ public void IncreaseByUnit()
 }
 `
 
-	red_maxFullPoints_hasDefinedValue = `// HealthTest.cs
+	red_IsMaxFullPointsReached = `// HealthTest.cs
 // inside nested class IsMaxFullPointsReached
 [Test]
 public void ReturnsFalse()
@@ -97,10 +97,37 @@ public void ReturnsTrue()
 }
 `
 
-	green_maxFullPoints_hasDefinedValue = `// Health.cs
+	green_IsMaxFullPointsReached = `// Health.cs
 public const int MaxFullPoints = 120;
 
 public bool IsMaxFullPointsReached => FullPoints == MaxFullPoints;
+`
+
+	red_IncreaseByUnit_ThrowsError = `// HealthTest.cs
+// inside nested class IncreaseByUnit
+[Test]
+public void ThrowsError_WhenMaxFullPointsReached()
+{
+	var health = new Health(Health.MaxFullPoints);
+	var exception = Assert.Throws(Is.TypeOf<InvalidOperationException>(),
+		delegate
+		{
+			health.IncreaseByUnit();
+		});
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
+}`
+
+	green_IncreaseByUnit_ThrowsError = `// Health.cs
+public void IncreaseByUnit()
+{
+	if (IsMaxFullPointsReached)
+	{
+		var message = $"Method invocation is invalid as {nameof(IsMaxFullPointsReached)} is true";
+		throw new InvalidOperationException(message);
+	}
+	FullPoints += PointsPerUnit;
+	CurrentPoints += PointsPerUnit;
+}
 `
 
 }

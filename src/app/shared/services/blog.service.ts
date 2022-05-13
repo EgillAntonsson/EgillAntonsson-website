@@ -22,7 +22,7 @@ export class BlogService {
 				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 9)),
 				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 9)),
 				new Post( 'Part 6 - Replenished by Items', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9)),
-				new Post( 'Part 7 - Extending to Maximum Health', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 10))
+				new Post( 'Part 7 - Increasing the Health', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14))
 			]
 		}
 		]

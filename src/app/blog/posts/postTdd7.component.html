@@ -9,9 +9,9 @@
 	</small>
 </div>
 
-<h2>The extending to maximum requirements</h2>
+<h2>The requirement</h2>
 <p>
-	Let's recap the next requirement from the user perspective:
+	Let's recap this requirement from the user perspective:
 </p>
 
 <ul class="list">
@@ -19,14 +19,14 @@
 		up to a maximum of 30 Hearts</li>
 </ul>
 <p>
-	Example of case when Life Gauge is not full when the increase is done:<br>
+	Example of case when Life Gauge is not full when the increase is executed:<br>
 </p>
 <ul class="list inline">
 	<li>Before increase: 1 Fraction filled of total 3 Hearts</li>
 	<li>After increase: 1 Hearth + 1 Fraction filled of total 4 Hearts</li>
 </ul>
 <p>
-	In <i>Zelda: Breath of the Wild</i> this is a 'big' gameplay event<br>
+	In <i>Zelda: Breath of the Wild</i> this is a big gameplay event<br>
 	and thus the increase is always 1 full Heart each time and no more.
 </p>
 <div [innerHTML]="completeRequirementListHtml"></div>
@@ -37,14 +37,13 @@
 <ul class="list">
 	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
 		by 4 <code>Points</code> at a time,<br>
-		up to a maximum of 120 <code>HealthPoints</code><br>
+		up to a maximum of 120 <code>Points</code><br>
 	</li>
 </ul>
 
 <p>
-	Now it makes sense to define a new unit in <code>Health</code><br>
-	that equals to 4 <code>Points</code><br>
-	(that visually is represented as a Heart (or something else)),<br>
+	Now it makes sense to define a new unit in <code>Health</code> that equals 4 <code>Points,</code><br>
+	(that is visually represented as a Heart or something else),<br>
 	as the increase should always be in that unit.<br>
 </p>
 <h3>Domain / Visual SoC mapping, revisited</h3>
@@ -66,7 +65,7 @@
 				<b><i>Unit</i></b>
 		</td>
 		<td class="center">
-			Heart (equals 4 Fractions)
+			Heart (holds 4 Fractions)
 		</td>
 	</tr>
 	<tr>
@@ -89,7 +88,7 @@
 	</li>
 </ul>
 <p>
-	It's also good that using <code>Units</code> makes the numbers smaller (e.g 120 -> 30)
+	It's also nice that using <code>Units</code> makes the numbers smaller (e.g 120 -> 30)
 </p>
 
 <div [innerHTML]="aboutCodeHtml"></div>
@@ -124,15 +123,12 @@
 <p>
 	Now it's replaced with a meaningfully named constant member<br>
 	that defines and documents well this relationship (in the code itself).<br>
-	For this reason, and also so outside code could potentially use it,<br>
-	I set the access to <code>public</code>.
 </p>
 
 <h2>Exit point <code>CurrentPoints</code></h2>
 <p>
-	Now I focus on the remaining <i>exit point</i> for this requirement,<br>
-	the existing <code>CurrentPoints</code> property.<br>
-	This should be a new test as it's about a different <i>exit point</i><br>
+	Now I focus on the other <i>exit point</i>, the existing <code>CurrentPoints</code> property.<br>
+	It should have new tests as it's about a different <i>exit point</i><br>
 	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>).
 </p>
 
@@ -153,7 +149,7 @@
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_increaseByUnit_currentPoints_moreCases"></code></pre>
 <p>
-	For readability, I select <code>4</code> for <code>startingPoints</code> parameter value,<br>
+	For readability, I select <code>4</code> for the <code>startingPoints</code> parameter value,<br>
 	which also keeps the other numbers low.
 </p>
 
@@ -162,9 +158,9 @@
 <pre><code [highlight]="green_increaseByUnit_currentPoints_moreCases"></code></pre>
 <p>
 	I could have taken a bigger step in the previous <span class="greenPass">GREEN</span> step<br>
-	and come straight away with the generic solution,<br>
-	but both paths should lead to the same result, both solution and tests,<br>
-	the path presented here is a bit more... presentable :)
+	and come straight away with this generic solution,<br>
+	but both paths should lead to the same result (both solution and tests),<br>
+	the path presented here makes the tests drive the implementation.
 </p>
 
 <h2>Maximum</h2>
@@ -181,7 +177,7 @@
 	The domain model focus will be a new property named <code>IsMaxFullPointsReached</code>.<br>
 </p>
 
-<pre><code [highlight]="red_maxFullPoints_hasDefinedValue"></code></pre>
+<pre><code [highlight]="red_IsMaxFullPointsReached"></code></pre>
 <p>
 	I'm presenting a bigger step, adding 2 test at the same time,<br>
 	(thus skipping the smaller cycles I did within it).<br>
@@ -191,10 +187,17 @@
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<pre><code [highlight]="green_maxFullPoints_hasDefinedValue"></code></pre>
+<pre><code [highlight]="green_IsMaxFullPointsReached"></code></pre>
 <p>
-	I define the constant <code>MaxFullPoints</code> and give it the proper value<br>
-	and the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
+	I define the constant <code>MaxFullPoints</code> and give it the proper value.<br>
+	I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
 	<br>
-	
+	I should make method <code>IncreaseByUnit</code> throw error if max has been reached,<br>
+	to protect the state in case of this improper usage.
 </p>
+
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="green_IncreaseByUnit_ThrowsError"></code></pre>
