@@ -17,7 +17,7 @@ public class HealthTest
 	public class Constructor
 	{
 		[Test]
-		public void PointsHasStartingValue()
+		public void Points_HasStartingValue()
 		{
 			var health = new Health();
 			Assert.That(health.Points, Is.EqualTo(12));
@@ -43,7 +43,7 @@ public class Health
 	test_1_refactor = `// HealthTest.cs
 // inside nested Constructor class.
 [Test]
-public void CurrentPointsHasStartingValue()
+public void CurrentPoints_HasStartingValue()
 {
 	int startingPoints = 12;
 	var health = new Health(startingPoints);
@@ -51,14 +51,11 @@ public void CurrentPointsHasStartingValue()
 }
 `
 	impl_1_refactor = `// Health.cs
-public class Health
-{
-	public int CurrentPoints { get;  private set; }
+public int CurrentPoints { get; private set; }
 
-	public Health(int startingPoints)
-	{
-		CurrentPoints = startingPoints;
-	}
+public Health(int startingPoints)
+{
+	CurrentPoints = startingPoints;
 }
 `
 
@@ -68,42 +65,36 @@ public class Health
 public void ThrowsError_WhenStartingPointsIsInvalid()
 {
 	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		new Health(0);
-	});
+		delegate
+		{
+			new Health(0);
+		});
 	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
 
 	impl_2_Green = `//Health.cs
-using System;
+public int CurrentPoints { get;  private set; }
 
-public class Health
+public Health(int startingPoints)
 {
-	public int CurrentPoints { get;  private set; }
-
-	public Health(int startingPoints)
+	if (startingPoints < 1)
 	{
-		if (startingPoints < 1)
-		{
-			throw new ArgumentOutOfRangeException("startingPoints", "Invalid value");
-		}
-
-		CurrentPoints = startingPoints;
+		throw new ArgumentOutOfRangeException(nameof(startingPoints), "Invalid value");
 	}
+
+	CurrentPoints = startingPoints;
 }
 `
 
 impl_2_Refactor = `//Health.cs
 public Health(int startingPoints)
 {
-	int lowestValidValue = 1;
+	const int lowestValidValue = 1;
 	if (startingPoints < lowestValidValue)
 	{
-		var message = $"Value 'startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
-		var paramName = nameof(startingPoints);
-		throw new ArgumentOutOfRangeException(paramName, message);
+		var message = $"Value {startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
+		throw new ArgumentOutOfRangeException(nameof(startingPoints), message);
 	}
 
 	CurrentPoints = startingPoints;
@@ -114,7 +105,7 @@ public Health(int startingPoints)
 // inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
-public void CurrentPointsHasStartingValue(int startingPoints)
+public void CurrentPoints_HasStartingValue(int startingPoints)
 {
 	var health = new Health(startingPoints);
 	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
@@ -124,11 +115,12 @@ public void CurrentPointsHasStartingValue(int startingPoints)
 [TestCase(-1)]
 public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
 {
-	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		new Health(startingPoints);
-	});
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+		delegate
+		{
+			new Health(startingPoints);
+		});
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
 

@@ -81,8 +81,8 @@
 <h2>The Life Gauge behavior</h2>
 <p>
 	The below list is user perspective behaviour summary from<br>
-	the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game<br>
-	(Small streamlining done for the sake of the assignment):
+	the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game.<br>
+	I've simplified some requirements to keep the scope within a sensible limit.
 
 </p>
 <ul class="list">
@@ -101,16 +101,14 @@
 		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
 	</ul>
 	<br>
-	<li class="noBulletinPoint"><b>Replenishing and Maximum</b></li>
-	<li>Link's Life Gauge can be replenished by:<br>
+	<li class="noBulletinPoint"><b>Replenish and Increase</b></li>
+	<li>Link's Life Gauge can be replenished by consuming certain food</li>
+	<li>The Life Gauge can be increased by 1 full Heart at a time,<br>
+		up to a maximum of 30 Hearts</li>
+	<li>It can also be temporarily increased (lost when Link takes damage)<br>
+		by consuming certain food</li>
 		<ul>
-			<li>Picking up recovery Hearts / drinking recovery Potions</li>
-			<li>Resting while Sitting or Sleeping.</li>
-		</ul>
-	<li>The Life Gauge can be extended to a maximum of 30 Hearts</li>
-	<li>It can also be temporarily extended by consuming certain Foods that grant yellow temporary Hearts</li>
-		<ul>
-			<li>These yellow Hearts are lost when Link takes damage and cannot be recovered</li>
+			<li>These are visually represented as yellow Hearts</li>
 		</ul>
 </ul>
 
@@ -122,10 +120,10 @@
 	</tr>
 	<tr>
 		<td class="center">
-			Avatar Health
+			(Avatar) Health
 		</td>
 		<td class="center">
-			Heart Container
+			Life Gauge
 		</td>
 	</tr>
 	<tr>
@@ -133,15 +131,15 @@
 				-
 		</td>
 		<td class="center">
-			Heart (contains 4 Fractions)
+			Heart (holds 4 Fractions)
 		</td>
 	</tr>
 	<tr>
 		<td class="center">
-			Health Points
+			Points
 		</td>
 		<td class="center">
-			Heart Fraction
+			Heart Fractions
 		</td>
 	</tr>
 </table>

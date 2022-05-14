@@ -9,18 +9,13 @@
 	</small>
 </div>
 
-<h2>The Replenish requirements</h2>
+<h2>The requirement</h2>
 <p>
-	Let's recap the Replenish requirements from the user perspective:
+	Let's recap it from the user perspective:
 </p>
 
 <ul class="list">
-	<li>Link's Life Gauge can be replenished by:<br>
-		<ul>
-			<li>Picking up recovery Hearts / drinking recovery Potions</li>
-			<li>Resting while Sitting or Sleeping.</li>
-		</ul>
-	</li>
+	<li>Link's Life Gauge can be replenished by consuming certain food</li>
 </ul>
 <div [innerHTML]="completeRequirementListHtml"></div>
 
@@ -28,20 +23,12 @@
 	{{rewordRequirement}}
 </p>
 <ul class="list">
-	<li>Avatar Health / <code>CurrentPoints</code> can be replenished by:<br>
-		<ul>
-			<li>Various items</li>
-			<li>Resting action</li>
-		</ul>
-	</li>
+	<li>Avatar Health / <code>CurrentPoints</code> can be replenished by consuming food</li>
 </ul>
-<p>
-	This part focuses on replenished by items.
-</p>
 
 <div [innerHTML]="aboutCodeHtml"></div>
 
-<h2>Replenished by items cycling</h2>
+<h2>Replenish cycling</h2>
 
 <p>
 	The domain model focus will be a new method named <code>Replenish</code>.<br>
@@ -81,11 +68,7 @@
 <pre><code [highlight]="test_2_green"></code></pre>
 <p>
 	I'm confident that this is the generic solution for any valid input<br>
-	so I feel I don't have to write more tests cases
-	<br>
-	Note that there are special items that can revive Link from the dead,<br>
-	but I deem that that logic should be handled outside of the <code>Health</code> class<br>
-	and <code>Replenish</code> would be invoked when appropriate.<br>
+	so don't add more tests cases.<br>
 	<br>
 	But I have to handle invalid input, so let's do a cycle for those.
 </p>
@@ -94,13 +77,14 @@
 <h3><span class="redFail">RED</span></h3>
 <p>
 	As this will be similar to the 'take damage' handling,<br>
-	I copy the 'take damage throws error' test<br>
+	I copy the existing 'take damage throws error' test<br>
 	and paste it under the nested <code>Replenish</code> class<br>
 	and change to 'replenish' appropriately.
 </p>
 <pre><code [highlight]="test_invalid_input_red"></code></pre>
 <p>
-	This particular copy / paste of test cases makes sense and does not 'smell'.
+	This test case 'copy / paste' is valid<br>
+	as it's tests the same handling for a different <i>entry point</i> and <i>input</i>.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -114,7 +98,7 @@
 	Now the Unity Test Runner looks like this:
 </p>
 <figure>
-	<img src="../assets/images/blog/tdd/TestRunner_after-replenish-tests.PNG" alt="Unity Test Runner: after refactoring 'ThrowsError' implementation" title="Unity Test Runner: after refactoring 'ThrowsError' implementation" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/TestRunner_after-replenish-tests.PNG" alt="Unity Test Runner: after adding Replenish tests" title="Unity Test Runner: after adding Replenish tests" class="imageSmallText">
 	<figcaption>
 		Unity Test Runner: after adding Replenish tests
 	</figcaption>

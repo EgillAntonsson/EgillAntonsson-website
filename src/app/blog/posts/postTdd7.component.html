@@ -1,0 +1,228 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+
+<h2>The requirement</h2>
+<p>
+	Let's recap this requirement from the user perspective:
+</p>
+
+<ul class="list">
+	<li>The Life Gauge can be increased by 1 full Heart at a time,<br>
+		up to a maximum of 30 Hearts</li>
+</ul>
+<p>
+	Example of case when Life Gauge is not full when the increase is executed:<br>
+</p>
+<ul class="list inline">
+	<li>Before increase: 1 Fraction filled of total 3 Hearts</li>
+	<li>After increase: 1 Hearth + 1 Fraction filled of total 4 Hearts</li>
+</ul>
+<p>
+	In <i>Zelda: Breath of the Wild</i> this is a big gameplay event<br>
+	and thus the increase is always 1 full Heart each time and no more.
+</p>
+<div [innerHTML]="completeRequirementListHtml"></div>
+
+<p>
+	{{rewordRequirement}}
+</p>
+<ul class="list">
+	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
+		by 4 <code>Points</code> at a time,<br>
+		up to a maximum of 120 <code>Points</code><br>
+	</li>
+</ul>
+
+<p>
+	Now it makes sense to define a new unit in <code>Health</code> that equals 4 <code>Points,</code><br>
+	(that is visually represented as a Heart or something else),<br>
+	as the increase should always be in that unit.<br>
+</p>
+<h3>Domain / Visual SoC mapping, revisited</h3>
+<table>
+	<tr>
+		<th>Domain Model</th>
+		<th>GUI / View</th>
+	</tr>
+	<tr>
+		<td class="center">
+			(Avatar) Health
+		</td>
+		<td class="center">
+			Life Gauge
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+				<b><i>Unit</i></b>
+		</td>
+		<td class="center">
+			Heart (holds 4 Fractions)
+		</td>
+	</tr>
+	<tr>
+		<td class="center">
+			Points
+		</td>
+		<td class="center">
+			Heart Fractions
+		</td>
+	</tr>
+</table>
+<p>
+	I add a new domain definition <i>Unit</i> that maps to the visualized <i>Heart</i><br>
+	now let's reword the requirement again:<br>
+</p>
+<ul class="list">
+	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
+		by 1 <code>Unit</code> at a time,<br>
+		up to a maximum of 30 <code>Units</code><br>
+	</li>
+</ul>
+<p>
+	It's also nice that using <code>Units</code> makes the numbers smaller (e.g 120 -> 30)
+</p>
+
+<div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Entry point <code>IncreaseByUnit</code></h2>
+<p>
+	The domain model focus will be a new method named <code>IncreaseByUnit</code>.<br>
+</p>
+
+<h2>Exit point <code>FullPoints</code></h2>
+<p>
+	Focusing first on the existing <code>FullPoints</code> property.
+</p>
+<h3><span class="redFail">RED</span></h3>
+
+<pre><code [highlight]="red_increaseByUnit_fullPointsIncrease"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<p>
+	I make the test pass with an effortless implementation.
+</p>
+<pre><code [highlight]="green_increaseByUnit_fullPointsIncrease"></code></pre>
+<p>
+	I don't like that the 'magic' number <code>4</code> does not explain<br>
+	the relationship between <code>Points</code> and <code>Unit</code>.<br>
+	Thus I refactor it.
+</p>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+
+<pre><code [highlight]="refactor_increaseByUnit_fullPointsIncrease"></code></pre>
+<p>
+	Now it's replaced with a meaningfully named constant member<br>
+	that defines and documents well this relationship (in the code itself).<br>
+</p>
+
+<h2>Exit point <code>CurrentPoints</code></h2>
+<p>
+	Now I focus on the other <i>exit point</i>, the existing <code>CurrentPoints</code> property.<br>
+	It should have new tests as it's about a different <i>exit point</i><br>
+	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>).
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+
+<pre><code [highlight]="red_increaseByUnit_currentPointsIncrease"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<pre><code [highlight]="green_increaseByUnit_currentPointsIncrease"></code></pre>
+<p>
+	I effortlessly add the line <code>CurrentPoints = FullPoints</code>,<br>
+	which is enough to make the test pass,<br>
+	but I know that it only holds for this particular case, and not for others.<br>
+	Thus I'll cycle the other cases.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="red_increaseByUnit_currentPoints_moreCases"></code></pre>
+<p>
+	For readability, I select <code>4</code> for the <code>startingPoints</code> parameter value,<br>
+	which also keeps the other numbers low.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<pre><code [highlight]="green_increaseByUnit_currentPoints_moreCases"></code></pre>
+<p>
+	I could have taken a bigger step in the previous <span class="greenPass">GREEN</span> step<br>
+	and come straight away with this generic solution,<br>
+	but both paths should lead to the same result (both solution and tests),<br>
+	the path presented here makes the tests drive the implementation.
+</p>
+
+<h2>The maximum</h2>
+<p>
+	All that is left of the requirement is the maximum part.<br>
+	The game will only give the user the option to spend resources<br>
+	to increase the health if the maximum <code>FullPoints</code> has not been reached.
+	Thus the outside code should query <code>Health</code> if maximum has been reached<br>
+	and only invoke <code>IncreaseByUnit</code> if not.
+</p>
+
+<h3><span class="redFail">RED</span></h3>
+<p>
+	The <i>entry point</i> will be a new property named <code>IsMaxFullPointsReached</code>.<br>
+</p>
+
+<pre><code [highlight]="red_IsMaxFullPointsReached"></code></pre>
+<p>
+	I'm presenting a bigger step, adding 2 test at the same time,<br>
+	(thus skipping the smaller cycles I did within it).<br>
+	<br>
+	Here I can concise the test names<br>
+	as the <i>exit point</i> is the same as the <i>entry point</i>,<br>
+	thus I skip the <i>exit point</i> in the name (nested class already names it).<br>
+	<br>
+	The tests use a new constant <code>MaxFullPoints</code>,<br>
+	and there are two compile errors as both<br>
+	<code>MaxFullPoints</code> and <code>IsMaxFullPointsReached</code> are not defined.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="green_IsMaxFullPointsReached"></code></pre>
+<p>
+	I define the constant <code>MaxFullPoints</code> and give it the proper value.<br>
+	I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
+	<br>
+	I need to protect the state of <code>Health</code> from improper usage,<br>
+	i.e. if the outside code invokes <code>IncreaseByUnit</code> when<br>
+	<code>IsMaxFullPointsReached</code> is <code>true</code>.
+</p>
+
+<h2>Handle improper usage of <code>IncreaseByUnit</code></h2>
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
+<p>
+	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code><br>
+	if I include an informative message for my case.<br>
+	I assert that the message contains "invalid",<br>
+	intentionally not being more specific<br>
+	so the assert does not fail later because of potential rewording.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="green_IncreaseByUnit_ThrowsError"></code></pre>
+<p>
+	I pass the test by adding the <i>if</i> condition at the start of the method.<br>
+	<br>
+	Now the requirement has been fulfilled and the Unity Test Runner looks like this:
+</p>
+<figure>
+	<img src="../assets/images/blog/tdd/TestRunner_after-increase-tests.PNG" alt="Unity Test Runner: after adding Increase tests" title="Unity Test Runner: after adding Increase tests" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: after adding Increase tests
+	</figcaption>
+</figure>
