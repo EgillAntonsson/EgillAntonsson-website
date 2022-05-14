@@ -64,15 +64,15 @@
 	that fails as the code does not compile.
 </p>
 <pre><code [highlight]="test_1_Red"></code></pre>
+<h3>Test code naming / structure convention</h3>
 <p>
-	I'm using a naming/structuring convention by using nested test classes.<br>
-	I name the nested class after the <i>entry point</i> of the test,<br>
-	which in this case is the constructor method<br>
-	(see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
-	I discovered this convention from Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
+	I use and name nested class after the <i>entry point</i> of the test<br>
+	(<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>),<br>
+	which in this particular case is named <code>Constructor</code>.<br>
+	I got the idea from Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
 	that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a><br>
 	<br>
-	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.
+	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions.</a>.
 </p>
 
 <h3><span class="redFail">RED (test fails)</span></h3>
@@ -147,14 +147,15 @@
 <p>
 	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
 	if I include an informative message for my case.<br>
+	I assert that the message contains "invalid",<br>
+	intentionally not being more specific<br>
+	so the assert does not fail later because of potential rewording.<br>
+	<br>
 	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
-	<br>
-	I'm asserting that the exception message only contains <i>invalid</i> (ignoring case)
-	which should be the 'keyword' in the message.<br>
-	I don't want to assert the full message as that would make the test fragile,<br>
-	e.g. the test would fail when a dev tweaks the wording of the message (although keeping the keyword).<br>
-	<br>
-	Elaborating further on my test case naming convention, I use my template:<br>
+</p>
+<h3>Test code naming / structure convention (part 2)</h3>
+<p>
+	Elaborating further, I use my template:<br>
 	<br>
 	[<i>exit point</i> (state)] or [expected behavior of <i>Unit of Work</i>]<br>
 	then adding <i>_When[Scenario]</i> for other scenarios than the basic one.<br>

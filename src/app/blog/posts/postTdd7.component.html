@@ -193,11 +193,24 @@
 	I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
 	<br>
 	I should make method <code>IncreaseByUnit</code> throw error if max has been reached,<br>
-	to protect the state in case of this improper usage.
+	to protect the state of <code>Health</code> from improper usage,<br>
+	i.e. if the outside code invokes <code>IncreaseByUnit</code> when <code>IsMaxFullPointsReached</code> is <code>true</code>.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
+<p>
+	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code><br>
+	if I include an informative message for my case.<br>
+	I assert that the message contains "invalid",<br>
+	intentionally not being more specific<br>
+	so the assert does not fail later because of potential rewording.
+</p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="green_IncreaseByUnit_ThrowsError"></code></pre>
+<p>
+	I pass the test by adding the <i>if</i> condition at the start of the method.<br>
+	<br>
+	Now the requirement has been fulfilled and the Unity Test Runner looks like this:
+</p>
