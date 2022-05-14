@@ -163,26 +163,31 @@
 	the path presented here makes the tests drive the implementation.
 </p>
 
-<h2>Maximum</h2>
+<h2>The maximum</h2>
 <p>
 	All that is left of the requirement is the maximum part.<br>
 	The game will only give the user the option to spend resources<br>
 	to increase the health if the maximum <code>FullPoints</code> has not been reached.
-	Thus the outside code will query <code>Health</code> if maximum has been reached<br>
+	Thus the outside code should query <code>Health</code> if maximum has been reached<br>
 	and only invoke <code>IncreaseByUnit</code> if not.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	The domain model focus will be a new property named <code>IsMaxFullPointsReached</code>.<br>
+	The <i>entry point</i> will be a new property named <code>IsMaxFullPointsReached</code>.<br>
 </p>
 
 <pre><code [highlight]="red_IsMaxFullPointsReached"></code></pre>
 <p>
 	I'm presenting a bigger step, adding 2 test at the same time,<br>
 	(thus skipping the smaller cycles I did within it).<br>
-	It uses a new constant <code>MaxFullPoints</code>,<br>
-	and the test has two compile errors as both<br>
+	<br>
+	Here I can concise the test names<br>
+	as the <i>exit point</i> is the same as the <i>entry point</i>,<br>
+	thus I skip the <i>exit point</i> in the name (nested class already names it).<br>
+	<br>
+	The tests use a new constant <code>MaxFullPoints</code>,<br>
+	and there are two compile errors as both<br>
 	<code>MaxFullPoints</code> and <code>IsMaxFullPointsReached</code> are not defined.
 </p>
 
@@ -192,11 +197,12 @@
 	I define the constant <code>MaxFullPoints</code> and give it the proper value.<br>
 	I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
 	<br>
-	I should make method <code>IncreaseByUnit</code> throw error if max has been reached,<br>
-	to protect the state of <code>Health</code> from improper usage,<br>
-	i.e. if the outside code invokes <code>IncreaseByUnit</code> when <code>IsMaxFullPointsReached</code> is <code>true</code>.
+	I need to protect the state of <code>Health</code> from improper usage,<br>
+	i.e. if the outside code invokes <code>IncreaseByUnit</code> when<br>
+	<code>IsMaxFullPointsReached</code> is <code>true</code>.
 </p>
 
+<h2>Handle improper usage of <code>IncreaseByUnit</code></h2>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
 <p>
@@ -214,3 +220,9 @@
 	<br>
 	Now the requirement has been fulfilled and the Unity Test Runner looks like this:
 </p>
+<figure>
+	<img src="../assets/images/blog/tdd/TestRunner_after-increase-tests.PNG" alt="Unity Test Runner: after adding Replenish tests" title="Unity Test Runner: after adding Replenish tests" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: after adding Replenish tests
+	</figcaption>
+</figure>

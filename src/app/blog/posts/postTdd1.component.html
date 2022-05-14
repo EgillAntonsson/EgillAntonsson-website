@@ -19,13 +19,13 @@
 <ol class="list">
 	<li><span class="redFail">RED:</span> Write a test that fails</li>
 	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> Evaluate if there is a <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smell</a> that should be refactored out (if not, then skip step)</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Evaluate if refactoring is needed, e.g. remove a <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smell</a>
 </ol>
 <p>The cycle should focus is on fulfilling a requirement on the SUT (Subject/Unit Under Test)<br>
 	repeating it until you are confident that the SUT has become generic enough to handle all meaningful cases<br>
 	(as the tests become more specific).<br>
-	At some interval you should stop and evaluate if the design of the overall system is sound,<br>
-	and refactor if needed (making sure all test are passing).<br>
+	At some interval you should stop and evaluate if the design of the overall system is sound, if not then refactor it.<br>
+	(all tests run and passing as frequently as needed).<br>
 	This is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a>.<br>
 	(Bob terms additional cycles within and around RED / GREEN / REFACTOR).
 </p>

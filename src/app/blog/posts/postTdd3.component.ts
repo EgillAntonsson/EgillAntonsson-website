@@ -17,7 +17,7 @@ public class HealthTest
 	public class Constructor
 	{
 		[Test]
-		public void PointsHasStartingValue()
+		public void Points_HasStartingValue()
 		{
 			var health = new Health();
 			Assert.That(health.Points, Is.EqualTo(12));
@@ -43,7 +43,7 @@ public class Health
 	test_1_refactor = `// HealthTest.cs
 // inside nested Constructor class.
 [Test]
-public void CurrentPointsHasStartingValue()
+public void CurrentPoints_HasStartingValue()
 {
 	int startingPoints = 12;
 	var health = new Health(startingPoints);
@@ -65,10 +65,10 @@ public Health(int startingPoints)
 public void ThrowsError_WhenStartingPointsIsInvalid()
 {
 	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		new Health(0);
-	});
+		delegate
+		{
+			new Health(0);
+		});
 	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
@@ -105,7 +105,7 @@ public Health(int startingPoints)
 // inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
-public void CurrentPointsHasStartingValue(int startingPoints)
+public void CurrentPoints_HasStartingValue(int startingPoints)
 {
 	var health = new Health(startingPoints);
 	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
@@ -115,11 +115,12 @@ public void CurrentPointsHasStartingValue(int startingPoints)
 [TestCase(-1)]
 public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
 {
-	Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		new Health(startingPoints);
-	});
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+		delegate
+		{
+			new Health(startingPoints);
+		});
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
 

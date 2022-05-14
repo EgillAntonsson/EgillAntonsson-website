@@ -153,16 +153,22 @@
 	<br>
 	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
 </p>
-<h3>Test code naming / structure convention (part 2)</h3>
+<h3>Test code naming / structure convention</h3>
 <p>
 	Elaborating further, I use my template:<br>
 	<br>
-	[<i>exit point</i> (state)] or [expected behavior of <i>Unit of Work</i>]<br>
-	then adding <i>_When[Scenario]</i> for other scenarios than the basic one.<br>
+	[<i>exit point</i>]_[will be in state]<br>
+	or<br>
+	[<i>exit point</i>]_When[Scenario]<br>
+	or<br>
+	[expected behavior of <i>Unit of Work</i>]_When[Scenario]<br>
 	<br>
-	Thus these two test cases get named accordingly:<br>
-	<code>ThrowsError_WhenStartingPointsIsInvalid</code><br>
-	<code>CurrentPointsHasStartingValue</code>
+	_When is used for other scenarios than the 'happy path' / basic one.<br>
+	(<i>exit point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>),<br>
+	<br>
+	Thus these two test cases are named accordingly:<br>
+	<code>CurrentPoints_HasStartingValue</code><br>
+	<code>ThrowsError_WhenStartingPointsIsInvalid</code>
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>

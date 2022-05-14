@@ -12,7 +12,7 @@ export class PostTdd7Component extends PostComponent {
 	red_increaseByUnit_fullPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
-public void FullPointsIncrease()
+public void FullPoints_Increase()
 {
 	var health = new Health(12);
 	health.IncreaseByUnit();
@@ -39,7 +39,7 @@ public void IncreaseByUnit()
 	red_increaseByUnit_currentPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
-public void CurrentPointsIncrease()
+public void CurrentPoints_Increase()
 {
 	var health = new Health(12);
 	health.IncreaseByUnit();

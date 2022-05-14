@@ -46,7 +46,7 @@
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	I write a new test case <code>IsDeadIsFalse</code>, and it fails as <code>IsDead</code> is not defined.
+	I write a new test case and it fails as <code>IsDead</code> is not defined.
 </p>
 <pre><code [highlight]="test_1_red"></code></pre>
 
@@ -70,6 +70,11 @@
 </p>
 <pre><code [highlight]="test_2_red"></code></pre>
 <p>
+	The <code>_After</code> in the name suits well for this scenario (better than <code>_When</code>).<br>
+	The test still checks only one exit point, although it asserts it twice.<br>
+	As the test is readable, focused and meaningful,<br>
+	I'm still in line IMO with <i>What is a good Unit Test</i> section in <a href="./blog/tdd-health/part1">Part 1</a>).<br>
+	<br>
 	The test fails as currently the Avatar is immortal!<br>
 	Of course that's no good, so let's fix that and make the test pass.
 </p>
@@ -98,7 +103,7 @@
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="test_3_red"></code></pre>
 <p>
-	The test is very similar to the existing test <code>CurrentPointsHasStartingValue</code><br>
+	The test is very similar to the existing test for <i>exit point</i> <code> CurrentPoints</code><br>
 	but the key difference is that it's testing a different <i>exit point</i> (see <i>Good Unit Test definition</i> in <a href="./blog/tdd-health/part1">part 1</a>).
 </p>
 
@@ -122,17 +127,19 @@
 	I assert on the output <code>CurrentPoints</code> as the 'protected from instant kill' case should leave the value at <code>1</code>.<br>
 	The last <code>TestCase</code> tests the 'exception' case:<br>
 	when the damage is so much that it kills the Avatar regardless.<br>
-	<br>
-	Elaborating further on my test case naming convention,<br>
-	the scenario starts with <code>_When</code> and can continue with <code>_Then</code> as needed.<br>
+</p>
+<h3>Test code naming / structure convention</h3>
+<p>
+	Elaborating further, the scenario starting with <code>_When</code><br>
+	can continue with <code>_Then</code> as needed.<br>
 	The whole scenario 'plays out' before the assertion / <i>exit point</i> check.<br>
 	(<code>_Then</code> indicates occurring later in the internal scenario order).
 </p>
 
 <h2>Experience the value of TDD</h2>
 <p>
-	Now the value of TDD starts to shine as my first attempts to make test pass<br>
-	failed and/or failed existing ones.<br>
+	Now the value of TDD starts to shine<br>
+	as my first attempts to make test pass failed and/or failed existing ones.<br>
 	I suggest you try it out yourself before reading my <span class="greenPass">GREEN</span> solution below.<br>
 	You can get the current state of the code here: <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Tests/EditMode/HealthTest.cs">HealthTest.cs</a>, <a href="	https://github.com/EgillAntonsson/tdd-avatar-health-in-unity/blob/3e9aeea7a9285a5b67e7900bd8471ec932b758de/Assets/Scripts/Runtime/Health.cs">Health.cs</a><br>
 	At this moment the Unity Test Runner looks like this:
@@ -170,7 +177,7 @@
 <h3><span class="greenRefactor">REFACTOR (2nd iteration)</span></h3>
 <pre><code [highlight]="impl_4_refactor_2"></code></pre>
 <p>
-	I replaced the 'magic' number with a private constant member<br>
+	I replaced the 'magic' number with a constant member<br>
 	and gave it a meaningful name that explains the number.<br>
-	I set its type as <code>uint</code> to signal that the value should be positive.
+	A negative value aligns with the naming of the const, so I 'flip' the value.
 </p>

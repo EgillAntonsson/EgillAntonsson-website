@@ -12,7 +12,7 @@ export class PostTdd4Component extends PostComponent {
 test_1_Red = `// HealthTest.cs
 // inside nested class TakeDamage
 [Test]
-public void CurrentPointsDecrease()
+public void CurrentPoints_Decrease()
 {
 	var health = new Health(12);
 	health.TakeDamage(1);
@@ -37,10 +37,10 @@ public void ThrowsError_WhenDamagePointsIsInvalid(int damagePoints)
 {
 	var health = new Health(12);
 	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		health.TakeDamage(damagePoints);
-	});
+		delegate
+		{
+			health.TakeDamage(damagePoints);
+		});
 	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `

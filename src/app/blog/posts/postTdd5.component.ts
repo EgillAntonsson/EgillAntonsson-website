@@ -12,7 +12,7 @@ export class PostTdd5Component extends PostComponent {
 	test_1_red = `// HealthTest.cs
 // inside nested class Constructor
 [Test]
-public void IsDeadIsFalse()
+public void IsDead_IsFalse()
 {
 	var health = new Health(12);
 	Assert.That(health.IsDead, Is.False);
@@ -31,6 +31,7 @@ public void IsDead_AfterTwoInvocations()
 	var health = new Health(10);
 	health.TakeDamage(9);
 	Assert.That(health.IsDead, Is.False);
+
 	health.TakeDamage(1);
 	Assert.That(health.IsDead, Is.True);
 }
@@ -44,7 +45,7 @@ test_3_red = `// HealthTest.cs
 // inside nested class Constructor
 [TestCase(12)]
 [TestCase(1)]
-public void FullPointsHasStartingValue(int startingPoints)
+public void FullPoints_HasStartingValue(int startingPoints)
 {
 	var health = new Health(startingPoints);
 	Assert.That(health.FullPoints, Is.EqualTo(startingPoints));
@@ -118,7 +119,7 @@ public void TakeDamage(int damagePoints)
 `
 
 	impl_4_refactor_2 = `// Health.cs
-private const uint MaxNegativePointsForInstantKillProtection = 20;
+public const int MaxNegativePointsForInstantKillProtection = -20;
 
 public void TakeDamage(int damagePoints)
 {
@@ -126,7 +127,7 @@ public void TakeDamage(int damagePoints)
 
 	if (CurrentPoints == FullPoints
 		&& damagePoints >= FullPoints
-		&& damagePoints <= FullPoints + MaxNegativePointsForInstantKillProtection)
+		&& damagePoints <= FullPoints - MaxNegativePointsForInstantKillProtection)
 	{
 		CurrentPoints = 1;
 		return;

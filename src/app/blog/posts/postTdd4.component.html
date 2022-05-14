@@ -96,11 +96,12 @@
 	makes the method easy to reuse,<br>
 	if another case comes later with different  <code>lowestValidValue</code>.<br>
 	<br>
-	<a href="https://www.jetbrains.com/resharper/">ReSharper</a> inspection hints that <code>ValidatePoints</code> method can be made <code>static</code>,<br>
+	<a href="https://www.jetbrains.com/resharper/">ReSharper</a> hints that <code>ValidatePoints</code> method can be made <code>static</code>,<br>
 	and I agree, as it doesn't hinder testability nor design (it's <code>private</code>).<br>
-	Making it <code>static </code> <a href="https://www.jetbrains.com/help/resharper/2022.1/MemberCanBeMadeStatic.Local.html">yields a small performance benefit under particular circumstances</a><br>
+	Making it <code>static </code> <a href="https://www.jetbrains.com/help/resharper/2022.1/MemberCanBeMadeStatic.Local.html">can yield a small performance benefit</a>.<br>
 	<br>
-	I ignore ReSharper's hint to 'invert 'if' statement' as IMO this is more readable<br>
+	I ignore ReSharper's hint to 'invert <code>if</code> statement' as the current format<br>
+	is more readable IMO and the nested braces are only one-level deep.<br>
 	<br>
 	I run all the tests (and also did as needed while refactoring) to verify everything works.<br>
 	Now the Test Runner looks like this:

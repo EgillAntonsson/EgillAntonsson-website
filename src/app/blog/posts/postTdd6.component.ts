@@ -50,12 +50,12 @@ public void Replenish(int replenishPoints)
 public void ThrowsError_WhenReplenishPointsIsInvalid(int replenishPoints)
 {
 	var health = new Health(12);
-	Exception ex = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-	delegate
-	{
-		health.Replenish(replenishPoints);
-	});
-	Assert.That(ex.Message, Does.Match("invalid").IgnoreCase);
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
+		delegate
+		{
+			health.Replenish(replenishPoints);
+		});
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
 }
 `
 
