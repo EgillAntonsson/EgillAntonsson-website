@@ -1,4 +1,4 @@
-<div class="playerContainer">
+<div class="playerContainer noSelect">
 	<span class="playIconContainer" (click)="onPlayStop()">
 		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}"></div>
 	</span>
@@ -6,7 +6,10 @@
 		<div class="next_triangle"></div>
 		<div class="next_line"></div>
 	</span>
-	<span class="trackName">{{selectedTrack.name}}</span>
+	<span class="trackName">
+		<span>{{selectedTrack.name}}</span>
+
+		</span>
 	<span class="playerRightButtonsContainer">
 		<span class="shuffleContainer" (click)="onShuffle()">
 			<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
