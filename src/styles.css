@@ -246,6 +246,19 @@ hr {
 	border-bottom: 1px solid var(--colorGrayDarkMed);
 }
 
+.noSelect {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.noSelect:focus {
+	outline: none !important;
+}
+
 /* #region tree branch node container */
 
 .treeContainer {
@@ -308,7 +321,6 @@ hr {
 	text-align: center;
 
 }
-
 
 /* #endregion */
 
@@ -467,7 +479,7 @@ hr {
 /*#region media screen */
 
 /* '@media screen' put last because order in this file matters.
-min width considered 360px (Galaxy S5) */
+min width considered 360px (Galaxy S8+) */
 
 @media screen and (max-width: 451px) {
 	body {

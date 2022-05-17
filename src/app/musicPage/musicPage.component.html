@@ -1,4 +1,4 @@
-<div class="treeContainer">
+<div class="treeContainer noSelect">
 	<div *ngFor="let byTrack of byTracks; let byIndex = index">
 		<div class="branchContainer" (click)="onByClick(byIndex)">
 				<div class="branchIconContainer">
@@ -15,10 +15,7 @@
 </div>
 
 <div>
-<canvas #canvas0 class="canvas"></canvas>
-<canvas #canvas1 class="canvas"></canvas>
-<canvas #canvas2 class="canvas"></canvas>
-<canvas #canvas3 class="canvas"></canvas>
+<canvas #visualStream class="canvas"></canvas>
 </div>
 
 <br><br>

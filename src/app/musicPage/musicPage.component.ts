@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, ElementRef, OnInit } from '@angular/core'
+import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'
@@ -13,13 +13,9 @@ import { PlayState } from 'app/shared/enums/playState'
 	templateUrl: './musicPage.component.html',
 	styleUrls: ['./musicPage.component.css']
 })
-export class MusicPageComponent implements OnDestroy, OnInit {
+export class MusicPageComponent implements OnDestroy {
 	private readonly label = 'MusicPage'
-
-	private canvases!: ElementRef<HTMLCanvasElement>[]
 	private drawVisuals: number[] = []
-	private currentCanvasNr = 0
-	private canvasNrAscending = false
 	private playedListenerName = `${this.label} playedListener`
 	private endedListenerName = `${this.label} endedListener`
 
@@ -34,17 +30,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	highValue = 1
 	range = this.highValue - this.value
 
-
-	@ViewChild('canvas0', { static: true })
-	canvas0!: ElementRef<HTMLCanvasElement>
-	@ViewChild('canvas1', { static: true })
-	canvas1!: ElementRef<HTMLCanvasElement>
-
-	@ViewChild('canvas2', { static: true })
-	canvas2!: ElementRef<HTMLCanvasElement>
-
-	@ViewChild('canvas3', { static: true })
-	canvas3!: ElementRef<HTMLCanvasElement>
+	@ViewChild('visualStream', { static: true })
+	visualStream!: ElementRef<HTMLCanvasElement>
 
 	selectedByIndex = 0
 	openedUiByIndex = 0
@@ -60,10 +47,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService) {
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
-			const canvas = this.getNextCanvas()
-			const canvasContext = this.tryGetCanvasContext(canvas)
+			const canvasContext = this.visualStream.nativeElement.getContext('2d')
 			if (canvasContext) {
-				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
+				this.visualize(soundInstance, this.visualStream, canvasContext, this.drawVisuals)
 			}
 		})
 
@@ -72,27 +58,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		})
 	}
 
-	ngOnInit(): void {
-		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
-	}
-
 	ngOnDestroy() {
 		this.musicService.removeInstancePlayedListener(this.playedListenerName)
 		this.musicService.removeInstanceEndedListener(this.endedListenerName)
-	}
-
-	private getNextCanvas():  ElementRef<HTMLCanvasElement> {
-		if (this.currentCanvasNr === 0) {
-			this.currentCanvasNr++
-			this.canvasNrAscending = true
-		} else if (this.currentCanvasNr === 3) {
-			this.currentCanvasNr--
-			this.canvasNrAscending = false
-		} else {
-			this.canvasNrAscending ? this.currentCanvasNr++ : this.currentCanvasNr--
-		}
-
-		return this.canvases[this.currentCanvasNr]
 	}
 
 	onTrackClick(track: ITrack) {
@@ -128,7 +96,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	visualize(inst: SoundInstance, canvas:  ElementRef<HTMLCanvasElement>, canvasContext: CanvasRenderingContext2D, drawVisuals: number[]) {
-			// const canvasContext = canvas.nativeElement.getContext('2d')
 		const analyser = inst.analyzerNode
 		analyser.fftSize = 2048
 		const bufferLength = analyser.fftSize
@@ -144,11 +111,11 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 			analyser.getByteTimeDomainData(dataArray)
 
-			canvasContext.fillStyle = '#111' // styles.css colorDarkDark
+			canvasContext.fillStyle = '#111' // styles.css colorBackground
 			canvasContext.fillRect(0, 0, canvasWidth, canvasHeight)
 
 			canvasContext.lineWidth = 3
-			canvasContext.strokeStyle = '#b9ca4a' // styles.css colorActive
+			canvasContext.strokeStyle = '#B9CA4A' // styles.css colorActive
 
 			canvasContext.beginPath()
 
@@ -181,20 +148,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			window.cancelAnimationFrame(dv)
 		})
 		this.drawVisuals = []
-		this.canvases.forEach(canvas => {
-			const canvasContext = this.tryGetCanvasContext(canvas)
-			canvasContext?.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
-		})
 
-		this.currentCanvasNr = 1
-		this.canvasNrAscending = false
-	}
-
-	private tryGetCanvasContext(canvas: ElementRef<HTMLCanvasElement>) {
-		const canvasContext = canvas.nativeElement.getContext('2d')
-		if (!canvasContext) {
-			this.logService.log(LogType.Error, '"canvasContext" was "null"')
-		}
-		return canvasContext
+		const canvasContext = this.visualStream.nativeElement.getContext('2d')
+		canvasContext?.clearRect(0, 0, this.visualStream.nativeElement.width, this.visualStream.nativeElement.height)
 	}
 }

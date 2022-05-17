@@ -64,6 +64,7 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{by: 'Egill Antonsson', tracks: [
+				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
 				this.votThemeSong(),
@@ -306,6 +307,22 @@ export class MyTracksService {
 		const track = new Track(
 			'Vikings of Thule Theme Song',
 			[SoundData.music('votThemeSong', `${this.pathRoot}/Vikings_of_Thule__Theme_Song.ogg`)],
+			() => {
+				return async () => {
+					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+					const {instance, endedPromise} = await sound.play()
+					this.instancePlayedListeners.forEach((listener) => listener(instance))
+					await endedPromise
+					this.instanceEndedListeners.forEach((listener) => listener(true))
+				}
+			})
+		return track
+	}
+
+	private harmoniesOfShadeAndLight() {
+		const track = new Track(
+			'Harmonies of Shade and Light',
+			[SoundData.music('harmoniesOfShadeAndLight', `${this.pathRoot}/Harmonies_of_Shade_and_Light.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
