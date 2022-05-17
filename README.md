@@ -20,14 +20,15 @@ Project uses the [Angular](https://angular.io) framework
 
 ## Build steps
 
-Done locally, requires `Python 3.7.1`
+requires `Python 3.7.1`
 
+1. set `IS_ENABLED` to `false` in `log.service.ts`
 1. `> py validate_sitemap.py`
     * validates deploy/sitemap.xml
-2. `> py build.py`
+1. `> py build.py`
     * executes 'ng build --prod' which generates build artifacts into temporary `dist/` folder (angular doc on ['--prod' flag](https://angular.io/guide/deployment#production-optimizations) )
     * Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
-3. git commit changes and push to remote
+1. git commit changes and push to remote
 
 ## Deployment
 

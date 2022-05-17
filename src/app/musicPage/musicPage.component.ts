@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'
@@ -13,7 +13,7 @@ import { PlayState } from 'app/shared/enums/playState'
 	templateUrl: './musicPage.component.html',
 	styleUrls: ['./musicPage.component.css']
 })
-export class MusicPageComponent implements OnDestroy {
+export class MusicPageComponent implements OnDestroy, OnInit {
 	private readonly label = 'MusicPage'
 	private drawVisuals: number[] = []
 	private playedListenerName = `${this.label} playedListener`
@@ -29,12 +29,24 @@ export class MusicPageComponent implements OnDestroy {
 	value = 0
 	highValue = 1
 	range = this.highValue - this.value
-
-	@ViewChild('visualStream', { static: true })
-	visualStream!: ElementRef<HTMLCanvasElement>
-
 	selectedByIndex = 0
 	openedUiByIndex = 0
+
+	private canvases!: ElementRef<HTMLCanvasElement>[]
+	private currentCanvasNr = 0
+	private canvasNrAscending = false
+
+	@ViewChild('canvas0', { static: true })
+	canvas0!: ElementRef<HTMLCanvasElement>
+
+	@ViewChild('canvas1', { static: true })
+	canvas1!: ElementRef<HTMLCanvasElement>
+
+	@ViewChild('canvas2', { static: true })
+	canvas2!: ElementRef<HTMLCanvasElement>
+
+	@ViewChild('canvas3', { static: true })
+	canvas3!: ElementRef<HTMLCanvasElement>
 
 	get byTracks() {
 		return this.musicService.byTracks
@@ -47,15 +59,20 @@ export class MusicPageComponent implements OnDestroy {
 	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService) {
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
-			const canvasContext = this.visualStream.nativeElement.getContext('2d')
+			const canvas = this.getNextCanvas()
+			const canvasContext = this.tryGetCanvasContext(canvas)
 			if (canvasContext) {
-				this.visualize(soundInstance, this.visualStream, canvasContext, this.drawVisuals)
+				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
 			}
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
 			this.clearVisuals()
 		})
+	}
+
+	ngOnInit(): void {
+		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
 	ngOnDestroy() {
@@ -91,8 +108,26 @@ export class MusicPageComponent implements OnDestroy {
 		return 'keep layer'
 	}
 
-	incrementMusicLayerValue() {
-		(this.musicService.selectedTrack as LayeredMusicTrack).layeredMusicController.incrementLayerValue()
+	private getNextCanvas():  ElementRef<HTMLCanvasElement> {
+		if (this.currentCanvasNr === 0) {
+			this.currentCanvasNr++
+			this.canvasNrAscending = true
+		} else if (this.currentCanvasNr === 3) {
+			this.currentCanvasNr--
+			this.canvasNrAscending = false
+		} else {
+			this.canvasNrAscending ? this.currentCanvasNr++ : this.currentCanvasNr--
+		}
+
+		return this.canvases[this.currentCanvasNr]
+	}
+
+	private tryGetCanvasContext(canvas: ElementRef<HTMLCanvasElement>) {
+		const canvasContext = canvas.nativeElement.getContext('2d')
+		if (!canvasContext) {
+			this.logService.log(LogType.Error, '"canvasContext" was "null"')
+		}
+		return canvasContext
 	}
 
 	visualize(inst: SoundInstance, canvas:  ElementRef<HTMLCanvasElement>, canvasContext: CanvasRenderingContext2D, drawVisuals: number[]) {
@@ -105,6 +140,7 @@ export class MusicPageComponent implements OnDestroy {
 		const canvasHeight = canvas.nativeElement.height
 
 		canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
+		canvas.nativeElement.classList.remove('hide') //  class in styles.css
 
 		const draw = () => {
 			drawVisuals.push(requestAnimationFrame(draw))
@@ -149,7 +185,14 @@ export class MusicPageComponent implements OnDestroy {
 		})
 		this.drawVisuals = []
 
-		const canvasContext = this.visualStream.nativeElement.getContext('2d')
-		canvasContext?.clearRect(0, 0, this.visualStream.nativeElement.width, this.visualStream.nativeElement.height)
+		this.canvases.forEach(canvas => {
+			const canvasContext = this.tryGetCanvasContext(canvas)
+			canvasContext?.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
+
+			canvas.nativeElement.classList.add('hide');
+		})
+
+		this.currentCanvasNr = 1
+		this.canvasNrAscending = false
 	}
 }
