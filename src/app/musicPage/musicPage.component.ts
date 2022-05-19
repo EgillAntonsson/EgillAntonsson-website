@@ -30,7 +30,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	highValue = 1
 	range = this.highValue - this.value
 	selectedByIndex = 0
-	openedUiByIndex = 0
+	openedUiByIndex = -1 // all deselected
 
 	private canvases!: ElementRef<HTMLCanvasElement>[]
 	private currentCanvasNr = 0
@@ -85,7 +85,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
 			return
 		}
-		this.selectedByIndex = this.openedUiByIndex
+		// this.selectedByIndex = this.openedUiByIndex
 		this.musicService.nextSelectedTrack = track
 		this.messageService.sendMessage({type: MessageType.Play})
 	}

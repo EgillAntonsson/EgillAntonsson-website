@@ -279,10 +279,11 @@ hr {
 
 .branchIcon {
 	background: #969896;
-	width: 8px;
+	width: 10px;
 	height: 8px;
 	transition: all 0.2s;
 	margin: auto;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .branchAnimateClose {
@@ -291,7 +292,7 @@ hr {
 }
 
 .branchAnimateOpen {
-	transform: translateY(5px) rotate(225deg);
+	transform: translateY(5px) rotate(90deg);
 	transition: all 0.4s ease-out;
 }
 

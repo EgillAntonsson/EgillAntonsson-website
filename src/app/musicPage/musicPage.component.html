@@ -2,12 +2,12 @@
 	<div *ngFor="let byTrack of byTracks; let byIndex = index">
 		<div class="branchContainer" (click)="onByClick(byIndex)">
 				<div class="branchIconContainer">
-						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
+						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
 					</div>
-			<span>{{byTrack.by}}</span>
+			<span [ngClass]="{nodeSelected: selectedTrack.by === byTrack.by}">{{byTrack.by}}</span>
 		</div>
-		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiByIndex === byIndex">
-			<div [ngClass]="{nodeSelected: track.name === selectedTrack.name}" *ngFor="let track of byTrack.tracks" (click)="onTrackClick(track)">
+		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
+			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
 				{{track.name}}
 			</div>
 		</div>
@@ -21,6 +21,9 @@
 <canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
-<br><br>
-<a class="tribute" href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a><br>
-<a class="tribute" href="https://icons8.com/icon/108731/sound">Sound icon by Icons8</a>
+
+<div class="tribute">
+<small><a href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a></small>
+<br>
+<small><a class="tribute" href="https://icons8.com/icon/108731/sound">Sound icon by Icons8</a></small>
+</div>

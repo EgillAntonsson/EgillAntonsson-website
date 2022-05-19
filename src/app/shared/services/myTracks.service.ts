@@ -138,6 +138,7 @@ export class MyTracksService {
 			for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
 				const track = this._byTracks[i].tracks[j]
 				track.index = index++
+				track.by = this._byTracks[i].by
 				this._flatTracks.push(track)
 			}
 		}

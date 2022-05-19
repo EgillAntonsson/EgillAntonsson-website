@@ -6,6 +6,7 @@ export interface ITrack {
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
 	index: number
+	by: string
 }
 
 export class Track implements ITrack {
@@ -13,6 +14,7 @@ export class Track implements ITrack {
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
 	index!: number
+	by!: string
 
 
 	///////
