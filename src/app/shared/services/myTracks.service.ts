@@ -3,15 +3,9 @@ import { SoundType } from 'soundcommon/enum/soundType'
 import { SoundData } from 'soundcommon/interface/soundData'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
-import { LayeredMusicTrack, Track } from '../data/track'
+import { Artist, ITrack, LayeredMusicTrack, Track } from '../data/track'
 import { LogService } from './log.service'
 import { SoundManagerService } from './soundManager.service'
-
-export interface ByTracks {
-	by: string
-	tracks: Track[]
-	byBio?: string
-}
 
 interface Played {
 	instance: SoundInstance,
@@ -32,7 +26,7 @@ export class MyTracksService {
 		return this._isInitialized
 	}
 
-	private _byTracks!: ByTracks[]
+	private _byTracks!: Artist[]
 	get byTracks() {
 		return this._byTracks
 	}
@@ -42,7 +36,15 @@ export class MyTracksService {
 		return this._flatTracks
 	}
 
-	readonly instancePlayedListeners!: Map<string, (soundInstance: SoundInstance) => void>
+	private _tracksByRootUrl!: Map<string, ITrack>
+	getTrackByRootUrl(rootUrl: string): ITrack | undefined {
+		return this._tracksByRootUrl.get(rootUrl)
+	}
+
+	private readonly _instancePlayedListeners!: Map<string, (soundInstance: SoundInstance) => void>
+	public get instancePlayedListeners(): Map<string, (soundInstance: SoundInstance) => void> {
+		return this._instancePlayedListeners
+	}
 	readonly instanceEndedListeners!: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 	private _timeout: NodeJS.Timeout | undefined
 	public get timeout() {
@@ -53,7 +55,7 @@ export class MyTracksService {
 	}
 
 	constructor(private soundManager: SoundManagerService, private logService: LogService) {
-		this.instancePlayedListeners = new Map()
+		this._instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 	}
 
@@ -63,7 +65,7 @@ export class MyTracksService {
 		}
 
 		this._byTracks = [
-			{by: 'Egill Antonsson', tracks: [
+			{name: 'Egill Antonsson', tracks: [
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
@@ -74,13 +76,13 @@ export class MyTracksService {
 				this.toddlerTune(),
 				this.oddTimesInSpace(),
 				this.lecube()
-			]},
-			{by: 'TribeOfOranges', tracks: [
+			], about: this.aboutEgillAntonsson},
+			{name: 'TribeOfOranges', tracks: [
 				this.intro(),
 				this.routine(),
 				this.hhiCommercial()
-			]},
-			{by: 'KUAI', tracks: [
+			], about: ''},
+			{name: 'KUAI', tracks: [
 				this.pirringur(),
 				this.apollo(),
 				this.andsetinn(),
@@ -91,12 +93,12 @@ export class MyTracksService {
 				this.ofurte(),
 				this.lesblindaI(),
 				this.lesblindaII()
-			]},
-			{by: 'Game Music - Layered', tracks: [
+			], about: ''},
+			{name: 'Game Music - Layered', tracks: [
 				this.godsruleLayered(),
 				this.votLayered()
-			]},
-			{by: 'Game Music', tracks: [
+			], about: ''},
+			{name: 'Game Music', tracks: [
 				this.cakePopParty(),
 				this.symbol6(),
 				this.softFreakFiesta(),
@@ -111,8 +113,8 @@ export class MyTracksService {
 				this.godsrule(),
 				this.vot(),
 				this.crisisGame()
-			]},
-			{by: 'Egill & Jónas seniors', tracks: [
+			], about: ''},
+			{name: 'Egill & Jónas seniors', tracks: [
 				this.rubber(),
 				this.mouse(),
 				this.chase(),
@@ -123,12 +125,19 @@ export class MyTracksService {
 				this.tapDance(),
 				this.beLikeYou(),
 				this.takeCare()
-			]}
+			], about: ''}
 		]
 
 		this.flattenTracks()
 
 		this._isInitialized = true
+	}
+
+	private get aboutEgillAntonsson() {
+		return `This is me, I was born and raised in Reykjavik, Iceland in 1982.
+I started playing the piano around the age of 7, and added guitar, electric bass, and singing to the mix in my teens.
+Through the years I've been in various bands and projects and this page has some of them.
+`
 	}
 
 	private flattenTracks() {
@@ -138,10 +147,15 @@ export class MyTracksService {
 			for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
 				const track = this._byTracks[i].tracks[j]
 				track.index = index++
-				track.by = this._byTracks[i].by
+				const artist = this._byTracks[i]
+				track.artistName = artist.name
+				track.artistAbout = artist.about
 				this._flatTracks.push(track)
 			}
 		}
+
+		this._tracksByRootUrl = new Map<string, ITrack>()
+		this._tracksByRootUrl.set('smu-bla', this._flatTracks[5])
 	}
 
 	private rubber() {
@@ -321,9 +335,11 @@ export class MyTracksService {
 	}
 
 	private harmoniesOfShadeAndLight() {
+		const rootUrl = 'Harmonies-of-Shade-and-Light'
+		const dir = 'egillantonsson/'
 		const track = new Track(
-			'Harmonies of Shade and Light',
-			[SoundData.music('harmoniesOfShadeAndLight', `${this.pathRoot}/Harmonies_of_Shade_and_Light.ogg`)],
+			rootUrl.split('-').join(' '),
+			[SoundData.music(rootUrl, `${Track.folder}${dir}${rootUrl}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -332,8 +348,25 @@ export class MyTracksService {
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			`${Track.folder}${dir}${rootUrl}.jpg`,
+			this.aboutHarmoniesOfShadeAndLight,
+			rootUrl,
+			'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light',
+			'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW?si=6055aa68ab4740f6',
+			'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+		)
 		return track
+	}
+
+	private get aboutHarmoniesOfShadeAndLight() {
+		return `I got the idea of this song when I was with the family in Thailand at the beginning of 2018.
+I borrowed a guitar with missing strings and created harmony pattern and a melody over it.
+In circa 2019 I recorded the guitar tracks at home and arranged the percussions from Looploft.
+In the spring of 2021 my dear friend and music partner Sindri Bergmann Thorarinsson
+helped me structuring the song and writing the lyrics, and he directed and recorded my singing in his studio in Reykjavik.
+In April 2022 I recorded the rest of the instruments, processed and mixed the song.
+`
 	}
 
 	private weWillMeetAgain() {
@@ -460,7 +493,7 @@ export class MyTracksService {
 	private lecube() {
 		const track = new Track(
 			'Lecube',
-			[SoundData.music('lecude', `${this.pathRoot}/Lecube.ogg`)],
+			[SoundData.music('lecube', `${this.pathRoot}/Lecube.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)

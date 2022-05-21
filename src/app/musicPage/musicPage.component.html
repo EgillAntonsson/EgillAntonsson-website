@@ -4,7 +4,7 @@
 				<div class="branchIconContainer">
 						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
 					</div>
-			<span [ngClass]="{nodeSelected: selectedTrack.by === byTrack.by}">{{byTrack.by}}</span>
+			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
 		</div>
 		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
 			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
@@ -15,12 +15,50 @@
 </div>
 
 <div>
-<canvas #canvas0 class="canvas hide"></canvas>
-<canvas #canvas1 class="canvas hide"></canvas>
-<canvas #canvas2 class="canvas hide"></canvas>
-<canvas #canvas3 class="canvas hide"></canvas>
+	<canvas #canvas0 class="canvas hide"></canvas>
+	<canvas #canvas1 class="canvas hide"></canvas>
+	<canvas #canvas2 class="canvas hide"></canvas>
+	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
+<div class="artworkContainer">
+	<figure>
+		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for track {{selectedTrack.name}}" title="Artwork for track {{selectedTrack.name}}" class="artworkImage">
+	</figure>
+</div>
+
+<div class="aboutContainer">
+
+	<div *ngIf="selectedTrack.soundcloudUrl !== ''" class="button">
+		<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
+			<img src="../assets/images/music/soundcloud.png" alt="play track {{selectedTrack.name}} on SoundCloud" title="play track {{selectedTrack.name}} on SoundCloud">
+		</a>
+	</div>
+
+	<div *ngIf="selectedTrack.spotifyUrl !== ''" class="button">
+		<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
+			<img src="../assets/images/music/spotify.png" alt="play track {{selectedTrack.name}} on Spotify" title="play track {{selectedTrack.name}} on Spotify">
+		</a>
+	</div>
+
+	<div *ngIf="selectedTrack.buyUrl !== ''" class="button">
+		<a href="{{selectedTrack.buyUrl}}" target=”_blank”>BUY</a>
+	</div>
+
+	<div *ngIf="selectedTrack.about !== ''">
+	<h4>About {{selectedTrack.name}}</h4>
+	<p>
+		{{selectedTrack.about}}
+	</p>
+	</div>
+
+	<div *ngIf="selectedTrack.artistAbout !== ''">
+		<h4>About {{selectedTrack.artistName}}</h4>
+		<p>
+			{{selectedTrack.artistAbout}}
+		</p>
+	</div>
+</div>
 
 <div class="tribute">
 <small><a href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a></small>

@@ -242,6 +242,10 @@ figcaption {
 	color: var(--colorOrangeLight);
 }
 
+.footer {
+	float: none;
+}
+
 hr {
 	border-bottom: 1px solid var(--colorGrayDarkMed);
 }
@@ -510,7 +514,7 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: green; } */
+	h1 { color: green; }
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -536,7 +540,7 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: orange; } */
+	h1 { color: orange; }
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
@@ -570,7 +574,7 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: purple; } */
+	h1 { color: purple; }
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
@@ -604,7 +608,7 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: aqua; } */
+	h1 { color: aqua; }
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
@@ -628,17 +632,18 @@ min width considered 360px (Galaxy S8+) */
 		height: 120px;
 	}
 
+	.formTextFields {
+		width: 40%;
+	}
+
 	.treeContainer {
 		width: 60%;
 		margin-left: 40%;
 	}
 
-	.formTextFields {
-		width: 40%;
-	}
-
 	/* debug */
-	/* h1 { color: red; } */
+	h1 { color: red; }
+	h4 { color: red; }
 }
 
 @media screen and (min-width: 2001px) {
@@ -672,6 +677,6 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: yellow; } */
+	h1 { color: yellow; }
 }
 /* #endregion */

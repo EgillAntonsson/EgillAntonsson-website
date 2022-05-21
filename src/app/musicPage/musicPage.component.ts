@@ -7,6 +7,8 @@ import { LogService } from '../shared/services/log.service'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { LogType } from '../../shared/enums/logType'
 import { PlayState } from 'app/shared/enums/playState'
+import { ActivatedRoute, ParamMap } from '@angular/router'
+// import { switchMap } from 'rxjs/operators'
 
 @Component({
 	selector: 'app-music-page',
@@ -56,7 +58,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.selectedTrack
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute) {
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
 			const canvas = this.getNextCanvas()
@@ -72,6 +74,14 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit(): void {
+		this.route.paramMap.subscribe((params: ParamMap) => {
+			const paramName = params.get('trackName')
+			if (paramName == null) {
+				return
+			}
+			this.musicService.setSelectTrackByRootUrl(paramName)
+		})
+
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
@@ -85,7 +95,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
 			return
 		}
-		// this.selectedByIndex = this.openedUiByIndex
 		this.musicService.nextSelectedTrack = track
 		this.messageService.sendMessage({type: MessageType.Play})
 	}
@@ -194,5 +203,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 		this.currentCanvasNr = 1
 		this.canvasNrAscending = false
+	}
+
+	onSoundCloudClick() {
+
 	}
 }

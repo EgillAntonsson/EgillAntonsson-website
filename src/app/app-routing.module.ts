@@ -28,6 +28,7 @@ const routes: Routes = [
 
 	]},
 	{path: 'music', component: MusicPageComponent},
+	{path: 'music/:trackName', component: MusicPageComponent},
 	{path: 'lifting', component: LiftingComponent},
 	{path: '**', component: PageNotFoundComponent }
 ]
