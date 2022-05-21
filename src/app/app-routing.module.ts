@@ -25,7 +25,6 @@ const routes: Routes = [
 		{path: 'tdd-health/part5', component: PostTdd5Component},
 		{path: 'tdd-health/part6', component: PostTdd6Component},
 		{path: 'tdd-health/part7', component: PostTdd7Component}
-
 	]},
 	{path: 'music', component: MusicPageComponent},
 	{path: 'music/:trackName', component: MusicPageComponent},

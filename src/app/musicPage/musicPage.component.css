@@ -8,13 +8,19 @@
 .artworkContainer {
 	float: left;
 	width: 50%;
-	margin-top: 2em;
-	margin-bottom: 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: center;
+	padding-top: 1em;
 }
 
 .artworkImage {
 	width: 100%;
-	max-width: 450px;
+	max-width: 350px;
 	border-radius: 5%;
 	display: block;
 	margin: 0 auto;
@@ -29,16 +35,26 @@
 	font-size: xx-small;
 }
 
-.button {
-	width: 14%;
-	margin-left: 43%;
-	margin-right: 43%;
+.iconButton {
+	width: 100px;
 	height: 25px;
 	border: 1px solid var(--colorGrayLight);
 	border-radius: 1em;
 	cursor: pointer;
 	text-align: center;
-	margin-top: 1.8em;
+	margin-left: 3px;
+	margin-right: 3px;
+	padding-top: 3.5px;
+}
+
+.spotifyIcon {
+	width: 4.5em;
+	padding-top: 1px;
+}
+
+.soundcloudIcon {
+	padding-top: 5px;
+	width: 95%;
 }
 
 @keyframes lds-ripple {
@@ -69,41 +85,39 @@
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	.button {
-		margin-right: 5%;
+	.artworkContainer {
+		float: left;
+		width: 100%;
+		margin-top: 0;
 	}
+
+	/* .button {
+		margin-right: 5%;
+	} */
+
 	.canvas {
 		margin-left: 5%;
 		margin-right: 5%;
 		width: 90%;
 	}
-
-	/* .artworkContainer {
-		width: 45%;
-		margin-right: 5%;
-	} */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	.button {
+	/* .button {
 		margin-right: 10%;
-	}
+	} */
+
 	.canvas {
 		margin-left: 10%;
 		margin-right: 10%;
 		width: 80%;
 	}
-
-	/* .artworkContainer {
-		width: 40%;
-		margin-right: 10%;
-	} */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	.button {
+	/* .button {
 		margin-right: 15%;
-	}
+	} */
 
 	.canvas {
 		margin-left: 15%;
@@ -111,27 +125,18 @@
 		width: 70%;
 	}
 
-/*
-	.artworkContainer {
-		width: 35%;
-		margin-right: 15%;
-	} */
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
-	.button {
+	/* .button {
 		margin-right: 20%;
-	}
+	} */
+
 	.canvas {
 		margin-left: 20%;
 		margin-right: 20%;
 		width: 60%;
 	}
-
-	/* .artworkContainer {
-		width: 30%;
-		margin-right: 20%;
-	} */
 }
 
 @media screen and (min-width: 2001px) {

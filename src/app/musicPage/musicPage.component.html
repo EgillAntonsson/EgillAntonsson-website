@@ -22,28 +22,33 @@
 </div>
 
 <div class="artworkContainer">
+
 	<figure>
 		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for track {{selectedTrack.name}}" title="Artwork for track {{selectedTrack.name}}" class="artworkImage">
 	</figure>
+
+	<div class="buttonContainer">
+		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
+			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Soundcloud_logo.svg" alt="play track {{selectedTrack.name}} on SoundCloud" title="play track {{selectedTrack.name}} on SoundCloud" class="soundcloudIcon">
+			</a>
+		</span>
+
+		<span *ngIf="selectedTrack.spotifyUrl !== ''" class="iconButton">
+			<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg " alt="play track {{selectedTrack.name}} on Spotify" title="play track {{selectedTrack.name}} on Spotify" class="spotifyIcon">
+			</a>
+		</span>
+
+		<span *ngIf="selectedTrack.buyUrl !== ''" class="iconButton">
+			<a href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
+		</span>
+	</div>
+
 </div>
 
 <div class="aboutContainer">
 
-	<div *ngIf="selectedTrack.soundcloudUrl !== ''" class="button">
-		<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
-			<img src="../assets/images/music/soundcloud.png" alt="play track {{selectedTrack.name}} on SoundCloud" title="play track {{selectedTrack.name}} on SoundCloud">
-		</a>
-	</div>
-
-	<div *ngIf="selectedTrack.spotifyUrl !== ''" class="button">
-		<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
-			<img src="../assets/images/music/spotify.png" alt="play track {{selectedTrack.name}} on Spotify" title="play track {{selectedTrack.name}} on Spotify">
-		</a>
-	</div>
-
-	<div *ngIf="selectedTrack.buyUrl !== ''" class="button">
-		<a href="{{selectedTrack.buyUrl}}" target=”_blank”>BUY</a>
-	</div>
 
 	<div *ngIf="selectedTrack.about !== ''">
 	<h4>About {{selectedTrack.name}}</h4>
@@ -58,10 +63,4 @@
 			{{selectedTrack.artistAbout}}
 		</p>
 	</div>
-</div>
-
-<div class="tribute">
-<small><a href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a></small>
-<br>
-<small><a class="tribute" href="https://icons8.com/icon/108731/sound">Sound icon by Icons8</a></small>
 </div>

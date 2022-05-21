@@ -2,43 +2,47 @@
 <div class="headerBackground"></div>
 <nav class="noSelect">
 	<li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-	<li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
 	<li><a routerLink="/music" routerLinkActive="active">Music</a></li>
+	<li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
 	<li><a routerLink="/lifting" routerLinkActive="active">Lifting</a></li>
 </nav>
 <app-music-player></app-music-player>
 </div>
 <router-outlet></router-outlet>
 
-<div class="footer">
-<div class="horizontalLine"></div>
+<div>
+	<div class="horizontalLine"></div>
 
-<h2>{{headerText}}</h2>
+	<h2>{{headerText}}</h2>
 
-<div class="messageForm" *ngIf=showCommentForm>
- <form [formGroup]="messageForm" name={{formName}} method="POST">
-	<input type="hidden" name="form-name" value={{formName}}>
-	<label>{{messageLabel}}</label>
-	 <br>
-		<textarea class="formTextFields" type="text" placeholder={{placeholderText}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
-	<br><br>
-	<label>* Your Name / Handle:</label>
-	<br>
-	<input class="formTextFields" type="text" placeholder="{{placeholderHandle}}" formControlName="{{handleName}}" name="{{handleName}}" maxlength="32">
-	<br><br>
-	<div *ngIf="urlEnd === '/home'">
-	<label>* Your Email:</label>
-	<br>
-	<input class="formTextFields" type="text" placeholder="{{placeholderEmail}}" formControlName="{{emailName}}" name="{{emailName}}" maxlength="32">
-	<div *ngIf="emailControl.invalid" class="alert">
-		<div *ngIf="emailControl.errors?.pattern">
-			<label>Has to be a valid email address</label>
+	<div class="messageForm" *ngIf=showCommentForm>
+	<form [formGroup]="messageForm" name={{formName}} method="POST">
+		<input type="hidden" name="form-name" value={{formName}}>
+		<label>{{messageLabel}}</label>
+		<br>
+			<textarea class="formTextFields" type="text" placeholder={{placeholderText}} formControlName={{messageName}} name="{{messageName}}" [maxlength]="300" rows="6"></textarea>
+		<br><br>
+		<label>* Your Name / Handle:</label>
+		<br>
+		<input class="formTextFields" type="text" placeholder="{{placeholderHandle}}" formControlName="{{handleName}}" name="{{handleName}}" maxlength="32">
+		<br><br>
+		<div *ngIf="urlEnd === '/home'">
+		<label>* Your Email:</label>
+		<br>
+		<input class="formTextFields" type="text" placeholder="{{placeholderEmail}}" formControlName="{{emailName}}" name="{{emailName}}" maxlength="32">
+		<div *ngIf="emailControl.invalid" class="alert">
+			<div *ngIf="emailControl.errors?.pattern">
+				<label>Has to be a valid email address</label>
+			</div>
 		</div>
+		<br><br>
+		</div>
+		<button type="submit" [disabled]="messageForm.invalid" (click)="onSendClick()">Send</button>
+	</form>
 	</div>
-	<br><br>
+	<div class="tribute">
+		<small><a href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a></small>
+		<br>
+		<small><a class="tribute" href="https://icons8.com/icon/108731/sound">Sound icon by Icons8</a></small>
 	</div>
-	<button type="submit" [disabled]="messageForm.invalid" (click)="onSendClick()">Send</button>
-</form>
-</div>
-<br><br>
 </div>

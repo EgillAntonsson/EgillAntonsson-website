@@ -242,10 +242,6 @@ figcaption {
 	color: var(--colorOrangeLight);
 }
 
-.footer {
-	float: none;
-}
-
 hr {
 	border-bottom: 1px solid var(--colorGrayDarkMed);
 }
@@ -515,6 +511,7 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	h1 { color: green; }
+	h4 { color: green; }
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -541,6 +538,7 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	h1 { color: orange; }
+	h4 { color: orange; }
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
@@ -575,6 +573,7 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	h1 { color: purple; }
+	h4 { color: purple; }
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
@@ -609,6 +608,7 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	h1 { color: aqua; }
+	h4 { color: aqua; }
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
