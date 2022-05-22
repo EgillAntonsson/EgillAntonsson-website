@@ -148,7 +148,6 @@ table th {
 
 a {
 	cursor: pointer;
-	cursor: hand;
 }
 a:link {
 	color: var(--colorLink);
@@ -194,7 +193,7 @@ nav li {
 
 
 figure {
-	margin: 2em auto;
+	margin: 1.5em auto;
 }
 
 figcaption {
@@ -263,7 +262,7 @@ hr {
 
 .treeContainer {
 	width: 100%;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 	cursor: pointer;
 	}
 
@@ -318,9 +317,13 @@ hr {
 	color: var(--colorActive);
 }
 
+.footer {
+	float: right;
+	width: 100%;
+}
+
 .messageForm {
 	text-align: center;
-
 }
 
 /* #endregion */
@@ -382,6 +385,11 @@ hr {
 .inline
 {
 	margin-block-start: -1.5em;
+}
+
+.tribute {
+	float: right;
+	font-size: xx-small;
 }
 
 /*#region loading animation from https://loading.io/css/ */
@@ -510,8 +518,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: green; }
-	h4 { color: green; }
+	/* h1 { color: green; }
+	h4 { color: green; } */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -537,8 +545,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: orange; }
-	h4 { color: orange; }
+	/* h1 { color: orange; }
+	h4 { color: orange; } */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
@@ -572,8 +580,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: purple; }
-	h4 { color: purple; }
+	/* h1 { color: purple; }
+	h4 { color: purple; } */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
@@ -607,8 +615,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: aqua; }
-	h4 { color: aqua; }
+	/* h1 { color: aqua; }
+	h4 { color: aqua; } */
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
@@ -642,8 +650,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: red; }
-	h4 { color: red; }
+	/* h1 { color: red; }
+	h4 { color: red; } */
 }
 
 @media screen and (min-width: 2001px) {
@@ -677,6 +685,6 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: yellow; }
+	/* h1 { color: yellow; } */
 }
 /* #endregion */

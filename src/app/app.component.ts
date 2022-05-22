@@ -15,11 +15,10 @@ export class AppComponent {
 
 	placeholderComment = `This is a required field.
 After you press 'Send' button:
-* the comment will pend for moderation
-* this comment form will become hidden
-After approval I will publish
-the Comment and Name here.
-(I might also add a short response).`
+* your comment will pend for moderation
+* this Comment-form will become hidden
+After approval I will publish your comment,
+I might also include a short response.`
 
 
 	placeholderMessage = `This is a required field.

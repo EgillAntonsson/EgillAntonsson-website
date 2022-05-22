@@ -14,6 +14,8 @@
 	</div>
 </div>
 
+
+<div #topLine class="horizontalLine"></div>
 <div>
 	<canvas #canvas0 class="canvas hide"></canvas>
 	<canvas #canvas1 class="canvas hide"></canvas>
@@ -21,8 +23,8 @@
 	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
-<div class="artworkContainer">
-
+<div class="trackLeftContainer">
+<div class="trackLeftInner">
 	<figure>
 		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for track {{selectedTrack.name}}" title="Artwork for track {{selectedTrack.name}}" class="artworkImage">
 	</figure>
@@ -41,26 +43,23 @@
 		</span>
 
 		<span *ngIf="selectedTrack.buyUrl !== ''" class="iconButton">
-			<a href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
+			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
 		</span>
 	</div>
 
 </div>
+</div>
 
-<div class="aboutContainer">
-
-
+<div class="trackRightContainer">
+<div class="trackRightInner">
 	<div *ngIf="selectedTrack.about !== ''">
 	<h4>About {{selectedTrack.name}}</h4>
-	<p>
-		{{selectedTrack.about}}
-	</p>
+	<p [innerHTML]="selectedTrack.about"></p>
 	</div>
 
 	<div *ngIf="selectedTrack.artistAbout !== ''">
 		<h4>About {{selectedTrack.artistName}}</h4>
-		<p>
-			{{selectedTrack.artistAbout}}
-		</p>
+		<p [innerHTML]="selectedTrack.artistAbout"></p>
 	</div>
+</div>
 </div>

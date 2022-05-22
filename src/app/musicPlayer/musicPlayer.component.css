@@ -13,7 +13,7 @@
 .trackName {
 	/* make it aligned vertically in player */
 	position: fixed;
-	margin-top: 1.5px;
+	margin-top: 1.25px;
 }
 
 .playIconContainer {

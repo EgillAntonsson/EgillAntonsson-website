@@ -134,9 +134,13 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `This is me, I was born and raised in Reykjavik, Iceland in 1982.
-I started playing the piano around the age of 7, and added guitar, electric bass, and singing to the mix in my teens.
-Through the years I've been in various bands and projects and this page has some of them.
+		return `This is me :)<br>
+I started playing the piano around the age of 6.<br>
+I added guitar (mostly because <a href="https://www.slashonline.com/">Slash</a> rocks!),<br>
+electric bass (because all in the band can't be guitarists),<br>
+and singing to the mix in my teenage years.<br>
+Through the years I've been in various bands and projects,<br>
+and the tracks that I drove (often in collaboration with others) are published under my name.
 `
 	}
 
@@ -360,12 +364,13 @@ Through the years I've been in various bands and projects and this page has some
 	}
 
 	private get aboutHarmoniesOfShadeAndLight() {
-		return `I got the idea of this song when I was with the family in Thailand at the beginning of 2018.
-I borrowed a guitar with missing strings and created harmony pattern and a melody over it.
-In circa 2019 I recorded the guitar tracks at home and arranged the percussions from Looploft.
-In the spring of 2021 my dear friend and music partner Sindri Bergmann Thorarinsson
-helped me structuring the song and writing the lyrics, and he directed and recorded my singing in his studio in Reykjavik.
-In April 2022 I recorded the rest of the instruments, processed and mixed the song.
+		return `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
+I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
+In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
+In the spring of 2021 my friend and music partner <a href="https://www.f6s.com/sindribergmannrarinsson" target="_blank">Sindri Bergmann Thorarinsson</a><br>
+helped me structure the song and write the lyrics,<br>
+and he recorded my vocals in his studio in Reykjavik.<br>
+In April 2022 I recorded the rest of the instruments, processed and mixed published the song.
 `
 	}
 

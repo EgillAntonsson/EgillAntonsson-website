@@ -50,6 +50,9 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	@ViewChild('canvas3', { static: true })
 	canvas3!: ElementRef<HTMLCanvasElement>
 
+	@ViewChild('topLine', { static: true })
+	topLine!: ElementRef<HTMLCanvasElement>
+
 	get byTracks() {
 		return this.musicService.byTracks
 	}
@@ -64,11 +67,13 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			const canvas = this.getNextCanvas()
 			const canvasContext = this.tryGetCanvasContext(canvas)
 			if (canvasContext) {
+				this.topLine.nativeElement.classList.add('hide')
 				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
 			}
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
+			this.topLine.nativeElement.classList.remove('hide')
 			this.clearVisuals()
 		})
 	}
