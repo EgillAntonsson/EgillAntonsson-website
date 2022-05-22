@@ -1,5 +1,3 @@
-/* @import '@angular/material/prebuilt-themes/purple-green.css'; */
-
 .canvas {
 	width: 100%;
 	height: 40px;
@@ -7,19 +5,58 @@
 	border-radius: 0.3em;
 }
 
-.tribute {
-	font-size: xx-small;
+.trackLeftContainer {
+	float: left;
+	width: 50%;
 }
 
-.button {
+.buttonContainer {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1em;
+}
+
+.artworkImage {
+	width: 100%;
+	max-width: 400px;
+	border-radius: 5%;
+	display: block;
+	margin: 0 auto;
+}
+
+.trackRightContainer {
 	float: right;
-	width: 115px;
-	height: 25px;
+	width: 50%;
+}
+
+.trackRightInner {
+	float: left;
+	margin-left: 2%;
+}
+
+.iconButton {
+	width: 100px;
+	height: 30px;
 	border: 1px solid var(--colorGrayLight);
 	border-radius: 1em;
-	cursor: pointer;
 	text-align: center;
-	margin-top: 1.8em;
+	padding-top: 3px;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.spotifyIcon {
+	height: 90%;
+	width: 80%;
+}
+
+.soundcloudIcon {
+	height: 90%;
+	width: 96%;
+}
+
+.IconLink {
+	vertical-align: middle;
 }
 
 @keyframes lds-ripple {
@@ -39,85 +76,115 @@
   }
 }
 
+/*#region media screen */
+
 @media screen and (max-width: 451px) {
+	.trackLeftContainer {
+		width: 100%;
+	}
+
+	.trackLeftInner {
+		float: none;
+		margin-right: 0%;
+	}
+
+	.trackRightContainer {
+		width: 100%;
+	}
+
+	.iconButton {
+		margin-left: 3px;
+		margin-right: 3px;
+	}
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	.muteInnerContainer {
-		width: 75%;
-		left: 35%;
-	}
-	.button {
-		margin-right: 5%;
-	}
 	.canvas {
-		margin-left: 5%;
-		margin-right: 5%;
-		width: 90%;
+		margin-left: 2%;
+		margin-right: 2%;
+		width: 96%;
 	}
-	.gainOuterContainer {
-		margin-left: 5%;
-		margin-right: 5%;
-		width: 90%;
+
+	.trackLeftContainer {
+		width: 100%;
+	}
+
+	.trackLeftInner {
+		float: none;
+		margin-right: 0%;
+	}
+
+	.trackRightContainer {
+		width: 100%;
+	}
+
+	.iconButton {
+		margin-left: 0.5em;
+		margin-right: 0.5em;
 	}
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	.muteInnerContainer {
-		width: 60%;
-		left: 40%;
-	}
-	.button {
-		margin-right: 10%;
-	}
 	.canvas {
-		margin-left: 10%;
-		margin-right: 10%;
-		width: 80%;
+		margin-left: 4%;
+		margin-right: 4%;
+		width: 92%;
 	}
-	.gainOuterContainer {
-		margin-left: 10%;
-		margin-right: 10%;
-		width: 80%;
+
+	.iconButton {
+		margin-left: 0.5em;
+		margin-right: 0.5em;
+	}
+
+	.trackLeftInner {
+		margin-right: 10px;
+	}
+
+	/* overriding here styles.css*/
+	/* TODO: do margin for text tags in a div container and remove from style.css */
+	p, h4 {
+		margin-left: 0%;
+		margin-right: 0%;
 	}
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	.muteInnerContainer {
-		width: 40%;
-		left: 50%;
-	}
-	.button {
-		margin-right: 15%;
-	}
 	.canvas {
-		margin-left: 15%;
-		margin-right: 15%;
-		width: 70%;
+		margin-left: 6%;
+		margin-right: 6%;
+		width: 88%;
 	}
-	.gainOuterContainer {
-		margin-left: 15%;
-		margin-right: 15%;
-		width: 70%;
+
+	p, h4 {
+		margin-left: 0%;
+		margin-right: 0%;
 	}
 }
 
-@media screen and (min-width: 1404px) {
-	.muteInnerContainer {
-		width: 30%;
-		left: 60%;
-	}
-	.button {
-		margin-right: 20%;
-	}
+@media screen and (min-width: 1404px) and (max-width: 2000px) {
 	.canvas {
-		margin-left: 20%;
-		margin-right: 20%;
-		width: 60%;
+		margin-left: 8%;
+		margin-right: 8%;
+		width: 84%;
 	}
-	.gainOuterContainer {
-		margin-left: 20%;
-		margin-right: 20%;
-		width: 60%;
+
+	p, h4 {
+		margin-left: 0%;
+		margin-right: 0%;
 	}
 }
+
+@media screen and (min-width: 2001px) {
+	.canvas {
+		margin-left: 10%;
+		margin-right: 10%;
+		width: 80%;
+	}
+
+	p, h4 {
+		margin-left: 0%;
+		margin-right: 0%;
+	}
+}
+
+/* #endregion */

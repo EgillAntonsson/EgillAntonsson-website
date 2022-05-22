@@ -5,31 +5,61 @@ export interface ITrack {
 	readonly name: string
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
+	readonly artworkPath: string
+	readonly about: string
+	readonly rootUrl: string
+	readonly soundcloudUrl: string
+	readonly spotifyUrl: string
+	readonly buyUrl: string
 	index: number
+	artistName: string
+	artistAbout: string
+
 }
 
 export class Track implements ITrack {
 	readonly name: string
 	readonly soundDatas: SoundData[]
 	readonly play: () => () => Promise<void>
+	readonly artworkPath: string
+	readonly about: string
+	readonly rootUrl: string
+	readonly soundcloudUrl: string
+	readonly spotifyUrl: string
+	readonly buyUrl: string
 	index!: number
+	artistName!: string
+	artistAbout!: string
 
 
-	///////
-	// byBio?: string
-	// indexWithinBy?: number
-	// hasPlayedOnce?: boolean
-	// description?: string
-	// durationInSec?: number
-	// artworkUrl?: string
+	static readonly dir = '../../assets/tracks/'
+	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
+
+	//// old members
 	// purchaseUrl?: string
-	// permalinkUrl?: string
-	// liked?: number
 
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>) {
+	constructor(name: string
+		, soundDatas: SoundData[]
+		, play: () => () => Promise<void>
+		, rootUrl: string = 'not-defined'
+		, artworkPath: string = ''
+		, about: string = ''
+		, soundcloudUrl: string = ''
+		, spotifyUrl: string = ''
+		, buyUrl: string = '') {
+
 		this.name = name
 		this.soundDatas = soundDatas
 		this.play = play
+		this.artworkPath = artworkPath
+		if (artworkPath === '') {
+			this.artworkPath = Track.dir + this.defaultArtworkFilename
+		}
+		this.about = about
+		this.rootUrl = rootUrl
+		this.soundcloudUrl = soundcloudUrl
+		this.spotifyUrl = spotifyUrl
+		this.buyUrl = buyUrl
 	}
 }
 
@@ -40,4 +70,10 @@ export class LayeredMusicTrack extends Track {
 		super(name, soundDatas, play)
 		this.layeredMusicController = layeredMusicController
 	}
+}
+
+export interface Artist {
+	name: string
+	tracks: Track[]
+	about: string
 }

@@ -148,7 +148,6 @@ table th {
 
 a {
 	cursor: pointer;
-	cursor: hand;
 }
 a:link {
 	color: var(--colorLink);
@@ -194,7 +193,7 @@ nav li {
 
 
 figure {
-	margin: 2em auto;
+	margin: 1.5em auto;
 }
 
 figcaption {
@@ -246,11 +245,24 @@ hr {
 	border-bottom: 1px solid var(--colorGrayDarkMed);
 }
 
+.noSelect {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.noSelect:focus {
+	outline: none !important;
+}
+
 /* #region tree branch node container */
 
 .treeContainer {
 	width: 100%;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 	cursor: pointer;
 	}
 
@@ -266,10 +278,11 @@ hr {
 
 .branchIcon {
 	background: #969896;
-	width: 8px;
+	width: 10px;
 	height: 8px;
 	transition: all 0.2s;
 	margin: auto;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .branchAnimateClose {
@@ -278,7 +291,7 @@ hr {
 }
 
 .branchAnimateOpen {
-	transform: translateY(5px) rotate(225deg);
+	transform: translateY(5px) rotate(90deg);
 	transition: all 0.4s ease-out;
 }
 
@@ -304,11 +317,14 @@ hr {
 	color: var(--colorActive);
 }
 
-.messageForm {
-	text-align: center;
-
+.footer {
+	float: right;
+	width: 100%;
 }
 
+.messageForm {
+	text-align: center;
+}
 
 /* #endregion */
 
@@ -369,6 +385,11 @@ hr {
 .inline
 {
 	margin-block-start: -1.5em;
+}
+
+.tribute {
+	float: right;
+	font-size: xx-small;
 }
 
 /*#region loading animation from https://loading.io/css/ */
@@ -467,7 +488,7 @@ hr {
 /*#region media screen */
 
 /* '@media screen' put last because order in this file matters.
-min width considered 360px (Galaxy S5) */
+min width considered 360px (Galaxy S8+) */
 
 @media screen and (max-width: 451px) {
 	body {
@@ -497,7 +518,8 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	/* h1 { color: green; } */
+	/* h1 { color: green; }
+	h4 { color: green; } */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -523,7 +545,8 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	/* h1 { color: orange; } */
+	/* h1 { color: orange; }
+	h4 { color: orange; } */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
@@ -557,7 +580,8 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	/* h1 { color: purple; } */
+	/* h1 { color: purple; }
+	h4 { color: purple; } */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
@@ -591,7 +615,8 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	/* debug */
-	/* h1 { color: aqua; } */
+	/* h1 { color: aqua; }
+	h4 { color: aqua; } */
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
@@ -615,17 +640,18 @@ min width considered 360px (Galaxy S5) */
 		height: 120px;
 	}
 
+	.formTextFields {
+		width: 40%;
+	}
+
 	.treeContainer {
 		width: 60%;
 		margin-left: 40%;
 	}
 
-	.formTextFields {
-		width: 40%;
-	}
-
 	/* debug */
-	/* h1 { color: red; } */
+	/* h1 { color: red; }
+	h4 { color: red; } */
 }
 
 @media screen and (min-width: 2001px) {
@@ -646,7 +672,7 @@ min width considered 360px (Galaxy S5) */
 	}
 
 	.headerContainer, .headerBackground {
-		height: 120px;
+		height: 125px;
 	}
 
 	.treeContainer {

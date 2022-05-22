@@ -1,26 +1,65 @@
-<div class="treeContainer">
+<div class="treeContainer noSelect">
 	<div *ngFor="let byTrack of byTracks; let byIndex = index">
 		<div class="branchContainer" (click)="onByClick(byIndex)">
 				<div class="branchIconContainer">
-						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
+						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
 					</div>
-			<span>{{byTrack.by}}</span>
+			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
 		</div>
-		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiByIndex === byIndex">
-			<div [ngClass]="{nodeSelected: track.name === selectedTrack.name}" *ngFor="let track of byTrack.tracks" (click)="onTrackClick(track)">
+		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
+			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
 				{{track.name}}
 			</div>
 		</div>
 	</div>
 </div>
 
+
+<div #topLine class="horizontalLine"></div>
 <div>
-<canvas #canvas0 class="canvas"></canvas>
-<canvas #canvas1 class="canvas"></canvas>
-<canvas #canvas2 class="canvas"></canvas>
-<canvas #canvas3 class="canvas"></canvas>
+	<canvas #canvas0 class="canvas hide"></canvas>
+	<canvas #canvas1 class="canvas hide"></canvas>
+	<canvas #canvas2 class="canvas hide"></canvas>
+	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
-<br><br>
-<a class="tribute" href="https://icons8.com/icon/102034/mute">Mute icon by Icons8</a><br>
-<a class="tribute" href="https://icons8.com/icon/108731/sound">Sound icon by Icons8</a>
+<div class="trackLeftContainer">
+<div class="trackLeftInner">
+	<figure>
+		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for track {{selectedTrack.name}}" title="Artwork for track {{selectedTrack.name}}" class="artworkImage">
+	</figure>
+
+	<div class="buttonContainer">
+		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
+			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Soundcloud_logo.svg" alt="play track {{selectedTrack.name}} on SoundCloud" title="play track {{selectedTrack.name}} on SoundCloud" class="soundcloudIcon">
+			</a>
+		</span>
+
+		<span *ngIf="selectedTrack.spotifyUrl !== ''" class="iconButton">
+			<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg " alt="play track {{selectedTrack.name}} on Spotify" title="play track {{selectedTrack.name}} on Spotify" class="spotifyIcon">
+			</a>
+		</span>
+
+		<span *ngIf="selectedTrack.buyUrl !== ''" class="iconButton">
+			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
+		</span>
+	</div>
+
+</div>
+</div>
+
+<div class="trackRightContainer">
+<div class="trackRightInner">
+	<div *ngIf="selectedTrack.about !== ''">
+	<h4>About {{selectedTrack.name}}</h4>
+	<p [innerHTML]="selectedTrack.about"></p>
+	</div>
+
+	<div *ngIf="selectedTrack.artistAbout !== ''">
+		<h4>About {{selectedTrack.artistName}}</h4>
+		<p [innerHTML]="selectedTrack.artistAbout"></p>
+	</div>
+</div>
+</div>

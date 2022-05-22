@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
-import { ITrack, LayeredMusicTrack, Track} from 'app/shared/data/track'
+import { ITrack, LayeredMusicTrack, Track, Artist} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
 import { LogService } from './log.service'
 import { LogType } from 'shared/enums/logType'
 import { RandomNumber } from './randomNumber.service'
-import { ByTracks, MyTracksService } from './myTracks.service'
+import { MyTracksService } from './myTracks.service'
 import { PlayState } from '../enums/playState'
 
 @Injectable({
@@ -15,16 +15,29 @@ import { PlayState } from '../enums/playState'
 })
 export class MusicService {
 	readonly label = 'MusicService'
+
 	private _selectedTrack: ITrack
 	get selectedTrack() {
 		return this._selectedTrack
 	}
 
 	nextSelectedTrack: ITrack
-	private _byTracks!: ByTracks[]
+
+	private _byTracks!: Artist[]
 	get byTracks() {
 		return this._byTracks
 	}
+
+	setSelectTrackByRootUrl(rootUrl: string) {
+		let track = this.myTracks.getTrackByRootUrl(rootUrl)
+		if (track === undefined) {
+			this.logService.log(LogType.Error, `could not get track by rootUrl ${rootUrl}, returning first track`)
+			track = this.tracks[0]
+		}
+		this._selectedTrack = this.nextSelectedTrack = track
+
+	}
+
 	private _playState = PlayState.Stopped
 	get playState() {
 		return this._playState
