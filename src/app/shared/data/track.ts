@@ -32,7 +32,7 @@ export class Track implements ITrack {
 	artistAbout!: string
 
 
-	static readonly folder = '../../assets/tracks/'
+	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
 	//// old members
@@ -41,9 +41,9 @@ export class Track implements ITrack {
 	constructor(name: string
 		, soundDatas: SoundData[]
 		, play: () => () => Promise<void>
+		, rootUrl: string = 'not-defined'
 		, artworkPath: string = ''
 		, about: string = ''
-		, rootUrl: string = 'not-defined'
 		, soundcloudUrl: string = ''
 		, spotifyUrl: string = ''
 		, buyUrl: string = '') {
@@ -53,7 +53,7 @@ export class Track implements ITrack {
 		this.play = play
 		this.artworkPath = artworkPath
 		if (artworkPath === '') {
-			this.artworkPath = Track.folder + this.defaultArtworkFilename
+			this.artworkPath = Track.dir + this.defaultArtworkFilename
 		}
 		this.about = about
 		this.rootUrl = rootUrl

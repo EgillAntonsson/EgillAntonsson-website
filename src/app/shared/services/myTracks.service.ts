@@ -78,10 +78,10 @@ export class MyTracksService {
 				this.lecube()
 			], about: this.aboutEgillAntonsson},
 			{name: 'TribeOfOranges', tracks: [
-				this.intro(),
+				this.introduction(),
 				this.routine(),
 				this.hhiCommercial()
-			], about: ''},
+			], about: this.aboutTribeOfOranges},
 			{name: 'KUAI', tracks: [
 				this.pirringur(),
 				this.apollo(),
@@ -93,7 +93,7 @@ export class MyTracksService {
 				this.ofurte(),
 				this.lesblindaI(),
 				this.lesblindaII()
-			], about: ''},
+			], about: this.aboutKuai},
 			{name: 'Game Music - Layered', tracks: [
 				this.godsruleLayered(),
 				this.votLayered()
@@ -134,17 +134,39 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `This is me :)<br>
-I started playing the piano around the age of 6.<br>
-I added guitar (mostly because <a href="https://www.slashonline.com/">Slash</a> rocks!),<br>
-electric bass (because all in the band can't be guitarists),<br>
-and singing to the mix in my teenage years.<br>
-Through the years I've been in various bands and projects,<br>
-and the tracks that I drove (often in collaboration with others) are published under my name.
+		return `I started playing the piano around the age of 6.<br>
+In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others),<br>
+electric bass (because all in the band can't be guitarists), and singing.<br>
+Through the years I've been in various bands, projects and collabs,<br>
+and the tracks that I drove (often including collab with others) are published under my name.
 `
 	}
 
+	private get pathToDirEgillAntonsson() {
+		return Track.dir + 'egillantonsson/'
+	}
+
+	private get aboutTribeOfOranges() {
+		return `A collab with <b>Sindri Bergmann Thorarinsson</b>.<br>
+We coined the name when we needed to, which can be shortened to <b>TOO</b>.<br>
+I've collabed a lot with <b>Sindri</b>, not always using this name,<br>
+and I'm looking forward to collabing some more in the future.`
+	}
+
+	private get pathToDirTribeOfOranges() {
+		return Track.dir + 'too/'
+	}
+
+	private get aboutKuai() {
+		return ``
+	}
+
+	private get pathToDirKuai() {
+		return Track.dir + 'kuai/'
+	}
+
 	private flattenTracks() {
+		this._tracksByRootUrl = new Map<string, ITrack>()
 		this._flatTracks = []
 		let index = 0
 		for (let i = 0; i < this._byTracks.length; i++) {
@@ -155,11 +177,10 @@ and the tracks that I drove (often in collaboration with others) are published u
 				track.artistName = artist.name
 				track.artistAbout = artist.about
 				this._flatTracks.push(track)
+
+				this._tracksByRootUrl.set(track.rootUrl, track)
 			}
 		}
-
-		this._tracksByRootUrl = new Map<string, ITrack>()
-		this._tracksByRootUrl.set('smu-bla', this._flatTracks[5])
 	}
 
 	private rubber() {
@@ -339,11 +360,10 @@ and the tracks that I drove (often in collaboration with others) are published u
 	}
 
 	private harmoniesOfShadeAndLight() {
-		const rootUrl = 'Harmonies-of-Shade-and-Light'
-		const dir = 'egillantonsson/'
+		const rootName = 'Harmonies-of-Shade-and-Light'
 		const track = new Track(
-			rootUrl.split('-').join(' '),
-			[SoundData.music(rootUrl, `${Track.folder}${dir}${rootUrl}.ogg`)],
+			rootName.split('-').join(' '),
+			[SoundData.music(rootName, `${this.pathToDirEgillAntonsson}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -353,9 +373,9 @@ and the tracks that I drove (often in collaboration with others) are published u
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
 			},
-			`${Track.folder}${dir}${rootUrl}.jpg`,
+			rootName,
+			`${this.pathToDirEgillAntonsson}${rootName}.jpg`,
 			this.aboutHarmoniesOfShadeAndLight,
-			rootUrl,
 			'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light',
 			'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW?si=6055aa68ab4740f6',
 			'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
@@ -367,10 +387,10 @@ and the tracks that I drove (often in collaboration with others) are published u
 		return `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
 I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
 In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
-In the spring of 2021 my friend and music partner <a href="https://www.f6s.com/sindribergmannrarinsson" target="_blank">Sindri Bergmann Thorarinsson</a><br>
+In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br>
 helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
-In April 2022 I recorded the rest of the instruments, processed and mixed published the song.
+In April 2022 I recorded the rest of the instruments, processed and mixed the song.
 `
 	}
 
@@ -511,10 +531,10 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 		return track
 	}
 
-	private intro() {
-		const track = new Track(
-			'Introduction',
-			[SoundData.music('intro', `${this.pathRoot}/Introduction.aac`)],
+	private introduction() {
+		const rootName = 'Introduction'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirTribeOfOranges}${rootName}.aac`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -523,8 +543,18 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			`${this.pathToDirTribeOfOranges}${rootName}.jpg`,
+			this.aboutIntroduction)
 		return track
+	}
+
+	private get aboutIntroduction() {
+		return `<b>Sindri Bergmann Thorarinsson</b> and me made this for a theatre play,<br>
+and it was played at the start of it, and thus it's named <b>Introduction</b>.<br>
+For the artwork I chose the 'the indian head', which is a valuable family artifact.
+`
 	}
 
 	private routine() {
@@ -560,9 +590,9 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 	}
 
 	private pirringur() {
-		const track = new Track(
-			'Pirringur',
-			[SoundData.music('pirringur', `${this.pathKuai}/Pirringur.ogg`)],
+		const rootName = 'Pirringur'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -571,14 +601,26 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai,
+			this.aboutPirringur
+			)
 		return track
 	}
 
+	private get artworkKuai() {
+		return 	`${this.pathToDirKuai}KUAI.jpg`
+	}
+
+	private get aboutPirringur() {
+		return ``
+	}
+
 	private apollo() {
-		const track = new Track(
-			'Apollo',
-			[SoundData.music('apollo', `${this.pathKuai}/Apollo.ogg`)],
+		const rootName = 'Apollo'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -587,14 +629,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private andsetinn() {
-		const track = new Track(
-			'Andsetinn',
-			[SoundData.music('andsetinn', `${this.pathKuai}/Andsetinn.ogg`)],
+		const rootName = 'Andsetinn'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -603,14 +648,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private hamskipti() {
-		const track = new Track(
-			'Hamskipti',
-			[SoundData.music('hamskipti', `${this.pathKuai}/Hamskipti.ogg`)],
+		const rootName = 'Hamskipti'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -619,14 +667,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private rover() {
-		const track = new Track(
-			'Rover',
-			[SoundData.music('rover', `${this.pathKuai}/Rover.ogg`)],
+		const rootName = 'Rover'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -635,14 +686,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private andefni() {
-		const track = new Track(
-			'Andefni',
-			[SoundData.music('andefni', `${this.pathKuai}/Andefni.ogg`)],
+		const rootName = 'Andefni'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -651,14 +705,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private agndofa() {
-		const track = new Track(
-			'Agndofa',
-			[SoundData.music('agndofa', `${this.pathKuai}/Agndofa.ogg`)],
+		const rootName = 'Agndofa'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -667,14 +724,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private ofurte() {
-		const track = new Track(
-			'Ofurte',
-			[SoundData.music('ofurte', `${this.pathKuai}/Ofurte.ogg`)],
+		const rootName = 'Ofurte'
+		const track = new Track(rootName,
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -683,14 +743,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private lesblindaI() {
-		const track = new Track(
-			'Lesblinda I',
-			[SoundData.music('lesblindaI', `${this.pathKuai}/Lesblinda_I.ogg`)],
+		const rootName = 'Lesblinda-I'
+		const track = new Track(rootName.split('-').join(' '),
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -699,14 +762,17 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 
 	private lesblindaII() {
-		const track = new Track(
-			'Lesblinda II',
-			[SoundData.music('lesblindaII', `${this.pathKuai}/Lesblinda_II.ogg`)],
+		const rootName = 'Lesblinda-II'
+		const track = new Track(rootName.split('-').join(' '),
+			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -715,7 +781,10 @@ In April 2022 I recorded the rest of the instruments, processed and mixed publis
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			rootName.toLowerCase(),
+			this.artworkKuai
+			)
 		return track
 	}
 

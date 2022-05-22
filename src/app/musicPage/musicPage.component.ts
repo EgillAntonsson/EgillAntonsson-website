@@ -84,6 +84,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			if (paramName == null) {
 				return
 			}
+			console.log(paramName)
 			this.musicService.setSelectTrackByRootUrl(paramName)
 		})
 
