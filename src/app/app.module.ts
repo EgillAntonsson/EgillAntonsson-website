@@ -57,7 +57,7 @@ import { PostTdd7Component } from './blog/posts/postTdd7.component'
 	],
 	bootstrap: [AppComponent],
 	providers: [{
-		provide: RandomNumber, useExisting: RandomNumberService
+		provide: RandomNumber, useExisting: RandomNumberService,
 	}, {
 		provide: HIGHLIGHT_OPTIONS,
 		useValue: {

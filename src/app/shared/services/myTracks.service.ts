@@ -134,11 +134,11 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `I started playing the piano around the age of 6.<br>
+		return `I started playing the piano around the age of 7.<br>
 In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others),<br>
 electric bass (because all in the band can't be guitarists), and singing.<br>
-Through the years I've been in various bands, projects and collabs,<br>
-and the tracks that I drove (often including collab with others) are published under my name.
+Through the years I've been in various bands, projects and collaborations,<br>
+and the tracks that I drove (often including collaborations with others) are published under my name.
 `
 	}
 
@@ -147,10 +147,9 @@ and the tracks that I drove (often including collab with others) are published u
 	}
 
 	private get aboutTribeOfOranges() {
-		return `A collab with <b>Sindri Bergmann Thorarinsson</b>.<br>
+		return `A partnership with my friend <b>Sindri Bergmann Thorarinsson</b>.<br>
 We coined the name when we needed to, which can be shortened to <b>TOO</b>.<br>
-I've collabed a lot with <b>Sindri</b>, not always using this name,<br>
-and I'm looking forward to collabing some more in the future.`
+Me and <b>Sindri</b> have done a lot together, although not always under this name.`
 	}
 
 	private get pathToDirTribeOfOranges() {
@@ -359,11 +358,10 @@ and I'm looking forward to collabing some more in the future.`
 		return track
 	}
 
-	private harmoniesOfShadeAndLight() {
-		const rootName = 'Harmonies-of-Shade-and-Light'
+	private simpleTrack(rootName: string, artistPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string) {
 		const track = new Track(
 			rootName.split('-').join(' '),
-			[SoundData.music(rootName, `${this.pathToDirEgillAntonsson}${rootName}.ogg`)],
+			[SoundData.music(rootName, `${artistPath}${rootName}.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -373,18 +371,25 @@ and I'm looking forward to collabing some more in the future.`
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
 			},
-			rootName,
-			`${this.pathToDirEgillAntonsson}${rootName}.jpg`,
-			this.aboutHarmoniesOfShadeAndLight,
-			'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light',
-			'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW?si=6055aa68ab4740f6',
-			'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+			rootName.toLowerCase(),
+			`${artistPath}${rootName}.jpg`,
+			about,
+			soundCloudUrl,
+			spotifyUrl,
+			buyUrl
 		)
 		return track
 	}
 
-	private get aboutHarmoniesOfShadeAndLight() {
-		return `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
+	private harmoniesOfShadeAndLight() {
+
+		const rootName = 'Harmonies-of-Shade-and-Light'
+		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
+		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW?si=6055aa68ab4740f6'
+		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+
+		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
 I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
 In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
 In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br>
@@ -392,38 +397,42 @@ helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
 In April 2022 I recorded the rest of the instruments, processed and mixed the song.
 `
+
+		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private weWillMeetAgain() {
-		const track = new Track(
-			'We Will Meet Again',
-			[SoundData.music('weWillMeetAgain', `${this.pathRoot}/We_Will_Meet_Again.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootName = 'We-Will-Meet-Again'
+		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
+		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z?si=ea6c40e7c5c34080'
+		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
+
+		const about = `In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br> asked me to collaborate with him to make a pop song.<br>
+Although we've played some pop over the years, we have not focused on creating one per se.<br>
+So our goal now was to focus on the 'formula of what makes a good (modern) pop song',<br>
+and also speed up our workflow to complete the song in couple of days (from start to finish).<br>
+We created the song and lyrics together, I sang in the lyrics and <b>Sindri</b> mixed, processed and polished the whole song.<br>
+We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.
+`
+
+		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private magmaMerryGoRound() {
-		const track = new Track(
-			'Magma MerryGoRound',
-			[SoundData.music('magmaMerryGoRound', `${this.pathRoot}/Magma_MerryGoRound.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootName = 'Magma-MerryGoRound'
+		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
+		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR?si=418ee63136664f30'
+		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
+
+		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym <b>Vulkanoman</b>.<br>
+My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
+as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>
+
+`
+
+		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private justInTime() {

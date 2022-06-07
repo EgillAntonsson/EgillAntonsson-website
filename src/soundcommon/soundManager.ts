@@ -135,7 +135,7 @@ export class SoundManagerImp implements SoundManager {
 		const sound = this.sounds.get(key)
 		if (!sound) {
 			this.log(LogType.Warn, `[${this.label}]`, `Cannot play sound with key '${key}', not in SoundManager`)
-			return
+			return null
 		}
 		return sound.play()
 	}

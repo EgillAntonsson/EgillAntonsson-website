@@ -16,13 +16,49 @@
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
 		<priority>1.0</priority>
-		<lastmod>2022-05-22</lastmod>
+		<lastmod>2022-06-07</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://i1.sndcdn.com/artworks-000190333072-jdj443-t500x500.jpg</image:loc>
-			<image:title>Artwork for Vikings of Thule song</image:title>
-			<image:caption>Artwork by Þórir Karl Bragason Celin for Vikings of Thule song</image:caption>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+				<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/harmonies-of-shade-and-light</loc>
+		<priority>1.0</priority>
+		<lastmod>2022-06-07</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/Harmonies-of-Shade-and-Light.jpg</image:loc>
+			<image:title>Artwork for Harmonies of Shade and Light by Egill Antonsson</image:title>
+			<image:caption>Artwork for Harmonies of Shade and Light by Egill Antonsson</image:caption>
+				<image:geo_location>Thailand</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/we-will-meet-again</loc>
+		<priority>1.0</priority>
+		<lastmod>2022-06-07</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/We-Will-Meet-Again.jpg</image:loc>
+			<image:title>Artwork for We Will Meet Again by Egill Antonsson</image:title>
+			<image:caption>Artwork for We Will Meet Again by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/we-will-meet-again</loc>
+		<priority>1.0</priority>
+		<lastmod>2022-06-07</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/We-Will-Meet-Again.jpg</image:loc>
+			<image:title>Artwork for We Will Meet Again by Egill Antonsson</image:title>
+			<image:caption>Artwork for We Will Meet Again by Egill Antonsson</image:caption>
+				<image:geo_location>Sweden</image:geo_location>
 		</image:image>
 	</url>
 	<url>
@@ -44,10 +80,10 @@
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/blog/tdd-health/part1</loc>
+		<loc>https://www.egill.rocks/blog</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-05-14</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-06-07</lastmod>
+		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>

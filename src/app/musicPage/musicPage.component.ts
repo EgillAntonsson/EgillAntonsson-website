@@ -8,12 +8,14 @@ import { MessageService, MessageType } from 'app/shared/services/message.service
 import { LogType } from '../../shared/enums/logType'
 import { PlayState } from 'app/shared/enums/playState'
 import { ActivatedRoute, ParamMap } from '@angular/router'
-// import { switchMap } from 'rxjs/operators'
+import { Location } from '@angular/common'
+import { LocationStrategy, PathLocationStrategy } from '@angular/common'
 
 @Component({
 	selector: 'app-music-page',
 	templateUrl: './musicPage.component.html',
-	styleUrls: ['./musicPage.component.css']
+	styleUrls: ['./musicPage.component.css'],
+	providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class MusicPageComponent implements OnDestroy, OnInit {
 	private readonly label = 'MusicPage'
@@ -61,7 +63,12 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.selectedTrack
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute) {
+	urlPathRoot = 'music/'
+
+	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute, private location: Location) {
+	}
+
+	ngOnInit(): void {
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
 			const canvas = this.getNextCanvas()
@@ -70,25 +77,29 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 				this.topLine.nativeElement.classList.add('hide')
 				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
 			}
+
+			this.replaceUrlState()
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
 			this.topLine.nativeElement.classList.remove('hide')
 			this.clearVisuals()
 		})
-	}
 
-	ngOnInit(): void {
 		this.route.paramMap.subscribe((params: ParamMap) => {
 			const paramName = params.get('trackName')
-			if (paramName == null) {
-				return
+			if (paramName !== null) {
+				this.musicService.setSelectTrackByRootUrl(paramName)
+			} else {
+				this.replaceUrlState()
 			}
-			console.log(paramName)
-			this.musicService.setSelectTrackByRootUrl(paramName)
 		})
 
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
+	}
+
+	private replaceUrlState() {
+		this.location.replaceState(`${this.urlPathRoot}${this.selectedTrack.rootUrl}`)
 	}
 
 	ngOnDestroy() {
@@ -204,7 +215,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			const canvasContext = this.tryGetCanvasContext(canvas)
 			canvasContext?.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
 
-			canvas.nativeElement.classList.add('hide');
+			canvas.nativeElement.classList.add('hide')
 		})
 
 		this.currentCanvasNr = 1
