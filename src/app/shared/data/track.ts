@@ -41,7 +41,7 @@ export class Track implements ITrack {
 	constructor(name: string
 		, soundDatas: SoundData[]
 		, play: () => () => Promise<void>
-		, rootUrl: string = 'not-defined'
+		, rootUrl: string = ''
 		, artworkPath: string = ''
 		, about: string = ''
 		, soundcloudUrl: string = ''
