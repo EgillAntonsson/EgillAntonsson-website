@@ -183,7 +183,7 @@ and the tracks that I drove (often including collaborations with others) are pub
 	}
 
 	private get braedraminningArtworkPath() {
-		return `${this.pathToDirBraedraminning}Braedraminning-600x600.jpeg`
+		return `${this.pathToDirBraedraminning}braedraminning.jpeg`
 	}
 
 	private get aboutBraedraminningTake2002() {
