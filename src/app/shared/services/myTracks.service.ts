@@ -114,18 +114,29 @@ export class MyTracksService {
 				this.vot(),
 				this.crisisGame()
 			], about: ''},
-			{name: 'Egill & Jónas seniors', tracks: [
-				this.rubber(),
-				this.mouse(),
-				this.chase(),
-				this.guitarSolos(),
-				this.withoutThem(),
-				this.story(),
-				this.worldIsNothing(),
-				this.tapDance(),
-				this.beLikeYou(),
-				this.takeCare()
-			], about: ''}
+			{name: 'Bræðraminning', tracks: [
+				this.pesi2002(),
+				this.mouse2002(),
+				this.rubber2002(),
+				this.solos2002(),
+				this.takeCare2002(),
+				this.beLikeYou2002(),
+				this.story2002(),
+				this.frumlag2002(),
+				this.world2002(),
+				this.withoutThem2002(),
+				this.myDearOldBrothers(),
+				this.pesi1974(),
+				this.mouse1975(),
+				this.rubber1975(),
+				this.solos1975(),
+				this.takeCare1976(),
+				this.beLikeYou1976(),
+				this.story1976(),
+				this.frumlag1977(),
+				this.world1977(),
+				this.withoutThem1977(),
+			], about: this.aboutBraedraminning}
 		]
 
 		this.flattenTracks()
@@ -146,10 +157,21 @@ and the tracks that I drove (often including collaborations with others) are pub
 		return Track.dir + 'egillantonsson/'
 	}
 
+	private get pathToDirBraedraminning() {
+		return Track.dir + 'braedraminning/'
+	}
+
+	private get aboutBraedraminning() {
+		return `My parents kept a cassette with the recordings of the songs my older brothers made.<br>
+		To make sure the songs survived that old cassette,<br>
+		I published the album Bræðraminning, which also includes my takes on their songs.
+		`
+	}
+
 	private get aboutTribeOfOranges() {
 		return `A partnership with my friend <b>Sindri Bergmann Thorarinsson</b>.<br>
-We coined the name when we needed to, which can be shortened to <b>TOO</b>.<br>
-Me and <b>Sindri</b> have done a lot together, although not always under this name.`
+		We coined the name when we needed to, which can be shortened to <b>TOO</b>.<br>
+		Me and <b>Sindri</b> have done a lot together, although not always under this name.`
 	}
 
 	private get pathToDirTribeOfOranges() {
@@ -158,6 +180,16 @@ Me and <b>Sindri</b> have done a lot together, although not always under this na
 
 	private get aboutKuai() {
 		return ``
+	}
+
+	private get braedraminningArtworkPath() {
+		return `${this.pathToDirBraedraminning}braedraminning.jpeg`
+	}
+
+	private get aboutBraedraminningTake2002() {
+		return `My take on this song, recorded and mixed in 2001-2002.<br>
+		<b>Sindri Bergmann Thorarinsson</b> mastered it as far as could be done in 2022.
+	`
 	}
 
 	private get pathToDirKuai() {
@@ -182,10 +214,10 @@ Me and <b>Sindri</b> have done a lot together, although not always under this na
 		}
 	}
 
-	private rubber() {
+	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string) {
 		const track = new Track(
-			'Rubber',
-			[SoundData.music('rubber', `${this.pathBrothers}/Rubber.ogg`)],
+			namePublic,
+			[SoundData.music(nameUrl, soundPath)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -194,152 +226,276 @@ Me and <b>Sindri</b> have done a lot together, although not always under this na
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			},
+			nameUrl,
+			artworkPath,
+			about,
+			soundCloudUrl,
+			spotifyUrl,
+			buyUrl
+		)
 		return track
 	}
 
-	private mouse() {
-		const track = new Track(
-			'Mouse',
-			[SoundData.music('mouse', `${this.pathBrothers}/Mouse.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private pesi2002() {
+		const nameUrl = 'pesi-year-2002'
+		const namePublic = 'Pési (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/6viU3JhxNEKkY2paBuOEaP'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private chase() {
-		const track = new Track(
-			'The Chase',
-			[SoundData.music('chase', `${this.pathBrothers}/The_Chase.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private mouse2002() {
+		const nameUrl = 'mouse-year-2002'
+		const namePublic = 'Mouse (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/1f2eGiZiCMOMZZbKc52IIH'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002 + `<br>
+I did my take on the lyrics, thus differing to some extent.
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private guitarSolos() {
-		const track = new Track(
-			'The Guitar Solos',
-			[SoundData.music('guitarSolos', `${this.pathBrothers}/The_Guitar_Solos.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private rubber2002() {
+		const nameUrl = 'rubber-year-2002'
+		const namePublic = 'Rubber (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/23kZ3ftMMyigpXU49Rq35Q'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private withoutThem() {
-		const track = new Track(
-			'Without Them',
-			[SoundData.music('withoutThem', `${this.pathBrothers}/Without_Them.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private solos2002() {
+		const nameUrl = 'solos-year-2002'
+		const namePublic = 'Solos (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/5J8kU1mdqcqKZ0Wb3sxrqj'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private story() {
-		const track = new Track(
-			'The Story',
-			[SoundData.music('story', `${this.pathBrothers}/The_Story.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		private takeCare2002() {
+			const nameUrl = 'take-care-year-2002'
+			const namePublic = 'Take Care (year 2002)'
+			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
+			const spotifyUrl = 'https://open.spotify.com/track/6xiCd9HFh0SaJEngXtgldj'
+			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+			const about = this.aboutBraedraminningTake2002
+			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		}
+
+		private beLikeYou2002() {
+			const nameUrl = 'be-like-you-year-2002'
+			const namePublic = 'Be Like You (year 2002)'
+			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-2002?in=egill-antonsson/sets/braedraminning'
+			const spotifyUrl = 'https://open.spotify.com/track/4zcgAvMsU46YVTKGmS8vJA'
+			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+			const about = this.aboutBraedraminningTake2002
+			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		}
+
+	private story2002() {
+		const nameUrl = 'story-year-2002'
+		const namePublic = 'Story (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/0zcnfEWqzmaCfp7hsbcA9Z'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002 + `<br>
+I 'upped the drama' in the lyrics by knocking the headmaster OUT, instead of down.<br>
+I don't remember if it was intentional or not.
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private worldIsNothing() {
-		const track = new Track(
-			'The World is Nothing',
-			[SoundData.music('worldIsNothing', `${this.pathBrothers}/The_World_is_Nothing.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private frumlag2002() {
+		const nameUrl = 'frumlag-year-2002'
+		const namePublic = 'Frumlag (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/5fFuGjJMqLS0iPMmiZ3SBc'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private tapDance() {
-		const track = new Track(
-			'Tap Dance',
-			[SoundData.music('tapDance', `${this.pathBrothers}/Tap_Dance.ogg`)],
-			() => {
-			return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private world2002() {
+		const nameUrl = 'world-year-2002'
+		const namePublic = 'World (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/5EFT7M2r9kiJqPn2EtXNoz'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002  + `<br>
+I think I 'upped the drama' in the lyrics with 'The world is nothing except hate'<br>
+as it could be that Egill sung 'The world is nothing I say "Hey"'.<br>
+I also added lyrics where missing, etc.<br>
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private beLikeYou() {
-		const track = new Track(
-			'Be Like You',
-			[SoundData.music('beLikeYou', `${this.pathBrothers}/Be_Like_You.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private withoutThem2002() {
+		const nameUrl = 'without-them-year-2002'
+		const namePublic = 'Without them (year 2002)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-2002?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/5cfstB4Y5eIFI79e4KBAk8'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = this.aboutBraedraminningTake2002  + `<br>
+I kept with the 'no no no' like in the original (probably the lyrics were not ready)<br>
+and in fact went all in on 'no no no' and other sounds :)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
-	private takeCare() {
-		const track = new Track(
-			'Take Care',
-			[SoundData.music('takeCare', `${this.pathBrothers}/Take_Care.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+	private myDearOldBrothers() {
+		const nameUrl = 'my-dear-old-brothers'
+		const namePublic = 'My Dear Old Brothers'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/my-dear-old-brothers?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/6mnJyUYVPeoEx8oKUBu4Zw'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = `I saw a chord progression with the title 'Lady Lobo' written in a note book that belonged to the brothers.<br>
+I thought this might be an original song and thus wanted to bring it to life for the album.<br>
+I added details and shaped the song (making some changes)<br>
+and wrote the lyrics (changing the title with it).
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private pesi1974() {
+		const nameUrl = 'pesi-year-1974'
+		const namePublic = 'Pési (year 1974)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-1974?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/5wmAzE3Mc0uWjhjxRf95OQ'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about = `Jónas wrote this song for Egill to play on the wurlitzer piano.<br>
+Recorded with their band playing that was either Lazarus or Fló (not sure which one).<br>
+Egill - wurlitzer<br>
+Jónas - guitar<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private mouse1975() {
+		const nameUrl = 'mouse-year-1975'
+		const namePublic = 'Mouse (year 1975)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-1975?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/3qtGfywTgrjxBMQcCdN1xo'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
+Egill - wurlitzer and vocals<br>
+Jónas - guitar<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private rubber1975() {
+		const nameUrl = 'rubber-year-1975'
+		const namePublic = 'Rubber (year 1975)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-1975?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/700fVJsCrH4BBpsMW7B60t'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
+Egill - wurlitzer and vocals<br>
+Jónas - guitar<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private solos1975() {
+		const nameUrl = 'solos-year-1975'
+		const namePublic = 'Solos (year 1975)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-1975?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/3X7wZlcTxFwkLs7rvEkkWZ'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
+Egill - organ<br>
+Jónas - guitar<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+		private takeCare1976() {
+			const nameUrl = 'take-care-year-1976'
+			const namePublic = 'Take Care (year 1976)'
+			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-1976?in=egill-antonsson/sets/braedraminning'
+			const spotifyUrl = 'https://open.spotify.com/track/2V0X8p2Tefcg5MTrnuuplo'
+			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+			const about =  `Egill playing by himself.<br>
+I think this is shortly after Jónas is gone but I'm not sure,<br>
+thus I'm guessing a bit the year of this recording (and for the others as well).
+`
+			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		}
+
+		private beLikeYou1976() {
+			const nameUrl = 'be-like-you-year-1976'
+			const namePublic = 'Be Like You (year 1976)'
+			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-1976?in=egill-antonsson/sets/braedraminning'
+			const spotifyUrl = 'https://open.spotify.com/track/23YxXCBVwziMTdJnIGqLZx'
+			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+			const about =  `Egill playing by himself.<br>
+I think this is not long after Jónas is gone but I'm not sure,<br>
+thus I'm guessing a bit the year of this recording (and for the others as well).
+`
+			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		}
+
+	private story1976() {
+		const nameUrl = 'story-year-1976'
+		const namePublic = 'Story (year 1976)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-1976?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/47Tf6lPTTaibh0LFGi6ULh'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Egill playing by himself.<br>
+I think this is not long after Jónas is gone but I'm not sure,<br>
+thus I'm guessing a bit the year of this recording (and for the others as well).
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private frumlag1977() {
+		const nameUrl = 'frumlag-year-1977'
+		const namePublic = 'Frumlag (year 1977)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-1977?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/1TV6QGFbW0mdtO8GqXCfay'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
+Egill - organ<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private world1977() {
+		const nameUrl = 'world-year-1977'
+		const namePublic = 'World (year 1977)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-1977?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/6dI0WypRxmbUK7Rw9TaHpT'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
+Egill - vocals (and maybe guitar)<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	}
+
+	private withoutThem1977() {
+		const nameUrl = 'without-them-year-1977'
+		const namePublic = 'Without them (year 1977)'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-1977?in=egill-antonsson/sets/braedraminning'
+		const spotifyUrl = 'https://open.spotify.com/track/0rcIAwxbRtRhYbKX0bq142'
+		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
+		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
+Egill - vocals (and maybe guitar)<br>
+(I will list the band mates later when I have my notes)
+`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private votThemeSong() {
@@ -358,37 +514,13 @@ Me and <b>Sindri</b> have done a lot together, although not always under this na
 		return track
 	}
 
-	private simpleTrack(rootName: string, artistPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string) {
-		const track = new Track(
-			rootName.split('-').join(' '),
-			[SoundData.music(rootName, `${artistPath}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			`${artistPath}${rootName}.jpg`,
-			about,
-			soundCloudUrl,
-			spotifyUrl,
-			buyUrl
-		)
-		return track
-	}
-
 	private harmoniesOfShadeAndLight() {
-
-		const rootName = 'Harmonies-of-Shade-and-Light'
-		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const nameUrl = 'harmonies-of-shade-and-light'
+		const namePublic = 'Harmonies of Shade and Light'
+		const filePath =  `${this.pathToDirEgillAntonsson}${nameUrl}`
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
-		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW?si=6055aa68ab4740f6'
+		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
-
 		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
 I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
 In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
@@ -397,17 +529,16 @@ helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
 In April 2022 I recorded the rest of the instruments, processed and mixed the song.
 `
-
-		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return this.simpleTrack(nameUrl, namePublic, `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private weWillMeetAgain() {
-		const rootName = 'We-Will-Meet-Again'
-		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const nameUrl = 'we-will-meet-again'
+		const namePublic = 'We Will Meet Again'
+		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
-		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z?si=ea6c40e7c5c34080'
+		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
-
 		const about = `In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br> asked me to collaborate with him to make a pop song.<br>
 Although we've played some pop over the years, we have not focused on creating one per se.<br>
 So our goal now was to focus on the 'formula of what makes a good (modern) pop song',<br>
@@ -415,24 +546,21 @@ and also speed up our workflow to complete the song in couple of days (from star
 We created the song and lyrics together, I sang in the lyrics and <b>Sindri</b> mixed, processed and polished the whole song.<br>
 We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.
 `
-
-		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private magmaMerryGoRound() {
-		const rootName = 'Magma-MerryGoRound'
-		const artistPath = `${this.pathToDirEgillAntonsson}`
+		const nameUrl = 'magma-merryGoRound'
+		const namePublic = 'Magma merryGoRound'
+		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
-		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR?si=418ee63136664f30'
+		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
-
 		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym <b>Vulkanoman</b>.<br>
 My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
 as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>
-
 `
-
-		return this.simpleTrack(rootName, artistPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+	return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private justInTime() {

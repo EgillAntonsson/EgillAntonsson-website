@@ -36,6 +36,10 @@ export class MusicService {
 		}
 		this._selectedTrack = this.nextSelectedTrack = track
 
+		// When navigating directly to track via url,
+		// the shuffle is set to false, so a whole album can be advertised
+		this._isShuffle = false
+
 	}
 
 	private _playState = PlayState.Stopped
@@ -109,7 +113,6 @@ export class MusicService {
 			track.layeredMusicController.stop()
 		}
 		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
-		// this._isPlaying = false
 	}
 
 	nextTrack() {
@@ -117,7 +120,7 @@ export class MusicService {
 		if (this._isShuffle) {
 			nextIndex = this.randomNumber.generateUniqueRandomNumber()
 		} else {
-			nextIndex = this._selectedTrack.index + 1
+			nextIndex = this._selectedTrack.index === this.tracks.length - 1 ? 0 : this._selectedTrack.index + 1
 		}
 
 		this.logService.log(LogType.Info, 'nextIndex', nextIndex)
