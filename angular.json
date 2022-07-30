@@ -118,5 +118,8 @@
 		"defaults": {
 			"lintFix": true
 		}
-	}
+  },
+  "cli": {
+    "analytics": false
+  }
 }
