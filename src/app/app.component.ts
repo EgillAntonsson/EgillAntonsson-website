@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms'
 import { HttpParams, HttpClient } from '@angular/common/http'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
@@ -34,7 +34,7 @@ I'll never give it to 3rd party or display it publicly.`
 	showCommentForm = true
 
 	headerText = ''
-	messageForm: FormGroup
+	messageForm: UntypedFormGroup
 	formName = 'MessageForm'
 	netlifyFormName = 'form-name'
 	messageName = 'Message'
@@ -52,7 +52,7 @@ I'll never give it to 3rd party or display it publicly.`
 
 	formType: FormType = FormType.Contact
 
-	constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private logService: LogService) {
+	constructor(private fb: UntypedFormBuilder, private http: HttpClient, private router: Router, private logService: LogService) {
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			this.showCommentForm = true

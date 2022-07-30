@@ -3,13 +3,13 @@ import os
 import subprocess
 import shutil
 
-print('Building with ng')
-subprocess.run(["ng", "build", "--configuration", "production"], shell=True)
-print('----------')
+# print('Building with ng')
+# subprocess.run(["ng", "build", "--configuration", "production"], shell=True)
+# print('----------')
 
 
-root_src_dir = 'dist\\'
-root_dst_dir = 'deploy\\'
+root_src_dir = 'dist/'
+root_dst_dir = 'deploy/'
 # hashedFileNames = ['main', 'polyfills', 'runtime', 'styles']
 
 doNotRemoveFiles = ['_redirects', 'robots.txt', 'sitemap.xml']
@@ -38,5 +38,3 @@ for src_dir, dirs, files in os.walk(root_src_dir):
 		if os.path.exists(dst_file):
 			os.remove(dst_file)
 		shutil.copy2(src_file, dst_dir)
-
-		print('DONE')
