@@ -1,5 +1,5 @@
 import { Component, } from '@angular/core'
-import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms'
 import { LiftingService, CreatureLifted } from '../shared/services/lifting.service'
 
 @Component({
@@ -18,12 +18,12 @@ export class LiftingComponent {
 
 	convertLastInputSubmit = 0
 	convertResult: Array<CreatureLifted> = []
-	convertForm: FormGroup
+	convertForm: UntypedFormGroup
 	inputKgControl
 	maximumInputAllowed = 999999999
 	minimumInputAllowed = 0.5
 
-	constructor(private liftingService: LiftingService, private fb: FormBuilder) {
+	constructor(private liftingService: LiftingService, private fb: UntypedFormBuilder) {
 
 		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
 			this.totalKgLifted = myLiftingStats.totalKgLifted
