@@ -1,0 +1,210 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+
+<h2>The game balancing config</h2>
+<p>
+	The thought came early (in <a href="./blog/tdd-health/part1">part 3</a>) that a game balance config, for values like <code>startingPoints</code>, would be valuable to have for tweaking during the development period.<br>
+The config should be accessible and validate the values, and then later at runtime be injected to the <code>Health</code> instance.<br>
+Value changes in the config should be ideally validated right away when they occur.<br>
+There are other values in the <code>Health</code> class that are fitting, thus the config will include:
+</p>
+<ul class="list inline">
+	<li><code>startingPoints</code></li>
+	<li><code>PointsPerUnit</code></li>
+	<li><code>MaxFullPoints</code></li>
+	<li><code>MaxNegativePointsForInstantKillProtection</code></li>
+</ul>
+
+<h2>Using <code>ScriptableObject</code></h2>
+<p>
+	By making the precondition that the game designer can work in Unity,<br>
+	we can keep the config solution within Unity.<br>
+	I'll thus base it one Unity's <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html">ScriptableObject</a> (a data container that you can use to save large amounts of data, independent of class instances)<br>
+I'll create a folder <i>ScriptableObjects/</i> at <i>Assets/Scripts/Runtime/</i> and create file <code>GameConfig.cs</code> within it.
+</p>
+
+<pre><code [highlight]="gameConfigCs"></code></pre>
+
+<p>
+	I create another folder <i>ScriptableObjectsInstances/</i> at <i>Assets/</i><br>
+	and because of the code above I can now right click on the folder / click at <i>Assets</i> at top menu,<br>
+	and select menu item <i>Create > Avatar Health > Create GameConfig Instance</i>.<br>
+	As the name applies this creates a scriptable object instance based on the <code>GameConfig</code> template (I'll use the given default filename <code>GameConfigInstance</code>).
+</p>
+
+<figure>
+	<img src="../assets/images/blog/tdd/MenuItem_GameConfigInstance.png" alt="Unity Test Runner: after adding Increase tests" title="Create Game Config Instance via menu item" class="imageSmallText">
+	<figcaption>Create GameConfig Instance via menu item</figcaption>
+</figure>
+
+<p>
+	I can now view and edit the <i>Game Config instance</i> via the Inspector window.
+</p>
+
+<figure>
+	<img src="../assets/images/blog/tdd/Inspector_GameConfigInstance.png" alt="Unity Test Runner: after adding Increase tests" title="Game Config Instance via the Inspector window" class="imageSmallText">
+	<figcaption>Game Config Instance via the Inspector window</figcaption>
+</figure>
+
+<p>
+	I can now change the values as I see fit via the Inspector, and the change will be saved on the instance.<br>
+	But I need to add the validation to the config.
+</p>
+
+<h2>TDD-ing the validation</h2>
+<p>
+	Unit testing logic in scriptable objects can quickly become complicated (not going into it here).<br>
+	For this reason, and also for others such as Re-usability and good Separation of Concern,<br>
+	I will have implement generic validation logic in a static utility class which will be easy to TDD.<br>
+	Then I'll make the config process the validation using the utility logic.
+</p>
+<h3><span class="redFail">RED</span></h3>
+<p>
+	I create the folder <i>Utils</i> in the test folder<br>
+	(<i>Assets/Scripts/Tests/EditMode/</i>) and create file <code>ValidationTest</code> within it.<br>
+	I take into consideration the requirements for both the config and other validations that the <code>Health</code> does, and then write the tests.
+
+<pre><code [highlight]="redValidationTest"></code></pre>
+
+<p>
+	I did a couple of smaller steps which I skip here<br>
+	and present the result, of having tests for all meaningful cases based on the current requirements.<br>
+	The validation logic returns a tuple:
+</p>
+	<pre><code [highlight]="validationReturn"></code></pre>
+<p>
+	The using code should then decide what to do.
+</p>
+
+<h3><span class="greenPass">GREEN</span></h3>
+
+<p>
+	I mirror the location of the test, thus create the folder <i>Utils</i> in the production code folder<br>
+	(<i>Assets/Scripts/Runtime/</i>) and create file <code>Validation</code> within it.<br>
+	I implement it gradually until I get all the tests to pass.
+</p>
+
+<pre><code [highlight]="greenValidation"></code></pre>
+
+<h2>Processing the validation in the config</h2>
+
+<p>
+	I want to make sure the validation can't be bypassed<br>
+	thus I'll prevent the game designer from saving invalid values to the config,<br>
+	and provide some UI feedback.
+</p>
+
+<pre><code [highlight]="hookingValidationInConfig"></code></pre>
+
+<p>
+	I use <code>OnValidate</code>, a (editor-only) function that Unity calls when the script is loaded or a value changes in the Inspector (part of the <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html">ScriptableObject</a>).<br>
+
+</p>
+
+<h2>The validation at work</h2>
+
+<figure>
+	<img src="../assets/images/blog/tdd/Unity_config-validation.gif" alt="Unity Test Runner: after adding Increase tests" title="Config Validation in the Inspector and Console" class="imageSmallText">
+	<figcaption>Config Validation in the Inspector and Console</figcaption>
+</figure>
+
+<p>
+ As the gif shows above, the logic accepts valid values (the first one)<br>
+ but prevents invalid values being set by reverting to the valid 'edge' value, and logging a message to the Console.<br>
+</p>
+<ul class="list inline">
+	<li>reverts to <code>1</code> for <code>StartingPoints</code></li>
+	<li>reverts to <code>2</code> for <code>PointsPerUnit</code></li>
+	<li>reverts to <code>-1</code> for <code>MaxNegativePointsForInstantKillProtection</code></li>
+</ul>
+<p>
+	Below is the gif for the <code>MaxUnits</code> validation.
+</p>
+
+<figure>
+	<img src="../assets/images/blog/tdd/Unity_MaxUnits-validation.gif" alt="Unity Test Runner: after adding Increase tests" title="MaxUnits Validation in the Inspector and Console" class="imageSmallText">
+	<figcaption>MaxUnits Validation in the Inspector and Console</figcaption>
+</figure>
+
+<p>
+	<code>MaxUnits</code> validation is based on the values of <code>StartingPoints</code> and 	<code>PointsPerUnit</code>,<br>
+	thus <code>MaxUnits</code> can become invalid when the other two are updated to valid values,<br>
+	as the latter half of the gif conveys.<br>
+	The logged message in the Console clarifies this occurrence.
+</p>
+
+<h2>Make <code>Health</code> use the config</h2>
+
+<p>
+	I want <code>Health</code> to use the config and not provide another way to inject those values,<br>
+	thus I don't need to validate those values again in <code>Health</code>.<br>
+	(I have the ownership of the config code and am confident that its validation work properly).<br>
+	<br>
+	Thus I will refactor the health code in the steps presented below.<br>
+	(For this particular refactor I will start with the production code and then the tests,<br>
+	as it is about a design change in the production code, thus not doing TDD).
+</p>
+
+<h3><span class="greenRefactor">Refactor <code>Health</code></span></h3>
+
+<pre><code [highlight]="healthRefactor"></code></pre>
+<p>
+	I inject the <code>GameConfig</code> instance into the <code>Health</code> constructor,<br>
+	and store the config in a private member and access the <code>StartingPoints</code> within it.<br>
+	I removed the old <code>startingPoints</code> validation (as config already validated).<br>
+</p>
+<pre><code [highlight]="healthRefactor1"></code></pre>
+<p>
+	I refactor those constants into read-only properties, getting the value from the config.<br>
+	(The <code>Health</code> code uses these properties (before constants) and does not need any refactoring as the name was not changed).<br>
+	This way the config values can't be set via the <code>Health</code> instance (are encapsulated).<br>
+</p>
+
+<h3><span class="greenRefactor">Refactor <code>HealthTest</code></span></h3>
+
+<p>
+	Now many tests will <span class="redFail">fail</span>, mainly because they are not injecting the config into the constructor.<br>
+	Let's refactor and fix them.
+</p>
+<pre><code [highlight]="healthTestRefactor"></code></pre>
+<p>
+	I create the method <code>MakeHealth</code> with param <code>startingPoints</code><br>
+	which creates the config instance and sets the <code>startingPoints</code>,<br>
+	and the other values (in case the default config value will be changed, the test will still work).<br>
+	It then creates and return a <code>Health</code> instance.<br>
+	I then change all the '<code>new Health(</code>' lines in the tests into '<code>MakeHealth(</code>' all at once, using my code editor.
+</p>
+<pre><code [highlight]="healthTestStartingPointsAtMax"></code></pre>
+<p>
+	I simplify the setting of local variable <code>healthTestStartingPointsAtMax</code><br>
+	and add a comment, for the three tests that use it.<br>
+	<br>
+	Now only test <code>ThrowsError_WhenStartingPointsIsInvalid</code> <span class="redFail"> fails</span>.<br>
+	I remove it as I'm no longer validating <code>StartingPoints</code> (already validated in config).<br>
+	Now all the tests <span class="greenPass">pass</span> again.
+</p>
+
+<h2>Reuse the utility <code>Validation</code></h2>
+
+<p>
+	Since now I have a utility <code>Validation</code> class<br>
+	I want to reuse it in the <code>Health</code> methods,<br>
+	thus I refactor the <code>ValidatePoints</code> method
+</p>
+
+<pre><code [highlight]="healthReuseValidation"></code></pre>
+
+<p>Now the config has been added and used, the Unity Test Runner looks like this:</p>
+
+<figure>
+	<img src="../assets/images/blog/tdd/TestRunner_after-config-added.png" alt="Unity Test Runner: after adding Increase tests" title="TestRunner after config added and used" class="imageSmallText">
+	<figcaption>TestRunner after config added and used</figcaption>
+</figure>

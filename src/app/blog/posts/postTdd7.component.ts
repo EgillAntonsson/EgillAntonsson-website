@@ -80,49 +80,53 @@ public void IncreaseByUnit()
 }
 `
 
-	red_IsMaxFullPointsReached = `// HealthTest.cs
-// inside nested class IsMaxFullPointsReached
-[Test]
-public void ReturnsFalse()
-{
-	var health = new Health(Health.MaxFullPoints / 2);
-	Assert.That(health.IsMaxFullPointsReached, Is.False);
-}
-
+	red_IsMaxUnitsReached = `// HealthTest.cs
+// inside nested class IsMaxUnitsReached
 [Test]
 public void ReturnsTrue()
 {
-	var health = new Health(Health.MaxFullPoints);
-	Assert.That(health.IsMaxFullPointsReached, Is.True);
+	var startingPointsAtMax = Health.MaxUnits * Health.PointsPerUnit;
+	var health = new Health(startingPointsAtMax);
+	Assert.That(health.IsMaxUnitsReached, Is.True);
+}
+
+[Test]
+public void ReturnsFalse()
+{
+	var startingPointsBelowMax = Health.MaxUnits * Health.PointsPerUnit - 1;
+	var health = new Health(startingPointsBelowMax);
+	Assert.That(health.IsMaxUnitsReached, Is.False);
 }
 `
 
-	green_IsMaxFullPointsReached = `// Health.cs
-public const int MaxFullPoints = 120;
+	green_IsMaxUnitsReached = `// Health.cs
+public const int MaxUnits = 30;
 
-public bool IsMaxFullPointsReached => FullPoints == MaxFullPoints;
+public bool IsMaxUnitsReached => MaxUnits == FullPoints / PointsPerUnit;
 `
 
 	red_IncreaseByUnit_ThrowsError = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
-public void ThrowsError_WhenMaxFullPointsReached()
+public void ThrowsError_WhenMaxUnitsReached()
 {
-	var health = new Health(Health.MaxFullPoints);
+	var startingPointsAtMax = Health.MaxUnits * Health.PointsPerUnit;
+	var health = new Health(startingPointsAtMax);
 	var exception = Assert.Throws(Is.TypeOf<InvalidOperationException>(),
 		delegate
 		{
 			health.IncreaseByUnit();
 		});
 	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
-}`
+}
+`
 
 	green_IncreaseByUnit_ThrowsError = `// Health.cs
 public void IncreaseByUnit()
 {
-	if (IsMaxFullPointsReached)
+	if (IsMaxUnitsReached)
 	{
-		var message = $"Method invocation is invalid as {nameof(IsMaxFullPointsReached)} is true";
+		var message = $"Method invocation is invalid as {nameof(IsMaxUnitsReached)} is true";
 		throw new InvalidOperationException(message);
 	}
 

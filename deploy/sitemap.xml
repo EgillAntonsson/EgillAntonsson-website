@@ -394,13 +394,44 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part7</loc>
-		<priority>1.0</priority>
-		<lastmod>2022-05-14</lastmod>
+		<priority>0.9</priority>
+		<lastmod>2022-08-09</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-increase-tests.PNG</image:loc>
 			<image:title>Unity Test Runner: after adding Increase tests</image:title>
 			<image:caption>Unity Test Runner: after adding Increase tests</image:caption>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd-health/part8</loc>
+		<priority>1.0</priority>
+		<lastmod>2022-08-09</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/MenuItem_GameConfigInstance.png</image:loc>
+			<image:title>Create GameConfig Instance via menu item</image:title>
+			<image:caption>Create GameConfig Instance via menu item</image:caption>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/Inspector_GameConfigInstance.png</image:loc>
+			<image:title>Game Config Instance via the Inspector window</image:title>
+			<image:caption>Game Config Instance via the Inspector window</image:caption>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/Unity_config-validation.gif</image:loc>
+			<image:title>Config Validation in the Inspector and Console</image:title>
+			<image:caption>Config Validation in the Inspector and Console</image:caption>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/Unity_PointsPerUnit-validation.gif</image:loc>
+			<image:title>MaxUnits Validation in the Inspector and Console</image:title>
+			<image:caption>MaxUnits Validation in the Inspector and Console</image:caption>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-config-added.png</image:loc>
+			<image:title>TestRunner after config added and used</image:title>
+			<image:caption>TestRunner after config added and used</image:caption>
 		</image:image>
 	</url>
 </urlset>
