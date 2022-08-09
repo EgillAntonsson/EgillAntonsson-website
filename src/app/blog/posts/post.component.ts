@@ -46,14 +46,13 @@ export class PostComponent {
 	get aboutCodeHtml() {
 		return `<h2>The code</h2>
 <p>
-	The displayed code is focused on the current cycle step,<br>
-	thus likely shows only relevant part/s of said class.<br>
+	The code shown below is focused on the current cycle step, thus only showing the relevant lines	.<br>
 	The complete code and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
 </p>`
 	}
 
 	get completeRequirementListHtml() {
-		return `<sup>The complete requirement list, from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>`
+		return `<sup>The complete requirement list from the user perspective is in <a href="./blog/tdd-health/part2">Part 2</a></sup>`
 	}
 
 	get rewordRequirement() {

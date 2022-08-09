@@ -13,6 +13,7 @@ import { PostTdd4Component } from './blog/posts/postTdd4.component'
 import { PostTdd5Component } from './blog/posts/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/postTdd7.component'
+import { PostTdd8Component } from './blog/posts/postTdd8.component'
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
 		{path: 'tdd-health/part4', component: PostTdd4Component},
 		{path: 'tdd-health/part5', component: PostTdd5Component},
 		{path: 'tdd-health/part6', component: PostTdd6Component},
-		{path: 'tdd-health/part7', component: PostTdd7Component}
+		{path: 'tdd-health/part7', component: PostTdd7Component},
+		{path: 'tdd-health/part8', component: PostTdd8Component}
 	]},
 	{path: 'music', component: MusicPageComponent},
 	{path: 'music/:trackName', component: MusicPageComponent},

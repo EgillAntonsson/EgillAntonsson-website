@@ -88,7 +88,8 @@
 	</li>
 </ul>
 <p>
-	It's also nice that using <code>Units</code> makes the numbers smaller (e.g 120 -> 30)
+	It's also nice that using <code>Units</code> reduces back the number values<br>
+	(e.g 4 -> 1 and 120 -> 30)
 </p>
 
 <div [innerHTML]="aboutCodeHtml"></div>
@@ -149,8 +150,10 @@
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_increaseByUnit_currentPoints_moreCases"></code></pre>
 <p>
-	For readability, I select <code>4</code> for the <code>startingPoints</code> parameter value,<br>
-	which also keeps the other numbers low.
+	I select <code>4</code> for the <code>startingPoints</code> parameter value<br>
+	so all possible test cases will be the minimum <code>3</code>,<br>
+	and other parameter values will be low as well,<br>
+	which makes the test simple and readable.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -160,24 +163,25 @@
 	I could have taken a bigger step in the previous <span class="greenPass">GREEN</span> step<br>
 	and come straight away with this generic solution,<br>
 	but both paths should lead to the same result (both solution and tests),<br>
-	the path presented here makes the tests drive the implementation.
+	the path presented here make the tests drive the implementation a bit more.
 </p>
 
 <h2>The maximum</h2>
 <p>
 	All that is left of the requirement is the maximum part.<br>
 	The game will only give the user the option to spend resources<br>
-	to increase the health if the maximum <code>FullPoints</code> has not been reached.
+	to increase the health if the <code>MaxUnits</code> has not been reached.
 	Thus the outside code should query <code>Health</code> if maximum has been reached<br>
-	and only invoke <code>IncreaseByUnit</code> if not.
+	and then only invoke <code>IncreaseByUnit</code> if not.<br>
+	<code>IncreaseByUnit</code> should though also handle improper usage in this regard.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 <p>
-	The <i>entry point</i> will be a new property named <code>IsMaxFullPointsReached</code>.<br>
+	The <i>entry point</i> will be a new property named <code>IsMaxUnitsReached</code>.<br>
 </p>
 
-<pre><code [highlight]="red_IsMaxFullPointsReached"></code></pre>
+<pre><code [highlight]="red_IsMaxUnitsReached"></code></pre>
 <p>
 	I'm presenting a bigger step, adding 2 test at the same time,<br>
 	(thus skipping the smaller cycles I did within it).<br>
@@ -186,31 +190,32 @@
 	as the <i>exit point</i> is the same as the <i>entry point</i>,<br>
 	thus I skip the <i>exit point</i> in the name (nested class already names it).<br>
 	<br>
-	The tests use a new constant <code>MaxFullPoints</code>,<br>
+	The tests use a new constant <code>MaxUnits</code>,<br>
 	and there are two compile errors as both<br>
-	<code>MaxFullPoints</code> and <code>IsMaxFullPointsReached</code> are not defined.
+	<code>MaxFullPoints</code> and <code>IsMaxUnitsReached</code> are not defined.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<pre><code [highlight]="green_IsMaxFullPointsReached"></code></pre>
+<pre><code [highlight]="green_IsMaxUnitsReached"></code></pre>
 <p>
-	I define the constant <code>MaxFullPoints</code> and give it the proper value.<br>
-	I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
-	<br>
-	I need to protect the state of <code>Health</code> from improper usage,<br>
-	i.e. if the outside code invokes <code>IncreaseByUnit</code> when<br>
-	<code>IsMaxFullPointsReached</code> is <code>true</code>.
+	I define the constant and give it the proper value.<br>
+	And I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
 </p>
 
 <h2>Handle improper usage of <code>IncreaseByUnit</code></h2>
+<p>
+	If the outside code incorrectly invokes <code>IncreaseByUnit</code> when <code>IsMaxFullPointsReached</code> is <code>true</code>,<br>
+	the method should handle it.
+</p>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
 <p>
-	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code><br>
-	if I include an informative message for my case.<br>
-	I assert that the message contains "invalid",<br>
-	intentionally not being more specific<br>
-	so the assert does not fail later because of potential rewording.
+	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code>, if I include an informative message for my case.<br>
+	<br>
+	I assert that the message contains string <i>invalid</i>.<br>
+	I'm intentionally not being more specific to minimize the assert will fail later if the message is reworded.<br>
+	This simple <i>Resistance to refactoring</i> makes it a less fragile unit test.<br>
+	(The book <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Unit Testing Principles, Practices, and Patterns</a> by Vladimir Khorikov, lists<i>Resistance to refactoring</i> os one of the 4 pillars of good unit test).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
