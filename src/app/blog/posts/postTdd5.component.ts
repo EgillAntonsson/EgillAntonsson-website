@@ -28,8 +28,8 @@ public bool IsDead => false;
 [Test]
 public void IsDead_AfterTwoInvocations()
 {
-	var health = new Health(10);
-	health.TakeDamage(9);
+	var health = new Health(12);
+	health.TakeDamage(11);
 	Assert.That(health.IsDead, Is.False);
 
 	health.TakeDamage(1);

@@ -18,7 +18,7 @@
 	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
 		and will instead be left alive with Hearth 1 fraction remaining</li>
 	<ul>
-		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+		<li>However, if the damage is more than 5 Hearts in addition to his full Life Gauge, he will still die</li>
 	</ul>
 </ul>
 <div [innerHTML]="completeRequirementListHtml"></div>
@@ -31,7 +31,7 @@
 	<li>The Avatar is protected from any damage that would instantly kill him as long as his Health Points are full<br>
 		and will instead be left alive with 1 Health Points remaining</li>
 	<ul>
-		<li>However, if the damage is more than 20 points above his full Health Points, he will still die</li>
+		<li>However, if the damage is more than 20 points in addition to his full Health Points, he will still die</li>
 	</ul>
 </ul>
 
@@ -93,8 +93,12 @@
 <p>
 	Now focusing on the latter requirement (listed at start of this post),<br>
 	I now take further note of the concept 'full Health Points' in the requirement,<br>
-	and realize that it's part of the requirement, so I start cycling it.
+	and realize it is a definition with it's own simple requirement<br>
+	Let's cycle this, and then get back to the dying part.
 </p>
+<ul class="list inline">
+	<li>Link starts with Full Health -> <code>FullPoints</code> start with same value as <code>startingPoints</code></li>
+</ul>
 
 <h2>Full Health Points cycle</h2>
 <p>

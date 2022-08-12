@@ -11,46 +11,36 @@
 
 <h2>The requirement</h2>
 <p>
-	Let's recap this requirement from the user perspective:
+	Let's recap this requirements from the user perspective:
 </p>
 
-<ul class="list">
-	<li>The Life Gauge can be increased by 1 full Heart at a time,<br>
-		up to a maximum of 30 Hearts</li>
-</ul>
-<p>
-	Example of case when Life Gauge is not full when the increase is executed:<br>
-</p>
 <ul class="list inline">
-	<li>Before increase: 1 Fraction filled of total 3 Hearts</li>
-	<li>After increase: 1 Hearth + 1 Fraction filled of total 4 Hearts</li>
+	<li>The Life Gauge can be increased by 1 Heart at a time</li>
+	<ul>
+		<li>Link's health will become full with the increase</li>
+	</ul>
+	<li>The maximum of Hearts is 30</li>
 </ul>
 <p>
-	In <i>Zelda: Breath of the Wild</i> this is a big gameplay event<br>
-	and thus the increase is always 1 full Heart each time and no more.
+Increasing the Health is a significant gameplay event In <i>Breath of the Wild</i><br>
+(solving puzzles in shrines to get Spirit Orbs, then find and pray to a Goddess Statue),<br>
+and thus the increase is always 1 Heart each time, no more or less.
 </p>
 <div [innerHTML]="completeRequirementListHtml"></div>
 
 <p>
-	{{rewordRequirement}}
-</p>
-<ul class="list">
-	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
-		by 4 <code>Points</code> at a time,<br>
-		up to a maximum of 120 <code>Points</code><br>
-	</li>
-</ul>
-
-<p>
 	Now it makes sense to define a new unit in <code>Health</code> that equals 4 <code>Points,</code><br>
-	(that is visually represented as a Heart or something else),<br>
+that is visually represented as a Heart (or something else),<br>
 	as the increase should always be in that unit.<br>
 </p>
-<h3>Domain / Visual SoC mapping, revisited</h3>
+<h2>Domain / View mapping (revisited)</h2>
+<p>
+	I add a new domain definition <i>Unit</i> that maps to the visualized <i>Heart</i>
+</p>
 <table>
 	<tr>
-		<th>Domain Model</th>
-		<th>GUI / View</th>
+		<th><b>Domain Model</b></th>
+		<th><b>View / GUI</b></th>
 	</tr>
 	<tr>
 		<td class="center">
@@ -77,22 +67,48 @@
 		</td>
 	</tr>
 </table>
+
 <p>
-	I add a new domain definition <i>Unit</i> that maps to the visualized <i>Heart</i><br>
-	now let's reword the requirement again:<br>
+With <i>Unit</i> defined, I realize that it's beneficial to redefine some 'points' variables into 'unit':<br>
 </p>
-<ul class="list">
-	<li><code>FullPoints</code> and <code>CurrentPoints</code> can be increased simultaneously<br>
-		by 1 <code>Unit</code> at a time,<br>
-		up to a maximum of 30 <code>Units</code><br>
-	</li>
+<ul class="list inline">
+	<li><code>startingPoints</code> -> <code>startingUnits</code></li>
+	<ul>
+		<li>This fits the <code>Units</code> constraint in <i>Breath of the Wild</i> (starts with 3 <code>Units</code>)<br>
+		<li>Also in general this is very reasonable constraint game-balancing wise, and simplifies the logic</li>
+		<li>Note that <code>FullPoints</code> make sense to stay as points but will always equivalent to a whole Unit/s, due to its requirements (via 'starting' and 'increasing'</li>
+	</ul>
+	<li><code>MaxNegativePointsForInstantKillProtection</code> -> <code>MaxNegativeUnitsForInstantKillProtection</code></li>
+	<ul>
+		<li>This fits the <code>Units</code> constraint in <i>Breath of the Wild</i> (is 5 <code>Units</code>)<br>
+		<li>Also in general this is very reasonable constraint game-balancing wise, and simplifies the logic</li>
+	</ul>
 </ul>
+
 <p>
-	It's also nice that using <code>Units</code> reduces back the number values<br>
-	(e.g 4 -> 1 and 120 -> 30)
+Now let's reword the requirements focusing on the domain model and using its updated terminology:
 </p>
+<ul class="list inline">
+	<li><code>FullPoints</code>can be increased by 1 <code>Unit</code> at a time</li>
+	<ul>
+		<li><code>CurrentPoints</code> get same value as <code>FullPoints</code></li>
+	</ul>
+	<li><code>MaxUnits</code> (hereby named) is 30</li>
+</ul>
 
 <div [innerHTML]="aboutCodeHtml"></div>
+
+<h2>Refactoring</h2>
+
+<h3><span class="greenRefactor">REFACTOR to <code>startingUnits</code></span></h3>
+<p>
+In <code>HealthTest</code> I rename <code>startingPoint</code> to <code>startingUnits</code>.<br>
+I update the values accordingly by defining and using a new constant <code>PointsPerUnits</code> in <code>Health</code>.<br>
+I rename the parameter in <code>Health</code> class.<br>
+I rename and update the values for <code>MaxNegativeUnitsForInstantKillProtection</code>.<br>
+I'll only show the main changes in <code>Health</code> for this step.
+</p>
+<pre><code [highlight]="refactor_health"></code></pre>
 
 <h2>Entry point <code>IncreaseByUnit</code></h2>
 <p>

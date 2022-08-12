@@ -8,16 +8,16 @@
 		updated on {{updatedDateToString}}
 	</small>
 </div>
-
 <h2>The game balancing config</h2>
 <p>
-	The thought came early (in <a href="./blog/tdd-health/part1">part 3</a>) that a game balance config, for values like <code>startingPoints</code>, would be valuable to have for tweaking during the development period.<br>
-The config should be accessible and validate the values, and then later at runtime be injected to the <code>Health</code> instance.<br>
-Value changes in the config should be ideally validated right away when they occur.<br>
+The thought came early (in <a href="./blog/tdd-health/part1">part 3</a>) that a game balance config for values like <code>StartingPoints</code>,<br>
+would be valuable to have for balancing out during the development period.<br>
+The config should be accessible and validate the values (ideally immediately when changed),<br>
+and then later at runtime be injected to the <code>Health</code> instance.<br>
 There are other values in the <code>Health</code> class that are fitting, thus the config will include:
 </p>
 <ul class="list inline">
-	<li><code>startingPoints</code></li>
+	<li><code>StartingPoints</code></li>
 	<li><code>PointsPerUnit</code></li>
 	<li><code>MaxFullPoints</code></li>
 	<li><code>MaxNegativePointsForInstantKillProtection</code></li>
@@ -25,9 +25,11 @@ There are other values in the <code>Health</code> class that are fitting, thus t
 
 <h2>Using <code>ScriptableObject</code></h2>
 <p>
-	By making the precondition that the game designer can work in Unity,<br>
-	we can keep the config solution within Unity.<br>
-	I'll thus base it one Unity's <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html">ScriptableObject</a> (a data container that you can use to save large amounts of data, independent of class instances)<br>
+Assuming that the game designer can tweak values in Unity UI<br>
+and save and send changes to the version control system,<br>
+we can keep the complete config solution within Unity.<br>
+I'll thus base it one Unity's <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html">ScriptableObject</a>,<br>
+a data container that can be used to save large amounts of data.<br>
 I'll create a folder <i>ScriptableObjects/</i> at <i>Assets/Scripts/Runtime/</i> and create file <code>GameConfig.cs</code> within it.
 </p>
 

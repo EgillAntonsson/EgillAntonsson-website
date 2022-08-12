@@ -9,6 +9,17 @@ import { PostComponent } from './post.component'
 
 export class PostTdd7Component extends PostComponent {
 
+	refactor_health = `// Health.cs
+public const int MaxNegativeUnitsForInstantKillProtection = -20;
+public const int PointsPerUnit = 4;
+
+public Health(int startingUnits)
+{
+	ValidatePoints(startingUnits, 1);
+	FullPoints = CurrentPoints = UnitsPoints * PointsPerUnit;
+}
+`
+
 	red_increaseByUnit_fullPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
