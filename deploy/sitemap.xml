@@ -399,8 +399,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-increase-tests.PNG</image:loc>
-			<image:title>Unity Test Runner: after adding Increase tests</image:title>
-			<image:caption>Unity Test Runner: after adding Increase tests</image:caption>
+			<image:title>Unity Test Runner: after Increase and Max requirements</image:title>
+			<image:caption>Unity Test Runner: after Increase and Max requirements</image:caption>
 		</image:image>
 	</url>
 	<url>

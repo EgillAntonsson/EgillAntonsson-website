@@ -9,7 +9,7 @@
 	</small>
 </div>
 
-<h2>The requirement</h2>
+<h2>The requirements</h2>
 <p>
 	Let's recap this requirements from the user perspective:
 </p>
@@ -72,24 +72,25 @@ that is visually represented as a Heart (or something else),<br>
 With <i>Unit</i> defined, I realize that it's beneficial to redefine some 'points' variables into 'unit':<br>
 </p>
 <ul class="list inline">
-	<li><code>startingPoints</code> -> <code>startingUnits</code></li>
-	<ul>
-		<li>This fits the <code>Units</code> constraint in <i>Breath of the Wild</i> (starts with 3 <code>Units</code>)<br>
-		<li>Also in general this is very reasonable constraint game-balancing wise, and simplifies the logic</li>
-		<li>Note that <code>FullPoints</code> make sense to stay as points but will always equivalent to a whole Unit/s, due to its requirements (via 'starting' and 'increasing'</li>
-	</ul>
-	<li><code>MaxNegativePointsForInstantKillProtection</code> -> <code>MaxNegativeUnitsForInstantKillProtection</code></li>
-	<ul>
-		<li>This fits the <code>Units</code> constraint in <i>Breath of the Wild</i> (is 5 <code>Units</code>)<br>
-		<li>Also in general this is very reasonable constraint game-balancing wise, and simplifies the logic</li>
-	</ul>
+<li><code>startingPoints</code> -> <code>startingUnits</code></li>
+<ul>
+	<li>In <i>Breath of the Wild</i> Link starts with 3 <code>Units</code>, thus fits the <code>Units</code> constraint</li>
+	<li>This is also a very reasonable game-balance constraint, and will simplify the logic</li>
+	<li>Note that for <code>FullPoints</code>, it makes sense to stay as points<br>
+		but will always be equivalent to a whole Unit/s, due to its requirements (via 'starting' and 'increasing')</li>
+</ul>
+<li><code>MaxNegativePointsForInstantKillProtection</code> -> <code>MaxNegativeUnits...</code></li>
+<ul>
+	<li>In <i>Breath of the Wild</i> it is 5 <code>Units</code>, thus fits the <code>Units</code> constraint</li>
+	<li>This is also a very reasonable game-balance constraint, and will simplify the logic</li>
+</ul>
 </ul>
 
 <p>
 Now let's reword the requirements focusing on the domain model and using its updated terminology:
 </p>
 <ul class="list inline">
-	<li><code>FullPoints</code>can be increased by 1 <code>Unit</code> at a time</li>
+	<li><code>FullPoints</code> can be increased by 1 <code>Unit</code> at a time</li>
 	<ul>
 		<li><code>CurrentPoints</code> get same value as <code>FullPoints</code></li>
 	</ul>
@@ -98,58 +99,52 @@ Now let's reword the requirements focusing on the domain model and using its upd
 
 <div [innerHTML]="aboutCodeHtml"></div>
 
-<h2>Refactoring</h2>
-
-<h3><span class="greenRefactor">REFACTOR to <code>startingUnits</code></span></h3>
+<h2>A wholistic refactoring</h2>
 <p>
-In <code>HealthTest</code> I rename <code>startingPoint</code> to <code>startingUnits</code>.<br>
-I update the values accordingly by defining and using a new constant <code>PointsPerUnits</code> in <code>Health</code>.<br>
-I rename the parameter in <code>Health</code> class.<br>
-I rename and update the values for <code>MaxNegativeUnitsForInstantKillProtection</code>.<br>
-I'll only show the main changes in <code>Health</code> for this step.
+When doing a  wholistic refactoring with a clear goal,<br>it might make more sense to start with the production code, as is the case now.
 </p>
-<pre><code [highlight]="refactor_health"></code></pre>
+<h3><span class="greenRefactor">Refactor <code>Health</code></span></h3>
+<p>
+I forsee that it will be beneficial to define a new constant <code>PointsPerUnits</code> in <code>Health</code> to make points <-> units conversation easy and readable.<br>
+I then rename the variable names and convert the values using <code>PointsPerUnits</code>
+</p>
+<pre><code [highlight]="refactorHealth"></code></pre>
 
-<h2>Entry point <code>IncreaseByUnit</code></h2>
+<h3><span class="greenRefactor">Refactor <code>HealthTest</code></span></h3>
+<p>
+Now obviously many tests <span class="redFail">fail</span> as the values need to converted to units.<br>
+I rename accordingly and convert the values, using <code>PointsPerUnits</code> where appropriate.<br>
+</p>
+<pre><code [highlight]="refactorHealthTest"></code></pre>
+
+<p>
+Now all the tests <span class="greenRefactor">pass</span> again, and all is well in the universe.
+</p>
+
+<h2>TDD Cycling <code>IncreaseByUnit</code></h2>
 <p>
 	The domain model focus will be a new method named <code>IncreaseByUnit</code>.<br>
 </p>
 
-<h2>Exit point <code>FullPoints</code></h2>
+<h3><span class="redFail">RED (exit point <code>FullPoints</code>)</span></h3>
 <p>
-	Focusing first on the existing <code>FullPoints</code> property.
+	Focusing first on the <code>FullPoints</code> property.
 </p>
-<h3><span class="redFail">RED</span></h3>
 
 <pre><code [highlight]="red_increaseByUnit_fullPointsIncrease"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <p>
-	I make the test pass with an effortless implementation.
+	I pass the test by using the defined constant <code>PointsPerUnit</code>
 </p>
 <pre><code [highlight]="green_increaseByUnit_fullPointsIncrease"></code></pre>
-<p>
-	I don't like that the 'magic' number <code>4</code> does not explain<br>
-	the relationship between <code>Points</code> and <code>Unit</code>.<br>
-	Thus I refactor it.
-</p>
 
-<h3><span class="greenRefactor">REFACTOR</span></h3>
-
-<pre><code [highlight]="refactor_increaseByUnit_fullPointsIncrease"></code></pre>
 <p>
-	Now it's replaced with a meaningfully named constant member<br>
-	that defines and documents well this relationship (in the code itself).<br>
-</p>
-
-<h2>Exit point <code>CurrentPoints</code></h2>
-<p>
-	Now I focus on the other <i>exit point</i>, the existing <code>CurrentPoints</code> property.<br>
-	It should have new tests as it's about a different <i>exit point</i><br>
+	Now I focus on the other <i>exit point</i>, the <code>CurrentPoints</code> property.<br>
+	It ideally should be a new tests as it's about a different <i>exit point</i><br>
 	(see Good Unit Test definition in <a href="./blog/tdd-health/part1">part 1</a>).
 </p>
-
-<h3><span class="redFail">RED</span></h3>
+<h3><span class="redFail">RED (exit point <code>CurrentPoints</code>)</span></h3>
 
 <pre><code [highlight]="red_increaseByUnit_currentPointsIncrease"></code></pre>
 
@@ -157,39 +152,20 @@ I'll only show the main changes in <code>Health</code> for this step.
 
 <pre><code [highlight]="green_increaseByUnit_currentPointsIncrease"></code></pre>
 <p>
-	I effortlessly add the line <code>CurrentPoints = FullPoints</code>,<br>
-	which is enough to make the test pass,<br>
-	but I know that it only holds for this particular case, and not for others.<br>
-	Thus I'll cycle the other cases.
+I simply add the line <code>CurrentPoints = FullPoints</code>,<br>
+which is also the proper solution as the requirement is:<br>
+'<code>CurrentPoints</code> get same value as <code>FullPoints</code> (on increase)'.
 </p>
 
-<h3><span class="redFail">RED</span></h3>
-<pre><code [highlight]="red_increaseByUnit_currentPoints_moreCases"></code></pre>
+<h2>Cycling the maximum</h2>
 <p>
-	I select <code>4</code> for the <code>startingPoints</code> parameter value<br>
-	so all possible test cases will be the minimum <code>3</code>,<br>
-	and other parameter values will be low as well,<br>
-	which makes the test simple and readable.
-</p>
-
-<h3><span class="greenPass">GREEN</span></h3>
-
-<pre><code [highlight]="green_increaseByUnit_currentPoints_moreCases"></code></pre>
-<p>
-	I could have taken a bigger step in the previous <span class="greenPass">GREEN</span> step<br>
-	and come straight away with this generic solution,<br>
-	but both paths should lead to the same result (both solution and tests),<br>
-	the path presented here make the tests drive the implementation a bit more.
-</p>
-
-<h2>The maximum</h2>
-<p>
-	All that is left of the requirement is the maximum part.<br>
-	The game will only give the user the option to spend resources<br>
-	to increase the health if the <code>MaxUnits</code> has not been reached.
-	Thus the outside code should query <code>Health</code> if maximum has been reached<br>
-	and then only invoke <code>IncreaseByUnit</code> if not.<br>
-	<code>IncreaseByUnit</code> should though also handle improper usage in this regard.
+All that is left is the maximum requirement.<br>
+The game will only give the user the option to increase the health<br>
+if the <code>MaxUnits</code> has not been reached (and it costs 4 <i>Spirit Orbs</i>),<br>
+Thus the outside code should query <code>Health</code> if maximum has been reached,<br>
+and if not, only then invoke <code>IncreaseByUnit</code>.<br>
+<code>IncreaseByUnit</code> should though also handle improper usage in this regard,<br>
+and I'll add this handling at the end of this post.
 </p>
 
 <h3><span class="redFail">RED</span></h3>
@@ -199,39 +175,41 @@ I'll only show the main changes in <code>Health</code> for this step.
 
 <pre><code [highlight]="red_IsMaxUnitsReached"></code></pre>
 <p>
-	I'm presenting a bigger step, adding 2 test at the same time,<br>
-	(thus skipping the smaller cycles I did within it).<br>
-	<br>
-	Here I can concise the test names<br>
-	as the <i>exit point</i> is the same as the <i>entry point</i>,<br>
-	thus I skip the <i>exit point</i> in the name (nested class already names it).<br>
-	<br>
-	The tests use a new constant <code>MaxUnits</code>,<br>
-	and there are two compile errors as both<br>
-	<code>MaxFullPoints</code> and <code>IsMaxUnitsReached</code> are not defined.
+I added 2 test easily at the same time,<br>
+which should suffice to drive in the proper production implementation.<br>
+<br>
+Here I can concise the test names<br>
+as the <i>exit point</i> is the same as the <i>entry point</i>,<br>
+thus I skip the <i>exit point</i> in the name (nested class already names it).<br>
+<br>
+There are compile errors as both<br>
+<code>MaxFullPoints</code> and <code>IsMaxUnitsReached</code> are not defined.
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="green_IsMaxUnitsReached"></code></pre>
 <p>
-	I define the constant and give it the proper value.<br>
-	And I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
+I define the constant and give it the proper value,<br>
+and I implement the read-only property as an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Expression-Bodied Member</a>.<br>
 </p>
 
 <h2>Handle improper usage of <code>IncreaseByUnit</code></h2>
 <p>
-	If the outside code incorrectly invokes <code>IncreaseByUnit</code> when <code>IsMaxFullPointsReached</code> is <code>true</code>,<br>
-	the method should handle it.
+If the outside code invokes <code>IncreaseByUnit</code> when <code>IsMaxUnitsReached</code> is <code>true</code>,<br>
+the method should handle this improper usage.
 </p>
 <h3><span class="redFail">RED</span></h3>
 <pre><code [highlight]="red_IncreaseByUnit_ThrowsError"></code></pre>
 <p>
-	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code>, if I include an informative message for my case.<br>
+	I deem I can use existing <code>InvalidOperationException</code> from <code>System</code>,<br>
+	if I include an informative message for my case.<br>
 	<br>
-	I assert that the message contains string <i>invalid</i>.<br>
-	I'm intentionally not being more specific to minimize the assert will fail later if the message is reworded.<br>
-	This simple <i>Resistance to refactoring</i> makes it a less fragile unit test.<br>
-	(The book <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Unit Testing Principles, Practices, and Patterns</a> by Vladimir Khorikov, lists<i>Resistance to refactoring</i> os one of the 4 pillars of good unit test).
+	I assert that the message contains string <i>invalid</i>, ignoring case.<br>
+	I'm intentionally not being more specific<br>
+	to later minimize the chance the assert fails if the message is reworded.<br>
+	This simple <i>Resistance to refactoring</i> makes this a better unit test.<br>
+	(book <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">Unit Testing Principles, Practices, and Patterns</a> by Vladimir Khorikov,<br>
+	lists <i>Resistance to refactoring</i> as one of the 4 pillars of good unit test).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
@@ -239,11 +217,11 @@ I'll only show the main changes in <code>Health</code> for this step.
 <p>
 	I pass the test by adding the <i>if</i> condition at the start of the method.<br>
 	<br>
-	Now the requirement has been fulfilled and the Unity Test Runner looks like this:
+	Now the requirements hao been fulfilled and the Unity Test Runner looks like this:
 </p>
 <figure>
-	<img src="../assets/images/blog/tdd/TestRunner_after-increase-tests.PNG" alt="Unity Test Runner: after adding Increase tests" title="Unity Test Runner: after adding Increase tests" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/TestRunner_after-increase-tests.png" alt="Unity Test Runner: after Increase and Max requirements" title="Unity Test Runner: after Increase and Max requirements" class="imageSmallText">
 	<figcaption>
-		Unity Test Runner: after adding Increase tests
+		Unity Test Runner: after Increase and Max requirements
 	</figcaption>
 </figure>

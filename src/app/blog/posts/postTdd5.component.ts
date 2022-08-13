@@ -68,10 +68,10 @@ public class Health
 
 	test_4_red =  `// HealthTest.cs
 // inside nested class TakeDamage
-[TestCase(1, 2, 2)]
-[TestCase(1, 2, 3)]
-[TestCase(1, 2, 22)]
-[TestCase(-21, 2, 23)]
+[TestCase(1, 4, 4)]
+[TestCase(1, 4, 5)]
+[TestCase(1, 4, 24)]
+[TestCase(-21, 4, 25)]
 public void CurrentPoints_WhenStartingPoints_ThenDamagePoints(
 	int currentPoints,
 	int startingPoints,
