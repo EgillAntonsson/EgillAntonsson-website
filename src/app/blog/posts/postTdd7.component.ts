@@ -9,27 +9,44 @@ import { PostComponent } from './post.component'
 
 export class PostTdd7Component extends PostComponent {
 
+	refactorHealth = `// Health.cs
+public const int PointsPerUnit = 4;
+public const int MaxNegativeUnitsForInstantKillProtection = -5;
+
+public Health(int startingUnits)
+{
+	ValidatePoints(startingUnits, 1);
+	FullPoints = CurrentPoints = startingUnits * PointsPerUnit;
+}
+
+// PointsPerUnit also used in InstantKillProtection calculation,
+// which is not shown.
+`
+
+	refactorHealthTest = `// HealthTest.cs
+[TestCase(3)]
+[TestCase(1)]
+public void CurrentPoints_HasStartingValue(int startingUnits)
+{
+	var health = new Health(startingUnits);
+	Assert.That(health.CurrentPoints, Is.EqualTo(startingUnits * health.PointsPerUnit));
+}
+
+// other similar refactoring not shown.
+`
+
 	red_increaseByUnit_fullPointsIncrease = `// HealthTest.cs
 // inside nested class IncreaseByUnit
 [Test]
 public void FullPoints_Increase()
 {
-	var health = new Health(12);
+	var health = new Health(3);
 	health.IncreaseByUnit();
 	Assert.That(health.FullPoints, Is.EqualTo(16));
 }
 `
 
 	green_increaseByUnit_fullPointsIncrease = `// Health.cs
-public void IncreaseByUnit()
-{
-	FullPoints += 4;
-}
-`
-
-	refactor_increaseByUnit_fullPointsIncrease = `// Health.cs
-public const int PointsPerUnit = 4;
-
 public void IncreaseByUnit()
 {
 	FullPoints += PointsPerUnit;
@@ -41,7 +58,7 @@ public void IncreaseByUnit()
 [Test]
 public void CurrentPoints_Increase()
 {
-	var health = new Health(12);
+	var health = new Health(3);
 	health.IncreaseByUnit();
 	Assert.That(health.CurrentPoints, Is.EqualTo(16));
 }
@@ -55,46 +72,21 @@ public void IncreaseByUnit()
 }
 `
 
-	red_increaseByUnit_currentPoints_moreCases = `// HealthTest.cs
-// inside nested class IncreaseByUnit
-[TestCase(7, 4, 1)]
-[TestCase(6, 4, 2)]
-[TestCase(5, 4, 3)]
-public void CurrentPoints_WhenStartingPoints_ThenDamagePoints(
-	int currentPoints,
-	int startingPoints,
-	int damagePoints)
-{
-	var health = new Health(startingPoints);
-	health.TakeDamage(damagePoints);
-	health.IncreaseByUnit();
-	Assert.That(health.CurrentPoints, Is.EqualTo(currentPoints));
-}
-`
-
-	green_increaseByUnit_currentPoints_moreCases = `// Health.cs
-public void IncreaseByUnit()
-{
-	FullPoints += PointsPerUnit;
-	CurrentPoints += PointsPerUnit;
-}
-`
-
 	red_IsMaxUnitsReached = `// HealthTest.cs
 // inside nested class IsMaxUnitsReached
 [Test]
-public void ReturnsTrue()
+public void ReturnsTrue_WhenStartingUnitsAtMax()
 {
-	var startingPointsAtMax = Health.MaxUnits * Health.PointsPerUnit;
-	var health = new Health(startingPointsAtMax);
+	int startingUnits = Health.MaxUnits;
+	var health = new Health(startingUnits);
 	Assert.That(health.IsMaxUnitsReached, Is.True);
 }
 
 [Test]
-public void ReturnsFalse()
+public void ReturnsFalse_WhenStartingUnitsNotAtMax()
 {
-	var startingPointsBelowMax = Health.MaxUnits * Health.PointsPerUnit - 1;
-	var health = new Health(startingPointsBelowMax);
+	int startingUnits = Health.MaxUnits - 1;
+	var health = new Health(startingUnits);
 	Assert.That(health.IsMaxUnitsReached, Is.False);
 }
 `
@@ -110,8 +102,8 @@ public bool IsMaxUnitsReached => MaxUnits == FullPoints / PointsPerUnit;
 [Test]
 public void ThrowsError_WhenMaxUnitsReached()
 {
-	var startingPointsAtMax = Health.MaxUnits * Health.PointsPerUnit;
-	var health = new Health(startingPointsAtMax);
+	int startingUnits = Health.MaxUnits;
+	var health = new Health(startingUnits);
 	var exception = Assert.Throws(Is.TypeOf<InvalidOperationException>(),
 		delegate
 		{
@@ -131,7 +123,7 @@ public void IncreaseByUnit()
 	}
 
 	FullPoints += PointsPerUnit;
-	CurrentPoints += PointsPerUnit;
+	CurrentPoints = FullPoints;
 }
 `
 

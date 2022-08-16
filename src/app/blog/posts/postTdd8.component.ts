@@ -16,10 +16,10 @@ using UnityEngine;
 menuName = "Avatar Health/Create GameConfig Instance",
 order = 1)]
 public class GameConfig : ScriptableObject {
-	public int StartingPoints = 12;
+	public int StartingUnits = 3;
 	public int PointsPerUnit = 4;
 	public int MaxUnits = 30;
-	public int MaxNegativePointsForInstantKillProtection = -20;
+	public int MaxNegativeUnitsForInstantKillProtection = -5
 }
 `
 
@@ -32,13 +32,13 @@ public class ValidationTest
 {
 	public class Validate
 	{
-		[TestCase(12, 1, Int32.MaxValue)]
-		[TestCase(1, 1, Int32.MaxValue)]
-		[TestCase(4, 2, Int32.MaxValue)]
-		[TestCase(2, 2, Int32.MaxValue)]
+		[TestCase(12, 1)]
+		[TestCase(1, 1)]
+		[TestCase(4, 2)]
+		[TestCase(2, 2)]
 		[TestCase(-20, Int32.MinValue, -1)]
 		[TestCase(-1, Int32.MinValue, -1)]
-		public void Passes(int v, int lowestValidV, int highestValidV)
+		public void Passes(int v, int lowestValidV, int highestValidV = Int32.MaxValue)
 		{
 			(bool, int, string) ret = Validation.Validate(v, lowestValidV, highestValidV);
 			Assert.That(ret.Item1, Is.True);
@@ -46,18 +46,18 @@ public class ValidationTest
 			Assert.That(ret.Item3, Is.EqualTo(""));
 		}
 
-		[TestCase(0, 1, Int32.MaxValue)]
-		[TestCase(1, 2, Int32.MaxValue)]
-		public void Fails_WhenValueLower(int v, int lowestValidV, int highestValidV)
+		[TestCase(0, 1)]
+		[TestCase(-1, 0)]
+		public void Fails_WhenValueLower(int v, int lowestValidV)
 		{
-			(bool, int, string) ret = Validation.Validate(v, lowestValidV, highestValidV);
+			(bool, int, string) ret = Validation.Validate(v, lowestValidV, Int32.MaxValue);
 			Assert.That(ret.Item1, Is.False);
 			Assert.That(ret.Item2, Is.EqualTo(lowestValidV));
 			Assert.That(ret.Item3, Does.Match("invalid").IgnoreCase);
 		}
 
 		[TestCase(0, Int32.MinValue, -1)]
-		[TestCase(1, Int32.MinValue, -1)]
+		[TestCase(1, Int32.MinValue, 0)]
 		public void Fails_WhenValueHigher(int v, int lowestValidV, int highestValidV)
 		{
 			(bool, int, string) ret = Validation.Validate(v, lowestValidV, highestValidV);
@@ -74,7 +74,7 @@ using System;
 
 public static class Validation
 {
-	public static (bool, int, string) Validate(int v, int lowestValidV = Int32.MinValue, int highestValidV = Int32.MaxValue)
+	public static (bool, int, string) Validate(int v, int lowestValidV, int highestValidV = Int32.MaxValue)
 	{
 		string message = "";
 		if (v >= lowestValidV && v <= highestValidV)
@@ -148,12 +148,10 @@ private int ProcessValidation((bool IsValid, int Value, string FailMessage) v, s
 `
 
 	healthRefactor = `// Health.cs
-private GameConfig config;
-
 public Health(GameConfig gameConfig)
 {
 	config = gameConfig;
-	FullPoints = CurrentPoints = config.StartingPoints;
+	FullPoints = CurrentPoints = config.StartingUnits * config.PointsPerUnit;
 }
 `
 
@@ -166,28 +164,50 @@ public int MaxUnits
 {
 	get { return config.MaxUnits; }
 }
-	public int MaxNegativePointsForInstantKillProtection
+	public int MaxNegativeUnitsForInstantKillProtection
 {
-	get { return config.MaxNegativePointsForInstantKillProtection; }
+	get { return config.MaxNegativeUnitsForInstantKillProtection; }
 }
 `
 
 	healthTestRefactor = `// HealthTest.cs
 public class HealthTest
 {
-	public static Health MakeHealth(int startingPoints)
+	public static Health MakeHealth(int startingUnits)
 	{
-			GameConfig config = ScriptableObject.CreateInstance<GameConfig>();
-			config.StartingPoints = startingPoints;
-			config.PointsPerUnit = 4;
-			config.MaxUnits = 30;
+			var config = MakeConfig(startingUnits);
 			var health = new Health(config);
 			return health;
 	}
+
+	public static GameConfig MakeConfig(int startingUnits = 3)
+	{
+			GameConfig config = ScriptableObject.CreateInstance<GameConfig>();
+			config.StartingUnits = startingUnits;
+			config.PointsPerUnit = 4;
+			config.MaxUnits = 30;
+			return config;
+	}
 `
 
-	healthTestStartingPointsAtMax = `// HealthTest.cs
-int startingPointsAtMax = 120; // MaxUnits * PointsPerUnit (config vars set in MakeHealth method)
+healthTestRefactorMostCases = ` HealthTest.cs
+[Test]
+public void IsDead_IsFalse()
+{
+	var health = MakeHealth(3);
+	Assert.That(health.IsDead, Is.False);
+}
+`
+
+	healthTestUseMakeConfig = `// HealthTest.cs
+[Test]
+public void ReturnsTrue_WhenStartingUnitsAtMax()
+{
+	var config = MakeConfig();
+	config.StartingUnits = config.MaxUnits;
+	var health = new Health(config);
+	Assert.That(health.IsMaxUnitsReached, Is.True);
+}
 `
 
 	healthReuseValidation = `// Health.cs

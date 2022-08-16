@@ -22,8 +22,8 @@ export class BlogService {
 				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 14)),
 				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 14)),
 				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
-				new Post( 'Part 7 - The Increasing part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14)),
-				new Post( 'Part 8 - Adding the config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 9))
+				new Post( 'Part 7 - The Increasing and Max part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
+				new Post( 'Part 8 - Adding the Config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 16))
 			]
 		}
 		]

@@ -79,12 +79,17 @@
 </p>
 
 <h2>The Life Gauge behavior</h2>
-<p>
-	The below list is user perspective behaviour summary from<br>
-	the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game.<br>
-	I've simplified some requirements to keep the scope within a sensible limit.
 
+<p>
+The below list is user perspective behaviour summary from<br>
+the <a href='https://zelda.fandom.com/wiki/Life_Gauge'>Life Gauge page on the Zelda Wiki</a> for the <i>Breath of the Wild</i> game.<br>
+I've simplified some requirements to keep the scope within a sensible limit.<br>
+I've also provided more detail where needed by playing and observing the game.<br>
+<span class="outOfScope">With real-live gameplay-in-development scenario,<br>
+it's important to get the needed details of the requirements as early as possible,<br>
+ideally before starting the code implementation.</span>
 </p>
+
 <ul class="list">
 	<li class="noBulletinPoint"><b>Definition and Start State</b></li>
 	<li>The Life Gauge measures Link's (the avatar) current amount of health</li>
@@ -98,25 +103,23 @@
 	<li>Link is protected from any damage that would instantly kill him as long as his Life Gauge is full<br>
 		and will instead be left alive with Hearth 1 fraction remaining</li>
 	<ul>
-		<li>However, if the damage is more than five Hearts above his full Life Gauge, he will still die</li>
+		<li>However, if the damage is more than 5 Hearts in addition to his full Life Gauge, he will still die</li>
 	</ul>
 	<br>
 	<li class="noBulletinPoint"><b>Replenish and Increase</b></li>
-	<li>Link's Life Gauge can be replenished by consuming certain food</li>
-	<li>The Life Gauge can be increased by 1 full Heart at a time,<br>
-		up to a maximum of 30 Hearts</li>
-	<li>It can also be temporarily increased (lost when Link takes damage)<br>
-		by consuming certain food</li>
-		<ul>
-			<li>These are visually represented as yellow Hearts</li>
-		</ul>
+	<li>The Life Gauge can be replenished by consuming certain items</li>
+	<li>The Life Gauge can be increased by 1 Heart at a time</li>
+	<ul>
+		<li>Link's health will become full with the increase</li>
+	</ul>
+	<li>The maximum of Hearts is 30</li>
 </ul>
 
-<h3>Domain / Visual <i>SoC</i> mapping of <i>Life Gauge</i></h3>
+<h3>Model / View mapping of <i>Life Gauge</i> - <i>SoC</i></h3>
 <table>
 	<tr>
-		<th>Domain Model</th>
-		<th>GUI / View</th>
+		<th><b>Domain Model</b></th>
+		<th><b>View / GUI</b></th>
 	</tr>
 	<tr>
 		<td class="center">
@@ -128,7 +131,7 @@
 	</tr>
 	<tr>
 		<td class="center">
-				-
+				<i>TBD later</i>
 		</td>
 		<td class="center">
 			Heart (holds 4 Fractions)
@@ -144,27 +147,28 @@
 	</tr>
 </table>
 <p>
-	This <i>Separation of Concerns (SoC)</i> mapping is good to establish early:<br>
-	Heart Container (with its Hearts and fractions)<br>
-		is a specific GUI representation of the Avatar Health, the domain model.<br>
-	<br>
-	I'll apply the approach noted in the <i>Boundary layers</i> section in <a href="./blog/tdd-health/part1">Part 1</a>,<br>
-	Making sure that the code dependency is minimal and one-way:<br>
-	The view can depend in some way on the model, but not vice-versa.<br>
-	All the domain logic should be in the model<br>
-	and the view should be thin and humble.<br>
-	<br>
-	When future change requests on the GUI arrive<br>
-	(which is quite likely, in a real-life scenario),<br>
-	it will be effortless to handle as:
+This mapping is good to establish early:<br>
+Heart Container (with its Hearts and fractions)<br>
+is a specific view representation of the Avatar Health, the domain model.<br>
+This is a good start of a <i>Separation of Concerns (SoC)</i> which I'll plot further on below.<br>
+<br>
+I'll apply the approach in the <i>Boundary layers</i> section in <a href="./blog/tdd-health/part1">Part 1</a>,<br>
+making sure that the code dependency is minimal and one-way:
 </p>
 <ul class="list inline">
-	<li>The domain and its logic will be unaffected<br>
-		(as it does not depend on the view)</li>
-	<li>The model naming and terms will be unaffected<br>
-		(as it does not depend on the view)</li>
+	<li>the view can depend in minimal way on the model, but not vice-versa</li>
+	<li>all the domain logic should be in the model</li>
+	<li>the view should be thin and humble</li>
 </ul>
 <p>
-	This also makes it effortless to have simultaneously more than one<br>
-	GUI representations of the same model (quite common in game UI).
+Thus when future change requests on the GUI arrive (which is likely, in a real-life scenario),<br>
+it will be effortless to handle as:
+</p>
+<ul class="list inline">
+	<li>The domain and its logic will be unaffected</li>
+	<li>The model naming and terms will be unaffected</li>
+</ul>
+<p>
+This also makes it effortless to display simultaneously more than one GUI representations<br>
+of the same model (which is quite common in game UI).
 </p>
