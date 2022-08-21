@@ -24,7 +24,7 @@ export class BlogService {
 				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
 				new Post( 'Part 7 - The Increasing and Max part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
 				new Post( 'Part 8 - Adding the Config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 16)),
-				new Post( 'Part 9 - UI', 'tdd-health/part9', seriesTddTitle, new Date(2022, 7, 21))
+				// new Post( 'Part 9 - UI', 'tdd-health/part9', seriesTddTitle, new Date(2022, 7, 21))
 			]
 		}
 		]
