@@ -103,7 +103,7 @@ thus I'll prevent the game designer from saving invalid values to the config,<br
 and provide some message in the Unity editor when an invalid value is corrected.
 </p>
 
-<pre><code [highlight]="hookingValidationInConfig"></code></pre>
+<pre><code [highlight]="hookValidationIntoConfig"></code></pre>
 
 <p>
 I use <code>OnValidate</code>, a editor-only function that Unity calls when the script is loaded or a value changes in the Inspector<br>
@@ -160,15 +160,16 @@ and it this case it makes more sense to start with the production code.
 
 <pre><code [highlight]="healthRefactor"></code></pre>
 <p>
-	I inject the <code>GameConfig</code> instance into the <code>Health</code> constructor,<br>
-	and store the config in a private member and access the values within it.<br>
-	I remove the old <code>startingUnits</code> validation (as the config is already validated).<br>
+I inject the <code>GameConfig</code> instance into the constructor,<br>
+and store it in a member and then access the values from the member.<br>
+The member is <code>private readonly</code> and thus encapsulated and immutable within the class.<br>
+I remove the old <code>startingUnits</code> validation (as the config is already validated).<br>
 </p>
 <pre><code [highlight]="healthRefactor1"></code></pre>
 <p>
-	I refactor these constants into read-only properties,<br>
-	getting the value from the config.<br>
-	This way the config values can't be set via the <code>Health</code> instance (encapsulation).
+I refactor these constants into read-only properties,<br>
+getting the value from the config.<br>
+This way the config values can't be set via the <code>Health</code> instance (encapsulation).
 </p>
 
 <h3><span class="greenRefactor">Refactor <code>HealthTest</code></span></h3>

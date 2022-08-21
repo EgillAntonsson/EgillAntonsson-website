@@ -3,8 +3,8 @@
 		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
 		<loc>https://www.egill.rocks/</loc>
-		<priority>0.7</priority>
-		<lastmod>2022-05-17</lastmod>
+		<priority>0.8</priority>
+		<lastmod>2022-08-21</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
@@ -406,7 +406,7 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part8</loc>
 		<priority>1.0</priority>
-		<lastmod>2022-08-16</lastmod>
+		<lastmod>2022-08-21</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/MenuItem_GameConfigInstance.png</image:loc>
@@ -430,8 +430,8 @@
 		</image:image>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-config-added.png</image:loc>
-			<image:title>TestRunner after config added and used</image:title>
-			<image:caption>TestRunner after config added and used</image:caption>
+			<image:title>Unity Test Runner: after config added and used</image:title>
+			<image:caption>Unity Test Runner: after config added and used</image:caption>
 		</image:image>
 	</url>
 </urlset>
