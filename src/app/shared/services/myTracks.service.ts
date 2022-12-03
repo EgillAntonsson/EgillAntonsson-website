@@ -77,11 +77,9 @@ export class MyTracksService {
 				this.oddTimesInSpace(),
 				this.lecube()
 			], about: this.aboutEgillAntonsson},
-			{name: 'TribeOfOranges', tracks: [
-				this.introduction(),
-				this.routine(),
-				this.hhiCommercial()
-			], about: this.aboutTribeOfOranges},
+			{name: 'Kanez Kane', tracks: [
+				this.strawberryCityLights()
+			], about: this.aboutKanezKane},
 			{name: 'KUAI', tracks: [
 				this.pirringur(),
 				this.apollo(),
@@ -94,6 +92,11 @@ export class MyTracksService {
 				this.lesblindaI(),
 				this.lesblindaII()
 			], about: this.aboutKuai},
+			{name: 'TribeOfOranges', tracks: [
+				this.introduction(),
+				this.routine(),
+				this.hhiCommercial()
+			], about: this.aboutTribeOfOranges},
 			{name: 'Game Music - Layered', tracks: [
 				this.godsruleLayered(),
 				this.votLayered()
@@ -149,23 +152,30 @@ export class MyTracksService {
 In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others),<br>
 electric bass (because all in the band can't be guitarists), and singing.<br>
 Through the years I've been in various bands, projects and collaborations,<br>
-and the tracks that I drove (often including collaborations with others) are published under my name.
-`
+and the tracks that I drove (often including collaborations with others) are published under my name.`
 	}
 
 	private get pathToDirEgillAntonsson() {
 		return Track.dir + 'egillantonsson/'
 	}
 
-	private get pathToDirBraedraminning() {
-		return Track.dir + 'braedraminning/'
+	private get aboutKanezKane() {
+		return `A partnership with my friend <b>Sindri Bergmann Thorarinsson</b>. We have done lots of music through the decades but have only released to the world a small part of it. We decided to changed that so watch this space...`
 	}
 
 	private get aboutBraedraminning() {
 		return `My parents kept a cassette with the recordings of the songs my older brothers made.<br>
 		To make sure the songs survived that old cassette,<br>
 		I published the album Bræðraminning, which also includes my takes on their songs.
-		`
+`
+	}
+
+	private get pathToDirKanez() {
+		return Track.dir + 'kanez/'
+	}
+
+	private get pathToDirBraedraminning() {
+		return Track.dir + 'braedraminning/'
 	}
 
 	private get aboutTribeOfOranges() {
@@ -235,6 +245,16 @@ and the tracks that I drove (often including collaborations with others) are pub
 			buyUrl
 		)
 		return track
+	}
+
+	private strawberryCityLights() {
+		const nameUrl = 'strawberry-city-lights'
+		const namePublic = 'Strawberry City Lights'
+		const soundCloudUrl = ''
+		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
+		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirKanez}${nameUrl}.mp3`, `${this.pathToDirKanez}${nameUrl}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private pesi2002() {
@@ -550,7 +570,7 @@ We put the song under artist Egill Antonsson (for convenience) although it's tru
 	}
 
 	private magmaMerryGoRound() {
-		const nameUrl = 'magma-merryGoRound'
+		const nameUrl = 'magma-merrygoround'
 		const namePublic = 'Magma merryGoRound'
 		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
