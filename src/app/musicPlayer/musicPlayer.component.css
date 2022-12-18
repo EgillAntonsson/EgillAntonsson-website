@@ -1,3 +1,8 @@
+#scWidget {
+	/* opacity: 50%; */
+	/* height: 170px; */
+}
+
 .playerContainer {
 	position: fixed;
 	cursor: pointer;
