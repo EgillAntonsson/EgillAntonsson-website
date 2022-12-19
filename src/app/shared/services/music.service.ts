@@ -110,14 +110,14 @@ export class MusicService {
 
 		var streamUrl =  this.getStreamUrl(this._selectedTrack)
 		if (streamUrl != '') {
-			this.playViaThirdPartyStream(streamUrl)
+			this.playViaStreamer(streamUrl)
 		}
 		else {
 			this.playViaSoundManager(this._selectedTrack, gainsDisabled);
 		}
 	}
 
-	private playViaThirdPartyStream(url: string) {
+	private playViaStreamer(url: string) {
 		this.musicStreamer.play(url)
 		this._playState = PlayState.Playing
 	}

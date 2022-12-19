@@ -1,7 +1,5 @@
 #scWidget {
 	display: none;
-	/* opacity: 50%; */
-	/* height: 170px; */
 }
 
 .playerContainer {
@@ -69,15 +67,6 @@
 	animation: rotation 3s infinite linear;
 	transition: all 0.2s;
 }
-
-/* .playing {
-	width: 16px;
-	height: 16px;
-	background-color: var(--colorWhiteLightMed);
-	transform: translate(8%, 4%);
-	animation: rotation 3s infinite linear;
-	transition: all 0.2s;
-} */
 
 @keyframes rotation {
 	from {transform: rotate(0deg);}
