@@ -1,7 +1,3 @@
-#scWidget {
-	display: none;
-}
-
 .playerContainer {
 	position: fixed;
 	cursor: pointer;
@@ -30,6 +26,9 @@
 
 .streamPlayIcon {
 	display: inline;
+	width: 102%;
+	height: 102%;
+	padding-bottom: 2px;
 }
 
 .streamPlayIconHide {

@@ -70,8 +70,32 @@
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/iceland-socks-intro.jpg</image:loc>
 			<image:title>Artwork for Iceland Socks: Intro by Gogogic</image:title>
 			<image:caption>Artwork for Iceland Socks: Intro by Gogogic</image:caption>
-				<image:geo_location>Iceland</image:geo_location>
+			<image:geo_location>Iceland</image:geo_location>
 		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/introduction</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/introduction.jpg</image:loc>
+			<image:title>Artwork for Introduction by Egill Antonsson</image:title>
+			<image:caption>Artwork for Introduction by Egill Antonsson</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/routine</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/song-for-hhi-commercial</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-2002</loc>

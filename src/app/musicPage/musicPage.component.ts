@@ -74,7 +74,6 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			} else {
 				this.replaceUrlState()
 			}
-			this.musicService.initStreamer()
 		})
 
 		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {

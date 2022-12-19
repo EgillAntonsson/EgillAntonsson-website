@@ -681,61 +681,36 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 	}
 
 	private introduction() {
-		const rootName = 'Introduction'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirTribeOfOranges}${rootName}.aac`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			`${this.pathToDirTribeOfOranges}${rootName}.jpg`,
-			this.aboutIntroduction)
-		return track
-	}
-
-	private get aboutIntroduction() {
-		return `<b>Sindri Bergmann Thorarinsson</b> and me made this for a theatre play,<br>
+		const nameUrl = 'introduction'
+		const namePublic = 'Introduction'
+		const filePath = `${this.pathToDirTribeOfOranges}${nameUrl}`
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
+		const spotifyUrl = ''
+		const buyUrl = ''
+		const about = `<b>Sindri Bergmann Thorarinsson</b> and me made this for a theatre play,<br>
 and it was played at the start of it, and thus it's named <b>Introduction</b>.<br>
-For the artwork I chose the 'the indian head', which is a valuable family artifact.
-`
+For the artwork I chose the 'the indian head', which is a valuable family artifact.`
+		return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private routine() {
-		const track = new Track(
-			'Routine',
-			[SoundData.music('routine', `${this.pathRoot}/Routine.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const nameUrl = 'routine'
+		const namePublic = 'Routine'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
+		const spotifyUrl = ''
+		const buyUrl = ''
+		const about = ''
+		return this.simpleTrack(nameUrl, namePublic, '', '', soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private hhiCommercial() {
-		const track = new Track(
-			'Song for HHI commercial',
-			[SoundData.music('hhiCommercial', `${this.pathRoot}/Song_for_HHI_commercial.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const nameUrl = 'song-for-hhi-commercial'
+		const namePublic = 'Song for HHI commercial'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
+		const spotifyUrl = ''
+		const buyUrl = ''
+		const about = ''
+		return this.simpleTrack(nameUrl, namePublic, '', '', soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private pirringur() {
