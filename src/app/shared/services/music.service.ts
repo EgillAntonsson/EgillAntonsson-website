@@ -16,6 +16,7 @@ import { MusicStreamer } from './musicstreamer.service'
 })
 export class MusicService {
 	readonly label = 'MusicService'
+	readonly urlPathRoot = 'music/'
 
 	private _selectedTrack: ITrack
 	get selectedTrack() {
@@ -65,7 +66,6 @@ export class MusicService {
 		this._byTracks = myTracks.byTracks
 		this.tracks = myTracks.flatTracks
 
-
 		if (this._isShuffle) {
 			randomNumber.startUniqueNumberTracking(this.tracks.length)
 			this.nextSelectedTrack = this.tracks[randomNumber.generateUniqueRandomNumber()]
@@ -76,14 +76,19 @@ export class MusicService {
 		this._selectedTrack = this.nextSelectedTrack
 	}
 
-	initThirdPartyStreamer() {
-		this.musicStreamer.initThirdPartyStreamer()
-		if (this.getThirdPartyStreamUrl(this._selectedTrack) != '') {
-			this.musicStreamer.load(this._selectedTrack.soundcloudUrl)
+	initStreamer() {
+		if (this.musicStreamer.isInitialized) {
+			return;
+		}
+		this.musicStreamer.init()
+		console.log('selected track', this._selectedTrack)
+		var streamUrl =  this.getStreamUrl(this._selectedTrack)
+		if (streamUrl != '') {
+			this.musicStreamer.load(streamUrl, false)
 		}
 	}
 
-	private getThirdPartyStreamUrl(track: ITrack) {
+	private getStreamUrl(track: ITrack) {
 		return track.soundcloudUrl;
 	}
 
@@ -103,13 +108,18 @@ export class MusicService {
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		if (this.getThirdPartyStreamUrl(this._selectedTrack) != '') {
-			this.musicStreamer.play()
-			this._playState = PlayState.Playing
+		var streamUrl =  this.getStreamUrl(this._selectedTrack)
+		if (streamUrl != '') {
+			this.playViaThirdPartyStream(streamUrl)
 		}
 		else {
 			this.playViaSoundManager(this._selectedTrack, gainsDisabled);
 		}
+	}
+
+	private playViaThirdPartyStream(url: string) {
+		this.musicStreamer.play(url)
+		this._playState = PlayState.Playing
 	}
 
 	private playViaSoundManager(track: ITrack, gainsDisabled: BooleanEmitter) {
@@ -126,7 +136,7 @@ export class MusicService {
 	}
 
 	stop() {
-		if (this.getThirdPartyStreamUrl(this._selectedTrack) != '') {
+		if (this.getStreamUrl(this._selectedTrack) != '') {
 			this.musicStreamer.pause()
 			this._playState = PlayState.Stopped
 		}
@@ -150,9 +160,7 @@ export class MusicService {
 		} else {
 			nextIndex = this._selectedTrack.index === this.tracks.length - 1 ? 0 : this._selectedTrack.index + 1
 		}
-
 		this.logService.log(LogType.Info, 'nextIndex', nextIndex)
-
 		this.nextSelectedTrack = this.tracks[nextIndex]
 	}
 
@@ -161,19 +169,22 @@ export class MusicService {
 	}
 
 	set masterGain(value: number) {
-		this.soundManager.instance.masterGain = value
+			this.musicStreamer.volume = value
+			this.soundManager.instance.masterGain = value
 	}
 
 	public set masterMuted(muted: boolean) {
 		this.soundManager.instance.masterMuted = muted
+		if (muted) {
+			this.musicStreamer.volume = 0
+		} else {
+			this.musicStreamer.volume = this.soundManager.instance.masterGain
+		}
 	}
 
 	private setupInstanceListeners() {
-		this.addInstancePlayedListener(`${this.label} playedListener`, (_soundInstance: SoundInstance) => {
-			this._playState = PlayState.Playing
-				// listener needs to be called here
-				// as the seems view does not update when State is right away set from 'Loading' to 'Playing' (when no loading is needed)
-			this._playStateChangeListener()
+		this.addInstancePlayedListener(`${this.label} playedListener`, (_soundInstance?: SoundInstance) => {
+			this.onPlayed()
 		})
 
 		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, _serviceDidStop?: boolean) => {
@@ -187,12 +198,21 @@ export class MusicService {
 		})
 	}
 
-	addInstancePlayedListener(name: string, listener: (soundInstance: SoundInstance) => void) {
+	private onPlayed() {
+		this._playState = PlayState.Playing
+				// listener needs to be called here
+				// as the seems view does not update when State is right away set from 'Loading' to 'Playing' (when no loading is needed)
+		this._playStateChangeListener()
+	}
+
+	addInstancePlayedListener(name: string, listener: (soundInstance?: SoundInstance) => void) {
 		this.myTracks.instancePlayedListeners.set(name, listener)
+		this.musicStreamer.instancePlayedListeners.set(name, listener)
 	}
 
 	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, serviceDidStop?: boolean) => void) {
 		this.myTracks.instanceEndedListeners.set(name, listener)
+		this.musicStreamer.instanceEndedListeners.set(name, listener)
 	}
 
 	addPlayStateChangeListener(listener: () => void) {
@@ -205,6 +225,7 @@ export class MusicService {
 
 	removeInstanceEndedListener(name: string) {
 		this.myTracks.instanceEndedListeners.delete(name)
+		this.musicStreamer.instanceEndedListeners.delete(name)
 	}
 
 }

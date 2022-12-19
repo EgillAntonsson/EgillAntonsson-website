@@ -302,7 +302,7 @@ I did my take on the lyrics, thus differing to some extent.
 		private takeCare2002() {
 			const nameUrl = 'take-care-year-2002'
 			const namePublic = 'Take Care (year 2002)'
-			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
+			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-2002?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/6xiCd9HFh0SaJEngXtgldj'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about = this.aboutBraedraminningTake2002
@@ -547,8 +547,7 @@ In circa 2019 I recorded the guitars and arranged the percussions from <a href="
 In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br>
 helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
-In April 2022 I recorded the rest of the instruments, processed and mixed the song.
-`
+In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
 		return this.simpleTrack(nameUrl, namePublic, `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
@@ -564,8 +563,7 @@ Although we've played some pop over the years, we have not focused on creating o
 So our goal now was to focus on the 'formula of what makes a good (modern) pop song',<br>
 and also speed up our workflow to complete the song in couple of days (from start to finish).<br>
 We created the song and lyrics together, I sang in the lyrics and <b>Sindri</b> mixed, processed and polished the whole song.<br>
-We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.
-`
+We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.`
 		return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
@@ -578,8 +576,7 @@ We put the song under artist Egill Antonsson (for convenience) although it's tru
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
 		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym <b>Vulkanoman</b>.<br>
 My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
-as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>
-`
+as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>`
 	return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
@@ -609,19 +606,14 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 	}
 
 	private icelandSocksIntro() {
-		const track = new Track(
-			'Iceland Socks: Intro',
-			[SoundData.music('icelandSocksIntro', `${this.pathRoot}/Iceland_Socks__Intro.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const nameUrl = 'iceland-socks-intro'
+		const namePublic = 'Iceland Socks: Intro'
+		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
+		const spotifyUrl = ''
+		const buyUrl = ''
+		const about = `Sindri Bergman Thorarinsson and me made this Intro track for the Iceland Socks viral campaign that the company Gogogic developed in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on YouTube!`
+	return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
 	private fortidin() {

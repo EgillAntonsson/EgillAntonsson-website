@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
@@ -13,7 +13,7 @@ import { PlayState } from 'app/shared/enums/playState';
 	templateUrl: './musicPlayer.component.html',
 	styleUrls: ['./musicPlayer.component.css']
 })
-export class MusicPlayerComponent implements OnInit {
+export class MusicPlayerComponent {
 	readonly label = 'MusicPlayer'
 
 	get selectedTrack() {
@@ -103,9 +103,6 @@ export class MusicPlayerComponent implements OnInit {
 		this.musicService.addPlayStateChangeListener(() => {
 			this.changeDetectorRef.detectChanges()
 		})
-	}
-	ngOnInit(): void {
-		this.musicService.initThirdPartyStreamer();
 	}
 
 	onPlayStop() {

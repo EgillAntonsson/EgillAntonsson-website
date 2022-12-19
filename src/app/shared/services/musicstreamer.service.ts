@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { LogType } from "shared/enums/logType";
+import { LogService } from "./log.service";
 
 @Injectable({
 	providedIn: 'root',
@@ -6,48 +8,83 @@ import { Injectable } from "@angular/core";
 
 export class MusicStreamer {
 
-	widget: any
+	private widget: any
+	private _volume = 100
+	private _isInitialized = false
 
-	// constructor(private logService: LogService) {
-	// }
-
-	initThirdPartyStreamer() {
-		var SoundcloudWidget = require('soundcloud-widget')
-		var iframe = 'scWidget' // can also pass in an iframe node()
-
-		this.widget = new SoundcloudWidget(iframe)
-
-		console.log("********** init *************")
-
-
-
-		// widget = new SoundcloudWidget(iframe)
-		// widget.on(SoundcloudWidget.events.PLAY, function () {
-		// 	console.log("on Play on widget ***************")
-		// 	widget.getVolume().then(function (volume: any) {
-		// 		console.log("on volume", volume)
-		// 	})
-		// })
+	get isInitialized() {
+		return this._isInitialized
 	}
 
-	load(url: string) {
-		console.log("********** url *************")
-		console.log(url)
-		this.widget.load(url).then(function () {
-			console.log("********** sound loaded *************")
-			// sound has been loaded
+	loadedUrl: string = ''
+
+	readonly instancePlayedListeners!: Map<string, () => void>
+	readonly instanceEndedListeners!: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
+
+	constructor(private logService: LogService) {
+		this.instancePlayedListeners = new Map()
+		this.instanceEndedListeners = new Map()
+	}
+
+	init() {
+		if (this._isInitialized === true) {
+			return;
+		}
+		this._isInitialized = true
+		var SoundcloudWidget = require('soundcloud-widget')
+		var iframe = 'scWidget' // can also pass in an iframe node()
+		this.widget = new SoundcloudWidget(iframe)
+
+		this.widget.on(SoundcloudWidget.events.FINISH, () => {
+			this.logService.log(LogType.Info, "soundcloud track finished / ended")
+			this.instanceEndedListeners.forEach((listener) => listener(true))
 		})
 	}
 
-	play() {
-		console.log("********** play via Soundcloud *************")
-		this.widget.play()
+	load(url: string, playWhenLoaded: boolean) {
+		this.logService.log(LogType.Info, "musicStreamer load with url", url)
+
+		var options = {
+			auto_play: false,
+			buying: false,
+			liking: false,
+			download: false,
+			sharing: false,
+			show_artwork: false,
+			show_comments: false,
+			show_playcount: false,
+			show_user: false,
+			start_track: 0 // for playlists
+		}
+
+		this.widget.load(url, options).then( () => {
+			this.logService.log(LogType.Info, "musicStreamer load completed with url", url)
+			this.loadedUrl = url
+			if (playWhenLoaded) {
+				this.widget.setVolume(this._volume)
+				this.widget.play()
+				this.instancePlayedListeners.forEach((listener) => listener())
+			}
+		})
+	}
+
+	play(url: string) {
+		this.logService.log(LogType.Info, "musicStreamer play with url", url)
+		if (url === this.loadedUrl) {
+			this.widget.play()
+		}
+		else {
+			this.load(url, true)
+		}
 	}
 
 	pause() {
-		console.log("********** pause via Soundcloud *************")
 		this.widget.pause()
 	}
 
+	set volume(value: number) {
+		this._volume = value * 100
+		this.widget.setVolume(this._volume)
+	}
 
 }
