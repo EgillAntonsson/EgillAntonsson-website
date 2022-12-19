@@ -202,6 +202,10 @@ figcaption {
 	padding-top: 0.3em;
 }
 
+#scWidget {
+	display: none;
+}
+
 .image {
 	width: 100%;
 	max-width: 575px;

@@ -1,16 +1,17 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms'
 import { HttpParams, HttpClient } from '@angular/common/http'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
 import { LogService } from './shared/services/log.service'
 import { LogType } from 'shared/enums/logType'
+import { MusicService } from './shared/services/music.service'
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
 
 	placeholderComment = `This is a required field.
@@ -52,8 +53,7 @@ I'll never give it to 3rd party or display it publicly.`
 
 	formType: FormType = FormType.Contact
 
-	constructor(private fb: UntypedFormBuilder, private http: HttpClient, private router: Router, private logService: LogService) {
-
+	constructor(private fb: UntypedFormBuilder, private http: HttpClient, private router: Router, private logService: LogService, private musicService: MusicService) {
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			this.showCommentForm = true
 
@@ -88,6 +88,9 @@ I'll never give it to 3rd party or display it publicly.`
 
 		this.emailControl = this.messageForm.controls[this.emailName]
 
+	}
+	ngOnInit(): void {
+		this.musicService.initStreamer()
 	}
 
 	onSendClick() {

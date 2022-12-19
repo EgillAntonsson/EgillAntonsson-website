@@ -16,7 +16,7 @@
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
 		<priority>1.0</priority>
-		<lastmod>2022-12-03</lastmod>
+		<lastmod>2022-12-19</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
@@ -28,7 +28,7 @@
 	<url>
 		<loc>https://www.egill.rocks/music/harmonies-of-shade-and-light</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-12-03</lastmod>
+		<lastmod>2022-12-19</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/harmonies-of-shade-and-light.jpg</image:loc>
@@ -40,7 +40,7 @@
 	<url>
 		<loc>https://www.egill.rocks/music/we-will-meet-again</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-12-03</lastmod>
+		<lastmod>2022-12-19</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/we-will-meet-again.jpg</image:loc>
@@ -55,17 +55,53 @@
 		<lastmod>2022-12-03</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/we-will-meet-again.jpg</image:loc>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/strawberry-city-lights.jpg</image:loc>
 			<image:title>Artwork for Strawberry City Lights by Kanez Kane</image:title>
 			<image:caption>Artwork for Strawberry City Lights by Kanez Kane</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
 	<url>
+		<loc>https://www.egill.rocks/music/iceland-socks-intro</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/iceland-socks-intro.jpg</image:loc>
+			<image:title>Artwork for Iceland Socks: Intro by Gogogic</image:title>
+			<image:caption>Artwork for Iceland Socks: Intro by Gogogic</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/introduction</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/introduction.jpg</image:loc>
+			<image:title>Artwork for Introduction by Egill Antonsson</image:title>
+			<image:caption>Artwork for Introduction by Egill Antonsson</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/routine</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/song-for-hhi-commercial</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -76,8 +112,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/mouse-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -88,8 +124,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/rubber-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -100,8 +136,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/solos-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -112,8 +148,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/take-care-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -124,8 +160,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/be-like-you-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -136,8 +172,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/story-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -148,8 +184,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/frumlag-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -160,8 +196,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/world-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -172,8 +208,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/without-them-year-2002</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -184,8 +220,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/my-dear-old-brothers</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -196,8 +232,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-1974</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -208,8 +244,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/mouse-year-1975</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -220,8 +256,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/rubber-year-1975</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -232,8 +268,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/solos-year-1975</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -244,8 +280,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/take-care-year-1976</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -256,8 +292,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/be-like-you-year-1976</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -268,8 +304,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/story-year-1976</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -280,8 +316,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/frumlag-year-1977</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -292,8 +328,8 @@
 	<url>
 		<loc>https://www.egill.rocks/music/world-year-1977</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
@@ -304,8 +340,8 @@
 		<url>
 		<loc>https://www.egill.rocks/music/without-them-year-1977</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-07-16</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2022-12-19</lastmod>
+		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>

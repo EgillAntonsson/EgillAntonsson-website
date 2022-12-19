@@ -3,7 +3,6 @@ import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
 import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
-import { SoundManagerService } from '../shared/services/soundManager.service'
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
@@ -29,11 +28,11 @@ export class MusicPlayerComponent {
 		return this.musicService.isShuffle
 	}
 	get masterGain() {
-		return this.soundManager.instance.masterGain
+		return this.musicService.masterGain;
 	}
 
 	set masterGain(value: number) {
-		this.soundManager.instance.masterGain = value
+		this.musicService.masterGain = value
 	}
 
 	masterMuted = false
@@ -78,8 +77,7 @@ export class MusicPlayerComponent {
 		return Color.Disabled
 	}
 
-	constructor(private musicService: MusicService, private soundManager: SoundManagerService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
-
+	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
 		this.enableGains = (value: boolean) => {
 
 			if (value) {
@@ -133,7 +131,8 @@ export class MusicPlayerComponent {
 
 	onMasterMuteChange() {
 		if (this._gainsDisabled.value) { return }
-		this.soundManager.instance.masterMuted = this.masterMuted = !this.masterMuted
-		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, { getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
+		this.musicService.masterMuted = this.masterMuted = !this.masterMuted
+		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
+			{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}
 }

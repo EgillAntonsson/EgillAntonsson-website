@@ -63,29 +63,10 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.selectedTrack
 	}
 
-	urlPathRoot = 'music/'
-
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute, private location: Location) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService,  private route: ActivatedRoute, private location: Location) {
 	}
 
 	ngOnInit(): void {
-
-		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
-			const canvas = this.getNextCanvas()
-			const canvasContext = this.tryGetCanvasContext(canvas)
-			if (canvasContext) {
-				this.topLine.nativeElement.classList.add('hide')
-				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
-			}
-
-			this.replaceUrlState()
-		})
-
-		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
-			this.topLine.nativeElement.classList.remove('hide')
-			this.clearVisuals()
-		})
-
 		this.route.paramMap.subscribe((params: ParamMap) => {
 			const paramName = params.get('trackName')
 			if (paramName !== null) {
@@ -95,11 +76,26 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			}
 		})
 
+		this.musicService.addInstancePlayedListener(this.playedListenerName, (soundInstance) => {
+			const canvas = this.getNextCanvas()
+			const canvasContext = this.tryGetCanvasContext(canvas)
+			if (canvasContext && soundInstance) {
+				this.topLine.nativeElement.classList.add('hide')
+				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
+			}
+			this.replaceUrlState()
+		})
+
+		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
+			this.topLine.nativeElement.classList.remove('hide')
+			this.clearVisuals()
+		})
+
 		this.canvases = [this.canvas0, this.canvas1, this.canvas2, this.canvas3]
 	}
 
 	private replaceUrlState() {
-		this.location.replaceState(`${this.urlPathRoot}${this.selectedTrack.rootUrl}`)
+		this.location.replaceState(`${this.musicService.urlPathRoot}${this.selectedTrack.rootUrl}`)
 	}
 
 	ngOnDestroy() {

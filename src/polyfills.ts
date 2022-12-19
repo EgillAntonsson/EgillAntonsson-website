@@ -59,3 +59,7 @@ import 'zone.js';  // Included with Angular CLI.
  * Need to import at least one locale-data with intl.
  */
 // import 'intl/locale-data/jsonp/en';
+
+// adding for Soundcloud widget wrapper package
+// https://stackoverflow.com/a/50488337/13215867
+(window as any).global = window;

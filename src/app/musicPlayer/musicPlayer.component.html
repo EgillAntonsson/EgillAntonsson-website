@@ -1,6 +1,8 @@
 <div class="playerContainer noSelect">
 	<span class="playIconContainer" (click)="onPlayStop()">
-		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}"></div>
+		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Antu_soundcloud.svg" alt="Streamed via SoundCloud" title="Streamed via SoundCloud" [ngClass]="{streamPlayIcon: selectedTrack.soundcloudUrl !== '', streamPlayIconHide: selectedTrack.soundcloudUrl === ''}">
+		</div>
 	</span>
 	<span class="nextContainer" (click)="onNext()">
 		<div class="next_triangle"></div>

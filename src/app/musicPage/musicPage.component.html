@@ -32,16 +32,14 @@
 	<div class="buttonContainer">
 		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
 			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Soundcloud_logo.svg" alt="play track {{selectedTrack.name}} on SoundCloud" title="play track {{selectedTrack.name}} on SoundCloud" class="soundcloudIcon">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Soundcloud_logo.svg" alt="Play {{selectedTrack.name}} on SoundCloud" title="Play {{selectedTrack.name}} on SoundCloud" class="soundcloudIcon">
 			</a>
 		</span>
-
 		<span *ngIf="selectedTrack.spotifyUrl !== ''" class="iconButton">
 			<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg " alt="play track {{selectedTrack.name}} on Spotify" title="play track {{selectedTrack.name}} on Spotify" class="spotifyIcon">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg " alt="Play {{selectedTrack.name}} on Spotify" title="Play {{selectedTrack.name}} on Spotify" class="spotifyIcon">
 			</a>
 		</span>
-
 		<span *ngIf="selectedTrack.buyUrl !== ''" class="iconButton">
 			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
 		</span>

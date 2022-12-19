@@ -35,9 +35,6 @@ export class Track implements ITrack {
 	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
-	//// old members
-	// purchaseUrl?: string
-
 	constructor(name: string
 		, soundDatas: SoundData[]
 		, play: () => () => Promise<void>
