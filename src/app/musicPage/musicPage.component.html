@@ -1,21 +1,4 @@
-<div class="treeContainer noSelect">
-	<div *ngFor="let byTrack of byTracks; let byIndex = index">
-		<div class="branchContainer" (click)="onByClick(byIndex)">
-				<div class="branchIconContainer">
-						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
-					</div>
-			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
-		</div>
-		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
-			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
-				{{track.name}}
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div #topLine class="horizontalLine"></div>
+<!-- <div #topLine class="horizontalLine"></div> -->
 <div>
 	<canvas #canvas0 class="canvas hide"></canvas>
 	<canvas #canvas1 class="canvas hide"></canvas>
@@ -23,12 +6,47 @@
 	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
-<div class="trackLeftContainer">
-<div class="trackLeftInner">
-	<figure>
-		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="artworkImage">
-	</figure>
+<div class="trackGraphicContainer">
+<div class="trackGraphicInner">
+	<div *ngIf="selectedTrack.primarySource === 'Youtube'" class="youtubeWrapper">
+		<youtube-player videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)" src="https://www.youtube.com/embed/EiiR4cwjNwY?controls=0"></youtube-player>
 
+
+		<!-- <iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/EiiR4cwjNwY?controls=0" frameborder="0"></iframe>
+		<script>
+			// Load the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			// Replace the 'ytplayer' element with an <iframe> and
+			// YouTube player after the API code downloads.
+			var player;
+			function onYouTubePlayerAPIReady() {
+				player = new YT.Player('ytplayer', {
+					height: '390',
+					width: '640',
+					events: {
+						'onReady': onPlayerReady,
+						'onStateChange': onPlayerStateChange
+					}
+				});
+				function onPlayerReady(event) {
+					document.onPlayerReady(event)
+				}
+				function onPlayerStateChange(event) {
+					document.onPlayerStateChange(event)
+				}
+			}
+		</script> -->
+
+	</div>
+	<div *ngIf="selectedTrack.primarySource !== 'Youtube'">
+	<figure>
+		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="image">
+	</figure>
+	</div>
 	<div class="buttonContainer">
 		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
 			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
@@ -60,4 +78,20 @@
 		<p [innerHTML]="selectedTrack.artistAbout"></p>
 	</div>
 </div>
+</div>
+
+<div class="treeContainer noSelect">
+	<div *ngFor="let byTrack of byTracks; let byIndex = index">
+		<div class="branchContainer" (click)="onByClick(byIndex)">
+				<div class="branchIconContainer">
+						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
+					</div>
+			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
+		</div>
+		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
+			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
+				{{track.name}}
+			</div>
+		</div>
+	</div>
 </div>

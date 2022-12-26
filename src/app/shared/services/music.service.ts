@@ -9,7 +9,9 @@ import { LogType } from 'shared/enums/logType'
 import { RandomNumber } from './randomNumber.service'
 import { MyTracksService } from './myTracks.service'
 import { PlayState } from '../enums/playState'
-import { MusicStreamer } from './musicstreamer.service'
+import { MusicStreamer } from './musicStreamer.service'
+import { YoutubeService } from './youtube.service'
+import { StreamSource } from '../enums/streamSource'
 
 @Injectable({
 	providedIn: 'root',
@@ -52,12 +54,12 @@ export class MusicService {
 	private _playStateChangeListener = () => {}
 
 	private tracks: Track[]
-	private _isShuffle = true
+	private _isShuffle = false
 	get isShuffle() {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private logService: LogService) {
+	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private logService: LogService) {
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -76,12 +78,25 @@ export class MusicService {
 		this._selectedTrack = this.nextSelectedTrack
 	}
 
+	onYoutubePlayerReady(player: YT.Player) {
+		this.youtubeService.onPlayerReady(player)
+	}
+
+	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
+		if (playerState == YT.PlayerState.PAUSED) {
+			this.pauseYoutube()
+		}
+		else if (playerState == YT.PlayerState.PLAYING) {
+			this.youtubeService.play()
+		}
+	}
+
+
 	initStreamer() {
 		if (this.musicStreamer.isInitialized) {
 			return;
 		}
 		this.musicStreamer.init()
-		console.log('selected track', this._selectedTrack)
 		var streamUrl =  this.getStreamUrl(this._selectedTrack)
 		if (streamUrl != '') {
 			this.musicStreamer.load(streamUrl, false)
@@ -103,23 +118,22 @@ export class MusicService {
 		if (this._playState === PlayState.Loading) {
 			return
 		}
-		this.stop()
+		this.stopOrPause()
 		this._playState = PlayState.Loading
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		var streamUrl =  this.getStreamUrl(this._selectedTrack)
-		if (streamUrl != '') {
-			this.playViaStreamer(streamUrl)
+		switch (this._selectedTrack.primarySource) {
+			case StreamSource.Youtube:
+				this.youtubeService.play()
+				break;
+			case StreamSource.Youtube:
+				this.musicStreamer.play(this._selectedTrack)
+				break;
+			default:
+				this.playViaSoundManager(this._selectedTrack, gainsDisabled);
+				break;
 		}
-		else {
-			this.playViaSoundManager(this._selectedTrack, gainsDisabled);
-		}
-	}
-
-	private playViaStreamer(url: string) {
-		this.musicStreamer.play(url)
-		this._playState = PlayState.Playing
 	}
 
 	private playViaSoundManager(track: ITrack, gainsDisabled: BooleanEmitter) {
@@ -135,14 +149,24 @@ export class MusicService {
 		}
 	}
 
-	stop() {
-		if (this.getStreamUrl(this._selectedTrack) != '') {
-			this.musicStreamer.pause()
-			this._playState = PlayState.Stopped
+	stopOrPause() {
+		switch (this._selectedTrack.primarySource) {
+			case StreamSource.Youtube:
+				this.pauseYoutube()
+				break;
+			case StreamSource.Youtube:
+				this.musicStreamer.pause()
+				this._playState = PlayState.Stopped
+				break;
+			default:
+				this.stopViaSoundManager(this._selectedTrack)
+				break;
 		}
-		else {
-			this.stopViaSoundManager(this._selectedTrack)
-		}
+	}
+
+	private pauseYoutube() {
+		this.youtubeService.pause()
+		this._playState = PlayState.Stopped
 	}
 
 	private stopViaSoundManager(track: ITrack) {
@@ -208,6 +232,7 @@ export class MusicService {
 	addInstancePlayedListener(name: string, listener: (soundInstance?: SoundInstance) => void) {
 		this.myTracks.instancePlayedListeners.set(name, listener)
 		this.musicStreamer.instancePlayedListeners.set(name, listener)
+		this.youtubeService.instancePlayedListeners.set(name, listener)
 	}
 
 	addInstanceEndedListener(name: string, listener: (trackEnded?: boolean, serviceDidStop?: boolean) => void) {

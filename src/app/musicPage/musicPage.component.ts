@@ -10,6 +10,7 @@ import { PlayState } from 'app/shared/enums/playState'
 import { ActivatedRoute, ParamMap } from '@angular/router'
 import { Location } from '@angular/common'
 import { LocationStrategy, PathLocationStrategy } from '@angular/common'
+import { WindowRefService } from '../shared/services/windowRef.service'
 
 @Component({
 	selector: 'app-music-page',
@@ -63,7 +64,16 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.selectedTrack
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService,  private route: ActivatedRoute, private location: Location) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute, private location: Location, private windowRef: WindowRefService) {
+		this.windowRef.nativeWindow["onPlayerReady"] = (player: YT.Player) => this.onPlayerReady(player);
+	}
+
+	onPlayerReady(player: YT.Player) {
+		this.musicService.onYoutubePlayerReady(player)
+  }
+
+	onPlayerStateChange(event: any) {
+		this.musicService.OnYoutubePlayerStateChange(event.data)
 	}
 
 	ngOnInit(): void {
@@ -87,7 +97,7 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
-			this.topLine.nativeElement.classList.remove('hide')
+			// this.topLine.nativeElement.classList.remove('hide')
 			this.clearVisuals()
 		})
 

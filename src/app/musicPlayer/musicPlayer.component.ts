@@ -110,7 +110,7 @@ export class MusicPlayerComponent {
 			return
 		}
 		if (this.musicService.playState === PlayState.Playing) {
-			this.musicService.stop()
+			this.musicService.stopOrPause()
 		} else {
 			this.play()
 		}

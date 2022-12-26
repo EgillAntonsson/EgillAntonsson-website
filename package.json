@@ -33,9 +33,10 @@
     "ngx-highlightjs": "^6.1.0",
     "papaparse": "^5.3.1",
     "rxjs": "^6.6.0",
-    "soundcloud-widget": "^0.2.1",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+		"soundcloud-widget": "^0.2.1",
+		"ngx-youtube-player": "^12.0.2"
   },
   "devDependencies": {
     "@angular/cli": "^15.0.1",

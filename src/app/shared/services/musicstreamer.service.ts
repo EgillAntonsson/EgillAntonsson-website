@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LogType } from "shared/enums/logType";
+import { ITrack } from "../data/track";
 import { LogService } from "./log.service";
 
 @Injectable({
@@ -61,21 +62,26 @@ export class MusicStreamer {
 			this.logService.log(LogType.Info, "musicStreamer load completed with url", url)
 			this.loadedUrl = url
 			if (playWhenLoaded) {
-				this.widget.setVolume(this._volume)
-				this.widget.play()
-				this.instancePlayedListeners.forEach((listener) => listener())
+				this.playViaWidget();
 			}
 		})
 	}
 
-	play(url: string) {
-		this.logService.log(LogType.Info, "musicStreamer play with url", url)
+	play(track: ITrack) {
+		this.logService.log(LogType.Info, "musicStreamer play track", track)
+		let url = track.soundcloudUrl;
 		if (url === this.loadedUrl) {
-			this.widget.play()
+			this.playViaWidget()
 		}
 		else {
 			this.load(url, true)
 		}
+	}
+
+	private playViaWidget() {
+		this.widget.setVolume(this._volume)
+				this.widget.play()
+				this.instancePlayedListeners.forEach((listener) => listener())
 	}
 
 	pause() {

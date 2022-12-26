@@ -1,5 +1,6 @@
 import { SoundData } from '../../../soundcommon/interface/soundData'
 import { LayeredMusicController } from '../../../soundcommon/layeredMusicController'
+import { StreamSource } from '../enums/streamSource'
 
 export interface ITrack {
 	readonly name: string
@@ -14,7 +15,9 @@ export interface ITrack {
 	index: number
 	artistName: string
 	artistAbout: string
-
+	youtubeId: string,
+	primarySource: StreamSource
+	fallbackSource: StreamSource
 }
 
 export class Track implements ITrack {
@@ -27,6 +30,9 @@ export class Track implements ITrack {
 	readonly soundcloudUrl: string
 	readonly spotifyUrl: string
 	readonly buyUrl: string
+	readonly youtubeId: string
+	readonly primarySource!: StreamSource
+	readonly fallbackSource!: StreamSource
 	index!: number
 	artistName!: string
 	artistAbout!: string
@@ -35,15 +41,7 @@ export class Track implements ITrack {
 	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
-	constructor(name: string
-		, soundDatas: SoundData[]
-		, play: () => () => Promise<void>
-		, rootUrl: string = ''
-		, artworkPath: string = ''
-		, about: string = ''
-		, soundcloudUrl: string = ''
-		, spotifyUrl: string = ''
-		, buyUrl: string = '') {
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', primarySource: StreamSource = StreamSource.Soundcloud, secondarySource: StreamSource = StreamSource.Local) {
 
 		this.name = name
 		this.soundDatas = soundDatas
@@ -57,6 +55,9 @@ export class Track implements ITrack {
 		this.soundcloudUrl = soundcloudUrl
 		this.spotifyUrl = spotifyUrl
 		this.buyUrl = buyUrl
+		this.youtubeId = youtubeId
+		this.primarySource = primarySource
+		this.fallbackSource = secondarySource
 	}
 }
 

@@ -4,6 +4,7 @@ import { SoundData } from 'soundcommon/interface/soundData'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { Artist, ITrack, LayeredMusicTrack, Track } from '../data/track'
+import { StreamSource } from '../enums/streamSource'
 import { LogService } from './log.service'
 import { SoundManagerService } from './soundManager.service'
 
@@ -66,10 +67,10 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
+				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
-				this.votThemeSong(),
 				this.justInTime(),
 				this.icelandSocksIntro(),
 				this.fortidin(),
@@ -148,11 +149,7 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `I started playing the piano around the age of 7.<br>
-In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others),<br>
-electric bass (because all in the band can't be guitarists), and singing.<br>
-Through the years I've been in various bands, projects and collaborations,<br>
-and the tracks that I drove (often including collaborations with others) are published under my name.`
+		return `I started playing the piano around the age of 7. In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others), electric bass (because all in the band can't be guitarists) and singing. The tracks where I was the main producer (though sometimes collaborating with others) are published under my name.`
 	}
 
 	private get pathToDirEgillAntonsson() {
@@ -160,14 +157,11 @@ and the tracks that I drove (often including collaborations with others) are pub
 	}
 
 	private get aboutKanezKane() {
-		return `A partnership with my friend <b>Sindri Bergmann Thorarinsson</b>. We have done lots of music through the decades but have only released to the world a small part of it. We decided to changed that so watch this space...`
+		return `A partnership with my friend Sindri Bergmann Thorarinsson. We have done lots of music through the decades but have only released to the world a small part of it. We decided to changed that so watch this space...`
 	}
 
 	private get aboutBraedraminning() {
-		return `My parents kept a cassette with the recordings of the songs my older brothers made.<br>
-		To make sure the songs survived that old cassette,<br>
-		I published the album Bræðraminning, which also includes my takes on their songs.
-`
+		return `My parents kept a cassette with the recordings of the songs my older brothers made. To make sure the songs survived that old cassette, I published the album Bræðraminning, which also includes my takes on their songs.`
 	}
 
 	private get pathToDirKanez() {
@@ -179,9 +173,7 @@ and the tracks that I drove (often including collaborations with others) are pub
 	}
 
 	private get aboutTribeOfOranges() {
-		return `A partnership with my friend <b>Sindri Bergmann Thorarinsson</b>.<br>
-		We coined the name when we needed to, which can be shortened to <b>TOO</b>.<br>
-		Me and <b>Sindri</b> have done a lot together, although not always under this name.`
+		return `A partnership with my friend Sindri Bergmann Thorarinsson.<We coined the name when we needed to which can be shortened to TOO. Me and Sindri have done a lot together and some are under TOO.`
 	}
 
 	private get pathToDirTribeOfOranges() {
@@ -197,8 +189,7 @@ and the tracks that I drove (often including collaborations with others) are pub
 	}
 
 	private get aboutBraedraminningTake2002() {
-		return `My take on this song, recorded and mixed in 2001-2002.<br>
-		<b>Sindri Bergmann Thorarinsson</b> mastered it as far as could be done in 2022.
+		return `My take on this song, recorded and mixed in 2001-2002. Sindri Bergmann Thorarinsson mastered it as far as could be done in 2022.
 	`
 	}
 
@@ -224,7 +215,7 @@ and the tracks that I drove (often including collaborations with others) are pub
 		}
 	}
 
-	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string) {
+	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string, youtubeId = '', primarySource = StreamSource.Soundcloud, fallbackSource = StreamSource.Local) {
 		const track = new Track(
 			namePublic,
 			[SoundData.music(nameUrl, soundPath)],
@@ -242,7 +233,10 @@ and the tracks that I drove (often including collaborations with others) are pub
 			about,
 			soundCloudUrl,
 			spotifyUrl,
-			buyUrl
+			buyUrl,
+			youtubeId,
+			primarySource,
+			fallbackSource
 		)
 		return track
 	}
@@ -519,19 +513,15 @@ Egill - vocals (and maybe guitar)<br>
 	}
 
 	private votThemeSong() {
-		const track = new Track(
-			'Vikings of Thule Theme Song',
-			[SoundData.music('votThemeSong', `${this.pathRoot}/Vikings_of_Thule__Theme_Song.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const nameUrl = 'vikings-of-thule-theme-song'
+		const namePublic = 'Vikings of Thule Theme Song'
+		const filePath =  `${this.pathToDirEgillAntonsson}${nameUrl}`
+		const youtubeId = 'EiiR4cwjNwY'
+		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
+		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
+		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
+		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jonas B. Antonsson, composed by Jonas and me, performed by me and mixed and produced by Julius Jonasson.`
+		return this.simpleTrack(nameUrl, namePublic, `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about, youtubeId, StreamSource.Youtube, StreamSource.Soundcloud)
 	}
 
 	private harmoniesOfShadeAndLight() {
@@ -544,7 +534,7 @@ Egill - vocals (and maybe guitar)<br>
 		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
 I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
 In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
-In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br>
+In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<br>
 helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
 In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
@@ -558,11 +548,11 @@ In April 2022 I recorded the rest of the instruments, processed and mixed the so
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
 		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
-		const about = `In the spring of 2021 my friend and music partner <b>Sindri Bergmann Thorarinsson</b><br> asked me to collaborate with him to make a pop song.<br>
+		const about = `In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<br> asked me to collaborate with him to make a pop song.<br>
 Although we've played some pop over the years, we have not focused on creating one per se.<br>
 So our goal now was to focus on the 'formula of what makes a good (modern) pop song',<br>
 and also speed up our workflow to complete the song in couple of days (from start to finish).<br>
-We created the song and lyrics together, I sang in the lyrics and <b>Sindri</b> mixed, processed and polished the whole song.<br>
+We created the song and lyrics together, I sang in the lyrics and Sindri mixed, processed and polished the whole song.<br>
 We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.`
 		return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
@@ -574,7 +564,7 @@ We put the song under artist Egill Antonsson (for convenience) although it's tru
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
 		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
-		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym <b>Vulkanoman</b>.<br>
+		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym Vulkanoman.<br>
 My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
 as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>`
 	return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
@@ -612,7 +602,7 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
 		const spotifyUrl = ''
 		const buyUrl = ''
-		const about = `Sindri Bergman Thorarinsson and me made this Intro track for the Iceland Socks viral campaign that the company Gogogic developed in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on YouTube!`
+		const about = `Sindri Bergman Thorarinsson and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
 	return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
 
@@ -687,8 +677,8 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
 		const spotifyUrl = ''
 		const buyUrl = ''
-		const about = `<b>Sindri Bergmann Thorarinsson</b> and me made this for a theatre play,<br>
-and it was played at the start of it, and thus it's named <b>Introduction</b>.<br>
+		const about = `Sindri Bergmann Thorarinsson and me made this for a theatre play,<br>
+and it was played at the start of it, and thus it's named Introduction.<br>
 For the artwork I chose the 'the indian head', which is a valuable family artifact.`
 		return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
 	}
