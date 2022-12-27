@@ -6,10 +6,8 @@
 	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
-<div class="trackGraphicContainer">
-<div class="trackGraphicInner">
-	<div *ngIf="selectedTrack.primarySource === 'Youtube'" class="youtubeWrapper">
-		<youtube-player videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)" src="https://www.youtube.com/embed/EiiR4cwjNwY?controls=0"></youtube-player>
+<div #trackGraphicContainer class="trackGraphicContainer">
+	<!-- <div *ngIf="selectedTrack.primarySource === 'Youtube'" class="youtubeWrapper"> -->
 
 
 		<!-- <iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/EiiR4cwjNwY?controls=0" frameborder="0"></iframe>
@@ -41,7 +39,7 @@
 			}
 		</script> -->
 
-	</div>
+	<!-- </div> -->
 	<div *ngIf="selectedTrack.primarySource !== 'Youtube'">
 	<figure>
 		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="image">
@@ -62,8 +60,6 @@
 			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
 		</span>
 	</div>
-
-</div>
 </div>
 
 <div class="trackRightContainer">

@@ -90,11 +90,6 @@
 		width: 100%;
 	}
 
-	.trackGraphicInner {
-		float: none;
-		margin-right: 0%;
-	}
-
 	.trackRightContainer {
 		width: 100%;
 	}
@@ -114,11 +109,6 @@
 
 	.trackGraphicContainer {
 		width: 100%;
-	}
-
-	.trackGraphicInner {
-		float: none;
-		margin-right: 0%;
 	}
 
 	.trackRightContainer {
@@ -145,10 +135,6 @@
 	.iconButton {
 		margin-left: 0.5em;
 		margin-right: 0.5em;
-	}
-
-	.trackLeftInner {
-		margin-right: 10px;
 	}
 
 	/* overriding here styles.css*/

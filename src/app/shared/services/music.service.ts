@@ -127,7 +127,7 @@ export class MusicService {
 			case StreamSource.Youtube:
 				this.youtubeService.play()
 				break;
-			case StreamSource.Youtube:
+			case StreamSource.Soundcloud:
 				this.musicStreamer.play(this._selectedTrack)
 				break;
 			default:
@@ -154,7 +154,7 @@ export class MusicService {
 			case StreamSource.Youtube:
 				this.pauseYoutube()
 				break;
-			case StreamSource.Youtube:
+			case StreamSource.Soundcloud:
 				this.musicStreamer.pause()
 				this._playState = PlayState.Stopped
 				break;

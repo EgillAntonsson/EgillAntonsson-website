@@ -25,7 +25,6 @@ export class YoutubeService {
 	onPlayerReady(player: YT.Player) {
 		this.player = player;
     this.logService.log(LogType.Info, 'onPlayerReady');
-    console.log(player.getPlaybackQuality());
 
 		this.screenService.onBpMaxWidthXS().subscribe((onBpMaxWidthXS: BreakpointState) => {
 			console.log("************* onBpMaxWidthXS", onBpMaxWidthXS)
@@ -68,6 +67,7 @@ export class YoutubeService {
 	}
 
 	private playViaPlayer() {
+		this.playWhenReady = false
 		this.player?.playVideo();
 		this.instancePlayedListeners.forEach((listener) => listener())
 	}

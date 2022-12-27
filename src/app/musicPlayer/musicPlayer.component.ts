@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
@@ -7,14 +7,18 @@ import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
 import { PlayState } from 'app/shared/enums/playState';
+import { HtmlElementService } from '../shared/services/htmlElement.service'
 
 @Component({
 	selector: 'app-music-player',
 	templateUrl: './musicPlayer.component.html',
 	styleUrls: ['./musicPlayer.component.css']
 })
-export class MusicPlayerComponent {
+export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	readonly label = 'MusicPlayer'
+
+	@ViewChild('youtubePlayer')
+	youtubeElement!: ElementRef
 
 	get selectedTrack() {
 		return this.musicService.selectedTrack
@@ -77,7 +81,7 @@ export class MusicPlayerComponent {
 		return Color.Disabled
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private htmlService: HtmlElementService, private changeDetectorRef: ChangeDetectorRef) {
 		this.enableGains = (value: boolean) => {
 
 			if (value) {
@@ -103,6 +107,23 @@ export class MusicPlayerComponent {
 		this.musicService.addPlayStateChangeListener(() => {
 			this.changeDetectorRef.detectChanges()
 		})
+	}
+
+	public ngAfterViewInit(): void {
+    this.htmlService.set( 'youtubePlayer', this.youtubeElement.nativeElement);
+  }
+
+  public ngOnDestroy() {
+	this.htmlService.delete('youtubePlayer' );
+  }
+
+	onPlayerReady(player: YT.Player) {
+		console.log('************* onPlayerReady musicPlayer')
+		this.musicService.onYoutubePlayerReady(player)
+  }
+
+	onPlayerStateChange(event: any) {
+		this.musicService.OnYoutubePlayerStateChange(event.data)
 	}
 
 	onPlayStop() {
