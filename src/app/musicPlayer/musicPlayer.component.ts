@@ -38,10 +38,11 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		this.musicService.masterGain = value
 	}
 
-	masterMuted = false
-	private fromMuteBtnPress = false
+	get masterMuted() {
+		return this.musicService.masterMuted
+	}
 
-	subscription: Subscription
+	private subscription: Subscription
 
 	private enableGains: (value: boolean) => void
 	private _gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
@@ -83,7 +84,6 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
 		this.enableGains = (value: boolean) => {
-
 			if (value) {
 				this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
 			} else {
@@ -97,14 +97,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 				this.play()
 			}
 			if (message.type === MessageType.YoutubeVolumeChange) {
-				console.log('************** smu ****************')
-				if (!this.fromMuteBtnPress) {
-					console.log('from mute btn press if')
-					console.log(this.musicService.masterMuted)
-					this.masterMuted = this.musicService.masterMuted
-				}
-				this.updateMute()
-				this.fromMuteBtnPress = false
+				this.updateMuteUI()
 			}
 		})
 
@@ -120,26 +113,26 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
-    // this.htmlService.set( 'youtubePlayer', this.youtubeElement.nativeElement);
 		this.musicService.sendYoutubePlayerElement(this.youtubeElement)
   }
 
   ngOnDestroy() {
-	// this.htmlService.delete('youtubePlayer' );
-  }
+		if (this.subscription instanceof Subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
 
-	onYoutubeBtn(event: any) {
-		console.log(event)
+	onYoutubeBtn() {
 		this.musicService.onYoutubeBtn()
-		// this.youtubeElement
 	}
 
 	onPlayerReady(player: YT.Player) {
-		console.log('************* onPlayerReady musicPlayer')
+		console.log('onPlayerReady in MusicPlayer')
 		this.musicService.onYoutubePlayerReady(player)
   }
 
 	onPlayerStateChange(event: any) {
+		console.log('onPlayerStateChange in MusicPlayer')
 		this.musicService.OnYoutubePlayerStateChange(event.data)
 	}
 
@@ -169,15 +162,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	onMasterMuteChange() {
 		if (this._gainsDisabled.value) { return }
-		this.fromMuteBtnPress = true
-		this.musicService.masterMuted = this.masterMuted = !this.masterMuted
-		// this.updateMute()
-		// this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
-		// 	{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
+		this.musicService.masterMuted = !this.masterMuted
 	}
 
-	updateMute() {
-		console.log('************** throttle **************')
+	updateMuteUI() {
 		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
 			{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}

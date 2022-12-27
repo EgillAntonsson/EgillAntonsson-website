@@ -4,11 +4,14 @@ import { LogService } from "./log.service";
 import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";
 import { MessageType } from 'app/shared/services/message.service'
+import { ITrack } from "../data/track";
 
 @Injectable({
 	providedIn: 'root',
 })
 
+/// https://developers.google.com/youtube/iframe_api_reference
+/// https://www.npmjs.com/package/ngx-youtube-player
 export class YoutubeService {
 	private player: YT.Player | undefined;
 	private playerElement!: ElementRef<any>;
@@ -52,17 +55,10 @@ export class YoutubeService {
 			// Check that the event was sent from the YouTube IFrame.
 			if (event.source === contentWindow) {
 				var data = JSON.parse(event.data);
-
 				// The "infoDelivery" event is used by YT to transmit any
 				// kind of information change in the player,
 				// such as the current time or volume change.
-				if (
-					data.event === "infoDelivery" &&
-					data.info &&
-					data.info.volume
-				) {
-					// this.musicService.setMasterGainFromYoutubePlayer(data.info.volume / 100)
-					// this.musicService.setMutedFromYoutubePlayer(data.info.muted)
+				if (data.event === "infoDelivery" && data.info && data.info.volume) {
 					this.messageService.sendMessage({type: MessageType.YoutubeVolumeChange})
 				}
 			}
@@ -73,12 +69,31 @@ export class YoutubeService {
 		this.player?.getIframe().requestFullscreen()
 	}
 
-	play() {
+	play(track: ITrack) {
 		if (this.player === undefined) {
 			this.playWhenReady = true
 		} else {
-			this.playViaPlayer()
+			let currentIdInPlayer = this.getIdFromVideoUrl(this.player.getVideoUrl())
+			console.log('currentIdInPlayer', currentIdInPlayer)
+			if (track.youtubeId !== currentIdInPlayer) {
+			// 	// this.playWhenReady = true
+				console.log('*************** smu *******************')
+				console.log(track.youtubeId)
+			// 	this.playWhenReady = false
+				this.player.loadVideoById(track.youtubeId)
+			// 	this.player.playVideo()
+			// 	this.instancePlayedListeners.forEach((listener) => listener())
+			} else {
+				this.playViaPlayer()
+			}
 		}
+	}
+
+	private getIdFromVideoUrl(videoUrl: string) {
+		if (!videoUrl) {
+			return ''
+		}
+		return videoUrl.split('?v=')[1]
 	}
 
 	private playViaPlayer() {

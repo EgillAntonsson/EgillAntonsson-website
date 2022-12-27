@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core'
+import { ElementRef, Injectable, OnDestroy } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
 import { ITrack, LayeredMusicTrack, Track, Artist} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
@@ -13,12 +13,12 @@ import { MusicStreamer } from './musicStreamer.service'
 import { YoutubeService } from './youtube.service'
 import { StreamSource } from '../enums/streamSource'
 import { MessageService, MessageType } from './message.service'
-// import { Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 
 @Injectable({
 	providedIn: 'root',
 })
-export class MusicService {
+export class MusicService implements OnDestroy {
 	readonly label = 'MusicService'
 	readonly urlPathRoot = 'music/'
 
@@ -48,7 +48,7 @@ export class MusicService {
 
 	}
 
-	// subscription: Subscription
+	private subscription: Subscription
 
 	private _playState = PlayState.Stopped
 	get playState() {
@@ -81,11 +81,16 @@ export class MusicService {
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		this.messageService.onMessage().subscribe(message => {
+		this.subscription = this.messageService.onMessage().subscribe(message => {
 			if (message.type === MessageType.YoutubeVolumeChange) {
 				this.setVolumeAndMutedFromYoutubePlayer()
 			}
 		})
+	}
+	ngOnDestroy(): void {
+		if (this.subscription instanceof Subscription) {
+			this.subscription.unsubscribe();
+		}
 	}
 
 	sendYoutubePlayerElement(youtubeElement: ElementRef<any>) {
@@ -97,11 +102,12 @@ export class MusicService {
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
+		console.log('OnYoutubePlayerStateChange', playerState)
 		if (playerState == YT.PlayerState.PAUSED) {
 			this.pauseYoutube()
 		}
 		else if (playerState == YT.PlayerState.PLAYING) {
-			this.youtubeService.play()
+			this.youtubeService.play(this._selectedTrack)
 		}
 	}
 
@@ -140,10 +146,11 @@ export class MusicService {
 		this._playState = PlayState.Loading
 
 		this._selectedTrack = this.nextSelectedTrack
+		console.log(this._selectedTrack)
 
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
-				this.youtubeService.play()
+				this.youtubeService.play(this._selectedTrack)
 				break;
 			case StreamSource.Soundcloud:
 				this.musicStreamer.play(this._selectedTrack)

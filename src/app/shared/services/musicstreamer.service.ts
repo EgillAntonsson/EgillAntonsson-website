@@ -7,6 +7,10 @@ import { LogService } from "./log.service";
 	providedIn: 'root',
 })
 
+/// https://developers.soundcloud.com/docs/api/html5-widget
+/// https://www.npmjs.com/package/soundcloud-widget
+/// note that there is a newer package that supports typescript that might be considered to be used instead
+/// https://www.npmjs.com/package/soundcloud-embed
 export class MusicStreamer {
 
 	private widget: any

@@ -247,8 +247,9 @@ export class MyTracksService {
 		const soundCloudUrl = ''
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
+		const youtubeId = 'DTmPz-vSTFI'
 		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirKanez}${nameUrl}.mp3`, `${this.pathToDirKanez}${nameUrl}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirKanez}${nameUrl}.mp3`, `${this.pathToDirKanez}${nameUrl}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about, youtubeId, StreamSource.Youtube)
 	}
 
 	private pesi2002() {
