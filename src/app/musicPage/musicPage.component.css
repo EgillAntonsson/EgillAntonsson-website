@@ -17,20 +17,6 @@
 	margin-bottom: 1em;
 }
 
-/* .artworkImage {
-	width: 100%;
-	max-width: 400px;
-	border-radius: 5%;
-	display: block;
-	margin: 0 auto;
-} */
-
-.youtubeWrapper {
-	width: 700px;
-	margin: 0 auto;
-	/* max-width: 100%; */
-}
-
 .trackRightContainer {
 	float: right;
 	width: 50%;

@@ -215,7 +215,7 @@ export class MyTracksService {
 		}
 	}
 
-	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string, youtubeId = '', primarySource = StreamSource.Soundcloud, fallbackSource = StreamSource.Local) {
+	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string, youtubeId = '', source = StreamSource.Soundcloud, fallbackSource = StreamSource.Local) {
 		const track = new Track(
 			namePublic,
 			[SoundData.music(nameUrl, soundPath)],
@@ -235,7 +235,7 @@ export class MyTracksService {
 			spotifyUrl,
 			buyUrl,
 			youtubeId,
-			primarySource,
+			source,
 			fallbackSource
 		)
 		return track

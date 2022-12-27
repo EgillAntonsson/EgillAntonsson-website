@@ -67,6 +67,10 @@ export class SoundManagerImp implements SoundManager {
 		this._masterGain.emit(EmitterEvent.MuteChange)
 	}
 
+	public get masterMuted() {
+		return this._masterGain.muted
+	}
+
 	private _maxNrPlayingAtOncePerSound: number
 	public set maxNrPlayingAtOncePerSound(value: number) {
 		this._maxNrPlayingAtOncePerSound = SoundUtil.validateNumberForRange(value, 1, globalMaxNrPlayingAtOncePerSound)

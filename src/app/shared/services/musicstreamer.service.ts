@@ -11,6 +11,7 @@ export class MusicStreamer {
 
 	private widget: any
 	private _volume = 100
+	private isMuted = false
 	private _isInitialized = false
 
 	get isInitialized() {
@@ -80,17 +81,29 @@ export class MusicStreamer {
 
 	private playViaWidget() {
 		this.widget.setVolume(this._volume)
-				this.widget.play()
-				this.instancePlayedListeners.forEach((listener) => listener())
+		this.widget.play()
+		this.instancePlayedListeners.forEach((listener) => listener())
 	}
 
 	pause() {
 		this.widget.pause()
 	}
 
-	set volume(value: number) {
-		this._volume = value * 100
+	set volume(volume: number) {
+		if (this.isMuted) {
+			return
+		}
+		this._volume = volume
 		this.widget.setVolume(this._volume)
+	}
+
+	set muted(muted: boolean) {
+		this.isMuted = muted
+		if (muted) {
+			this.widget.setVolume(0)
+		} else {
+			this.widget.setVolume(this._volume)
+		}
 	}
 
 }

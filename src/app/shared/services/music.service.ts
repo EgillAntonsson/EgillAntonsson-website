@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { ElementRef, Injectable } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
 import { ITrack, LayeredMusicTrack, Track, Artist} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
@@ -12,6 +12,8 @@ import { PlayState } from '../enums/playState'
 import { MusicStreamer } from './musicStreamer.service'
 import { YoutubeService } from './youtube.service'
 import { StreamSource } from '../enums/streamSource'
+import { MessageService, MessageType } from './message.service'
+// import { Subscription } from 'rxjs'
 
 @Injectable({
 	providedIn: 'root',
@@ -46,6 +48,8 @@ export class MusicService {
 
 	}
 
+	// subscription: Subscription
+
 	private _playState = PlayState.Stopped
 	get playState() {
 		return this._playState
@@ -59,7 +63,7 @@ export class MusicService {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private logService: LogService) {
+	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private logService: LogService) {
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -76,10 +80,20 @@ export class MusicService {
 		}
 
 		this._selectedTrack = this.nextSelectedTrack
+
+		this.messageService.onMessage().subscribe(message => {
+			if (message.type === MessageType.YoutubeVolumeChange) {
+				this.setVolumeAndMutedFromYoutubePlayer()
+			}
+		})
+	}
+
+	sendYoutubePlayerElement(youtubeElement: ElementRef<any>) {
+		this.youtubeService.savePlayerElement(youtubeElement)
 	}
 
 	onYoutubePlayerReady(player: YT.Player) {
-		this.youtubeService.onPlayerReady(player)
+		this.youtubeService.onPlayerReady(player, this.masterGain * 100)
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
@@ -89,6 +103,10 @@ export class MusicService {
 		else if (playerState == YT.PlayerState.PLAYING) {
 			this.youtubeService.play()
 		}
+	}
+
+	onYoutubeBtn() {
+		this.youtubeService.toFullScreen()
 	}
 
 
@@ -123,7 +141,7 @@ export class MusicService {
 
 		this._selectedTrack = this.nextSelectedTrack
 
-		switch (this._selectedTrack.primarySource) {
+		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
 				this.youtubeService.play()
 				break;
@@ -150,7 +168,7 @@ export class MusicService {
 	}
 
 	stopOrPause() {
-		switch (this._selectedTrack.primarySource) {
+		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
 				this.pauseYoutube()
 				break;
@@ -193,17 +211,36 @@ export class MusicService {
 	}
 
 	set masterGain(value: number) {
-			this.musicStreamer.volume = value
 			this.soundManager.instance.masterGain = value
+			this.musicStreamer.volume = value * 100
+			this.youtubeService.volume = value * 100
 	}
 
-	public set masterMuted(muted: boolean) {
-		this.soundManager.instance.masterMuted = muted
-		if (muted) {
-			this.musicStreamer.volume = 0
-		} else {
-			this.musicStreamer.volume = this.soundManager.instance.masterGain
+	public get masterMuted() {
+		return this.soundManager.instance.masterMuted
+	}
+
+	public set masterMuted(value: boolean) {
+		this.soundManager.instance.masterMuted = value
+		this.musicStreamer.muted = value
+		this.youtubeService.muted = value
+	}
+
+	setVolumeAndMutedFromYoutubePlayer() {
+		let volume = this.youtubeService.volume
+		this.soundManager.instance.masterGain = volume / 100
+		this.musicStreamer.volume = volume
+
+		let muted = this.youtubeService.muted
+
+		console.log('muted', muted)
+		console.log(this.soundManager.instance.masterMuted)
+		if (this.soundManager.instance.masterMuted === muted) {
+			console.log('********** return *********')
+			return // to avoid spamming with same value
 		}
+		this.soundManager.instance.masterMuted = muted
+		this.musicStreamer.muted = muted
 	}
 
 	private setupInstanceListeners() {

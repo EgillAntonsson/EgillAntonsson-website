@@ -1,3 +1,6 @@
+<div #youtubeWrapper class="youtubeWrapper hide">
+	<youtube-player class="youtubePlayer" videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
+</div>
 <div class="playerContainer noSelect">
 	<span class="playIconContainer" (click)="onPlayStop()">
 		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}">
@@ -7,6 +10,9 @@
 	<span class="nextContainer" (click)="onNext()">
 		<div class="next_triangle"></div>
 		<div class="next_line"></div>
+	</span>
+	<span *ngIf="selectedTrack.source === 'Youtube'" class="youtubeButtonContainer" (click)="onYoutubeBtn($event)">
+		<div class="youtubeButton"></div>
 	</span>
 	<span class="trackName">
 		<span>{{selectedTrack.name}}</span>
@@ -25,9 +31,6 @@
 			</span>
 		</span>
 	</span>
-	<div #youtubePlayer *ngIf="selectedTrack.primarySource === 'Youtube'" class="youtubeWrapper">
-		<youtube-player class="hide" videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
-	</div>
 </div>
 <iframe id="scWidget" class="hide" width="100%" height="10" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1255416709&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&buying=false&liking=false&download=false&sharing=false&show_artwork=false&show_playcount=false&start_track=0"></iframe>
 

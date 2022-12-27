@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
 import { PlayState } from 'app/shared/enums/playState';
-import { HtmlElementService } from '../shared/services/htmlElement.service'
 
 @Component({
 	selector: 'app-music-player',
@@ -17,7 +16,7 @@ import { HtmlElementService } from '../shared/services/htmlElement.service'
 export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	readonly label = 'MusicPlayer'
 
-	@ViewChild('youtubePlayer')
+	@ViewChild('youtubeWrapper')
 	youtubeElement!: ElementRef
 
 	get selectedTrack() {
@@ -40,6 +39,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	masterMuted = false
+	private fromMuteBtnPress = false
 
 	subscription: Subscription
 
@@ -81,7 +81,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		return Color.Disabled
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private htmlService: HtmlElementService, private changeDetectorRef: ChangeDetectorRef) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
 		this.enableGains = (value: boolean) => {
 
 			if (value) {
@@ -96,6 +96,16 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 			if (message.type === MessageType.Play) {
 				this.play()
 			}
+			if (message.type === MessageType.YoutubeVolumeChange) {
+				console.log('************** smu ****************')
+				if (!this.fromMuteBtnPress) {
+					console.log('from mute btn press if')
+					console.log(this.musicService.masterMuted)
+					this.masterMuted = this.musicService.masterMuted
+				}
+				this.updateMute()
+				this.fromMuteBtnPress = false
+			}
 		})
 
 		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
@@ -109,13 +119,20 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		})
 	}
 
-	public ngAfterViewInit(): void {
-    this.htmlService.set( 'youtubePlayer', this.youtubeElement.nativeElement);
+	ngAfterViewInit(): void {
+    // this.htmlService.set( 'youtubePlayer', this.youtubeElement.nativeElement);
+		this.musicService.sendYoutubePlayerElement(this.youtubeElement)
   }
 
-  public ngOnDestroy() {
-	this.htmlService.delete('youtubePlayer' );
+  ngOnDestroy() {
+	// this.htmlService.delete('youtubePlayer' );
   }
+
+	onYoutubeBtn(event: any) {
+		console.log(event)
+		this.musicService.onYoutubeBtn()
+		// this.youtubeElement
+	}
 
 	onPlayerReady(player: YT.Player) {
 		console.log('************* onPlayerReady musicPlayer')
@@ -152,7 +169,15 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	onMasterMuteChange() {
 		if (this._gainsDisabled.value) { return }
+		this.fromMuteBtnPress = true
 		this.musicService.masterMuted = this.masterMuted = !this.masterMuted
+		// this.updateMute()
+		// this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
+		// 	{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
+	}
+
+	updateMute() {
+		console.log('************** throttle **************')
 		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
 			{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}

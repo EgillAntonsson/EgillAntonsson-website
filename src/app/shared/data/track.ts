@@ -16,7 +16,7 @@ export interface ITrack {
 	artistName: string
 	artistAbout: string
 	youtubeId: string,
-	primarySource: StreamSource
+	source: StreamSource
 	fallbackSource: StreamSource
 }
 
@@ -31,7 +31,7 @@ export class Track implements ITrack {
 	readonly spotifyUrl: string
 	readonly buyUrl: string
 	readonly youtubeId: string
-	readonly primarySource!: StreamSource
+	readonly source!: StreamSource
 	readonly fallbackSource!: StreamSource
 	index!: number
 	artistName!: string
@@ -41,7 +41,7 @@ export class Track implements ITrack {
 	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', primarySource: StreamSource = StreamSource.Soundcloud, secondarySource: StreamSource = StreamSource.Local) {
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', source: StreamSource = StreamSource.Soundcloud, secondarySource: StreamSource = StreamSource.Local) {
 
 		this.name = name
 		this.soundDatas = soundDatas
@@ -56,7 +56,7 @@ export class Track implements ITrack {
 		this.spotifyUrl = spotifyUrl
 		this.buyUrl = buyUrl
 		this.youtubeId = youtubeId
-		this.primarySource = primarySource
+		this.source = source
 		this.fallbackSource = secondarySource
 	}
 }

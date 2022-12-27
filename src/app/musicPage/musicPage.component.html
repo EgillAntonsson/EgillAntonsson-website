@@ -7,7 +7,7 @@
 </div>
 
 <div #trackGraphicContainer class="trackGraphicContainer">
-	<!-- <div *ngIf="selectedTrack.primarySource === 'Youtube'" class="youtubeWrapper"> -->
+	<!-- <div *ngIf="selectedTrack.source === 'Youtube'" class="youtubeWrapper"> -->
 
 
 		<!-- <iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/EiiR4cwjNwY?controls=0" frameborder="0"></iframe>
@@ -40,7 +40,7 @@
 		</script> -->
 
 	<!-- </div> -->
-	<div *ngIf="selectedTrack.primarySource !== 'Youtube'">
+	<div *ngIf="selectedTrack.source !== 'Youtube'">
 	<figure>
 		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="image">
 	</figure>
