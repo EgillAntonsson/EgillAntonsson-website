@@ -572,7 +572,15 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 	}
 
 	private justInTime() {
-		const track = new Track('Just in Time', [{
+		const nameUrl = 'just-in-time'
+		const namePublic = 'Just in Time'
+		const soundCloudUrl = ''
+		const spotifyUrl = ''
+		const buyUrl = ''
+		const about = ``
+
+		const track = new Track(namePublic,
+			[{
 				url: `${this.pathRoot}/Just_in_Time.ogg`,
 				key: 'justInTime',
 				soundType: SoundType.Music,
@@ -592,7 +600,9 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			})
+			},
+			nameUrl, '', about, soundCloudUrl, spotifyUrl, buyUrl, '', StreamSource.Local
+		)
 		return track
 	}
 
@@ -904,8 +914,11 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 	}
 
 	private godsruleLayered() {
+		// const nameUrl = 'godsrule-village'
+		const namePublic = 'Godsrule: Village'
+
 		const track = new LayeredMusicTrack(
-			'Godsrule: Village',
+			namePublic,
 			[
 				SoundData.musicLoop('godsruleEnvironmentLayer', `${this.pathGame}/loton_MusicVillageEnvironmentLayer.ogg`, 0.075),
 				SoundData.musicLoop('godsruleStringLayer', `${this.pathGame}/loton_MusicVillageStringLayer.ogg`, 0.55),

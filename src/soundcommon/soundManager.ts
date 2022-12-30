@@ -25,6 +25,8 @@ export interface SoundManager {
 	getSound(key: string): Sound
 	hasSound(key: string): boolean
 	stopSound(key: string): void
+	pause(): void
+	resume(): void
 	stopMusic(): void
 	stopAllSounds(): void
 	purge(): void
@@ -163,6 +165,14 @@ export class SoundManagerImp implements SoundManager {
 			return
 		}
 		sound.stop()
+	}
+
+	pause() {
+		this.audioContext.suspend()
+	}
+
+	resume() {
+		this.audioContext.resume()
 	}
 
 	stopMusic() {

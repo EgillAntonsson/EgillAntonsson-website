@@ -2,12 +2,12 @@
 	<youtube-player class="youtubePlayer" videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
 </div>
 <div class="playerContainer noSelect">
-	<span class="playIconContainer" (click)="onPlayStop()">
+	<span class="playIconContainer" (click)="onPlayPauseBtn()">
 		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}">
 			<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Antu_soundcloud.svg" alt="Streamed via SoundCloud" title="Streamed via SoundCloud" [ngClass]="{streamPlayIcon: selectedTrack.soundcloudUrl !== '', streamPlayIconHide: selectedTrack.soundcloudUrl === ''}">
 		</div>
 	</span>
-	<span class="nextContainer" (click)="onNext()">
+	<span class="nextContainer" (click)="onNextBtn()">
 		<div class="next_triangle"></div>
 		<div class="next_line"></div>
 	</span>
@@ -19,10 +19,10 @@
 
 		</span>
 	<span class="playerRightButtonsContainer">
-		<span class="shuffleContainer" (click)="onShuffle()">
+		<span class="shuffleContainer" (click)="onShuffleBtn()">
 			<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
 		</span>
-		<span class="muteContainer" (click)="onMasterMuteChange()">
+		<span class="muteContainer" (click)="onMasterMuteBtn()">
 			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted,  unmuteDisabled: gainsDisabled && !masterMuted}"></div>
 		</span>
 		<span class="sliderContainer">

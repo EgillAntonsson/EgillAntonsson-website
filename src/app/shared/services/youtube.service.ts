@@ -69,7 +69,14 @@ export class YoutubeService {
 		this.player?.getIframe().requestFullscreen()
 	}
 
-	play(track: ITrack) {
+	private currentTime = 0
+
+	play() {
+		this.player?.playVideo()
+		this.player?.seekTo(this.currentTime, true)
+	}
+
+	playFromStart(track: ITrack) {
 		if (this.player === undefined) {
 			this.playWhenReady = true
 		} else {
@@ -103,7 +110,11 @@ export class YoutubeService {
 	}
 
 	pause() {
-		this.player?.pauseVideo();
+		if (this.player === undefined) {
+			return
+		}
+		this.currentTime = this.player.getCurrentTime()
+		this.player.pauseVideo();
 	}
 
 	get volume(): number {

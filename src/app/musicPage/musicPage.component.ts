@@ -4,7 +4,6 @@ import { SoundInstance } from '../../soundcommon/interface/soundInstance'
 import { ITrack, LayeredMusicTrack } from '../shared/data/track'
 import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
-import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { LogType } from '../../shared/enums/logType'
 import { PlayState } from 'app/shared/enums/playState'
 import { ActivatedRoute, ParamMap } from '@angular/router'
@@ -65,7 +64,7 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 		return this.musicService.selectedTrack
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService, private route: ActivatedRoute, private location: Location) {}
+	constructor(private musicService: MusicService, private logService: LogService, private route: ActivatedRoute, private location: Location) {}
 
 	ngOnInit(): void {
 		this.route.paramMap.subscribe((params: ParamMap) => {
@@ -81,7 +80,7 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 			const canvas = this.getNextCanvas()
 			const canvasContext = this.tryGetCanvasContext(canvas)
 			if (canvasContext && soundInstance) {
-				this.topLine.nativeElement.classList.add('hide')
+				// this.topLine.nativeElement.classList.add('hide')
 				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
 			}
 			this.replaceUrlState()
@@ -109,8 +108,11 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
 			return
 		}
-		this.musicService.nextSelectedTrack = track
-		this.messageService.sendMessage({type: MessageType.Play})
+
+		console.log(track)
+
+		// this.musicService.nextSelectedTrack = track
+		// this.messageService.sendMessage({type: MessageType.Play})
 	}
 
 	onByClick(byIndex: number) {

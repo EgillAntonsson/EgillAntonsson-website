@@ -21,11 +21,12 @@ import { Subscription } from 'rxjs'
 export class MusicService implements OnDestroy {
 	readonly label = 'MusicService'
 	readonly urlPathRoot = 'music/'
-
 	private _selectedTrack: ITrack
 	get selectedTrack() {
 		return this._selectedTrack
 	}
+
+	private playerUiGainsDisabled!: BooleanEmitter
 
 	nextSelectedTrack: ITrack
 
@@ -87,6 +88,7 @@ export class MusicService implements OnDestroy {
 			}
 		})
 	}
+
 	ngOnDestroy(): void {
 		if (this.subscription instanceof Subscription) {
 			this.subscription.unsubscribe();
@@ -107,7 +109,7 @@ export class MusicService implements OnDestroy {
 			this.pauseYoutube()
 		}
 		else if (playerState == YT.PlayerState.PLAYING) {
-			this.youtubeService.play(this._selectedTrack)
+			this.youtubeService.play()
 		}
 	}
 
@@ -127,6 +129,10 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
+	playerUiInitialized(gainsDisabled: BooleanEmitter) {
+		this.playerUiGainsDisabled = gainsDisabled
+	}
+
 	private getStreamUrl(track: ITrack) {
 		return track.soundcloudUrl;
 	}
@@ -138,40 +144,93 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	play(gainsDisabled: BooleanEmitter) {
-		if (this._playState === PlayState.Loading) {
-			return
+	OnUiPlayOrPause() {
+		switch (this.playState) {
+			case PlayState.Playing:
+				this.pause()
+				break
+			case PlayState.Paused:
+				this.play()
+			break
+			case PlayState.Stopped:
+				this.playFromStart()
+			break
+			case PlayState.Loading:
+			default:
+				return
 		}
-		this.stopOrPause()
-		this._playState = PlayState.Loading
 
-		this._selectedTrack = this.nextSelectedTrack
-		console.log(this._selectedTrack)
+		// if (this.playState === PlayState.Loading) {
+		// 	return
+		// }
+		// if (this.playState === PlayState.Playing) {
+		// 	this.pause()
+		// } else {
+		// 	this.play()
+		// }
+	}
+
+	play() {
+		// if (this._playState === PlayState.Loading) {
+		// 	return
+		// }
+
+		// this.stopOrPause()
+
+		// this._playState = PlayState.Loading
+
+		// this._selectedTrack = this.nextSelectedTrack
 
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
-				this.youtubeService.play(this._selectedTrack)
+				this.youtubeService.play()
 				break;
 			case StreamSource.Soundcloud:
 				this.musicStreamer.play(this._selectedTrack)
 				break;
 			default:
-				this.playViaSoundManager(this._selectedTrack, gainsDisabled);
+				this.soundManager.play(this._selectedTrack, this.playerUiGainsDisabled)
 				break;
 		}
 	}
 
-	private playViaSoundManager(track: ITrack, gainsDisabled: BooleanEmitter) {
-		if (!this.soundManager.instance.hasSound(track.soundDatas[0].key)) {
-			for (let i = 0; i < track.soundDatas.length; i++) {
-				this.soundManager.instance.addSound(track.soundDatas[i])
-				this.logService.log(LogType.Info, `[${this.label}]`, 'adding sounds')
-			}
+	playFromStart() {
+		this._playState = PlayState.Loading
+
+		this._selectedTrack = this.nextSelectedTrack
+
+		switch (this._selectedTrack.source) {
+			case StreamSource.Youtube:
+				this.youtubeService.playFromStart(this._selectedTrack)
+				break;
+			case StreamSource.Soundcloud:
+				this.musicStreamer.play(this._selectedTrack)
+				break;
+			default:
+				this.soundManager.play(this._selectedTrack, this.playerUiGainsDisabled)
+				break;
 		}
-		track.play()()
-		if (track instanceof LayeredMusicTrack) {
-			track.layeredMusicController.gainsDisabled = gainsDisabled
+	}
+
+
+	private pause() {
+		switch (this._selectedTrack.source) {
+			case StreamSource.Youtube:
+				this.pauseYoutube()
+				break;
+			case StreamSource.Soundcloud:
+				this.musicStreamer.pause()
+				this._playState = PlayState.Stopped
+				break;
+			default:
+				this.soundManager.instance.pause()
+				break;
 		}
+	}
+
+	private pauseYoutube() {
+		this.youtubeService.pause()
+		this._playState = PlayState.Stopped
 	}
 
 	stopOrPause() {
@@ -189,16 +248,14 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	private pauseYoutube() {
-		this.youtubeService.pause()
-		this._playState = PlayState.Stopped
-	}
-
 	private stopViaSoundManager(track: ITrack) {
+
 		this.soundManager.instance.stopMusic()
+
 		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
 			track.layeredMusicController.stop()
 		}
+
 		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
 	}
 

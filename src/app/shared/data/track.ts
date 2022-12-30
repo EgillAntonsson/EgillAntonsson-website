@@ -41,7 +41,7 @@ export class Track implements ITrack {
 	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', source: StreamSource = StreamSource.Soundcloud, secondarySource: StreamSource = StreamSource.Local) {
+	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', source: StreamSource = StreamSource.Local, secondarySource: StreamSource = StreamSource.Local) {
 
 		this.name = name
 		this.soundDatas = soundDatas

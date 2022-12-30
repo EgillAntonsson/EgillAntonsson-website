@@ -6,7 +6,6 @@ import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
-import { PlayState } from 'app/shared/enums/playState';
 
 @Component({
 	selector: 'app-music-player',
@@ -91,11 +90,12 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 			}
 		}
 		this._gainsDisabled.on(EmitterEvent.Change, this.enableGains)
+		this.musicService.playerUiInitialized(this._gainsDisabled)
 
 		this.subscription = this.messageService.onMessage().subscribe(message => {
-			if (message.type === MessageType.Play) {
-				this.play()
-			}
+			// if (message.type === MessageType.Play) {
+			// 	this.play()
+			// }
 			if (message.type === MessageType.YoutubeVolumeChange) {
 				this.updateMuteUI()
 			}
@@ -103,7 +103,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
 			if (trackEnded && !serviceDidStop) {
-					this.onNext()
+					this.musicService.nextTrack()
 				}
 		})
 
@@ -136,32 +136,36 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		this.musicService.OnYoutubePlayerStateChange(event.data)
 	}
 
-	onPlayStop() {
-		if (this.musicService.playState === PlayState.Loading) {
-			return
-		}
-		if (this.musicService.playState === PlayState.Playing) {
-			this.musicService.stopOrPause()
-		} else {
-			this.play()
-		}
+	onPlayPauseBtn() {
+		this.musicService.OnUiPlayOrPause()
+
+		// if (this.musicService.playState === PlayState.Loading) {
+		// 	return
+		// }
+		// if (this.musicService.playState === PlayState.Playing) {
+		// 	this.musicService.stopOrPause()
+		// } else {
+		// 	this.play()
+		// }
 	}
 
-	onNext() {
+	onNextBtn() {
 		this.musicService.nextTrack()
-		this.play()
+		// this.play()
 	}
 
-	onShuffle() {
+	onShuffleBtn() {
 		this.musicService.toggleShuffle()
 	}
 
-	play() {
-		this.musicService.play(this._gainsDisabled)
-	}
+	// play() {
+	// 	this.musicService.play()
+	// }
 
-	onMasterMuteChange() {
-		if (this._gainsDisabled.value) { return }
+	onMasterMuteBtn() {
+		if (this._gainsDisabled.value) {
+			return
+		}
 		this.musicService.masterMuted = !this.masterMuted
 	}
 
