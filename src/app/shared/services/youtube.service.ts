@@ -5,6 +5,7 @@ import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";
 import { MessageType } from 'app/shared/services/message.service'
 import { ITrack } from "../data/track";
+import { ScreenService, WidthRange } from './screen.service'
 
 @Injectable({
 	providedIn: 'root',
@@ -18,26 +19,77 @@ export class YoutubeService {
 	private playWhenReady = false
 	private isFullScreen = false
 
+	private playerWidth = 200;
+	private readonly playerHeight = 200;
+
 	readonly instancePlayedListeners!: Map<string, () => void>
 	readonly instanceEndedListeners!: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 
-	constructor(private logService: LogService, private windowRef: WindowRefService, private messageService: MessageService) {
+	constructor(private windowRef: WindowRefService, private messageService: MessageService, private logService: LogService, private screenService: ScreenService) {
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
+
+		console.log(this.screenService)
 	}
 
 	savePlayerElement(playerElement: ElementRef<any>) {
 		this.playerElement = playerElement
 	}
 
-	onPlayerReady(player: YT.Player, volume: number) {
-		this.player = player;
-    this.logService.log(LogType.Info, 'onPlayerReady');
+	onWindowResize(width: number, _height: number) {
+		this.setPlayerSize(width)
 
+		// this.player?.setSize(width, this.playerHeight)
+		// this.playerWidth = width
+	}
+
+	private setPlayerSize(width: number = 0) {
+		console.log('width before', width)
+		let w = 0
+		if (width > 0) {
+			let bodyMargin = 0.05
+			let offset = 0.009
+			w = width * (1 + offset - (bodyMargin * 2))
+
+			if (this.screenService.currentWidthRange !== WidthRange.XS) {
+				let playerMargin = 0.1
+				switch (this.screenService.currentWidthRange) {
+					case WidthRange.S:
+						playerMargin = 0.1
+						break;
+
+					case WidthRange.M:
+						playerMargin = 0.2
+					break;
+
+					default:
+						break;
+				}
+
+				// w = w * (1 - ((playerMargin - 0.01) * 2))
+
+				console.log(playerMargin)
+				w = w * (1 - (playerMargin * 2))
+			}
+		} else {
+			w = this.playerWidth
+		}
+
+		console.log('w after', w)
+
+		this.player?.setSize(w, this.playerHeight)
+		this.playerWidth = w
+	}
+
+	onPlayerReady(player: YT.Player, volume: number) {
+    this.logService.log(LogType.Info, 'onPlayerReady');
+		this.player = player;
+		this.setPlayerSize()
+		// this.player.setSize(this.playerWidth, this.playerHeight)
 		this.volume = volume
 
 		if (this.playWhenReady) {
-			this.playViaPlayer();
+			this.play();
 		}
 
 		player.getIframe().onfullscreenchange = () => {
@@ -69,11 +121,18 @@ export class YoutubeService {
 		this.player?.getIframe().requestFullscreen()
 	}
 
-	private currentTime = 0
+	// private currentTime = 0
+
+	// private ws = [150, 200, 250, 300, 350, 400]
+	// private i = 0
 
 	play() {
-		this.player?.playVideo()
-		this.player?.seekTo(this.currentTime, true)
+		this.playWhenReady = false
+		this.player?.playVideo();
+		this.instancePlayedListeners.forEach((listener) => listener())
+
+		// this.player?.setSize(this.ws[this.i], this.ws[this.i])
+		// this.i = this.i + 1
 	}
 
 	playFromStart(track: ITrack) {
@@ -84,14 +143,14 @@ export class YoutubeService {
 			console.log('currentIdInPlayer', currentIdInPlayer)
 			if (track.youtubeId !== currentIdInPlayer) {
 			// 	// this.playWhenReady = true
-				console.log('*************** smu *******************')
+				console.log('*********** loading new youtube id ***************')
 				console.log(track.youtubeId)
 			// 	this.playWhenReady = false
 				this.player.loadVideoById(track.youtubeId)
 			// 	this.player.playVideo()
 			// 	this.instancePlayedListeners.forEach((listener) => listener())
 			} else {
-				this.playViaPlayer()
+				this.play()
 			}
 		}
 	}
@@ -103,18 +162,16 @@ export class YoutubeService {
 		return videoUrl.split('?v=')[1]
 	}
 
-	private playViaPlayer() {
-		this.playWhenReady = false
-		this.player?.playVideo();
-		this.instancePlayedListeners.forEach((listener) => listener())
-	}
-
 	pause() {
-		if (this.player === undefined) {
-			return
-		}
-		this.currentTime = this.player.getCurrentTime()
-		this.player.pauseVideo();
+		this.logService.log(LogType.Info, 'pause() in YoutubeService')
+		this.player?.pauseVideo()
+
+		// if (this.player === undefined) {
+		// 	return
+		// }
+		// this.currentTime = this.player.getCurrentTime()
+		// this.player.pauseVideo();
+		// this.logService.log(LogType.Info, 'currentTime', this.currentTime)
 	}
 
 	get volume(): number {

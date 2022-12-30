@@ -49,11 +49,11 @@ body {
 	background: var(--colorBackground);
 }
 body, input[text] {
-	color: var(--colorForeground);
+color: var(--colorForeground);
 }
 
 input {
-	border-style: solid;
+border-style: solid;
 	border-width: 1px;
 	border-color: var(--colorGrayLightMed);
 	font-size: 102%;
@@ -201,13 +201,6 @@ figcaption {
 	text-align: center;
 	padding-top: 0.3em;
 }
-
-/* #youtubePlayer {
-}
-
-#scWidget {
-	display: none;
-} */
 
 .image {
 	width: 100%;

@@ -87,8 +87,8 @@ I'll never give it to 3rd party or display it publicly.`
 		})
 
 		this.emailControl = this.messageForm.controls[this.emailName]
-
 	}
+
 	ngOnInit(): void {
 		this.musicService.initStreamer()
 	}

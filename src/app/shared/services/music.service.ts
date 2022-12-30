@@ -99,16 +99,22 @@ export class MusicService implements OnDestroy {
 		this.youtubeService.savePlayerElement(youtubeElement)
 	}
 
+	onWindowResize(width: number, height: number) {
+		console.log("music service component resize", width, height)
+		this.youtubeService.onWindowResize(width, height)
+	}
+
 	onYoutubePlayerReady(player: YT.Player) {
 		this.youtubeService.onPlayerReady(player, this.masterGain * 100)
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
 		console.log('OnYoutubePlayerStateChange', playerState)
-		if (playerState == YT.PlayerState.PAUSED) {
+
+		if (playerState === YT.PlayerState.PAUSED && this.playState !== PlayState.Paused) {
 			this.pauseYoutube()
 		}
-		else if (playerState == YT.PlayerState.PLAYING) {
+		else if (playerState === YT.PlayerState.PLAYING && this.playState !== PlayState.Playing) {
 			this.youtubeService.play()
 		}
 	}
@@ -170,16 +176,8 @@ export class MusicService implements OnDestroy {
 		// }
 	}
 
-	play() {
-		// if (this._playState === PlayState.Loading) {
-		// 	return
-		// }
-
-		// this.stopOrPause()
-
-		// this._playState = PlayState.Loading
-
-		// this._selectedTrack = this.nextSelectedTrack
+	private play() {
+		this.logService.log(LogType.Info, 'play() in MusicService')
 
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
@@ -192,9 +190,21 @@ export class MusicService implements OnDestroy {
 				this.soundManager.play(this._selectedTrack, this.playerUiGainsDisabled)
 				break;
 		}
+
+
+				// if (this._playState === PlayState.Loading) {
+		// 	return
+		// }
+
+		// this.stopOrPause()
+
+		// this._playState = PlayState.Loading
+
+		// this._selectedTrack = this.nextSelectedTrack
 	}
 
 	playFromStart() {
+		this.logService.log(LogType.Info, 'playFromStart() in MusicService')
 		this._playState = PlayState.Loading
 
 		this._selectedTrack = this.nextSelectedTrack
@@ -214,6 +224,7 @@ export class MusicService implements OnDestroy {
 
 
 	private pause() {
+		this.logService.log(LogType.Info, 'pause() in MusicService')
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
 				this.pauseYoutube()
@@ -230,7 +241,7 @@ export class MusicService implements OnDestroy {
 
 	private pauseYoutube() {
 		this.youtubeService.pause()
-		this._playState = PlayState.Stopped
+		this._playState = PlayState.Paused
 	}
 
 	stopOrPause() {
@@ -297,11 +308,9 @@ export class MusicService implements OnDestroy {
 
 		let muted = this.youtubeService.muted
 
-		console.log('muted', muted)
-		console.log(this.soundManager.instance.masterMuted)
 		if (this.soundManager.instance.masterMuted === muted) {
-			console.log('********** return *********')
-			return // to avoid spamming with same value
+			this.logService.log(LogType.Info, 'not updating mute with same value to avoid spam')
+			return
 		}
 		this.soundManager.instance.masterMuted = muted
 		this.musicStreamer.muted = muted

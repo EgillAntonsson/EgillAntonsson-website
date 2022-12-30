@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
@@ -6,6 +6,7 @@ import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
+import { StreamSource } from 'app/shared/enums/streamSource'
 
 @Component({
 	selector: 'app-music-player',
@@ -15,8 +16,8 @@ import { Color } from 'app/shared/enums/color'
 export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	readonly label = 'MusicPlayer'
 
-	@ViewChild('youtubeWrapper')
-	youtubeElement!: ElementRef
+	@ViewChild('youtubePlayer')
+	youtubePlayerElement!: ElementRef
 
 	get selectedTrack() {
 		return this.musicService.selectedTrack
@@ -99,6 +100,8 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 			if (message.type === MessageType.YoutubeVolumeChange) {
 				this.updateMuteUI()
 			}
+
+			console.log(StreamSource.Youtube)
 		})
 
 		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
@@ -113,7 +116,8 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
-		this.musicService.sendYoutubePlayerElement(this.youtubeElement)
+		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
   }
 
   ngOnDestroy() {
@@ -122,17 +126,23 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		}
 	}
 
+	@HostListener('window:resize', ['$event'])
+  onWindowResize() {
+		console.log("music player component resize")
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
+  }
+
 	onYoutubeBtn() {
 		this.musicService.onYoutubeBtn()
 	}
 
 	onPlayerReady(player: YT.Player) {
-		console.log('onPlayerReady in MusicPlayer')
 		this.musicService.onYoutubePlayerReady(player)
   }
 
 	onPlayerStateChange(event: any) {
-		console.log('onPlayerStateChange in MusicPlayer')
 		this.musicService.OnYoutubePlayerStateChange(event.data)
 	}
 
