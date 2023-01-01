@@ -104,11 +104,11 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 			console.log(StreamSource.Youtube)
 		})
 
-		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
-			if (trackEnded && !serviceDidStop) {
-					this.musicService.nextTrack()
-				}
-		})
+		// this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
+		// 	if (trackEnded && !serviceDidStop) {
+		// 			this.musicService.nextTrack()
+		// 		}
+		// })
 
 		this.musicService.addPlayStateChangeListener(() => {
 			this.changeDetectorRef.detectChanges()
@@ -116,8 +116,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
+		console.log('ngAfterViewInit')
+		this.musicService.initStreamer()
 		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
-		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
+		this.musicService.onWindowInitSize(window.innerWidth, window.innerHeight)
   }
 
   ngOnDestroy() {
@@ -160,7 +162,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	onNextBtn() {
-		this.musicService.nextTrack()
+		this.musicService.onUiNextTrack()
 		// this.play()
 	}
 

@@ -18,19 +18,29 @@ export class SoundManagerService {
 		this._instance = new SoundManagerImp()
 	}
 
-	play(track: ITrack, playerUiGainsDisabled: BooleanEmitter) {
+	playFromStart(track: ITrack, playerUiGainsDisabled: BooleanEmitter) {
 		if (!this.instance.hasSound(track.soundDatas[0].key)) {
 			for (let i = 0; i < track.soundDatas.length; i++) {
 				this.instance.addSound(track.soundDatas[i])
 			}
-			track.play()()
 		}
-		else {
-			this.instance.resume()
-		}
+
+		track.play()()
 
 		if (track instanceof LayeredMusicTrack) {
 			track.layeredMusicController.gainsDisabled = playerUiGainsDisabled
+		}
+	}
+
+	play() {
+		this.instance.resume()
+	}
+
+	stop(track: ITrack) {
+		this.instance.stopMusic()
+
+		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
+			track.layeredMusicController.stop()
 		}
 	}
 

@@ -502,12 +502,10 @@ min width considered 360px (Galaxy S8+) */
 		/* 18px seems to be the default 'normal'*/
 	}
 
-	.navContainer {
-		height: 85px;
+	.headerContainer, .headerBackground {
+		height: 100px;
 	}
-	.navBackground {
-		height: 105px;
-	}
+
 	.treeContainer {
 		margin-bottom: 1.5em;
 		/* width: 55%; */

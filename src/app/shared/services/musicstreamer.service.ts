@@ -72,24 +72,32 @@ export class MusicStreamer {
 		})
 	}
 
-	play(track: ITrack) {
-		this.logService.log(LogType.Info, "musicStreamer play track", track)
-		let url = track.soundcloudUrl;
-		if (url === this.loadedUrl) {
+	play() {
+		this.logService.log(LogType.Info, "musicStreamer play")
+		// let url = track.soundcloudUrl;
+		// if (url === this.loadedUrl) {
 			this.playViaWidget()
-		}
-		else {
-			this.load(url, true)
-		}
+		// }
+		// else {
+			// this.load(url, true)
+		// }
+	}
+
+	playFromStart(track: ITrack) {
+		this.logService.log(LogType.Info, "musicStreamer playFromStart", track)
+		let url = track.soundcloudUrl;
+		this.load(url, true)
+		this.widget.setVolume(this._volume)
 	}
 
 	private playViaWidget() {
-		this.widget.setVolume(this._volume)
+		// this.widget.setVolume(this._volume)
 		this.widget.play()
 		this.instancePlayedListeners.forEach((listener) => listener())
 	}
 
 	pause() {
+		this.logService.log(LogType.Info, "musicStreamer pause")
 		this.widget.pause()
 	}
 

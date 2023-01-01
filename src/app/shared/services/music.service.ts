@@ -1,6 +1,6 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
-import { ITrack, LayeredMusicTrack, Track, Artist} from 'app/shared/data/track'
+import { ITrack, Track, Artist} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
@@ -14,6 +14,7 @@ import { YoutubeService } from './youtube.service'
 import { StreamSource } from '../enums/streamSource'
 import { MessageService, MessageType } from './message.service'
 import { Subscription } from 'rxjs'
+import { HtmlElementService } from './htmlElement.service'
 
 @Injectable({
 	providedIn: 'root',
@@ -64,7 +65,7 @@ export class MusicService implements OnDestroy {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private logService: LogService) {
+	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private htmlService: HtmlElementService,private logService: LogService) {
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -99,9 +100,16 @@ export class MusicService implements OnDestroy {
 		this.youtubeService.savePlayerElement(youtubeElement)
 	}
 
+	onWindowInitSize(width: number, height: number) {
+		this.youtubeService.onWindowInitSize(width, height)
+	}
+
 	onWindowResize(width: number, height: number) {
-		console.log("music service component resize", width, height)
-		this.youtubeService.onWindowResize(width, height)
+		if (this._selectedTrack.source == StreamSource.Youtube) {
+			this.youtubeService.onWindowResize(width, height)
+		} else {
+			this.setHeaderContainerHeight()
+		}
 	}
 
 	onYoutubePlayerReady(player: YT.Player) {
@@ -117,6 +125,24 @@ export class MusicService implements OnDestroy {
 		else if (playerState === YT.PlayerState.PLAYING && this.playState !== PlayState.Playing) {
 			this.youtubeService.play()
 		}
+		else if (playerState === YT.PlayerState.ENDED) {
+			this.nextTrack()
+			this.playFromStart()
+		}
+	}
+
+	private setHeaderContainerHeight() {
+		let headerContainerElement = this.htmlService.get('headerContainer')
+		let headerBackgroundElement = this.htmlService.get('headerBackground')
+
+		// height has to match what is in styles.css and view calculation
+		// nav tag is calculated height 35px
+		// padding at top and add below player set to 22
+		// .myPlayer height set to 25px in css + padding (9 + 7)
+		let contHeight = 22 + 35 + 25 + 16
+
+		headerContainerElement.value.nativeElement.style.height =  contHeight + 'px'
+		headerBackgroundElement.value.nativeElement.style.height =  contHeight + 'px'
 	}
 
 	onYoutubeBtn() {
@@ -165,15 +191,18 @@ export class MusicService implements OnDestroy {
 			default:
 				return
 		}
+	}
 
-		// if (this.playState === PlayState.Loading) {
-		// 	return
-		// }
-		// if (this.playState === PlayState.Playing) {
-		// 	this.pause()
-		// } else {
-		// 	this.play()
-		// }
+	onUiNextTrack() {
+		// this.stop() // ended listener will trigger next track appropriately
+
+		this.nextTrack()
+		this.playFromStart()
+	}
+
+	onUiTrackSelected(track: ITrack) {
+		this.nextSelectedTrack = track
+		this.playFromStart()
 	}
 
 	private play() {
@@ -184,27 +213,25 @@ export class MusicService implements OnDestroy {
 				this.youtubeService.play()
 				break;
 			case StreamSource.Soundcloud:
-				this.musicStreamer.play(this._selectedTrack)
+				this.musicStreamer.play()
 				break;
 			default:
-				this.soundManager.play(this._selectedTrack, this.playerUiGainsDisabled)
+				this.playViaSoundManager()
 				break;
 		}
+	}
 
-
-				// if (this._playState === PlayState.Loading) {
-		// 	return
-		// }
-
-		// this.stopOrPause()
-
-		// this._playState = PlayState.Loading
-
-		// this._selectedTrack = this.nextSelectedTrack
+	private playViaSoundManager() {
+		this.soundManager.play()
+		// as my tracks fire stared event via play(), then for the case of pause and play before that we set it state to play
+		this._playState = PlayState.Playing
 	}
 
 	playFromStart() {
 		this.logService.log(LogType.Info, 'playFromStart() in MusicService')
+
+		this.stop()
+
 		this._playState = PlayState.Loading
 
 		this._selectedTrack = this.nextSelectedTrack
@@ -214,14 +241,15 @@ export class MusicService implements OnDestroy {
 				this.youtubeService.playFromStart(this._selectedTrack)
 				break;
 			case StreamSource.Soundcloud:
-				this.musicStreamer.play(this._selectedTrack)
+				this.musicStreamer.playFromStart(this._selectedTrack)
 				break;
 			default:
-				this.soundManager.play(this._selectedTrack, this.playerUiGainsDisabled)
+				this.soundManager.playFromStart(this._selectedTrack, this.playerUiGainsDisabled)
 				break;
 		}
-	}
 
+		this.setHeaderContainerHeight()
+	}
 
 	private pause() {
 		this.logService.log(LogType.Info, 'pause() in MusicService')
@@ -230,11 +258,11 @@ export class MusicService implements OnDestroy {
 				this.pauseYoutube()
 				break;
 			case StreamSource.Soundcloud:
-				this.musicStreamer.pause()
-				this._playState = PlayState.Stopped
+				this.pauseSoundcloud()
 				break;
 			default:
 				this.soundManager.instance.pause()
+				this._playState = PlayState.Paused
 				break;
 		}
 	}
@@ -244,30 +272,30 @@ export class MusicService implements OnDestroy {
 		this._playState = PlayState.Paused
 	}
 
-	stopOrPause() {
-		switch (this._selectedTrack.source) {
-			case StreamSource.Youtube:
-				this.pauseYoutube()
-				break;
-			case StreamSource.Soundcloud:
-				this.musicStreamer.pause()
-				this._playState = PlayState.Stopped
-				break;
-			default:
-				this.stopViaSoundManager(this._selectedTrack)
-				break;
-		}
+	private pauseSoundcloud() {
+		this.musicStreamer.pause()
+		this._playState = PlayState.Paused
 	}
 
-	private stopViaSoundManager(track: ITrack) {
-
-		this.soundManager.instance.stopMusic()
-
-		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {
-			track.layeredMusicController.stop()
+	stop() {
+		this.logService.log(LogType.Info, 'stop() in MusicService')
+		switch (this._selectedTrack.source) {
+			// At the moment youtube element has ngIf thus not needed to stop
+			case StreamSource.Soundcloud:
+				this.musicStreamer.pause()
+				break;
+				case StreamSource.Local:
+				this.stopViaSoundManager()
+				break;
 		}
 
-		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
+		this._playState = PlayState.Stopped
+	}
+
+	private stopViaSoundManager() {
+		this.soundManager.stop(this._selectedTrack)
+		this.myTracks.instanceEndedListeners.forEach((listener) => listener(true))
+		// this.myTracks.instanceEndedListeners.forEach((listener) => listener(true, true))
 	}
 
 	nextTrack() {
@@ -321,14 +349,20 @@ export class MusicService implements OnDestroy {
 			this.onPlayed()
 		})
 
-		this.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, _serviceDidStop?: boolean) => {
+		this.addInstanceEndedListener(`${this.label} endedListener`, (_trackEnded?: boolean, _serviceDidStop?: boolean) => {
 			if (this.myTracks.timeout) {
 					clearTimeout(this.myTracks.timeout)
 					this.myTracks.timeout = undefined
 			}
-			if (trackEnded) {
-				this._playState = PlayState.Stopped
-			}
+			// if (trackEnded) {
+			// 	if (serviceDidStop) {
+			// 		this._playState = PlayState.Stopped
+			// 	}
+			// 	else {
+			// 		this.nextTrack()
+			// 		this.playFromStart()
+			// 	}
+			// }
 		})
 	}
 

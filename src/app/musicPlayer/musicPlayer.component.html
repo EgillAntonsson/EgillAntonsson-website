@@ -2,9 +2,9 @@
 	<div #youtubePlayer class="youtubePlayer" *ngIf="selectedTrack.source === 'Youtube'">
 		<youtube-player videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
 	</div>
-	<div class="playerContainer noSelect" *ngIf="selectedTrack.source !== 'Youtube'">
+	<div class="myPlayer noSelect" *ngIf="selectedTrack.source !== 'Youtube'">
 		<span class="playIconContainer" (click)="onPlayPauseBtn()">
-			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}">
+			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Paused' || playState === 'Stopped'}">
 				<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Antu_soundcloud.svg" alt="Streamed via SoundCloud" title="Streamed via SoundCloud" [ngClass]="{streamPlayIcon: selectedTrack.soundcloudUrl !== '', streamPlayIconHide: selectedTrack.soundcloudUrl === ''}">
 			</div>
 		</span>
@@ -12,9 +12,6 @@
 			<div class="next_triangle"></div>
 			<div class="next_line"></div>
 		</span>
-		<!-- <span *ngIf="selectedTrack.source === 'Youtube'" class="youtubeButtonContainer" (click)="onYoutubeBtn()">
-			<div class="youtubeButton"></div>
-		</span> -->
 		<span class="trackName">
 			<span>{{selectedTrack.name}}</span>
 

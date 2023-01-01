@@ -105,11 +105,11 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 
 	onTrackClick(track: ITrack) {
 		if (this.musicService.playState === PlayState.Loading) {
-			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
+			this.logService.log(LogType.Info, 'MusicPage onTrackClick: is loading, returning without processing')
 			return
 		}
 
-		console.log(track)
+		this.musicService.onUiTrackSelected(track)
 
 		// this.musicService.nextSelectedTrack = track
 		// this.messageService.sendMessage({type: MessageType.Play})

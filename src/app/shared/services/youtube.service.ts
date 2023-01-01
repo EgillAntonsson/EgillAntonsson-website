@@ -5,7 +5,7 @@ import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";
 import { MessageType } from 'app/shared/services/message.service'
 import { ITrack } from "../data/track";
-import { ScreenService, WidthRange } from './screen.service'
+import { HtmlElementService } from './htmlElement.service'
 
 @Injectable({
 	providedIn: 'root',
@@ -20,20 +20,22 @@ export class YoutubeService {
 	private isFullScreen = false
 
 	private playerWidth = 200;
-	private readonly playerHeight = 200;
+	private playerHeight = 200;
 
 	readonly instancePlayedListeners!: Map<string, () => void>
 	readonly instanceEndedListeners!: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 
-	constructor(private windowRef: WindowRefService, private messageService: MessageService, private logService: LogService, private screenService: ScreenService) {
+	constructor(private windowRef: WindowRefService, private messageService: MessageService, private logService: LogService, private htmlService: HtmlElementService) {
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
-
-		console.log(this.screenService)
 	}
 
 	savePlayerElement(playerElement: ElementRef<any>) {
 		this.playerElement = playerElement
+	}
+
+	onWindowInitSize(width: number, _height: number) {
+		this.playerWidth = width
 	}
 
 	onWindowResize(width: number, _height: number) {
@@ -43,50 +45,76 @@ export class YoutubeService {
 		// this.playerWidth = width
 	}
 
-	private setPlayerSize(width: number = 0) {
-		console.log('width before', width)
-		let w = 0
-		if (width > 0) {
-			let bodyMargin = 0.05
-			let offset = 0.009
-			w = width * (1 + offset - (bodyMargin * 2))
-
-			if (this.screenService.currentWidthRange !== WidthRange.XS) {
-				let playerMargin = 0.1
-				switch (this.screenService.currentWidthRange) {
-					case WidthRange.S:
-						playerMargin = 0.1
-						break;
-
-					case WidthRange.M:
-						playerMargin = 0.2
-					break;
-
-					default:
-						break;
-				}
-
-				// w = w * (1 - ((playerMargin - 0.01) * 2))
-
-				console.log(playerMargin)
-				w = w * (1 - (playerMargin * 2))
-			}
-		} else {
-			w = this.playerWidth
+	private setPlayerSize(width: number) {
+		if (this.player === undefined) {
+			console.log('player undefined, returning')
+			return
 		}
 
-		console.log('w after', w)
+		// below is ok for now
+		// the margin has to match the margin in styles.css
 
-		this.player?.setSize(w, this.playerHeight)
-		this.playerWidth = w
+		let playerMargin = 0
+		if (width < 451) {
+			playerMargin = 0
+			console.log('below or equal 451')
+		} else if (width <= 703) {
+			playerMargin = 0.1
+			console.log('below or equal 703')
+		} else if (width <= 1053) {
+			playerMargin = 0.2
+			console.log('below or equal 1053')
+		} else if (width <= 1403) {
+			playerMargin = 0.3
+			console.log('below or equal 1403')
+		} else if (width <= 2000) {
+			playerMargin = 0.35
+			console.log('below or equal 2000')
+		} else  {
+			playerMargin = 0.37
+			console.log('above 2000')
+		}
+
+		console.log('width before', width)
+
+		let w = width
+		let bodyMargin = 0.05
+		let offset = 3 //0.009
+
+		let playerContainerWidth = w * (1 - (bodyMargin * 2))
+
+		console.log(playerContainerWidth)
+
+		w = playerContainerWidth * (1 - (playerMargin * 2))
+
+		console.log('width after',w)
+
+		this.playerWidth = w + offset
+
+		let nineSixteenRatio = 0.5625
+		this.playerHeight = this.playerWidth * nineSixteenRatio
+
+		this.player.setSize(this.playerWidth, this.playerHeight)
+
+		let headerContainerElement = this.htmlService.get('headerContainer')
+		let headerBackgroundElement = this.htmlService.get('headerBackground')
+
+		// height has to match what is in styles.css and view calculation
+		// nav tag is calculated height 35px
+		// padding at top and add below player set to 22
+		let contHeight = 22 + 35 + this.playerHeight
+
+		headerContainerElement.value.nativeElement.style.height =  contHeight + 'px'
+		headerBackgroundElement.value.nativeElement.style.height =  contHeight + 'px'
 	}
 
 	onPlayerReady(player: YT.Player, volume: number) {
-    this.logService.log(LogType.Info, 'onPlayerReady');
+    this.logService.log(LogType.Info, 'onPlayerReady, width and heigh:', this.playerWidth, this.playerHeight);
 		this.player = player;
-		this.setPlayerSize()
-		// this.player.setSize(this.playerWidth, this.playerHeight)
+		this.setPlayerSize(this.playerWidth)
 		this.volume = volume
+
+		console.log(this.playWhenReady)
 
 		if (this.playWhenReady) {
 			this.play();
@@ -95,11 +123,12 @@ export class YoutubeService {
 		player.getIframe().onfullscreenchange = () => {
 			this.isFullScreen = !this.isFullScreen
 			console.log(this.isFullScreen)
-			if (this.isFullScreen) {
-				this.playerElement.nativeElement.classList.remove('hide')
-			} else {
-				this.playerElement.nativeElement.classList.add('hide')
-			}
+			console.log(this.playerElement)
+			// if (this.isFullScreen) {
+			// 	this.playerElement.nativeElement.classList.remove('hide')
+			// } else {
+			// 	this.playerElement.nativeElement.classList.add('hide')
+			// }
 		};
 
 		let contentWindow = this.player.getIframe().contentWindow
@@ -136,22 +165,26 @@ export class YoutubeService {
 	}
 
 	playFromStart(track: ITrack) {
+
+		// TODO: clean this up here
+		this.playWhenReady = true
 		if (this.player === undefined) {
 			this.playWhenReady = true
 		} else {
 			let currentIdInPlayer = this.getIdFromVideoUrl(this.player.getVideoUrl())
 			console.log('currentIdInPlayer', currentIdInPlayer)
 			if (track.youtubeId !== currentIdInPlayer) {
-			// 	// this.playWhenReady = true
+				// this.playWhenReady = true
 				console.log('*********** loading new youtube id ***************')
 				console.log(track.youtubeId)
 			// 	this.playWhenReady = false
 				this.player.loadVideoById(track.youtubeId)
 			// 	this.player.playVideo()
 			// 	this.instancePlayedListeners.forEach((listener) => listener())
-			} else {
-				this.play()
 			}
+			// else {
+			// 	this.play()
+			// }
 		}
 	}
 
