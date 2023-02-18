@@ -3,3 +3,8 @@ export const enum StreamSource {
 	Soundcloud = 'Soundcloud',
 	Youtube = 'Youtube'
 }
+
+export const enum VisualSource {
+	Local = 'Local',
+	Youtube = 'Youtube'
+}

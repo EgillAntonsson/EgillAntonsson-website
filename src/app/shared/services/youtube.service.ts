@@ -4,8 +4,8 @@ import { LogService } from "./log.service";
 import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";
 import { MessageType } from 'app/shared/services/message.service'
-import { ITrack } from "../data/track";
 import { HtmlElementService } from './htmlElement.service'
+import { YoutubeTrack } from "../data/track";
 
 @Injectable({
 	providedIn: 'root',
@@ -164,7 +164,7 @@ export class YoutubeService {
 		// this.i = this.i + 1
 	}
 
-	playFromStart(track: ITrack) {
+	playFromStart(track: YoutubeTrack) {
 
 		// TODO: clean this up here
 		this.playWhenReady = true

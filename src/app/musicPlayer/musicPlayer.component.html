@@ -1,6 +1,6 @@
 <div class="playerContainer">
 	<div #youtubePlayer class="youtubePlayer" *ngIf="selectedTrack.source === 'Youtube'">
-		<youtube-player videoId="{{selectedTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
+		<youtube-player videoId="EiiR4cwjNwY" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
 	</div>
 	<div class="myPlayer noSelect" *ngIf="selectedTrack.source !== 'Youtube'">
 		<span class="playIconContainer" (click)="onPlayPauseBtn()">

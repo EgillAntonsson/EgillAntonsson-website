@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LogType } from "shared/enums/logType";
-import { ITrack } from "../data/track";
+import { Track } from "../data/track";
 import { LogService } from "./log.service";
 
 @Injectable({
@@ -83,7 +83,7 @@ export class MusicStreamer {
 		// }
 	}
 
-	playFromStart(track: ITrack) {
+	playFromStart(track: Track) {
 		this.logService.log(LogType.Info, "musicStreamer playFromStart", track)
 		let url = track.soundcloudUrl;
 		this.load(url, true)

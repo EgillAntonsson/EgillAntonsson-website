@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { SoundManagerMock } from '../../../soundcommon/soundManager.mock'
 import { SoundManager } from 'soundcommon/soundManager'
 import { SoundManagerImp } from 'soundcommon/soundManager'
-import { ITrack, LayeredMusicTrack } from '../data/track'
+import { Track, LayeredMusicTrack, LocalTrack } from '../data/track'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 
 @Injectable({
@@ -18,7 +18,7 @@ export class SoundManagerService {
 		this._instance = new SoundManagerImp()
 	}
 
-	playFromStart(track: ITrack, playerUiGainsDisabled: BooleanEmitter) {
+	playFromStart(track: LocalTrack, playerUiGainsDisabled: BooleanEmitter) {
 		if (!this.instance.hasSound(track.soundDatas[0].key)) {
 			for (let i = 0; i < track.soundDatas.length; i++) {
 				this.instance.addSound(track.soundDatas[i])
@@ -36,7 +36,7 @@ export class SoundManagerService {
 		this.instance.resume()
 	}
 
-	stop(track: ITrack) {
+	stop(track: Track) {
 		this.instance.stopMusic()
 
 		if (track instanceof LayeredMusicTrack && track.layeredMusicController) {

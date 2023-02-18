@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core'
-import { SoundType } from 'soundcommon/enum/soundType'
 import { SoundData } from 'soundcommon/interface/soundData'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
-import { Artist, ITrack, LayeredMusicTrack, Track } from '../data/track'
-import { StreamSource } from '../enums/streamSource'
+import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack } from '../data/track'
 import { LogService } from './log.service'
 import { SoundManagerService } from './soundManager.service'
 
@@ -37,8 +35,8 @@ export class MyTracksService {
 		return this._flatTracks
 	}
 
-	private _tracksByRootUrl!: Map<string, ITrack>
-	getTrackByRootUrl(rootUrl: string): ITrack | undefined {
+	private _tracksByRootUrl!: Map<string, Track>
+	getTrackByRootUrl(rootUrl: string): Track | undefined {
 		return this._tracksByRootUrl.get(rootUrl)
 	}
 
@@ -79,6 +77,8 @@ export class MyTracksService {
 				this.lecube()
 			], about: this.aboutEgillAntonsson},
 			{name: 'Kanez Kane', tracks: [
+				this.winterQueen(),
+				this.komaKoma(),
 				this.strawberryCityLights()
 			], about: this.aboutKanezKane},
 			{name: 'KUAI', tracks: [
@@ -198,7 +198,7 @@ export class MyTracksService {
 	}
 
 	private flattenTracks() {
-		this._tracksByRootUrl = new Map<string, ITrack>()
+		this._tracksByRootUrl = new Map<string, Track>()
 		this._flatTracks = []
 		let index = 0
 		for (let i = 0; i < this._byTracks.length; i++) {
@@ -215,132 +215,127 @@ export class MyTracksService {
 		}
 	}
 
-	private simpleTrack(nameUrl: string, namePublic: string, soundPath: string, artworkPath: string, soundCloudUrl: string, spotifyUrl: string, buyUrl: string, about: string, youtubeId = '', source = StreamSource.Soundcloud, fallbackSource = StreamSource.Local) {
-		const track = new Track(
-			namePublic,
-			[SoundData.music(nameUrl, soundPath)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			nameUrl,
-			artworkPath,
-			about,
-			soundCloudUrl,
-			spotifyUrl,
-			buyUrl,
-			youtubeId,
-			source,
-			fallbackSource
-		)
-		return track
+	private winterQueen() {
+		const rootUrl = 'winter-queen'
+		const name = 'Winter Queen'
+		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
+		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+
+		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl)
+	}
+
+	private komaKoma() {
+		const rootUrl = 'koma-koma'
+		const name = 'Koma Koma'
+		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
+		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
+		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+
+		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private strawberryCityLights() {
-		const nameUrl = 'strawberry-city-lights'
-		const namePublic = 'Strawberry City Lights'
-		const soundCloudUrl = ''
+		const rootUrl = 'strawberry-city-lights'
+		const name = 'Strawberry City Lights'
+		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
-		const youtubeId = 'DTmPz-vSTFI'
+		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
 		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirKanez}${nameUrl}.mp3`, `${this.pathToDirKanez}${nameUrl}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about, youtubeId, StreamSource.Youtube)
+
+		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private pesi2002() {
-		const nameUrl = 'pesi-year-2002'
-		const namePublic = 'Pési (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'pesi-year-2002'
+		const name = 'Pési (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6viU3JhxNEKkY2paBuOEaP'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private mouse2002() {
-		const nameUrl = 'mouse-year-2002'
-		const namePublic = 'Mouse (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'mouse-year-2002'
+		const name = 'Mouse (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1f2eGiZiCMOMZZbKc52IIH'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002 + `<br>
 I did my take on the lyrics, thus differing to some extent.
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private rubber2002() {
-		const nameUrl = 'rubber-year-2002'
-		const namePublic = 'Rubber (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'rubber-year-2002'
+		const name = 'Rubber (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/23kZ3ftMMyigpXU49Rq35Q'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private solos2002() {
-		const nameUrl = 'solos-year-2002'
-		const namePublic = 'Solos (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'solos-year-2002'
+		const name = 'Solos (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5J8kU1mdqcqKZ0Wb3sxrqj'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 		private takeCare2002() {
-			const nameUrl = 'take-care-year-2002'
-			const namePublic = 'Take Care (year 2002)'
-			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-2002?in=egill-antonsson/sets/braedraminning'
+			const rootUrl = 'take-care-year-2002'
+			const name = 'Take Care (year 2002)'
+			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-2002?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/6xiCd9HFh0SaJEngXtgldj'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about = this.aboutBraedraminningTake2002
-			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 		}
 
 		private beLikeYou2002() {
-			const nameUrl = 'be-like-you-year-2002'
-			const namePublic = 'Be Like You (year 2002)'
-			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-2002?in=egill-antonsson/sets/braedraminning'
+			const rootUrl = 'be-like-you-year-2002'
+			const name = 'Be Like You (year 2002)'
+			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-2002?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/4zcgAvMsU46YVTKGmS8vJA'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about = this.aboutBraedraminningTake2002
-			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 		}
 
 	private story2002() {
-		const nameUrl = 'story-year-2002'
-		const namePublic = 'Story (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'story-year-2002'
+		const name = 'Story (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0zcnfEWqzmaCfp7hsbcA9Z'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002 + `<br>
 I 'upped the drama' in the lyrics by knocking the headmaster OUT, instead of down.<br>
 I don't remember if it was intentional or not.
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private frumlag2002() {
-		const nameUrl = 'frumlag-year-2002'
-		const namePublic = 'Frumlag (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'frumlag-year-2002'
+		const name = 'Frumlag (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5fFuGjJMqLS0iPMmiZ3SBc'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private world2002() {
-		const nameUrl = 'world-year-2002'
-		const namePublic = 'World (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'world-year-2002'
+		const name = 'World (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5EFT7M2r9kiJqPn2EtXNoz'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002  + `<br>
@@ -348,26 +343,26 @@ I think I 'upped the drama' in the lyrics with 'The world is nothing except hate
 as it could be that Egill sung 'The world is nothing I say "Hey"'.<br>
 I also added lyrics where missing, etc.<br>
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private withoutThem2002() {
-		const nameUrl = 'without-them-year-2002'
-		const namePublic = 'Without them (year 2002)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-2002?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'without-them-year-2002'
+		const name = 'Without them (year 2002)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5cfstB4Y5eIFI79e4KBAk8'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002  + `<br>
 I kept with the 'no no no' like in the original (probably the lyrics were not ready)<br>
 and in fact went all in on 'no no no' and other sounds :)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private myDearOldBrothers() {
-		const nameUrl = 'my-dear-old-brothers'
-		const namePublic = 'My Dear Old Brothers'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/my-dear-old-brothers?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'my-dear-old-brothers'
+		const name = 'My Dear Old Brothers'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/my-dear-old-brothers?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6mnJyUYVPeoEx8oKUBu4Zw'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = `I saw a chord progression with the title 'Lady Lobo' written in a note book that belonged to the brothers.<br>
@@ -375,13 +370,13 @@ I thought this might be an original song and thus wanted to bring it to life for
 I added details and shaped the song (making some changes)<br>
 and wrote the lyrics (changing the title with it).
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private pesi1974() {
-		const nameUrl = 'pesi-year-1974'
-		const namePublic = 'Pési (year 1974)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-1974?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'pesi-year-1974'
+		const name = 'Pési (year 1974)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-1974?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5wmAzE3Mc0uWjhjxRf95OQ'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = `Jónas wrote this song for Egill to play on the wurlitzer piano.<br>
@@ -390,13 +385,13 @@ Egill - wurlitzer<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private mouse1975() {
-		const nameUrl = 'mouse-year-1975'
-		const namePublic = 'Mouse (year 1975)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-1975?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'mouse-year-1975'
+		const name = 'Mouse (year 1975)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3qtGfywTgrjxBMQcCdN1xo'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
@@ -404,13 +399,13 @@ Egill - wurlitzer and vocals<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private rubber1975() {
-		const nameUrl = 'rubber-year-1975'
-		const namePublic = 'Rubber (year 1975)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-1975?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'rubber-year-1975'
+		const name = 'Rubber (year 1975)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/700fVJsCrH4BBpsMW7B60t'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
@@ -418,13 +413,13 @@ Egill - wurlitzer and vocals<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private solos1975() {
-		const nameUrl = 'solos-year-1975'
-		const namePublic = 'Solos (year 1975)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-1975?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'solos-year-1975'
+		const name = 'Solos (year 1975)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3X7wZlcTxFwkLs7rvEkkWZ'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
@@ -432,104 +427,103 @@ Egill - organ<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 		private takeCare1976() {
-			const nameUrl = 'take-care-year-1976'
-			const namePublic = 'Take Care (year 1976)'
-			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-1976?in=egill-antonsson/sets/braedraminning'
+			const rootUrl = 'take-care-year-1976'
+			const name = 'Take Care (year 1976)'
+			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/2V0X8p2Tefcg5MTrnuuplo'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about =  `Egill playing by himself.<br>
 I think this is shortly after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 		}
 
 		private beLikeYou1976() {
-			const nameUrl = 'be-like-you-year-1976'
-			const namePublic = 'Be Like You (year 1976)'
-			const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-1976?in=egill-antonsson/sets/braedraminning'
+			const rootUrl = 'be-like-you-year-1976'
+			const name = 'Be Like You (year 1976)'
+			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/23YxXCBVwziMTdJnIGqLZx'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about =  `Egill playing by himself.<br>
 I think this is not long after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-			return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 		}
 
 	private story1976() {
-		const nameUrl = 'story-year-1976'
-		const namePublic = 'Story (year 1976)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-1976?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'story-year-1976'
+		const name = 'Story (year 1976)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-1976?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/47Tf6lPTTaibh0LFGi6ULh'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Egill playing by himself.<br>
 I think this is not long after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private frumlag1977() {
-		const nameUrl = 'frumlag-year-1977'
-		const namePublic = 'Frumlag (year 1977)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-1977?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'frumlag-year-1977'
+		const name = 'Frumlag (year 1977)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1TV6QGFbW0mdtO8GqXCfay'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
 Egill - organ<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private world1977() {
-		const nameUrl = 'world-year-1977'
-		const namePublic = 'World (year 1977)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-1977?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'world-year-1977'
+		const name = 'World (year 1977)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6dI0WypRxmbUK7Rw9TaHpT'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
 Egill - vocals (and maybe guitar)<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private withoutThem1977() {
-		const nameUrl = 'without-them-year-1977'
-		const namePublic = 'Without them (year 1977)'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-1977?in=egill-antonsson/sets/braedraminning'
+		const rootUrl = 'without-them-year-1977'
+		const name = 'Without them (year 1977)'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0rcIAwxbRtRhYbKX0bq142'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
 Egill - vocals (and maybe guitar)<br>
 (I will list the band mates later when I have my notes)
 `
-		return this.simpleTrack(nameUrl, namePublic, `${this.pathToDirBraedraminning}${nameUrl}.ogg`, this.braedraminningArtworkPath, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private votThemeSong() {
-		const nameUrl = 'vikings-of-thule-theme-song'
-		const namePublic = 'Vikings of Thule Theme Song'
-		const filePath =  `${this.pathToDirEgillAntonsson}${nameUrl}`
-		const youtubeId = 'EiiR4cwjNwY'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
+		const rootUrl = 'vikings-of-thule-theme-song'
+		const name = 'Vikings of Thule Theme Song'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
 		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jonas B. Antonsson, composed by Jonas and me, performed by me and mixed and produced by Julius Jonasson.`
-		return this.simpleTrack(nameUrl, namePublic, `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about, youtubeId, StreamSource.Youtube, StreamSource.Soundcloud)
+
+		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, '', about, soundcloudUrl, spotifyUrl, buyUrl)
 	}
 
 	private harmoniesOfShadeAndLight() {
-		const nameUrl = 'harmonies-of-shade-and-light'
-		const namePublic = 'Harmonies of Shade and Light'
-		const filePath =  `${this.pathToDirEgillAntonsson}${nameUrl}`
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
+		const rootUrl = 'harmonies-of-shade-and-light'
+		const name = 'Harmonies of Shade and Light'
+		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
 		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
@@ -539,14 +533,14 @@ In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<b
 helped me structure the song and write the lyrics,<br>
 and he recorded my vocals in his studio in Reykjavik.<br>
 In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
-		return this.simpleTrack(nameUrl, namePublic, `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private weWillMeetAgain() {
-		const nameUrl = 'we-will-meet-again'
-		const namePublic = 'We Will Meet Again'
-		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
+		const rootUrl = 'we-will-meet-again'
+		const name = 'We Will Meet Again'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
 		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
 		const about = `In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<br> asked me to collaborate with him to make a pop song.<br>
@@ -555,370 +549,171 @@ So our goal now was to focus on the 'formula of what makes a good (modern) pop s
 and also speed up our workflow to complete the song in couple of days (from start to finish).<br>
 We created the song and lyrics together, I sang in the lyrics and Sindri mixed, processed and polished the whole song.<br>
 We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.`
-		return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private magmaMerryGoRound() {
-		const nameUrl = 'magma-merrygoround'
-		const namePublic = 'Magma merryGoRound'
-		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
+		const rootUrl = 'magma-merrygoround'
+		const name = 'Magma merryGoRound'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
 		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
 		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym Vulkanoman.<br>
 My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
 as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>`
-	return this.simpleTrack(nameUrl, namePublic,  `${filePath}.ogg`, `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private justInTime() {
-		const nameUrl = 'just-in-time'
-		const namePublic = 'Just in Time'
-		const soundCloudUrl = ''
-		const spotifyUrl = ''
-		const buyUrl = ''
-		const about = ``
-
-		const track = new Track(namePublic,
-			[{
-				url: `${this.pathRoot}/Just_in_Time.ogg`,
-				key: 'justInTime',
-				soundType: SoundType.Music,
-				maxGain: 1,
-				loop: false,
-				maxNrPlayingAtOnce: 1
-			}],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					let nrOfLoops = 2
-					do {
-						const {instance, endedPromise} = await sound.play()
-						this.instancePlayedListeners.forEach((listener) => listener(instance))
-						await endedPromise
-						this.instanceEndedListeners.forEach((listener) => listener(nrOfLoops === 1))
-						nrOfLoops--
-					} while (nrOfLoops > 0)
-				}
-			},
-			nameUrl, '', about, soundCloudUrl, spotifyUrl, buyUrl, '', StreamSource.Local
-		)
-		return track
+		const rootUrl = 'just-in-time'
+		const name = 'Just in Time'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private icelandSocksIntro() {
-		const nameUrl = 'iceland-socks-intro'
-		const namePublic = 'Iceland Socks: Intro'
-		const filePath = `${this.pathToDirEgillAntonsson}${nameUrl}`
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
-		const spotifyUrl = ''
-		const buyUrl = ''
+		const rootUrl = 'iceland-socks-intro'
+		const name = 'Iceland Socks: Intro'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
 		const about = `Sindri Bergman Thorarinsson and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
-	return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private fortidin() {
-		const track = new Track(
-			'Fortíðin',
-			[SoundData.music('fortidin', `${this.pathRoot}/Fortidin.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootUrl = 'fortidin'
+		const name = 'Fortíðin'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private toddlerTune() {
-		const track = new Track(
-			'Toddler Tune',
-			[SoundData.music('toddlerTune', `${this.pathRoot}/Toddler_Tune.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootUrl = 'toddlers-tune'
+		const name = 'Toddlers Tune'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private oddTimesInSpace() {
-		const track = new Track(
-			'Odd Times in Space',
-			[SoundData.music('oddTimesInSpace', `${this.pathRoot}/Odd_Times_in_Space.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootUrl = 'odd-times-in-space'
+		const name = 'Odd Times in Space'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private lecube() {
-		const track = new Track(
-			'Lecube',
-			[SoundData.music('lecube', `${this.pathRoot}/Lecube.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			})
-		return track
+		const rootUrl = 'lecube'
+		const name = 'Lecube'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private introduction() {
-		const nameUrl = 'introduction'
-		const namePublic = 'Introduction'
-		const filePath = `${this.pathToDirTribeOfOranges}${nameUrl}`
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
-		const spotifyUrl = ''
-		const buyUrl = ''
+		const rootUrl = 'introduction'
+		const name = 'Introduction'
+		const artworkPath = `${this.pathToDirTribeOfOranges}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
 		const about = `Sindri Bergmann Thorarinsson and me made this for a theatre play,<br>
 and it was played at the start of it, and thus it's named Introduction.<br>
 For the artwork I chose the 'the indian head', which is a valuable family artifact.`
-		return this.simpleTrack(nameUrl, namePublic, '', `${filePath}.jpg`, soundCloudUrl, spotifyUrl, buyUrl, about)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private routine() {
-		const nameUrl = 'routine'
-		const namePublic = 'Routine'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
-		const spotifyUrl = ''
-		const buyUrl = ''
-		const about = ''
-		return this.simpleTrack(nameUrl, namePublic, '', '', soundCloudUrl, spotifyUrl, buyUrl, about)
+		const rootUrl = 'routine'
+		const name = 'Routine'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private hhiCommercial() {
-		const nameUrl = 'song-for-hhi-commercial'
-		const namePublic = 'Song for HHI commercial'
-		const soundCloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
-		const spotifyUrl = ''
-		const buyUrl = ''
-		const about = ''
-		return this.simpleTrack(nameUrl, namePublic, '', '', soundCloudUrl, spotifyUrl, buyUrl, about)
-	}
-
-	private pirringur() {
-		const rootName = 'Pirringur'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai,
-			this.aboutPirringur
-			)
-		return track
+		const rootUrl = 'song-for-hhi-commercial'
+		const name = 'Song for HHI commercial'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
 	}
 
 	private get artworkKuai() {
 		return 	`${this.pathToDirKuai}KUAI.jpg`
 	}
 
-	private get aboutPirringur() {
-		return ``
+	private pirringur() {
+		const rootUrl = 'pirringur'
+		const name = 'Pirringur'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private apollo() {
-		const rootName = 'Apollo'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'apollo'
+		const name = 'Apollo'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/apollo'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private andsetinn() {
-		const rootName = 'Andsetinn'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'andsetinn'
+		const name = 'Andsetinn'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andsetinn'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private hamskipti() {
-		const rootName = 'Hamskipti'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'hamskipti'
+		const name = 'Hamskipti'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/hamskipti'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private rover() {
-		const rootName = 'Rover'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'rover'
+		const name = 'Rover'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rover'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private andefni() {
-		const rootName = 'Andefni'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'andefni'
+		const name = 'Andefni'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private agndofa() {
-		const rootName = 'Agndofa'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'agndofa'
+		const name = 'Agndofa'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/agndofa'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private ofurte() {
-		const rootName = 'Ofurte'
-		const track = new Track(rootName,
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'ofurte'
+		const name = 'Ofurte'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/ofurte'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private lesblindaI() {
-		const rootName = 'Lesblinda-I'
-		const track = new Track(rootName.split('-').join(' '),
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'lesblinda-i'
+		const name = 'lesblinda I'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-i'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private lesblindaII() {
-		const rootName = 'Lesblinda-II'
-		const track = new Track(rootName.split('-').join(' '),
-			[SoundData.music(rootName, `${this.pathToDirKuai}${rootName}.ogg`)],
-			() => {
-				return async () => {
-					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const {instance, endedPromise} = await sound.play()
-					this.instancePlayedListeners.forEach((listener) => listener(instance))
-					await endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
-				}
-			},
-			rootName.toLowerCase(),
-			this.artworkKuai
-			)
-		return track
+		const rootUrl = 'lesblinda-ii'
+		const name = 'lesblinda II'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-ii'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
 	}
 
 	private godsruleLayered() {
-		// const nameUrl = 'godsrule-village'
-		const namePublic = 'Godsrule: Village'
+		const rootUrl = 'godsrule-village'
+		const name = 'Godsrule: Village'
 
 		const track = new LayeredMusicTrack(
-			namePublic,
+			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
 			[
 				SoundData.musicLoop('godsruleEnvironmentLayer', `${this.pathGame}/loton_MusicVillageEnvironmentLayer.ogg`, 0.075),
 				SoundData.musicLoop('godsruleStringLayer', `${this.pathGame}/loton_MusicVillageStringLayer.ogg`, 0.55),
@@ -942,14 +737,17 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					}
 					track.layeredMusicController.start(instances)
 				}
-			},
-			new LayeredMusicController(this.instanceEndedListeners, this.logService.log))
+			}, rootUrl, name
+		)
 		return track
 	}
 
 	private votLayered() {
+		const rootUrl = 'vikings-of-thule-map'
+		const name = 'Vikings of Thule: Map'
+
 		const track = new LayeredMusicTrack(
-			'Vikings of Thule: Map',
+			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
 			[
 				SoundData.musicLoop('votWindLayer', `${this.pathGame}/VOT_InterfaceMusic_0.mp3`),
 				SoundData.musicLoop('votChoirLayer', `${this.pathGame}/VOT_InterfaceMusic_3.ogg`),
@@ -973,14 +771,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					}
 					track.layeredMusicController.start(instances)
 				}
-			},
-			new LayeredMusicController(this.instanceEndedListeners, this.logService.log))
+			}, rootUrl, name)
 		return track
 	}
 
 	private cakePopParty() {
-		const track = new Track(
-			'Cake Pop Party',
+		const rootUrl = 'cake-pop-party'
+		const name = 'Cake Pop Party'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('cppMusicIntro', `${this.pathGame}/CPP_workMusicIntroScreen.ogg`, 0.7),
 				SoundData.music('cppMusicScaleBeat', `${this.pathGame}/CPP_musicTransitionBeatFade.ogg`, 0.6),
@@ -1018,13 +817,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private symbol6() {
-		const track = new Track(
-			'Symbol 6',
+		const rootUrl = 'symbol-6'
+		const name = 'Symbol 6'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('ssixMenu', `${this.pathGame}/SSIX_menu.ogg`),
 				SoundData.music('ssixGame', `${this.pathGame}/SSIX_game.ogg`),
@@ -1057,13 +858,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private softFreakFiesta() {
-		const track = new Track(
-			'Soft Freak Fiesta',
+		const rootUrl = 'soft-freak-fiesta'
+		const name = 'Soft Freak Fiesta'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('sffIntroMenuMusic', `${this.pathGame}/SFF_IntroMenuMusic.ogg`, 0.9),
 				SoundData.music('sffMenuMusic', `${this.pathGame}/SFF_MenuMusic.ogg`, 0.9),
@@ -1118,13 +921,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						--nrOfLoop
 					} while (nrOfLoop > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private habitarium() {
-		const track = new Track(
-			'Habitarium',
+		const rootUrl = 'habitarium'
+		const name = 'Habitarium'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('habitariumMainTheme', `${this.pathGame}/Habitarium_main_theme.ogg`, 0.9),
 				SoundData.music('habitariumInGameLoop', `${this.pathGame}/Habitarium_InGameLoop.ogg`, 0.8)
@@ -1150,13 +955,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private tinyPlaces() {
-		const track = new Track(
-			'Tiny Places',
+		const rootUrl = 'tiny-places'
+		const name = 'Tiny Places'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('tpMainThemeIntro', `${this.pathGame}/TP_mainThemeIntro.ogg`, 0.8),
 				SoundData.music('tpMainThemeBridge', `${this.pathGame}/TP_mainThemeBridge.ogg`, 0.8),
@@ -1238,13 +1045,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private jol2008() {
-		const track = new Track(
-			'Christmas Game 2008',
+		const rootUrl = 'christmas-game-2008'
+		const name = 'Christmas Game 2008'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('jol2008mainMusic', `${this.pathGame}/jolagogo2008_main_music.ogg`),
 				SoundData.music('jol2008gameOver', `${this.pathGame}/jolagogo2008_game_over.ogg`)
@@ -1270,13 +1079,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private jol2009() {
-		const track = new Track(
-			'Christmas Game 2009',
+		const rootUrl = 'christmas-game-2009'
+		const name = 'Christmas Game 2009'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('jol2009bridge', `${this.pathGame}/jolagogo2009_Bridge.ogg`),
 				SoundData.music('jol2009chorus', `${this.pathGame}/jolagogo2009_Chorus.ogg`),
@@ -1308,12 +1119,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private whosYourFriend() {
-		const track = new Track('Who\'s Your Friend',
+		const rootUrl = 'whos-your-friend'
+		const name = 'Who\'s Your Friend'
+
+		const track = new LocalTrack(
 			[SoundData.music('wyf',  `${this.pathGame}/WYF_ThemeSong.ogg`)],
 			() => {
 				return async () => {
@@ -1323,13 +1137,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private knowYourFriend() {
-		const track = new Track(
-			'Know Your Friend',
+		const rootUrl = 'know-your-friend'
+		const name = 'Know Your Friend'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('kyfIntroMusic', `${this.pathGame}/KYF_IntroMusic_WithAudience.ogg`),
 				SoundData.music('kyf90secMusic', `${this.pathGame}/KYF_90secondsMusic.ogg`)
@@ -1360,13 +1176,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private stackem() {
-		const track = new Track(
-			'Stack\'em',
+		const rootUrl = 'stack-em'
+		const name = 'Stack\'em'
+
+		const track = new LocalTrack(
 			[SoundData.music('stackem', `${this.pathGame}/Stackem_Tune_loop.ogg`, 0.9)],
 			() => {
 				return async () => {
@@ -1381,13 +1199,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private glowbulleville() {
-		const track = new Track(
-			'Glowbulleville',
+		const rootUrl = 'glowbulleville'
+		const name = 'Glowbulleville'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('glowMainMusic', `${this.pathGame}/GLOB_main_music.mp3`, 0.8),
 				SoundData.music('glowVillageMusic', `${this.pathGame}/GLOB_village_music.mp3`),
@@ -1430,13 +1250,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private godsrule() {
-		const track = new Track(
-			'Godsrule: Battle',
+		const rootUrl = 'godsrule-battle'
+		const name = 'Godsrule: Battle'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('godsruleBattle', `${this.pathGame}/LOTON_BattleBaseLayer.ogg`),
 				SoundData.music('godsruleDefeat', `${this.pathGame}/LOTON_CombatDefeatMusic.ogg`),
@@ -1479,13 +1301,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await playReturn.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private vot() {
-		const track = new Track(
-			'Vikings of Thule: Feud',
+		const rootUrl = 'vikings-of-thule-fued'
+		const name = 'Vikings of Thule: Feud'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('votFeudDrums', `${this.pathGame}/VOT_FeudMusic_drums.ogg`),
 				SoundData.music('votFeud', `${this.pathGame}/VOT_FeudMusic.ogg`),
@@ -1528,13 +1352,15 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 						asyncTimeout()
 					}, ((played.instance.sourceNode.buffer?.duration || 10) * 1000) - 799)
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 
 	private crisisGame() {
-		const track = new Track(
-			'The Crisis Game',
+		const rootUrl = 'the-crisis-game'
+		const name = 'The Crisis Game'
+
+		const track = new LocalTrack(
 			[
 				SoundData.music('crisisBegin', `${this.pathGame}/Krepp_Byrjun.ogg`, 0.9),
 				SoundData.music('crisisEnd', `${this.pathGame}/Krepp_Endir.ogg`, 0.9),
@@ -1560,7 +1386,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener())
 				}
-			})
+			}, rootUrl, name)
 		return track
 	}
 

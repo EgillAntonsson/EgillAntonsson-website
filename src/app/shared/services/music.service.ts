@@ -1,6 +1,6 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
-import { ITrack, Track, Artist} from 'app/shared/data/track'
+import { Track, Artist, LocalTrack, YoutubeTrack} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
@@ -22,14 +22,14 @@ import { HtmlElementService } from './htmlElement.service'
 export class MusicService implements OnDestroy {
 	readonly label = 'MusicService'
 	readonly urlPathRoot = 'music/'
-	private _selectedTrack: ITrack
+	private _selectedTrack: Track
 	get selectedTrack() {
 		return this._selectedTrack
 	}
 
 	private playerUiGainsDisabled!: BooleanEmitter
 
-	nextSelectedTrack: ITrack
+	nextSelectedTrack: Track
 
 	private _byTracks!: Artist[]
 	get byTracks() {
@@ -165,7 +165,7 @@ export class MusicService implements OnDestroy {
 		this.playerUiGainsDisabled = gainsDisabled
 	}
 
-	private getStreamUrl(track: ITrack) {
+	private getStreamUrl(track: Track) {
 		return track.soundcloudUrl;
 	}
 
@@ -200,7 +200,7 @@ export class MusicService implements OnDestroy {
 		this.playFromStart()
 	}
 
-	onUiTrackSelected(track: ITrack) {
+	onUiTrackSelected(track: Track) {
 		this.nextSelectedTrack = track
 		this.playFromStart()
 	}
@@ -223,7 +223,7 @@ export class MusicService implements OnDestroy {
 
 	private playViaSoundManager() {
 		this.soundManager.play()
-		// as my tracks fire stared event via play(), then for the case of pause and play before that we set it state to play
+		// As my tracks send 'started' event via play(), then for the case of 'pause and play' before that we set it state to Playing
 		this._playState = PlayState.Playing
 	}
 
@@ -238,13 +238,13 @@ export class MusicService implements OnDestroy {
 
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
-				this.youtubeService.playFromStart(this._selectedTrack)
+				this.youtubeService.playFromStart(this._selectedTrack as YoutubeTrack)
 				break;
 			case StreamSource.Soundcloud:
 				this.musicStreamer.playFromStart(this._selectedTrack)
 				break;
 			default:
-				this.soundManager.playFromStart(this._selectedTrack, this.playerUiGainsDisabled)
+				this.soundManager.playFromStart(this._selectedTrack as LocalTrack, this.playerUiGainsDisabled)
 				break;
 		}
 

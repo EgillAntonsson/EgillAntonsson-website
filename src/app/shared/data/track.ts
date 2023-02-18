@@ -2,35 +2,32 @@ import { SoundData } from '../../../soundcommon/interface/soundData'
 import { LayeredMusicController } from '../../../soundcommon/layeredMusicController'
 import { StreamSource } from '../enums/streamSource'
 
-export interface ITrack {
-	readonly name: string
-	readonly soundDatas: SoundData[]
-	readonly play: () => () => Promise<void>
-	readonly artworkPath: string
-	readonly about: string
-	readonly rootUrl: string
-	readonly soundcloudUrl: string
-	readonly spotifyUrl: string
-	readonly buyUrl: string
-	index: number
-	artistName: string
-	artistAbout: string
-	youtubeId: string,
-	source: StreamSource
-	fallbackSource: StreamSource
-}
+// export interface ITrack {
+// 	readonly name: string
+// 	readonly soundDatas: SoundData[]
+// 	readonly play: () => () => Promise<void>
+// 	readonly artworkPath: string
+// 	readonly about: string
+// 	readonly rootUrl: string
+// 	readonly soundcloudUrl: string
+// 	readonly spotifyUrl: string
+// 	readonly buyUrl: string
+// 	index: number
+// 	artistName: string
+// 	artistAbout: string
+// 	youtubeId: string,
+// 	source: StreamSource
+// 	fallbackSource: StreamSource
+// }
 
-export class Track implements ITrack {
+export abstract class Track { //implements ITrack {
 	readonly name: string
-	readonly soundDatas: SoundData[]
-	readonly play: () => () => Promise<void>
 	readonly artworkPath: string
 	readonly about: string
 	readonly rootUrl: string
 	readonly soundcloudUrl: string
 	readonly spotifyUrl: string
 	readonly buyUrl: string
-	readonly youtubeId: string
 	readonly source!: StreamSource
 	readonly fallbackSource!: StreamSource
 	index!: number
@@ -41,11 +38,9 @@ export class Track implements ITrack {
 	static readonly dir = '../../assets/tracks/'
 	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
 
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string = '', artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '', youtubeId: string = '', source: StreamSource = StreamSource.Local, secondarySource: StreamSource = StreamSource.Local) {
-
+	constructor(source: StreamSource, rootUrl: string, name: string, artworkPath: string, about: string, soundcloudUrl: string, spotifyUrl: string, buyUrl: string) {
+		this.source = source
 		this.name = name
-		this.soundDatas = soundDatas
-		this.play = play
 		this.artworkPath = artworkPath
 		if (artworkPath === '') {
 			this.artworkPath = Track.dir + this.defaultArtworkFilename
@@ -55,17 +50,40 @@ export class Track implements ITrack {
 		this.soundcloudUrl = soundcloudUrl
 		this.spotifyUrl = spotifyUrl
 		this.buyUrl = buyUrl
-		this.youtubeId = youtubeId
-		this.source = source
-		this.fallbackSource = secondarySource
 	}
 }
 
-export class LayeredMusicTrack extends Track {
+export class LocalTrack extends Track {
 
+	readonly soundDatas: SoundData[]
+	readonly play: () => () => Promise<void>
+	constructor(soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string, name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
+		super(StreamSource.Local, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+		this.soundDatas = soundDatas
+		this.play = play
+	}
+}
+
+export class YoutubeTrack extends Track {
+	readonly youtubeId: string
+	readonly displayOnYoutube: boolean
+	constructor(youtubeId: string, displayOnYoutube: boolean, rootUrl: string = '', name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
+		super(StreamSource.Youtube, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+		this.youtubeId = youtubeId
+		this.displayOnYoutube = displayOnYoutube
+	}
+}
+
+export class SoundcloudTrack extends Track {
+	constructor(soundcloudUrl: string, rootUrl: string, name: string, artworkPath: string = '', about: string = '', spotifyUrl: string = '', buyUrl: string = '') {
+		super(StreamSource.Soundcloud, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+	}
+}
+
+export class LayeredMusicTrack extends LocalTrack {
 	readonly layeredMusicController: LayeredMusicController
-	constructor(name: string, soundDatas: SoundData[], play: () => () => Promise<void>, layeredMusicController: LayeredMusicController) {
-		super(name, soundDatas, play)
+	constructor(layeredMusicController: LayeredMusicController, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string, name: string) {
+		super(soundDatas, play, rootUrl, name)
 		this.layeredMusicController = layeredMusicController
 	}
 }
