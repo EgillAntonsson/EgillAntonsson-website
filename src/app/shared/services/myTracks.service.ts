@@ -522,7 +522,7 @@ Egill - vocals (and maybe guitar)<br>
 	private harmoniesOfShadeAndLight() {
 		const rootUrl = 'harmonies-of-shade-and-light'
 		const name = 'Harmonies of Shade and Light'
-		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}`
+		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
@@ -1360,31 +1360,27 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const rootUrl = 'the-crisis-game'
 		const name = 'The Crisis Game'
 
+		// INFO: keeping this track short for now for testing purposes
 		const track = new LocalTrack(
 			[
-				SoundData.music('crisisBegin', `${this.pathGame}/Krepp_Byrjun.ogg`, 0.9),
-				SoundData.music('crisisEnd', `${this.pathGame}/Krepp_Endir.ogg`, 0.9),
+				// SoundData.music('crisisBegin', `${this.pathGame}/Krepp_Byrjun.ogg`, 0.9),
+				SoundData.music('crisisEnd', `${this.pathGame}/Krepp_Endir.ogg`, 0.9)
 			],
 			() => {
 				return async () => {
 					const begin = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					const end = this.soundManager.instance.getSound(track.soundDatas[1].key)
+					// const end = this.soundManager.instance.getSound(track.soundDatas[1].key)
 
 					let played: Played
 					played = await begin.play()
 					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
 					await played.endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener())
+					this.instanceEndedListeners.forEach((listener) => listener(true))
 
-					played = await begin.play()
-					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
-					await played.endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener())
-
-					played = await end.play()
-					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
-					await played.endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener())
+					// played = await end.play()
+					// this.instancePlayedListeners.forEach((listener) => listener(played.instance))
+					// await played.endedPromise
+					// this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
 			}, rootUrl, name)
 		return track

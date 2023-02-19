@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { LayeredMusicTrack, Track } from '../shared/data/track'
+import { LayeredMusicTrack, Track, YoutubeTrack } from '../shared/data/track'
 import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
 import { LogType } from '../../shared/enums/logType'
@@ -64,6 +64,10 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 		return this.musicService.selectedTrack
 	}
 
+	get selectedTrackAsYoutubeTrack() {
+		return this.musicService.selectedTrack as YoutubeTrack
+	}
+
 	constructor(private musicService: MusicService, private logService: LogService, private route: ActivatedRoute, private location: Location) {}
 
 	ngOnInit(): void {
@@ -108,11 +112,7 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 			this.logService.log(LogType.Info, 'MusicPage onTrackClick: is loading, returning without processing')
 			return
 		}
-
 		this.musicService.onUiTrackSelected(track)
-
-		// this.musicService.nextSelectedTrack = track
-		// this.messageService.sendMessage({type: MessageType.Play})
 	}
 
 	onByClick(byIndex: number) {

@@ -74,13 +74,7 @@ export class MusicStreamer {
 
 	play() {
 		this.logService.log(LogType.Info, "musicStreamer play")
-		// let url = track.soundcloudUrl;
-		// if (url === this.loadedUrl) {
-			this.playViaWidget()
-		// }
-		// else {
-			// this.load(url, true)
-		// }
+		this.playViaWidget()
 	}
 
 	playFromStart(track: Track) {

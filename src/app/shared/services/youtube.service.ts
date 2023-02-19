@@ -40,14 +40,10 @@ export class YoutubeService {
 
 	onWindowResize(width: number, _height: number) {
 		this.setPlayerSize(width)
-
-		// this.player?.setSize(width, this.playerHeight)
-		// this.playerWidth = width
 	}
 
 	private setPlayerSize(width: number) {
 		if (this.player === undefined) {
-			console.log('player undefined, returning')
 			return
 		}
 
@@ -75,7 +71,7 @@ export class YoutubeService {
 			console.log('above 2000')
 		}
 
-		console.log('width before', width)
+		this.logService.log(LogType.Info, 'YoutubeService:setPlayerSize: width before', width);
 
 		let w = width
 		let bodyMargin = 0.05
@@ -114,21 +110,14 @@ export class YoutubeService {
 		this.setPlayerSize(this.playerWidth)
 		this.volume = volume
 
-		console.log(this.playWhenReady)
-
 		if (this.playWhenReady) {
 			this.play();
 		}
 
 		player.getIframe().onfullscreenchange = () => {
 			this.isFullScreen = !this.isFullScreen
-			console.log(this.isFullScreen)
-			console.log(this.playerElement)
-			// if (this.isFullScreen) {
-			// 	this.playerElement.nativeElement.classList.remove('hide')
-			// } else {
-			// 	this.playerElement.nativeElement.classList.add('hide')
-			// }
+			this.logService.log(LogType.Info, 'isFullScreen', this.isFullScreen);
+			this.logService.log(LogType.Info, 'playerElement', this.playerElement);
 		};
 
 		let contentWindow = this.player.getIframe().contentWindow
@@ -150,41 +139,27 @@ export class YoutubeService {
 		this.player?.getIframe().requestFullscreen()
 	}
 
-	// private currentTime = 0
-
-	// private ws = [150, 200, 250, 300, 350, 400]
-	// private i = 0
-
 	play() {
 		this.playWhenReady = false
 		this.player?.playVideo();
 		this.instancePlayedListeners.forEach((listener) => listener())
-
-		// this.player?.setSize(this.ws[this.i], this.ws[this.i])
-		// this.i = this.i + 1
 	}
 
 	playFromStart(track: YoutubeTrack) {
+		this.logService.log(LogType.Info, 'YoutubeService:playFromStart')
 
-		// TODO: clean this up here
-		this.playWhenReady = true
 		if (this.player === undefined) {
 			this.playWhenReady = true
-		} else {
-			let currentIdInPlayer = this.getIdFromVideoUrl(this.player.getVideoUrl())
-			console.log('currentIdInPlayer', currentIdInPlayer)
-			if (track.youtubeId !== currentIdInPlayer) {
-				// this.playWhenReady = true
-				console.log('*********** loading new youtube id ***************')
-				console.log(track.youtubeId)
-			// 	this.playWhenReady = false
-				this.player.loadVideoById(track.youtubeId)
-			// 	this.player.playVideo()
-			// 	this.instancePlayedListeners.forEach((listener) => listener())
-			}
-			// else {
-			// 	this.play()
-			// }
+			return
+		}
+		let currentIdInPlayer = this.getIdFromVideoUrl(this.player.getVideoUrl())
+		this.logService.log(LogType.Info, 'currentIdInPlayer', currentIdInPlayer)
+		if (track.youtubeId !== currentIdInPlayer) {
+			this.logService.log(LogType.Info, 'loading new youtube id', track.youtubeId)
+			this.player.loadVideoById(track.youtubeId)
+		}
+		else {
+			this.play()
 		}
 	}
 
@@ -198,13 +173,6 @@ export class YoutubeService {
 	pause() {
 		this.logService.log(LogType.Info, 'pause() in YoutubeService')
 		this.player?.pauseVideo()
-
-		// if (this.player === undefined) {
-		// 	return
-		// }
-		// this.currentTime = this.player.getCurrentTime()
-		// this.player.pauseVideo();
-		// this.logService.log(LogType.Info, 'currentTime', this.currentTime)
 	}
 
 	get volume(): number {

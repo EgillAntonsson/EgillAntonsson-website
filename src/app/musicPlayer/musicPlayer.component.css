@@ -33,17 +33,6 @@
 	height: 23px;
 }
 
-.streamPlayIcon {
-	display: inline;
-	width: 102%;
-	height: 102%;
-	padding-bottom: 2px;
-}
-
-.streamPlayIconHide {
-	display: none;
-}
-
 .stopped {
 	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 	background: var(--colorWhiteLightMed);

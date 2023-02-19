@@ -6,7 +6,7 @@ import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
-import { StreamSource } from 'app/shared/enums/streamSource'
+import { YoutubeTrack } from 'app/shared/data/track';
 
 @Component({
 	selector: 'app-music-player',
@@ -21,6 +21,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	get selectedTrack() {
 		return this.musicService.selectedTrack
+	}
+
+	get selectedTrackAsYoutubeTrack() {
+		return this.musicService.selectedTrack as YoutubeTrack
 	}
 
 	get playState() {
@@ -94,21 +98,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		this.musicService.playerUiInitialized(this._gainsDisabled)
 
 		this.subscription = this.messageService.onMessage().subscribe(message => {
-			// if (message.type === MessageType.Play) {
-			// 	this.play()
-			// }
 			if (message.type === MessageType.YoutubeVolumeChange) {
 				this.updateMuteUI()
 			}
-
-			console.log(StreamSource.Youtube)
 		})
-
-		// this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
-		// 	if (trackEnded && !serviceDidStop) {
-		// 			this.musicService.nextTrack()
-		// 		}
-		// })
 
 		this.musicService.addPlayStateChangeListener(() => {
 			this.changeDetectorRef.detectChanges()
@@ -116,7 +109,6 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
-		console.log('ngAfterViewInit')
 		this.musicService.initStreamer()
 		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
 		this.musicService.onWindowInitSize(window.innerWidth, window.innerHeight)
@@ -130,9 +122,6 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	@HostListener('window:resize', ['$event'])
   onWindowResize() {
-		console.log("music player component resize")
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
 		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
   }
 
@@ -150,29 +139,15 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	onPlayPauseBtn() {
 		this.musicService.OnUiPlayOrPause()
-
-		// if (this.musicService.playState === PlayState.Loading) {
-		// 	return
-		// }
-		// if (this.musicService.playState === PlayState.Playing) {
-		// 	this.musicService.stopOrPause()
-		// } else {
-		// 	this.play()
-		// }
 	}
 
 	onNextBtn() {
 		this.musicService.onUiNextTrack()
-		// this.play()
 	}
 
 	onShuffleBtn() {
 		this.musicService.toggleShuffle()
 	}
-
-	// play() {
-	// 	this.musicService.play()
-	// }
 
 	onMasterMuteBtn() {
 		if (this._gainsDisabled.value) {
