@@ -6,6 +6,22 @@
 	<canvas #canvas3 class="canvas hide"></canvas>
 </div>
 
+<div class="treeContainer noSelect">
+	<div *ngFor="let byTrack of byTracks; let byIndex = index">
+		<div class="branchContainer" (click)="onByClick(byIndex)">
+				<div class="branchIconContainer">
+						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
+					</div>
+			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
+		</div>
+		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
+			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
+				{{track.name}}
+			</div>
+		</div>
+	</div>
+</div>
+
 <div #trackGraphicContainer class="trackGraphicContainer">
 	<div *ngIf="selectedTrack.source !== 'Youtube' || selectedTrackAsYoutubeTrack.displayOnYoutube === false">
 	<figure>
@@ -41,20 +57,4 @@
 		<p [innerHTML]="selectedTrack.artistAbout"></p>
 	</div>
 </div>
-</div>
-
-<div class="treeContainer noSelect">
-	<div *ngFor="let byTrack of byTracks; let byIndex = index">
-		<div class="branchContainer" (click)="onByClick(byIndex)">
-				<div class="branchIconContainer">
-						<div class="branchIcon" [ngClass]="{branchAnimateClose: openedUiByIndex != byIndex, branchAnimateOpen: openedUiByIndex === byIndex}"></div>
-					</div>
-			<span [ngClass]="{nodeSelected: selectedTrack.artistName === byTrack.name}">{{byTrack.name}}</span>
-		</div>
-		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiByIndex === byIndex">
-			<div *ngFor="let track of byTrack.tracks" [ngClass]="{nodeSelected: track.name === selectedTrack.name}" (click)="onTrackClick(track)">
-				{{track.name}}
-			</div>
-		</div>
-	</div>
 </div>

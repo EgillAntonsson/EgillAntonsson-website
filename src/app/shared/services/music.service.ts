@@ -23,6 +23,7 @@ export class MusicService implements OnDestroy {
 	readonly label = 'MusicService'
 	readonly urlPathRoot = 'music/'
 	private _selectedTrack: Track
+	private windowWidth: number = 300
 	get selectedTrack() {
 		return this._selectedTrack
 	}
@@ -47,6 +48,11 @@ export class MusicService implements OnDestroy {
 		// When navigating directly to track via url,
 		// the shuffle is set to false, so a whole album can be advertised
 		this._isShuffle = false
+		if (this.isSelectedTrackWithActiveYoutubeVisuals) {
+			this.youtubeService.onWindowInitSize(this.windowWidth, 0)
+		} else {
+			this.setHeaderContainerHeightForMyPlayer()
+		}
 	}
 
 	private subscription: Subscription
@@ -101,6 +107,7 @@ export class MusicService implements OnDestroy {
 
 	onWindowInitSize(width: number, height: number) {
 		this.youtubeService.onWindowInitSize(width, height)
+		this.windowWidth = width
 	}
 
 	onWindowResize(width: number, height: number) {
@@ -109,6 +116,7 @@ export class MusicService implements OnDestroy {
 		} else {
 			this.setHeaderContainerHeightForMyPlayer()
 		}
+		this.windowWidth = width
 	}
 
 	get isSelectedTrackWithActiveYoutubeVisuals() {
@@ -130,7 +138,7 @@ export class MusicService implements OnDestroy {
 	}
 
 	onYoutubePlayerReady(player: YT.Player) {
-		this.youtubeService.onPlayerReady(player, this.masterGain * 100)
+		this.youtubeService.onPlayerReady(player, this.masterGain * 100, this.isSelectedTrackWithActiveYoutubeVisuals)
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
@@ -241,7 +249,7 @@ export class MusicService implements OnDestroy {
 				this.youtubeService.playFromStart(this._selectedTrack as YoutubeTrack)
 				if (this.isSelectedTrackWithActiveYoutubeVisuals) {
 					console.log('****************** smu')
-					this.youtubeService.onWindowResize(this.windowRef.nativeWindow.width, this.windowRef.nativeWindow.height)
+					this.youtubeService.onWindowResize(this.windowWidth, 0)
 				}
 				break;
 			case StreamSource.Soundcloud:

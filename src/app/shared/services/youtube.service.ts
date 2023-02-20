@@ -104,10 +104,12 @@ export class YoutubeService {
 		headerBackgroundElement.value.nativeElement.style.height =  contHeight + 'px'
 	}
 
-	onPlayerReady(player: YT.Player, volume: number) {
+	onPlayerReady(player: YT.Player, volume: number, isSelectedTrackWithActiveYoutubeVisuals: boolean) {
     this.logService.log(LogType.Info, 'onPlayerReady, width and heigh:', this.playerWidth, this.playerHeight);
 		this.player = player;
-		this.setPlayerSize(this.playerWidth)
+		if (isSelectedTrackWithActiveYoutubeVisuals) {
+			this.setPlayerSize(this.playerWidth)
+		}
 		this.volume = volume
 
 		if (this.playWhenReady) {
