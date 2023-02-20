@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
@@ -6,18 +6,25 @@ import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
-import { PlayState } from 'app/shared/enums/playState';
+import { YoutubeTrack } from 'app/shared/data/track';
 
 @Component({
 	selector: 'app-music-player',
 	templateUrl: './musicPlayer.component.html',
 	styleUrls: ['./musicPlayer.component.css']
 })
-export class MusicPlayerComponent {
+export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	readonly label = 'MusicPlayer'
+
+	@ViewChild('youtubePlayer')
+	youtubePlayerElement!: ElementRef
 
 	get selectedTrack() {
 		return this.musicService.selectedTrack
+	}
+
+	get selectedTrackAsYoutubeTrack() {
+		return this.musicService.selectedTrack as YoutubeTrack
 	}
 
 	get playState() {
@@ -35,9 +42,11 @@ export class MusicPlayerComponent {
 		this.musicService.masterGain = value
 	}
 
-	masterMuted = false
+	get masterMuted() {
+		return this.musicService.masterMuted
+	}
 
-	subscription: Subscription
+	private subscription: Subscription
 
 	private enableGains: (value: boolean) => void
 	private _gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
@@ -79,7 +88,6 @@ export class MusicPlayerComponent {
 
 	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
 		this.enableGains = (value: boolean) => {
-
 			if (value) {
 				this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
 			} else {
@@ -87,17 +95,12 @@ export class MusicPlayerComponent {
 			}
 		}
 		this._gainsDisabled.on(EmitterEvent.Change, this.enableGains)
+		this.musicService.playerUiInitialized(this._gainsDisabled)
 
 		this.subscription = this.messageService.onMessage().subscribe(message => {
-			if (message.type === MessageType.Play) {
-				this.play()
+			if (message.type === MessageType.YoutubeVolumeChange) {
+				this.updateMuteUI()
 			}
-		})
-
-		this.musicService.addInstanceEndedListener(`${this.label} endedListener`, (trackEnded?: boolean, serviceDidStop?: boolean) => {
-			if (trackEnded && !serviceDidStop) {
-					this.onNext()
-				}
 		})
 
 		this.musicService.addPlayStateChangeListener(() => {
@@ -105,33 +108,55 @@ export class MusicPlayerComponent {
 		})
 	}
 
-	onPlayStop() {
-		if (this.musicService.playState === PlayState.Loading) {
-			return
-		}
-		if (this.musicService.playState === PlayState.Playing) {
-			this.musicService.stop()
-		} else {
-			this.play()
+	ngAfterViewInit(): void {
+		this.musicService.initStreamer()
+		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
+		this.musicService.onWindowInitSize(window.innerWidth, window.innerHeight)
+  }
+
+  ngOnDestroy() {
+		if (this.subscription instanceof Subscription) {
+			this.subscription.unsubscribe();
 		}
 	}
 
-	onNext() {
-		this.musicService.nextTrack()
-		this.play()
+	@HostListener('window:resize', ['$event'])
+  onWindowResize() {
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
+  }
+
+	onYoutubeBtn() {
+		this.musicService.onYoutubeBtn()
 	}
 
-	onShuffle() {
+	onPlayerReady(player: YT.Player) {
+		this.musicService.onYoutubePlayerReady(player)
+  }
+
+	onPlayerStateChange(event: any) {
+		this.musicService.OnYoutubePlayerStateChange(event.data)
+	}
+
+	onPlayPauseBtn() {
+		this.musicService.OnUiPlayOrPause()
+	}
+
+	onNextBtn() {
+		this.musicService.onUiNextTrack()
+	}
+
+	onShuffleBtn() {
 		this.musicService.toggleShuffle()
 	}
 
-	play() {
-		this.musicService.play(this._gainsDisabled)
+	onMasterMuteBtn() {
+		if (this._gainsDisabled.value) {
+			return
+		}
+		this.musicService.masterMuted = !this.masterMuted
 	}
 
-	onMasterMuteChange() {
-		if (this._gainsDisabled.value) { return }
-		this.musicService.masterMuted = this.masterMuted = !this.masterMuted
+	updateMuteUI() {
 		this.optionsMasterGain = Object.assign({}, this.optionsMasterGain,
 			{getSelectionBarColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors, getPointerColor: this.masterMuted ? this.sliderColorsMuted : this.sliderColors})
 	}

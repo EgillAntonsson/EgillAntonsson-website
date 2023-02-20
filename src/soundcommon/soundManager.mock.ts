@@ -4,6 +4,12 @@ import { SoundData } from './interface/soundData';
 import { Sound } from './sound';
 
 export class SoundManagerMock implements SoundManager {
+	pause(): void {
+		throw new Error('Method not implemented.');
+	}
+	resume(): void {
+		throw new Error('Method not implemented.');
+	}
 	readonly label = 'SoundManagerMock'
 	readonly sounds: Map<string, Sound> = new Map()
 	readonly musicGain = 1

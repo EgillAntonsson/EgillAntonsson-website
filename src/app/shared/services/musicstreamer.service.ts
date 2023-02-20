@@ -1,15 +1,21 @@
 import { Injectable } from "@angular/core";
 import { LogType } from "shared/enums/logType";
+import { Track } from "../data/track";
 import { LogService } from "./log.service";
 
 @Injectable({
 	providedIn: 'root',
 })
 
+/// https://developers.soundcloud.com/docs/api/html5-widget
+/// https://www.npmjs.com/package/soundcloud-widget
+/// note that there is a newer package that supports typescript that might be considered to be used instead
+/// https://www.npmjs.com/package/soundcloud-embed
 export class MusicStreamer {
 
 	private widget: any
 	private _volume = 100
+	private isMuted = false
 	private _isInitialized = false
 
 	get isInitialized() {
@@ -61,30 +67,49 @@ export class MusicStreamer {
 			this.logService.log(LogType.Info, "musicStreamer load completed with url", url)
 			this.loadedUrl = url
 			if (playWhenLoaded) {
-				this.widget.setVolume(this._volume)
-				this.widget.play()
-				this.instancePlayedListeners.forEach((listener) => listener())
+				this.playViaWidget();
 			}
 		})
 	}
 
-	play(url: string) {
-		this.logService.log(LogType.Info, "musicStreamer play with url", url)
-		if (url === this.loadedUrl) {
-			this.widget.play()
-		}
-		else {
-			this.load(url, true)
-		}
+	play() {
+		this.logService.log(LogType.Info, "musicStreamer play")
+		this.playViaWidget()
+	}
+
+	playFromStart(track: Track) {
+		this.logService.log(LogType.Info, "musicStreamer playFromStart", track)
+		let url = track.soundcloudUrl;
+		this.load(url, true)
+		this.widget.setVolume(this._volume)
+	}
+
+	private playViaWidget() {
+		// this.widget.setVolume(this._volume)
+		this.widget.play()
+		this.instancePlayedListeners.forEach((listener) => listener())
 	}
 
 	pause() {
+		this.logService.log(LogType.Info, "musicStreamer pause")
 		this.widget.pause()
 	}
 
-	set volume(value: number) {
-		this._volume = value * 100
+	set volume(volume: number) {
+		if (this.isMuted) {
+			return
+		}
+		this._volume = volume
 		this.widget.setVolume(this._volume)
+	}
+
+	set muted(muted: boolean) {
+		this.isMuted = muted
+		if (muted) {
+			this.widget.setVolume(0)
+		} else {
+			this.widget.setVolume(this._volume)
+		}
 	}
 
 }

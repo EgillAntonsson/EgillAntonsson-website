@@ -1,13 +1,22 @@
+
 .playerContainer {
 	position: fixed;
+	z-index: 1;
+	transform: translateY(40px);
+	width: 90%;
+}
+
+.myPlayer {
 	cursor: pointer;
 	border: 1px solid var(--colorGrayLightMed);
 	border-radius: 1em;
 	padding-top: 9px;
 	padding-bottom: 7px;
-	z-index: 2;
-	transform: translateY(40px);
-	width: 90%;
+	height: 24px;
+}
+
+.youtubePlayer {
+	margin: 0px 0%
 }
 
 .trackName {
@@ -22,17 +31,6 @@
 	padding-left: 3.5%;
 	width: 6%;
 	height: 23px;
-}
-
-.streamPlayIcon {
-	display: inline;
-	width: 102%;
-	height: 102%;
-	padding-bottom: 2px;
-}
-
-.streamPlayIconHide {
-	display: none;
 }
 
 .stopped {
@@ -75,6 +73,7 @@
 .nextContainer {
 	float: left;
 	height: 16px;
+	width: 10px;
 	transform: translateY(5px);
 	padding-right: 5%;
 }
@@ -112,6 +111,21 @@
 	height: 22px;
 	display: block;
 	transform: translateY(-1px);
+}
+
+.youtubeButtonContainer {
+	float: left;
+	height: 16px;
+	width: 25px;
+	/* transform: scaleX(0.8); */
+}
+
+.youtubeButton {
+	width: 256px;
+	height: 256px;
+	display: block;
+	transform: translateX(-116px) translateY(-116px) scale(0.1);
+	background:transparent url('https://upload.wikimedia.org/wikipedia/commons/5/55/YouTube_icon_%282013-2017%29.svg')
 }
 
 .shuffleOn {
@@ -237,6 +251,10 @@ ul {
 /*#region media screen */
 
 @media screen and (max-width: 451px) {
+	.youtubePlayer {
+		margin: 0px 0%
+	}
+
 	.playIconContainer {
 		width: 7%;
 	}
@@ -257,8 +275,12 @@ ul {
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	.playerContainer {
-		margin: 5px 0%;
+	.youtubePlayer {
+		margin: 0px 10%
+	}
+
+	.myPlayer {
+		margin: 0px 0%;
 	}
 
 	.playIconContainer {
@@ -281,8 +303,12 @@ ul {
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	.playerContainer {
-		margin: 10px 5%;
+	.youtubePlayer {
+		margin: 0px 20%
+	}
+
+	.myPlayer {
+		margin: 0px 5%;
 		width: 80%;
 	}
 
@@ -300,22 +326,34 @@ ul {
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	.playerContainer {
-		margin: 15px 10%;
+	.youtubePlayer {
+		margin: 0px 30%
+	}
+
+	.myPlayer {
+		margin: 0px 10%;
 		width: 70%;
 	}
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
-	.playerContainer {
-		margin: 20px 15%;
+	.youtubePlayer {
+		margin: 0px 35%
+	}
+
+	.myPlayer {
+		margin: 0 15%;
 		width: 60%;
 	}
 }
 
 @media screen and (min-width: 2001px) {
-	.playerContainer {
-		margin: 25px 20%;
+	.youtubePlayer {
+		margin: 0px 37%
+	}
+
+	.myPlayer {
+		margin: 0px 20%;
 		width: 50%;
 	}
 }

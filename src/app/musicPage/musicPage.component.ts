@@ -1,10 +1,9 @@
 import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { ITrack, LayeredMusicTrack } from '../shared/data/track'
+import { LayeredMusicTrack, Track, YoutubeTrack } from '../shared/data/track'
 import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
-import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { LogType } from '../../shared/enums/logType'
 import { PlayState } from 'app/shared/enums/playState'
 import { ActivatedRoute, ParamMap } from '@angular/router'
@@ -17,11 +16,14 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common'
 	styleUrls: ['./musicPage.component.css'],
 	providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
-export class MusicPageComponent implements OnDestroy, OnInit {
+export class MusicPageComponent implements OnInit, OnDestroy {
 	private readonly label = 'MusicPage'
 	private drawVisuals: number[] = []
 	private playedListenerName = `${this.label} playedListener`
 	private endedListenerName = `${this.label} endedListener`
+	private canvases!: ElementRef<HTMLCanvasElement>[]
+	private currentCanvasNr = 0
+	private canvasNrAscending = false
 
 	musicGain = 1
 	musicMuted = false
@@ -36,9 +38,8 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 	selectedByIndex = 0
 	openedUiByIndex = -1 // all deselected
 
-	private canvases!: ElementRef<HTMLCanvasElement>[]
-	private currentCanvasNr = 0
-	private canvasNrAscending = false
+	@ViewChild('trackGraphicContainer')
+	trackGraphicContainerElement!: ElementRef
 
 	@ViewChild('canvas0', { static: true })
 	canvas0!: ElementRef<HTMLCanvasElement>
@@ -63,8 +64,11 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		return this.musicService.selectedTrack
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private logService: LogService,  private route: ActivatedRoute, private location: Location) {
+	get selectedTrackAsYoutubeTrack() {
+		return this.musicService.selectedTrack as YoutubeTrack
 	}
+
+	constructor(private musicService: MusicService, private logService: LogService, private route: ActivatedRoute, private location: Location) {}
 
 	ngOnInit(): void {
 		this.route.paramMap.subscribe((params: ParamMap) => {
@@ -80,14 +84,14 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			const canvas = this.getNextCanvas()
 			const canvasContext = this.tryGetCanvasContext(canvas)
 			if (canvasContext && soundInstance) {
-				this.topLine.nativeElement.classList.add('hide')
+				// this.topLine.nativeElement.classList.add('hide')
 				this.visualize(soundInstance, canvas, canvasContext, this.drawVisuals)
 			}
 			this.replaceUrlState()
 		})
 
 		this.musicService.addInstanceEndedListener(this.endedListenerName, () => {
-			this.topLine.nativeElement.classList.remove('hide')
+			// this.topLine.nativeElement.classList.remove('hide')
 			this.clearVisuals()
 		})
 
@@ -103,13 +107,12 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 		this.musicService.removeInstanceEndedListener(this.endedListenerName)
 	}
 
-	onTrackClick(track: ITrack) {
+	onTrackClick(track: Track) {
 		if (this.musicService.playState === PlayState.Loading) {
-			this.logService.log(LogType.Info, 'onTrackClick: is loading, returning without processing')
+			this.logService.log(LogType.Info, 'MusicPage onTrackClick: is loading, returning without processing')
 			return
 		}
-		this.musicService.nextSelectedTrack = track
-		this.messageService.sendMessage({type: MessageType.Play})
+		this.musicService.onUiTrackSelected(track)
 	}
 
 	onByClick(byIndex: number) {
@@ -166,34 +169,24 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 
 		const draw = () => {
 			drawVisuals.push(requestAnimationFrame(draw))
-
 			analyser.getByteTimeDomainData(dataArray)
-
 			canvasContext.fillStyle = '#111' // styles.css colorBackground
 			canvasContext.fillRect(0, 0, canvasWidth, canvasHeight)
-
 			canvasContext.lineWidth = 3
 			canvasContext.strokeStyle = '#B9CA4A' // styles.css colorActive
-
 			canvasContext.beginPath()
-
 			const sliceWidth = canvasWidth * 1.0 / bufferLength
 			let x = 0
-
 			for (let i = 0; i < bufferLength; i++) {
-
 				const v = dataArray[i] / 128.0
 				const y = v * canvasHeight / 2
-
 				if (i === 0) {
 					canvasContext.moveTo(x, y)
 				} else {
 					canvasContext.lineTo(x, y)
 				}
-
 				x += sliceWidth
 			}
-
 			canvasContext.lineTo(canvasWidth, canvasHeight / 2)
 			canvasContext.stroke()
 		}
@@ -206,19 +199,12 @@ export class MusicPageComponent implements OnDestroy, OnInit {
 			window.cancelAnimationFrame(dv)
 		})
 		this.drawVisuals = []
-
 		this.canvases.forEach(canvas => {
 			const canvasContext = this.tryGetCanvasContext(canvas)
 			canvasContext?.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height)
-
 			canvas.nativeElement.classList.add('hide')
 		})
-
 		this.currentCanvasNr = 1
 		this.canvasNrAscending = false
-	}
-
-	onSoundCloudClick() {
-
 	}
 }

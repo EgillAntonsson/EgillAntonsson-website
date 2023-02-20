@@ -1,3 +1,4 @@
+
 .canvas {
 	width: 100%;
 	height: 30px;
@@ -5,7 +6,7 @@
 	border-radius: 0.3em;
 }
 
-.trackLeftContainer {
+.trackGraphicContainer {
 	float: left;
 	width: 50%;
 }
@@ -14,14 +15,6 @@
 	display: flex;
 	justify-content: center;
 	margin-bottom: 1em;
-}
-
-.artworkImage {
-	width: 100%;
-	max-width: 400px;
-	border-radius: 5%;
-	display: block;
-	margin: 0 auto;
 }
 
 .trackRightContainer {
@@ -79,13 +72,8 @@
 /*#region media screen */
 
 @media screen and (max-width: 451px) {
-	.trackLeftContainer {
+	.trackGraphicContainer {
 		width: 100%;
-	}
-
-	.trackLeftInner {
-		float: none;
-		margin-right: 0%;
 	}
 
 	.trackRightContainer {
@@ -105,13 +93,8 @@
 		width: 96%;
 	}
 
-	.trackLeftContainer {
+	.trackGraphicContainer {
 		width: 100%;
-	}
-
-	.trackLeftInner {
-		float: none;
-		margin-right: 0%;
 	}
 
 	.trackRightContainer {
@@ -125,6 +108,10 @@
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
+	.trackGraphicContainer {
+		width: 100%;
+	}
+
 	.canvas {
 		margin-left: 4%;
 		margin-right: 4%;
@@ -134,10 +121,6 @@
 	.iconButton {
 		margin-left: 0.5em;
 		margin-right: 0.5em;
-	}
-
-	.trackLeftInner {
-		margin-right: 10px;
 	}
 
 	/* overriding here styles.css*/

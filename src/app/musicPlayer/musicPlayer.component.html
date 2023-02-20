@@ -1,28 +1,32 @@
-<div class="playerContainer noSelect">
-	<span class="playIconContainer" (click)="onPlayStop()">
-		<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Stopped'}">
-			<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Antu_soundcloud.svg" alt="Streamed via SoundCloud" title="Streamed via SoundCloud" [ngClass]="{streamPlayIcon: selectedTrack.soundcloudUrl !== '', streamPlayIconHide: selectedTrack.soundcloudUrl === ''}">
-		</div>
-	</span>
-	<span class="nextContainer" (click)="onNext()">
-		<div class="next_triangle"></div>
-		<div class="next_line"></div>
-	</span>
-	<span class="trackName">
-		<span>{{selectedTrack.name}}</span>
+<div class="playerContainer">
+	<div #youtubePlayer class="youtubePlayer" [ngClass]="{hide: selectedTrack.source !== 'Youtube' || selectedTrackAsYoutubeTrack.displayOnYoutube === false}">
+		<youtube-player videoId="{{selectedTrackAsYoutubeTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
+	</div>
+	<div class="myPlayer noSelect" [ngClass]="{hide: selectedTrackAsYoutubeTrack !== null && selectedTrackAsYoutubeTrack.displayOnYoutube === true}">
+		<span class="playIconContainer" (click)="onPlayPauseBtn()">
+			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Paused' || playState === 'Stopped'}"></div>
+		</span>
+		<span class="nextContainer" (click)="onNextBtn()">
+			<div class="next_triangle"></div>
+			<div class="next_line"></div>
+		</span>
+		<span class="trackName">
+			<span>{{selectedTrack.name}}</span>
 
-		</span>
-	<span class="playerRightButtonsContainer">
-		<span class="shuffleContainer" (click)="onShuffle()">
-			<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
-		</span>
-		<span class="muteContainer" (click)="onMasterMuteChange()">
-			<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted,  unmuteDisabled: gainsDisabled && !masterMuted}"></div>
-		</span>
-		<span class="sliderContainer">
-			<span class="slider">
-			<ngx-slider [(value)]="masterGain" [options]="optionsMasterGain"></ngx-slider>
+			</span>
+		<span class="playerRightButtonsContainer">
+			<span class="shuffleContainer" (click)="onShuffleBtn()">
+				<div class="shuffle" [ngClass]="{shuffleOn: isShuffle, shuffleOff: !isShuffle}"></div>
+			</span>
+			<span class="muteContainer" (click)="onMasterMuteBtn()">
+				<div [ngClass]="{mute: masterMuted, unmute: !masterMuted, muteDisabled: gainsDisabled && masterMuted, unmuteDisabled: gainsDisabled && !masterMuted}"></div>
+			</span>
+			<span class="sliderContainer">
+				<span class="slider">
+				<ngx-slider [(value)]="masterGain" [options]="optionsMasterGain"></ngx-slider>
+				</span>
 			</span>
 		</span>
-	</span>
+	</div>
 </div>
+<iframe id="scWidget" class="hide" width="100%" height="10" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1255416709&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&buying=false&liking=false&download=false&sharing=false&show_artwork=false&show_playcount=false&start_track=0"></iframe>

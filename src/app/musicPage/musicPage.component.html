@@ -1,3 +1,11 @@
+<!-- <div #topLine class="horizontalLine"></div> -->
+<div>
+	<canvas #canvas0 class="canvas hide"></canvas>
+	<canvas #canvas1 class="canvas hide"></canvas>
+	<canvas #canvas2 class="canvas hide"></canvas>
+	<canvas #canvas3 class="canvas hide"></canvas>
+</div>
+
 <div class="treeContainer noSelect">
 	<div *ngFor="let byTrack of byTracks; let byIndex = index">
 		<div class="branchContainer" (click)="onByClick(byIndex)">
@@ -14,21 +22,12 @@
 	</div>
 </div>
 
-
-<div #topLine class="horizontalLine"></div>
-<div>
-	<canvas #canvas0 class="canvas hide"></canvas>
-	<canvas #canvas1 class="canvas hide"></canvas>
-	<canvas #canvas2 class="canvas hide"></canvas>
-	<canvas #canvas3 class="canvas hide"></canvas>
-</div>
-
-<div class="trackLeftContainer">
-<div class="trackLeftInner">
+<div #trackGraphicContainer class="trackGraphicContainer">
+	<div *ngIf="selectedTrack.source !== 'Youtube' || selectedTrackAsYoutubeTrack.displayOnYoutube === false">
 	<figure>
-		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="artworkImage">
+		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="image">
 	</figure>
-
+	</div>
 	<div class="buttonContainer">
 		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
 			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
@@ -44,8 +43,6 @@
 			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
 		</span>
 	</div>
-
-</div>
 </div>
 
 <div class="trackRightContainer">

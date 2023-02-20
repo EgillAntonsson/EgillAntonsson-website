@@ -49,11 +49,11 @@ body {
 	background: var(--colorBackground);
 }
 body, input[text] {
-	color: var(--colorForeground);
+color: var(--colorForeground);
 }
 
 input {
-	border-style: solid;
+border-style: solid;
 	border-width: 1px;
 	border-color: var(--colorGrayLightMed);
 	font-size: 102%;
@@ -200,10 +200,6 @@ figcaption {
 	font-size: 85%;
 	text-align: center;
 	padding-top: 0.3em;
-}
-
-#scWidget {
-	display: none;
 }
 
 .image {
@@ -506,12 +502,10 @@ min width considered 360px (Galaxy S8+) */
 		/* 18px seems to be the default 'normal'*/
 	}
 
-	.navContainer {
-		height: 85px;
+	.headerContainer, .headerBackground {
+		height: 100px;
 	}
-	.navBackground {
-		height: 105px;
-	}
+
 	.treeContainer {
 		margin-bottom: 1.5em;
 		/* width: 55%; */
@@ -522,8 +516,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: green; }
-	h4 { color: green; } */
+	/* h1 { color: green; } */
+	/* h4 { color: green; } */
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -549,8 +543,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: orange; }
-	h4 { color: orange; } */
+	/* h1 { color: orange; } */
+	/* h4 { color: orange; } */
 }
 
 @media screen and (min-width: 704px) and (max-width: 1053px) {
@@ -584,8 +578,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: purple; }
-	h4 { color: purple; } */
+	/* h1 { color: purple; } */
+	/* h4 { color: purple; } */
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
@@ -619,8 +613,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: aqua; }
-	h4 { color: aqua; } */
+	/* h1 { color: aqua; } */
+	/* h4 { color: aqua; } */
 }
 
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
@@ -654,8 +648,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: red; }
-	h4 { color: red; } */
+	/* h1 { color: red; } */
+	/* h4 { color: red; } */
 }
 
 @media screen and (min-width: 2001px) {

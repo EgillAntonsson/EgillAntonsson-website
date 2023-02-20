@@ -4,7 +4,7 @@
 	<url>
 		<loc>https://www.egill.rocks/</loc>
 		<priority>0.8</priority>
-		<lastmod>2022-08-21</lastmod>
+		<lastmod>2023-02-20</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
@@ -16,7 +16,7 @@
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
 		<priority>1.0</priority>
-		<lastmod>2022-12-19</lastmod>
+		<lastmod>2023-02-20</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>

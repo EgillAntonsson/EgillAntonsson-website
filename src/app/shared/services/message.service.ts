@@ -16,7 +16,8 @@ export class MessageService {
 
 export const enum MessageType {
 	Play = 'Play',
-	Page = 'Page'
+	Page = 'Page',
+	YoutubeVolumeChange = 'YoutubeVolumeChange'
 }
 
 export interface IMessage {

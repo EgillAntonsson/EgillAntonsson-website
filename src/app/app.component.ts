@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms'
 import { HttpParams, HttpClient } from '@angular/common/http'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
 import { LogService } from './shared/services/log.service'
 import { LogType } from 'shared/enums/logType'
-import { MusicService } from './shared/services/music.service'
+import { HtmlElementService } from './shared/services/htmlElement.service'
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
 
 
 	placeholderComment = `This is a required field.
@@ -50,10 +50,15 @@ I'll never give it to 3rd party or display it publicly.`
 	emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	urlEndName = 'UrlEnd'
 	urlEnd = ''
-
 	formType: FormType = FormType.Contact
 
-	constructor(private fb: UntypedFormBuilder, private http: HttpClient, private router: Router, private logService: LogService, private musicService: MusicService) {
+	@ViewChild('headerContainer')
+  public headerContainerElement!: ElementRef;
+
+	@ViewChild('headerBackground')
+  public headerBackgroundElement!: ElementRef;
+
+	constructor(private fb: UntypedFormBuilder, private http: HttpClient, private router: Router, private logService: LogService, private htmlService: HtmlElementService) {
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			this.showCommentForm = true
 
@@ -87,11 +92,12 @@ I'll never give it to 3rd party or display it publicly.`
 		})
 
 		this.emailControl = this.messageForm.controls[this.emailName]
+	}
+	ngAfterViewInit(): void {
+		this.htmlService.set('headerBackground', this.headerBackgroundElement)
+		this.htmlService.set('headerContainer', this.headerContainerElement)
+	}
 
-	}
-	ngOnInit(): void {
-		this.musicService.initStreamer()
-	}
 
 	onSendClick() {
 		let body = new HttpParams()

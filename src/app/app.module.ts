@@ -27,6 +27,7 @@ import { PostTdd6Component } from './blog/posts/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/postTdd8.component'
 import { PostTdd9Component } from './blog/posts/postTdd9.component'
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 
 @NgModule({
 	imports: [
@@ -38,6 +39,7 @@ import { PostTdd9Component } from './blog/posts/postTdd9.component'
 		MatButtonToggleModule,
 		ReactiveFormsModule,
 		HighlightModule,
+		NgxYoutubePlayerModule.forRoot()
 	],
 	declarations: [
 		AppComponent,
