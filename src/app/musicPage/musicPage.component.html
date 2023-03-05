@@ -23,7 +23,7 @@
 </div>
 
 <div #trackGraphicContainer class="trackGraphicContainer">
-	<div *ngIf="selectedTrack.source !== 'Youtube' || selectedTrackAsYoutubeTrack.displayOnYoutube === false">
+	<div *ngIf="selectedTrack.artworkPath !== ''">
 	<figure>
 		<img src="{{selectedTrack.artworkPath}}" alt="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" title="Artwork for {{selectedTrack.name}} by {{selectedTrack.artistName}}" class="image">
 	</figure>

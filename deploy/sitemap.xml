@@ -22,7 +22,19 @@
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 			<image:title>Egill Antonsson artist</image:title>
 			<image:caption>Egill Antonsson artist</image:caption>
-				<image:geo_location>Sweden</image:geo_location>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/vikings-of-thule-theme-song</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-03-03</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/vikings-of-thule-theme-song.jpg</image:loc>
+			<image:title>Artwork for music track Vikings of Thule Theme Song by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Vikings of Thule Theme Song by Egill Antonsson</image:caption>
+				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
 	<url>
@@ -32,8 +44,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/harmonies-of-shade-and-light.jpg</image:loc>
-			<image:title>Artwork for Harmonies of Shade and Light by Egill Antonsson</image:title>
-			<image:caption>Artwork for Harmonies of Shade and Light by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Harmonies of Shade and Light by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Harmonies of Shade and Light by Egill Antonsson</image:caption>
 				<image:geo_location>Thailand</image:geo_location>
 		</image:image>
 	</url>
@@ -44,21 +56,33 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/we-will-meet-again.jpg</image:loc>
-			<image:title>Artwork for We Will Meet Again by Egill Antonsson</image:title>
-			<image:caption>Artwork for We Will Meet Again by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track We Will Meet Again by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track We Will Meet Again by Egill Antonsson</image:caption>
 				<image:geo_location>Sweden</image:geo_location>
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/music/strawberry-city-lights</loc>
+		<loc>https://www.egill.rocks/music/magma-merrygoround</loc>
 		<priority>0.9</priority>
-		<lastmod>2022-12-03</lastmod>
+		<lastmod>2023-03-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/tracks/kanez/strawberry-city-lights.jpg</image:loc>
-			<image:title>Artwork for Strawberry City Lights by Kanez Kane</image:title>
-			<image:caption>Artwork for Strawberry City Lights by Kanez Kane</image:caption>
-				<image:geo_location>Iceland</image:geo_location>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/magma-merrygoround.jpg</image:loc>
+			<image:title>Artwork for music track Magma MerryGoRound Again by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Magma MerryGoRound Again by Egill Antonsson</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/just-in-time</loc>
+		<priority>0.9</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
 		</image:image>
 	</url>
 	<url>
@@ -68,8 +92,92 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/iceland-socks-intro.jpg</image:loc>
-			<image:title>Artwork for Iceland Socks: Intro by Gogogic</image:title>
-			<image:caption>Artwork for Iceland Socks: Intro by Gogogic</image:caption>
+			<image:title>Artwork for music track Iceland Socks: Intro by Gogogic</image:title>
+			<image:caption>Artwork for music track Iceland Socks: Intro by Gogogic</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/fortidin</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/fortidin.png</image:loc>
+			<image:title>Artwork for music track Fortíðin by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Fortíðin by Egill Antonsson</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/toddlers-tune</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/toddlers-tune.png</image:loc>
+			<image:title>Artwork for music track Toddlers Tune by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Toddlers Tune by Egill Antonsson</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/odd-times-in-space</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/lecube</loc>
+		<priority>0.8</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/lucube.png</image:loc>
+			<image:title>Artwork for music track Lecube by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Lecube by Egill Antonsson</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/winter-queen</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/winter-queen.jpg</image:loc>
+			<image:title>Artwork for music track Winter Queen by Kanez Kane</image:title>
+			<image:caption>Artwork for music track Winter Queen by Kanez Kane</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/koma-koma</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/koma-koma.jpg</image:loc>
+			<image:title>Artwork for music track Koma Koma by Kanez Kane</image:title>
+			<image:caption>Artwork for music track Koma Koma by Kanez Kane</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/strawberry-city-lights</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/strawberry-city-lights.jpg</image:loc>
+			<image:title>Artwork for music track Strawberry City Lights by Kanez Kane</image:title>
+			<image:caption>Artwork for music track Strawberry City Lights by Kanez Kane</image:caption>
 			<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -80,22 +188,346 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/introduction.jpg</image:loc>
-			<image:title>Artwork for Introduction by Egill Antonsson</image:title>
-			<image:caption>Artwork for Introduction by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Introduction by Tribe Of Oranges</image:title>
+			<image:caption>Artwork for music track Introduction by Tribe Of Oranges</image:caption>
 			<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/routine</loc>
 		<priority>0.8</priority>
-		<lastmod>2022-12-19</lastmod>
+		<lastmod>2023-03-05</lastmod>
 		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/too/tribe-of-oranges.jpg</image:loc>
+			<image:title>Artwork for music track Routine by Tribe Of Oranges</image:title>
+			<image:caption>Artwork for music track Routine by Tribe Of Oranges</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/song-for-hhi-commercial</loc>
 		<priority>0.8</priority>
-		<lastmod>2022-12-19</lastmod>
+		<lastmod>2023-03-05</lastmod>
 		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/too/tribe-of-oranges.jpg</image:loc>
+			<image:title>Artwork for music track Introduction by Tribe Of Oranges</image:title>
+			<image:caption>Artwork for music track Introduction by Tribe Of Oranges</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/pirringur</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Pirringur by KUAI</image:title>
+			<image:caption>Artwork for music track Pirringur by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/apollo</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Apollo by KUAI</image:title>
+			<image:caption>Artwork for music track Apollo by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/andsetinn</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Andsetinn by KUAI</image:title>
+			<image:caption>Artwork for music track Andsetinn by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/hamskipti</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Hamskipti by KUAI</image:title>
+			<image:caption>Artwork for music track Hamskipti by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/rover</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Rover by KUAI</image:title>
+			<image:caption>Artwork for music track Rover by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/andefni</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Andefni by KUAI</image:title>
+			<image:caption>Artwork for music track Andefni by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/agndofa</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Agndofa by KUAI</image:title>
+			<image:caption>Artwork for music track Agndofa by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/ofurte</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Ofurte by KUAI</image:title>
+			<image:caption>Artwork for music track Ofurte by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/lesblinda-i</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Lesblinda I by KUAI</image:title>
+			<image:caption>Artwork for music track Lesblinda I by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/lesblinda-ii</loc>
+		<priority>0.8</priority>
+		<lastmod>2023-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
+			<image:title>Artwork for music track Lesblinda II by KUAI</image:title>
+			<image:caption>Artwork for music track Lesblinda II by KUAI</image:caption>
+			<image:geo_location>Iceland</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/godsrule-village</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/vikings-of-thule-map</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/cake-pop-party</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/symbol-6</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/soft-freak-fiesta</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/habitarium</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/tiny-places</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/christmas-game-2008</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/christmas-game-2009</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/whos-your-friend</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/know-your-friend</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/stack-em</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/glowbulleville</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/godsrule-battle</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/vikings-of-thule-fued</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/the-crisis-game</loc>
+		<priority>0.7</priority>
+		<lastmod>2022-03-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+			<image:title>Egill Antonsson artist</image:title>
+			<image:caption>Egill Antonsson artist</image:caption>
+			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-2002</loc>
@@ -104,8 +536,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -116,8 +548,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -128,8 +560,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -140,8 +572,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -152,8 +584,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -164,8 +596,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -176,8 +608,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -188,8 +620,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -200,8 +632,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -212,8 +644,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -224,8 +656,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -236,8 +668,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -248,8 +680,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -260,8 +692,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -272,8 +704,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -284,8 +716,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -296,8 +728,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -308,8 +740,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -320,8 +752,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -332,8 +764,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>
@@ -344,8 +776,8 @@
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
-			<image:title>Artwork for Bræðraminning album by Egill Antonsson</image:title>
-			<image:caption>Artwork for Bræðraminning album by Egill Antonsson</image:caption>
+			<image:title>Artwork for music track Bræðraminning album by Egill Antonsson</image:title>
+			<image:caption>Artwork for music track Bræðraminning album by Egill Antonsson</image:caption>
 				<image:geo_location>Iceland</image:geo_location>
 		</image:image>
 	</url>

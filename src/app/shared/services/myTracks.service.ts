@@ -93,7 +93,7 @@ export class MyTracksService {
 				this.lesblindaI(),
 				this.lesblindaII()
 			], about: this.aboutKuai},
-			{name: 'TribeOfOranges', tracks: [
+			{name: 'Tribe Of Oranges', tracks: [
 				this.introduction(),
 				this.routine(),
 				this.hhiCommercial()
@@ -149,7 +149,7 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `I started playing the piano around the age of 7. In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others), electric bass (because all in the band can't be guitarists) and singing. The tracks where I was the main producer (though sometimes collaborating with others) are published under my name.`
+		return `I started playing the piano around the age of 7. In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others), electric bass (because all in the band can't be guitarists) and singing, and from time to time beating the drums. Note that the tracks published under my name sometimes involved collaborations with others (mentioned in the "About" section).`
 	}
 
 	private get pathToDirEgillAntonsson() {
@@ -157,7 +157,7 @@ export class MyTracksService {
 	}
 
 	private get aboutKanezKane() {
-		return `A partnership with my friend Sindri Bergmann Thorarinsson. We have done lots of music through the decades but have only released to the world a small part of it. We decided to changed that so watch this space...`
+		return `A partnership with my friend Sindri Bergmann Thorarinsson. We have done lots of music through the decades but currently only released to the world a small part of it. We decided to changed that so stay tuned :)`
 	}
 
 	private get aboutBraedraminning() {
@@ -220,7 +220,7 @@ export class MyTracksService {
 		const name = 'Winter Queen'
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
-		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+		const about = `This is the third released song (early 2023). Created in the first Stockholm session when Sindri visited me. Fittingly the weather both in Sweden and Iceland was quite chilling during the production to the release`
 
 		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl)
 	}
@@ -231,7 +231,7 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
 		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
-		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+		const about = `This is the second released song (early 2023). Jump on and join the Revolution!`
 
 		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -242,7 +242,7 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
 		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
-		const about = `Strawberry City Lights is the first track release from Kanez Kane. This version here is close to the finalized version (available on Spotify and other services). The artwork is computer generated from using the title as input keywords.`
+		const about = `This is the first released song (late 2022). The artwork is computer generated from using the title as input.`
 
 		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -511,12 +511,13 @@ Egill - vocals (and maybe guitar)<br>
 	private votThemeSong() {
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
+		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
 		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jonas B. Antonsson, composed by Jonas and me, performed by me and mixed and produced by Julius Jonasson.`
 
-		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, '', about, soundcloudUrl, spotifyUrl, buyUrl)
+		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
 	}
 
 	private harmoniesOfShadeAndLight() {
@@ -554,8 +555,8 @@ We put the song under artist Egill Antonsson (for convenience) although it's tru
 
 	private magmaMerryGoRound() {
 		const rootUrl = 'magma-merrygoround'
-		const name = 'Magma merryGoRound'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}`
+		const name = 'Magma MerryGoRound'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
 		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
@@ -584,15 +585,17 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 	private fortidin() {
 		const rootUrl = 'fortidin'
 		const name = 'Fortíðin'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private toddlerTune() {
 		const rootUrl = 'toddlers-tune'
 		const name = 'Toddlers Tune'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private oddTimesInSpace() {
@@ -605,8 +608,9 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 	private lecube() {
 		const rootUrl = 'lecube'
 		const name = 'Lecube'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private introduction() {
@@ -623,15 +627,17 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 	private routine() {
 		const rootUrl = 'routine'
 		const name = 'Routine'
+		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private hhiCommercial() {
 		const rootUrl = 'song-for-hhi-commercial'
 		const name = 'Song for HHI commercial'
+		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private get artworkKuai() {
@@ -962,6 +968,9 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 	private tinyPlaces() {
 		const rootUrl = 'tiny-places'
 		const name = 'Tiny Places'
+		const artworkPath = `${Track.dir}game/${rootUrl}.png`
+
+		console.log(artworkPath)
 
 		const track = new LocalTrack(
 			[
@@ -1045,7 +1054,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, artworkPath)
 		return track
 	}
 

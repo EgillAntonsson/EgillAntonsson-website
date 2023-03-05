@@ -248,8 +248,9 @@ export class MusicService implements OnDestroy {
 			case StreamSource.Youtube:
 				this.youtubeService.playFromStart(this._selectedTrack as YoutubeTrack)
 				if (this.isSelectedTrackWithActiveYoutubeVisuals) {
-					console.log('****************** smu')
 					this.youtubeService.onWindowResize(this.windowWidth, 0)
+				} else {
+					this.setHeaderContainerHeightForMyPlayer()
 				}
 				break;
 			case StreamSource.Soundcloud:
