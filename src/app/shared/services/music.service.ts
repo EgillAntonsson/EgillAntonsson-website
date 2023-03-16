@@ -120,7 +120,7 @@ export class MusicService implements OnDestroy {
 	}
 
 	get isSelectedTrackWithActiveYoutubeVisuals() {
-		return this._selectedTrack.source == StreamSource.Youtube && (this._selectedTrack as YoutubeTrack).displayOnYoutube === true
+		return this._selectedTrack.source == StreamSource.Youtube && (this._selectedTrack as YoutubeTrack).isGraphicsActive === true
 	}
 
 	private setHeaderContainerHeightForMyPlayer() {
@@ -142,8 +142,6 @@ export class MusicService implements OnDestroy {
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
-		console.log('OnYoutubePlayerStateChange', playerState)
-
 		if (playerState === YT.PlayerState.PAUSED && this.playState !== PlayState.Paused) {
 			this.pause()
 		}
@@ -155,10 +153,16 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	onYoutubeBtn() {
-		this.youtubeService.toFullScreen()
+	minimizeMusicPlayer(minimize: boolean) {
+		if (this.selectedTrack.source === StreamSource.Youtube && (this.selectedTrack as YoutubeTrack).displayOnYoutube) {
+			(this.selectedTrack as YoutubeTrack).isGraphicsActive = !minimize
+			if (minimize) {
+				this.setHeaderContainerHeightForMyPlayer()
+			} else {
+				this.youtubeService.onWindowResize(this.windowWidth, 0)
+			}
+		}
 	}
-
 
 	initStreamer() {
 		if (this.musicStreamer.isInitialized) {
@@ -237,11 +241,8 @@ export class MusicService implements OnDestroy {
 
 	private playFromStart() {
 		this.logService.log(LogType.Info, 'playFromStart() in MusicService')
-
 		this.stop()
-
 		this._playState = PlayState.Loading
-
 		this._selectedTrack = this.nextSelectedTrack
 
 		switch (this._selectedTrack.source) {

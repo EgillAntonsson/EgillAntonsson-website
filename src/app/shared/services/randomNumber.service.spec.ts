@@ -33,9 +33,9 @@ describe('RandomNumberService', () => {
 			randoms.push(randomNumberService.generateUniqueRandomNumber())
 		}
 
-		console.log('random number list before sorting, should be 0 - 9 in random order:', randoms)
+		// random number list before sorting, should be 0 - 9 in random order
 		randoms.sort()
-		console.log('random number list after sorting, should be sorted 0, 1..., 9:', randoms)
+		// random number list after sorting, should be sorted 0, 1..., 9
 
 		for (let i = 0; i < randoms.length; i++) {
 			expect(randoms[i]).toBe(i)

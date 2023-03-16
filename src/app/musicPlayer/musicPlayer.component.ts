@@ -125,10 +125,6 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
   }
 
-	onYoutubeBtn() {
-		this.musicService.onYoutubeBtn()
-	}
-
 	onPlayerReady(player: YT.Player) {
 		this.musicService.onYoutubePlayerReady(player)
   }

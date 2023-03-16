@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { BlogService, Post } from '../shared/services/blog.service'
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router'
 import { filter } from 'rxjs/operators'
+import { MusicService } from 'app/shared/services/music.service'
 
 @Component({
 	selector: 'app-blog',
@@ -10,7 +11,7 @@ import { filter } from 'rxjs/operators'
 		'./blog.component.css'
 	]
 })
-export class BlogComponent {
+export class BlogComponent implements OnDestroy {
 	openedUiSeriesIndex = 0
 	selectedSeriesIndex = 0
 
@@ -22,8 +23,7 @@ export class BlogComponent {
 		return this.blogService.selectedPost
 	}
 
-	constructor(private blogService: BlogService, private router: Router, private route: ActivatedRoute) {
-
+	constructor(private blogService: BlogService, private router: Router, private route: ActivatedRoute, private musicService: MusicService) {
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			const urlEnd = (e as NavigationEnd).urlAfterRedirects
 
@@ -38,13 +38,17 @@ export class BlogComponent {
 			}
 		})
 
+		this.musicService.minimizeMusicPlayer(true)
+	}
+
+	ngOnDestroy() {
+		this.musicService.minimizeMusicPlayer(false)
 	}
 
 	onSeriesClick(seriesIndex: number) {
 		// deselect disabled, until more than one series is defined
 
 		// if (this.openedUiSeriesIndex === seriesIndex) {
-
 			// this.openedUiSeriesIndex = -1
 		// } else {
 			this.openedUiSeriesIndex = seriesIndex

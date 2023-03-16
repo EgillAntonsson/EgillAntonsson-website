@@ -970,8 +970,6 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Tiny Places'
 		const artworkPath = `${Track.dir}game/${rootUrl}.png`
 
-		console.log(artworkPath)
-
 		const track = new LocalTrack(
 			[
 				SoundData.music('tpMainThemeIntro', `${this.pathGame}/TP_mainThemeIntro.ogg`, 0.8),

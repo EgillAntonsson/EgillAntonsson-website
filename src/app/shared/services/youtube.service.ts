@@ -53,22 +53,16 @@ export class YoutubeService {
 		let playerMargin = 0
 		if (width < 451) {
 			playerMargin = 0
-			console.log('below or equal 451')
 		} else if (width <= 703) {
 			playerMargin = 0.1
-			console.log('below or equal 703')
 		} else if (width <= 1053) {
 			playerMargin = 0.2
-			console.log('below or equal 1053')
 		} else if (width <= 1403) {
 			playerMargin = 0.3
-			console.log('below or equal 1403')
 		} else if (width <= 2000) {
 			playerMargin = 0.35
-			console.log('below or equal 2000')
 		} else  {
 			playerMargin = 0.37
-			console.log('above 2000')
 		}
 
 		this.logService.log(LogType.Info, 'YoutubeService:setPlayerSize: width before', width);
@@ -78,12 +72,7 @@ export class YoutubeService {
 		let offset = 3 //0.009
 
 		let playerContainerWidth = w * (1 - (bodyMargin * 2))
-
-		console.log(playerContainerWidth)
-
 		w = playerContainerWidth * (1 - (playerMargin * 2))
-
-		console.log('width after',w)
 
 		this.playerWidth = w + offset
 
