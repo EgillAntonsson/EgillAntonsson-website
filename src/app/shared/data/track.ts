@@ -2,25 +2,7 @@ import { SoundData } from '../../../soundcommon/interface/soundData'
 import { LayeredMusicController } from '../../../soundcommon/layeredMusicController'
 import { StreamSource } from '../enums/streamSource'
 
-// export interface ITrack {
-// 	readonly name: string
-// 	readonly soundDatas: SoundData[]
-// 	readonly play: () => () => Promise<void>
-// 	readonly artworkPath: string
-// 	readonly about: string
-// 	readonly rootUrl: string
-// 	readonly soundcloudUrl: string
-// 	readonly spotifyUrl: string
-// 	readonly buyUrl: string
-// 	index: number
-// 	artistName: string
-// 	artistAbout: string
-// 	youtubeId: string,
-// 	source: StreamSource
-// 	fallbackSource: StreamSource
-// }
-
-export abstract class Track { //implements ITrack {
+export abstract class Track {
 	readonly name: string
 	readonly artworkPath: string
 	readonly about: string
@@ -67,10 +49,12 @@ export class LocalTrack extends Track {
 export class YoutubeTrack extends Track {
 	readonly youtubeId: string
 	readonly displayOnYoutube: boolean
+	isGraphicsActive: boolean
 	constructor(youtubeId: string, displayOnYoutube: boolean, rootUrl: string = '', name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
 		super(StreamSource.Youtube, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
 		this.youtubeId = youtubeId
 		this.displayOnYoutube = displayOnYoutube
+		this.isGraphicsActive = displayOnYoutube
 	}
 }
 

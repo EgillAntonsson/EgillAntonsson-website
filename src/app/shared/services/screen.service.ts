@@ -11,9 +11,9 @@ import { LogType } from 'shared/enums/logType';
 // Example of usage in a component or another service
 // this.onBpMaxWidthXS().subscribe((state: BreakpointState) => {
 // 	if (state.matches) {
-// 		console.log('** Is within XS');
+// 		// Is within XS
 // 	} else {
-// 		console.log('** Is beyond XS');
+// 		// Is beyond XS
 // 	}
 // });
 // related blog:
