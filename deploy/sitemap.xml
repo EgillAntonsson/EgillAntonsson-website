@@ -801,20 +801,20 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog</loc>
-		<priority>0.9</priority>
-		<lastmod>2022-06-07</lastmod>
+		<priority>1.0</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
-		<priority>0.5</priority>
-		<lastmod>2022-05-14</lastmod>
+		<priority>0.9</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
-		<priority>0.6</priority>
-		<lastmod>2022-05-14</lastmod>
+		<priority>1.0</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_first-test-fails.PNG</image:loc>
@@ -829,8 +829,8 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part4</loc>
-		<priority>0.7</priority>
-		<lastmod>2022-05-14</lastmod>
+		<priority>0.9</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-refactoring-ThrowsError-impl.PNG</image:loc>
@@ -841,7 +841,7 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part5</loc>
 		<priority>0.8</priority>
-		<lastmod>2022-05-14</lastmod>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_tests-protected-from-instant-kill.PNG</image:loc>
@@ -851,8 +851,8 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part6</loc>
-		<priority>0.9</priority>
-		<lastmod>2022-05-14</lastmod>
+		<priority>0.7</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-replenish-tests.PNG</image:loc>
@@ -862,8 +862,8 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part7</loc>
-		<priority>0.9</priority>
-		<lastmod>2022-08-16</lastmod>
+		<priority>0.6</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-increase-tests.PNG</image:loc>
@@ -873,8 +873,8 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part8</loc>
-		<priority>1.0</priority>
-		<lastmod>2022-08-21</lastmod>
+		<priority>0.7</priority>
+		<lastmod>2023-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/MenuItem_GameConfigInstance.png</image:loc>
