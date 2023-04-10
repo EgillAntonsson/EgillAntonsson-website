@@ -4,8 +4,7 @@
 https://www.egillantonsson.rocks/* https://www.egill.rocks/:splat 301!
 https://www.egillantonsson.org/* https://www.egill.rocks/:splat 301!
 https://www.egillantonsson.net/* https://www.egill.rocks/:splat 301!
-https://www.egillantonsson.co/* https://www.egill.rocks/:splat 301!
-https://www.egillantonson.com/* https://www.egill.rocks/:splat 301!
+https://www.egillantonsson.com/* https://www.egill.rocks/:splat 301!
 
 # Optional: Redirect default Netlify subdomain to primary domain
 https://egillantonsson.netlify.com/* https://www.egill.rocks/:splat 301!
