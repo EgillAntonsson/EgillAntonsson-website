@@ -1,0 +1,39 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+<h2>Using Visual Studio</h2>
+<h2>Setup</h2>
+<h2>The requirements for <i>definition and start state</i></h2>
+<p>
+	The requirement is the same as in the corresponding <a href="./blog/tdd-health/part3">C# Part 3</a>
+</p>
+<ul class="list inline">
+	<li>Avatar Health starts with 12 Health Points (equals to the visual representation of 3 Hearts * 4 Fractions)</li>
+</ul>
+<h2>Health Points starting value</h2>
+
+<h3><span class="redFail">RED (does not compile)</span></h3>
+<pre><code [highlight]="test1Red"></code></pre>
+
+<h3><span class="redFail">RED (test fails)</span></h3>
+<pre><code [highlight]="test1Red2"></code></pre>
+<figure>
+	<img src="../assets/images/blog/tdd-cpp/TestRunner_first-test-fails.jpg" alt="Visual Studio Test Explorer: first test fail" title="Visual Studio Test Explorer: first test fail" class="imageSmallText">
+	<figcaption>
+		Visual Studio Test Explorer: first test fail
+	</figcaption>
+</figure>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="impl1Green"></code></pre>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+
+

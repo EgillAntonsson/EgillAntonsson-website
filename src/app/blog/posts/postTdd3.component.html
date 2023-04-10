@@ -8,98 +8,82 @@
 		updated on {{updatedDateToString}}
 	</small>
 </div>
+
+<h2>Using Unity (.NET)</h2>
+<p>
+	I'll use Unity for the implementation. Another C# .NET and Test Runner could be used for implementing the domain logic, but I choose Unity so the graphic visuals could easily be added later on (as I'm an experienced Unity developer).
+</p>
+
 <h2>Setting up Unity</h2>
 <p>
-	I create a new Unity (3D) project and keep the default config,<br>
-	except that I update <i>Test Framework</i> package to latest version (currently 1.1.31),<br>
-	it uses a Unity integration of <a href="https://nunit.org">NUnit</a> library.<br>
-
-	The <i>Test Framework </i> <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">docs</a> details how to setup tests for a project.<br>
-	<br>
-	My project structure starts very simple:
+	I create a new Unity project and keep the default config, except that I update <i>Test Framework</i> package to latest version. The package uses the Unity integration of <a href="https://nunit.org">NUnit</a> library and the <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">docs</a> detail how to setup tests for a project.<br></p>
+<p>
+	My project structure starts very simple
 </p>
 <ul class="list inline">
-	<li>The test code is in: <i>Scripts/Tests/EditMode/[ClassName]Test.cs</i></li>
-	<li>The production code is in: <i>Scripts/Runtime/[ClassName].cs</i></li>
+	<li>The test code is in <i>Scripts/Tests/EditMode/ClassName]Test.cs</i></li>
+	<li>The production code is in <i>Scripts/Runtime/[ClassName].cs</i></li>
 </ul>
 <p>
-	As the folder structure implies,<br>
-	I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code.<br>
-	<i>EditMode</i> test have access to both:
-	<ul class="list inline">
-		<li>the <i>Editor</i> code (only about extending the Unity editor)</li>
-		<li>the <i>Runtime</i> code (of the targeted platform, e.g iOS).</li>
-	</ul>
+	As the folder structure implies I'm doing <i>EditMode</i> tests for the production <i>Runtime</i> code. <i>EditMode</i> test have access to both
+</p>
+<ul class="list inline">
+	<li>the <i>Editor</i> code (e.g. to be able to test production code based on Unity editor code)</li>
+	<li>the <i>Runtime</i> code (of the targeted platforms, e.g. iOS).</li>
+</ul>
 <p>
-	My main reason to prefer <i>EditMode</i> tests for <i>Runtime</i> code<br>
-	is that they run faster (Player startup and run in editor not done).<br>
-	Also the domain logic should not need the <i>PlayMode</i> tests features<br>
-	(tests don't need to run as Unity <i>Coroutine</i> to 'step' through the code).<br>
-	The doc page <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
+	My main reasons to prefer <i>EditMode</i> over <i>PlayMode</i>tests for <i>Runtime</i> code is that they run faster (as <i>Runtime</i> startup is skipped). Also the domain logic should not need the <i>PlayMode</i> features i.e. the tests should not need to run as <a href="https://docs.unity3d.com/Manual/Coroutines.html">Coroutine</a> to wait or step through frames. I'm focused on writing <b>Unit</b> tests (not other types of tests) and good Unit tests should run quickly (see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>). The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
+</p>
 
 <h2>The requirements for <i>definition and start state</i></h2>
 <p>
-	Let's recap these requirements from the user perspective:
-</p>
+	Let's recap these requirements from the user perspective</p>
 <ul class="list inline">
 	<li>The Life Gauge measures Link's (the avatar) current amount of health</li>
 	<li>Health is visually represented in the form of Hearts, and they are in fractions of 4</li>
 	<li>The Life Gauge starts with 3 Hearts</li>
 </ul>
-<p>
-	Let's filter and transform this into a requirement that's focused only on the domain<br>
-	(as GUI will be done later):
-</p>
+<p>Let's filter and reword these so they're only focused on the domain logic</p>
 <ul class="list inline">
-	<li>Avatar Health starts with 12 Health Points<br>
-		(equals to visual representation of 3 Hearts * 4 Fractions)</li>
+	<li>Avatar Health starts with 12 Health Points (equals to the visual representation of 3 Hearts * 4 Fractions)</li>
 </ul>
+<p>Now let's implement this domain logic focused requirement via TDD.</p>
 
 <h2>Health Points starting value</h2>
 
 <h3><span class="redFail">RED (does not compile)</span></h3>
 <p>
-	The domain model focus will be the <code>Health</code> class (not created yet),<br>
-	Thus I create test file <code>HealthTest.cs</code> and write the first test,<br>
-	that fails as the code does not compile.
+	The domain model focus will be the <code>Health</code> class (not created yet), thus I create the test file <code>HealthTest.cs</code> and write the first test and see it fail (as the code does not compile).
 </p>
-<pre><code [highlight]="test_1_Red"></code></pre>
-<h3>Test code naming / structure convention</h3>
+<pre><code [highlight]="test1Red"></code></pre>
 <p>
-	I use and name nested class after the <i>entry point</i> of the test<br>
-	(<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>),<br>
-	which in this particular case is named <code>Constructor</code>.<br>
-	I got the idea from Erik Dietrich via <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a><br>
-	that references Phil Haack via <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a><br>
-	<br>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions.</a>.
+</p>
+<h3>Test code naming and structure convention</h3>
+<p>
+	I create and name a nested class after the <i>entry point</i> of the test (<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>), which in this particular case is named <code>Constructor</code>.<br> I got the idea from in his post <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> (author Erik Dietrich) that references <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> (author Phil Haack).
 </p>
 
 <h3><span class="redFail">RED (test fails)</span></h3>
 <p>
-	I want to run the test and see it fail.<br>
-	This is done to verify that the test is not passing when it should not<br>
-	(provides more value for more complex scenario).<br>
-	Thus I write the needed production code for the compiler to compile successfully,<br>
-	then run the tests via Unity Test Runner (menu item <i>Window > General > Test Runner</i>).<br>
+	I run the test and see it fail to verify that the test is not passing when it should not. I write the minimal production code for the compiler to compile successfully and then run the tests via Unity Test Runner (menu item <i>Window > General > Test Runner</i>)
 </p>
-<pre><code [highlight]="test_1_Red2"></code></pre>
+<pre><code [highlight]="test1Red2"></code></pre>
 <figure>
-	<img src="../assets/images/blog/tdd/TestRunner_first-test-fails.PNG" alt="Unity Test Runner: first test fail (the nested class displays nicely)" title="Unity Test Runner: first test fail (the nested class displays nicely)" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/TestRunner_first-test-fails.PNG" alt="Unity Test Runner: first test fail" title="Unity Test Runner: first test fail" class="imageSmallText">
 	<figcaption>
-		Unity Test Runner: first test fail (the nested class displays nicely)
+		Unity Test Runner: first test fail
 	</figcaption>
 </figure>
 <p>
-	Going forward I will skip demonstrating both steps<br>
-	'does not compile' and 'test fails' (although I do them both when coding),<br>
-	thus demonstrating only one <span class="redFail">RED</span> step.
+	Going forward I will skip demonstrating the step 'does not compile' and thus only demonstrate 'test fails' that going forward will simply be called <span class="redFail">RED</span> step (although I do both steps when coding).
 </p>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<p>Let's make the test pass with a very simple implementation.
+<p>
+	I make the test pass with this very simple implementation:
 </p>
-<pre><code [highlight]="impl_1_Green"></code></pre>
+<pre><code [highlight]="impl1Green"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 

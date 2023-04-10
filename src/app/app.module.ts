@@ -21,6 +21,7 @@ import { RandomNumber, RandomNumberService } from './shared/services/randomNumbe
 import { PostTdd1Component } from './blog/posts/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/postTdd2.component'
 import { PostTdd3Component } from './blog/posts/postTdd3.component'
+import { PostTdd3CppComponent } from './blog/posts/postTdd3Cpp.component'
 import { PostTdd4Component } from './blog/posts/postTdd4.component'
 import { PostTdd5Component } from './blog/posts/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/postTdd6.component'
@@ -54,6 +55,7 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 		PostTdd1Component,
 		PostTdd2Component,
 		PostTdd3Component,
+		PostTdd3CppComponent,
 		PostTdd4Component,
 		PostTdd5Component,
 		PostTdd6Component,
@@ -69,7 +71,8 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 		useValue: {
 			coreLibraryLoader: () => import('highlight.js/lib/core'),
 			languages: {
-				typescript: () => import('highlight.js/lib/languages/csharp')
+				csharp: () => import('highlight.js/lib/languages/csharp'),
+				cpp: () => import('highlight.js/lib/languages/cpp')
 			}
 		}
 	}]

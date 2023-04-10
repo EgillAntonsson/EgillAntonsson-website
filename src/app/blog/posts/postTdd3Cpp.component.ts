@@ -2,44 +2,34 @@ import { Component } from '@angular/core'
 import { PostComponent } from './post.component'
 
 @Component({
-	selector: 'app-post-tdd-3',
-	templateUrl: './postTdd3.component.html',
+	selector: 'app-post-tdd-3-cpp',
+	templateUrl: './postTdd3Cpp.component.html',
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd3Component extends PostComponent {
+export class PostTdd3CppComponent extends PostComponent {
 
-	test1Red = `// HealthTest.cs
-using NUnit.Framework;
+	test1Red = `// HealthTest.h
+#include "pch.h"
+#include "../AvatarHealth/Health.h"
 
-public class HealthTest
-{
-	public class Constructor
-	{
-		[Test]
-		public void Points_HasStartingValue()
-		{
-			var health = new Health();
-			Assert.That(health.points, Is.EqualTo(12));
-		}
-	}
+TEST(Constructor, HasStartingValue) {
+	Health health;
+	EXPECT_EQ(health.points, 12);
 }
 `
 
-test1Red2 = `// Health.cs
-public class Health
+test1Red2 = `// Health.h
+#pragma once
+
+class Health
 {
-	public int points;
-}
-`
-	impl1Green = `// Health.cs
-public class Health
-{
-	public int points = 12;
-}
+public:
+	int points;
+};
 `
 
-	impl_1_Green_cpp = `// Health.cpp
+	impl1Green = `// Health.cpp
 class Health
 {
 public:
