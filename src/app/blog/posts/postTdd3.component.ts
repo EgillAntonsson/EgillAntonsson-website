@@ -39,15 +39,7 @@ public class Health
 }
 `
 
-	impl_1_Green_cpp = `// Health.cpp
-class Health
-{
-public:
-	int points = 12;
-};
-`
-
-	test_1_refactor = `// HealthTest.cs
+	test1Refactor = `// HealthTest.cs
 // inside nested Constructor class.
 [Test]
 public void CurrentPoints_HasStartingValue()
@@ -57,7 +49,7 @@ public void CurrentPoints_HasStartingValue()
 	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
 }
 `
-	impl_1_refactor = `// Health.cs
+	impl1Refactor = `// Health.cs
 public int CurrentPoints { get; private set; }
 
 public Health(int startingPoints)
@@ -66,7 +58,7 @@ public Health(int startingPoints)
 }
 `
 
-	test_2_Red = `// HealthTest.cs
+	test2Red = `// HealthTest.cs
 // inside nested Constructor class.
 [Test]
 public void ThrowsError_WhenStartingPointsIsInvalid()
@@ -80,7 +72,7 @@ public void ThrowsError_WhenStartingPointsIsInvalid()
 }
 `
 
-	impl_2_Green = `//Health.cs
+	impl2Green = `//Health.cs
 public int CurrentPoints { get;  private set; }
 
 public Health(int startingPoints)
@@ -94,7 +86,7 @@ public Health(int startingPoints)
 }
 `
 
-impl_2_Refactor = `//Health.cs
+impl2Refactor = `//Health.cs
 public Health(int startingPoints)
 {
 	const int lowestValidValue = 1;

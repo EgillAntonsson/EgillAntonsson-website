@@ -9,11 +9,12 @@ import { PostComponent } from './post.component'
 
 export class PostTdd3CppComponent extends PostComponent {
 
-	test1Red = `// HealthTest.h
+	test1Red = `// HealthTest.cpp
 #include "pch.h"
 #include "../AvatarHealth/Health.h"
 
-TEST(Constructor, HasStartingValue) {
+TEST(Constructor, Points_HasStartingValue)
+{
 	Health health;
 	EXPECT_EQ(health.points, 12);
 }
@@ -29,7 +30,7 @@ public:
 };
 `
 
-	impl1Green = `// Health.cpp
+	impl1Green = `// Health.h
 class Health
 {
 public:
@@ -37,87 +38,95 @@ public:
 };
 `
 
-	test_1_refactor = `// HealthTest.cs
-// inside nested Constructor class.
-[Test]
-public void CurrentPoints_HasStartingValue()
+	test1Refactor = `// HealthTest.cpp
+TEST(Constructor, CurrentPoints_HasStartingValue)
 {
-	int startingPoints = 12;
-	var health = new Health(startingPoints);
-	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-}
-`
-	impl_1_refactor = `// Health.cs
-public int CurrentPoints { get; private set; }
-
-public Health(int startingPoints)
-{
-	CurrentPoints = startingPoints;
+	auto startingPoints = 12;
+	Health health = Health(startingPoints);
+	EXPECT_EQ(health.GetCurrentPoints(), startingPoints);
 }
 `
 
-	test_2_Red = `// HealthTest.cs
-// inside nested Constructor class.
-[Test]
-public void ThrowsError_WhenStartingPointsIsInvalid()
+	impl1Refactor = `// Health.cpp
+#include "Health.h"
+
+Health::Health(int startingPoints)
 {
-	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-		delegate
+	Health::currentPoints = startingPoints;
+}
+
+int Health::GetCurrentPoints()
+{
+	return currentPoints;
+}
+`
+
+	test2Red = `// HealthTest.cpp
+TEST(Constructor, ThrowsExWhenStartingPointsIsInvalid)
+{
+	EXPECT_THROW(
 		{
-			new Health(0);
-		});
-	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
+			Health health = Health(0);
+		}, std::out_of_range);
 }
 `
 
-	impl_2_Green = `//Health.cs
-public int CurrentPoints { get;  private set; }
-
-public Health(int startingPoints)
+	impl2Green = `//Health.cpp
+Health::Health(int startingPoints)
 {
 	if (startingPoints < 1)
 	{
-		throw new ArgumentOutOfRangeException(nameof(startingPoints), "Invalid value");
+		throw std::out_of_range(std::string("Invalid value"));
 	}
 
-	CurrentPoints = startingPoints;
+	Health::currentPoints = startingPoints;
 }
 `
 
-impl_2_Refactor = `//Health.cs
-public Health(int startingPoints)
+impl2Refactor = `//Health.cpp
+#include <format>
+
+using namespace std;
+
+Health::Health(int startingPoints)
 {
-	const int lowestValidValue = 1;
+	auto lowestValidValue = 1;
 	if (startingPoints < lowestValidValue)
 	{
-		var message = $"Value {startingPoints} is invalid, it should be equal or higher than {lowestValidValue}";
-		throw new ArgumentOutOfRangeException(nameof(startingPoints), message);
+		auto msg = format("Value {} is invalid, it should be equal or higher than {}", startingPoints, lowestValidValue);
+		throw out_of_range(msg);
 	}
 
-	CurrentPoints = startingPoints;
+	Health::currentPoints = startingPoints;
 }
 `
 
-	test_3_Green = `// HealthTest.cs
-// inside nested class Constructor
-[TestCase(12)]
-[TestCase(1)]
-public void CurrentPoints_HasStartingValue(int startingPoints)
+	test3Green = `// HealthTest.cpp
+using namespace std;
+using ::testing::TestWithParam;
+using ::testing::Values;
+
+class CurrentPointsHasStartingValues : public TestWithParam<int> { };
+INSTANTIATE_TEST_CASE_P(Constructor, CurrentPointsHasStartingValues,
+	Values(1, 12)
+);
+TEST_P(CurrentPointsHasStartingValues, Value)
 {
-	var health = new Health(startingPoints);
-	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
+	auto param = GetParam();
+	Health health = Health(param);
+	EXPECT_EQ(health.GetCurrentPoints(), param);
 }
 
-[TestCase(0)]
-[TestCase(-1)]
-public void ThrowsError_WhenStartingPointsIsInvalid(int startingPoints)
+class ThrowsExWhenStartingPoints : public TestWithParam<int> { };
+INSTANTIATE_TEST_CASE_P(Constructor, ThrowsExWhenStartingPoints,
+	Values(0, -1)
+);
+TEST_P(ThrowsExWhenStartingPoints, Value)
 {
-	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(),
-		delegate
+	EXPECT_THROW(
 		{
-			new Health(startingPoints);
-		});
-	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
+			Health health = Health(GetParam());
+		}, out_of_range);
 }
 `
 

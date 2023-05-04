@@ -11,12 +11,13 @@
 
 <h2>Using Unity (.NET)</h2>
 <p>
-	I'll use Unity for the implementation. Another C# .NET and Test Runner could be used for implementing the domain logic, but I choose Unity so the graphic visuals could easily be added later on (as I'm an experienced Unity developer).
+	I will use <a href="https://unity.com">Unity</a> and the <i>Test Framework</i> package (a Unity integration of the <a href="https://nunit.org">NUnit</a> framework). The whole project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a> (including the Unity and package versions). Another C# .NET and Test Runner could be used for implementing the domain logic, but I choose Unity because I'm an experienced Unity developer and could effortlessly add the graphic visuals afterwards (but I might stop this blog series without visuals and instead blog about something else).
 </p>
 
-<h2>Setting up Unity</h2>
+<h2>Setup</h2>
 <p>
-	I create a new Unity project and keep the default config, except that I update <i>Test Framework</i> package to latest version. The package uses the Unity integration of <a href="https://nunit.org">NUnit</a> library and the <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">docs</a> detail how to setup tests for a project.<br></p>
+	I create a new Unity project and the update <i>Test Framework</i> package to latest version. The package <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">docs</a> detail how to setup tests for a project.
+</p>
 <p>
 	My project structure starts very simple
 </p>
@@ -32,7 +33,7 @@
 	<li>the <i>Runtime</i> code (of the targeted platforms, e.g. iOS).</li>
 </ul>
 <p>
-	My main reasons to prefer <i>EditMode</i> over <i>PlayMode</i>tests for <i>Runtime</i> code is that they run faster (as <i>Runtime</i> startup is skipped). Also the domain logic should not need the <i>PlayMode</i> features i.e. the tests should not need to run as <a href="https://docs.unity3d.com/Manual/Coroutines.html">Coroutine</a> to wait or step through frames. I'm focused on writing <b>Unit</b> tests (not other types of tests) and good Unit tests should run quickly (see <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>). The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
+	My main reasons to prefer <i>EditMode</i> over <i>PlayMode</i> tests for <i>Runtime</i> code is that they run faster (as it has no runtime startup cost). Also unit testing the domain logic should not need the <i>PlayMode</i> features i.e. the tests should not need to run as <a href="https://docs.unity3d.com/Manual/Coroutines.html">Coroutine</a> to wait or step through frames. This in line with that good unit tests should run quickly (see the <i>What is a good Unit Test</i> section in <a href="./blog/tdd-health/part1">Part 1</a>). The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
 </p>
 
 <h2>The requirements for <i>definition and start state</i></h2>
@@ -59,7 +60,7 @@
 <p>
 	I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions.</a>.
 </p>
-<h3>Test code naming and structure convention</h3>
+<h4>Test code naming and structure convention</h4>
 <p>
 	I create and name a nested class after the <i>entry point</i> of the test (<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>), which in this particular case is named <code>Constructor</code>.<br> I got the idea from in his post <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> (author Erik Dietrich) that references <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> (author Phil Haack).
 </p>
@@ -87,126 +88,80 @@
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<p>Now it comes to mind that from a game design perspective<br>
-	it's good to be able to tweak the starting points for game balancing,<br>
-	thus I refactor the value to be passed as parameter into the constructor.<br>
-	<span class="outOfScope">An advanced system would have an accessible<br>
-		game balancing config that the code would read the values<br>
-		and then pass them into the <span class="code">Health</span> constructor.</span><br>
-	<br>
-	I name the passed in parameter <span class="code">startingPoints</span>.<br>
-	I also rename the property to <span class="code">CurrentPoints</span> (and thus the test case) to further clarify the logic:<br>
-	<i>starting points is passed into the constructor which sets the current points.</i><br>
-</p>
-<pre><code [highlight]="test_1_refactor"></code></pre>
 <p>
-	I also encapsulate <span class="code">CurrentPoints</span> into a 'getter, private setter'.<br>
-	In general I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code as much as possible.<br>
-	The only exposed interface should come from<br>
-	the requirements that the TDD cycles will drive,<br>
-	and if the tests need additional exposure no top of that<br>
-	(should be kept to a minimum).
+	It comes to mind that it's good to be able to tweak the starting points at compile time for game design balancing, so I refactor the value to be passed as parameter into the constructor. (A 'do later' improvement would be to have a config that is passed into the <span class="code">Health</span> constructor as I do in <a href="./blog/tdd-health/part8">Part 8</a>).
 </p>
-<pre><code [highlight]="impl_1_refactor"></code></pre>
 <p>
-	From now on the code will mostly be presented as a part of the class,<br>
-	focused on the current TDD cycle.<br>
-	The code in its entirety and the Unity project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
+I rename the member variable and thus the test case to <span class="code">CurrentPoints</span>. I name the constructor parameter <span class="code">startingPoints</span>.
 </p>
+<pre><code [highlight]="test1Refactor"></code></pre>
+<p>
+	I also encapsulate <span class="code">CurrentPoints</span> into a 'getter, private setter'. I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code so that the only exposure comes from the requirements that the TDD cycles drives (more exposure could be required in certain cases but should be kept to the bare minimum).
+</p>
+<pre><code [highlight]="impl1Refactor"></code></pre>
 
 <h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
+
 <p>
-	Now it comes to mind that invalid values can be passed in,<br>
-	as our avatar should never start with less than 1 points<br>
-	(because otherwise Link would start up being dead :P ).<br>
-	Thus I'll throw an exception when the value is invalid.<br>
-	<span class="outOfScope">Invalid values should also be handled where they are defined,<br>
-		in the previously mentioned game balancing config.</span>
+	It comes to mind that invalid values can be passed into the constructor as our avatar should never start with less than 1 points (starting up being dead is obviously a no-go). Thus the production code should throw an exception when the value is invalid and I write a test that expects this (It expectedly fails as the throwing has not been implemented).
 </p>
 
 <h3><span class="redFail">RED</span></h3>
 
-<pre><code [highlight]="test_2_Red"></code></pre>
+<p>
+	Going forward I'll present only the code that's the focus of the current TDD step.
+</p>
+
+<pre><code [highlight]="test2Red"></code></pre>
 
 <p>
-	I deem I can use existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span><br>
-	if I include an informative message for my case.<br>
-	I assert that the message contains "invalid",<br>
-	intentionally not being more specific<br>
-	so the assert does not fail later because of potential rewording.<br>
-	<br>
-	I chose the value <code>0</code> as it's on the edge of invalidation (as <code>1</code> is valid).<br>
+	I deem I can use the existing <span class="code">ArgumentOutOfRangeException</span> from <span class="code">System</span>, if I include an informative message for my case. I chose the value <code>0</code> for <span class="code">StartingPoints</span> because it's on the edge of the invalidation (as <code>1</code> is valid). I assert that the message contains "invalid" (ignoring the case), intentionally not being more specific so the assert does not fail later because of potential rewording improvements.
 </p>
-<h3>Test code naming / structure convention</h3>
+
+<h4>Test code naming and structure convention</h4>
 <p>
-	Elaborating further, I use my template:<br>
-	<br>
-	[<i>exit point</i>]_[will be in state]<br>
-	or<br>
-	[<i>exit point</i>]_When[Scenario]<br>
-	or<br>
-	[expected behavior of <i>Unit of Work</i>]_When[Scenario]<br>
-	<br>
-	_When is used for other scenarios than the 'happy path' / basic one.<br>
-	(<i>exit point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>),<br>
-	<br>
-	Thus these two test cases are named accordingly:<br>
-	<code>CurrentPoints_HasStartingValue</code><br>
-	<code>ThrowsError_WhenStartingPointsIsInvalid</code>
+	My convention sets the test method naming into one of the below (<i>exit point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>):
 </p>
+<ul class="list inline">
+	<li>[ <i>exit point</i> ] _ [ will be in state (after 'happy success path')] e.g. <code>CurrentPoints_HasStartingValue</code></li>
+	<li>[ <i>exit point</i> ] _ When [ Scenario ]</li>
+	<li>[ expected behavior of <i>Unit of Work</i> ] _ When [ Scenario ] e.g. <code>ThrowsError_WhenStartingPointsIsInvalid</code></li>
+</ul>
 
 <h3><span class="greenPass">GREEN</span></h3>
 
-<pre><code [highlight]="impl_2_Green"></code></pre>
+<pre><code [highlight]="impl2Green"></code></pre>
 
 <p>
-	I'm confident that the implementation of the conditional<br>
-	is the proper generic solution for this requirement.<br>
-	However I just did the bare minimum for the exception message,<br>
-	and I will refactor it in the next step.<br>
+	I'm confident that the implementation of the <code>if</code> conditional handles all potential input values properly. However I just did the bare minimum for the exception message and I will refactor it in the next step. (When the previously mentioned config is implemented the validation should be moved there when the values are defined, as I do in <a href="./blog/tdd-health/part8">Part 8</a>).
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<pre><code [highlight]="impl_2_Refactor"></code></pre>
+<pre><code [highlight]="impl2Refactor"></code></pre>
 <p>
-	I define <code>lowestValidValue</code> and use it both in the condition and the message.<br>
-	This both makes the exception message more readable<br>
-	and makes sure the conditional and message will always be in-sync.<br>
-	I get the name of the sent in parameter with <code>nameof(startingPoints)</code>.<br>
-	<br>
-	I check the message in TestRunner by temporarily commenting out<br>
-	all lines in the test except the constructor invocation.<br>
-	The message displays when value <code>0</code> was passed in:<br>
-	<code>System.ArgumentOutOfRangeException : Value '0' is invalid, it should be equal or higher than '1'<br>
-	Parameter name: startingPoints</code><br>
-	<br>
-	That's reads pretty clear to me.
+	I define <code>lowestValidValue</code> and use it both in the condition and the message. This makes the message properly informative and makes sure the conditional and message will always be in-sync. I verify the message displays as expected (with debug breakpoint):
+</p>
+<p>
+<code>System.ArgumentOutOfRangeException : Value 0 is invalid, it should be equal or higher than 1. Parameter name: startingPoints</code>
 </p>
 
 <h2>Let's test a few more values</h2>
 
-<p>I'm confident that the implementation of the requirement<br>
-	will work for any passed-in parameter value.<br>
-	But I'll test a few more values to verify it,<br>
-	and to demonstrate how to do it in a clean and maintainable way.
+<p>I'm confident that this implementation will work for any passed-in parameter value. But I'll test a few more values to verify it. and to demonstrate how to do it in a clean and maintainable way.
 </p>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 
-<p>Refactoring the tests to add test cases<br>
-	where the value is close to the valid or invalid edge,<br>
-	using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute.
+<p> I refactor the tests and add test cases where the value is close to the valid/invalid edge, using <a href="https://docs.nunit.org/articles/nunit/technical-notes/usage/Parameterized-Tests.html">Parameterized Tests</a> with inline <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">TestCase</a> attribute.
 </p>
 <pre><code [highlight]="test_3_Green"></code></pre>
 
 <p>
-	This runs in total 4 test cases and Unity Test Runner looks like this:
+	Now total 4 test cases are run and Unity Test Runner looks like this:
 </p>
 
 <figure>
 	<img src="../assets/images/blog/tdd/TestRunner_tests-using-TestCase.PNG" alt="Unity Test Runner: tests using TestCase attribute" title="Unity Test Runner: tests using TestCase attribute" class="imageSmallText">
-	<figcaption>
-		Unity Test Runner: tests using <i>TestCase</i> attribute
-	</figcaption>
+	<figcaption>Unity Test Runner: tests using <i>TestCase</i> attribute</figcaption>
 </figure>

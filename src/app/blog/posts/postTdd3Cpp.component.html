@@ -9,7 +9,28 @@
 	</small>
 </div>
 <h2>Using Visual Studio</h2>
+<p>
+	I'll use <a href="https://visualstudio.microsoft.com">Visual Studio</a> (VS) and the whole project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a> (including the VS project files). I'm using the free VS <i>Community</i> edition which is sufficient for this blog series, but it's worth mentioning that the paid <i>Enterprise</i> edition includes the productivity feature <i>Live Unit Testing</i> which provides real-time feedback directly in the editor, which is convenient for the TDD cycles, other test related features e.g. <i>Code Coverage</i>. Using the <i>Community</i> edition I'll need to manually trigger the test run (and Code Coverage will not be the focus of this blog series).
+</p>
+
+<h2>Using Google Test</h2>
+<p>
+	I'll use <a href="http://google.github.io/googletest/">Google Test</a> framework as VS includes and integrates it, and doing a quick web browser comparison and research (not using Google) makes it likely to provide similar features as C# <a href="https://nunit.org">NUnit</a> framework (I currently have more experience in C# and NUnit and other similar frameworks).
+</p>
+
 <h2>Setup</h2>
+<p>
+	I create a new (C++) <i>Windows Desktop Application</i> project naming it <code>AvatarHealth</code> and this also creates the solution for the project. For the unit tests I add within the solution a new (C++) <i>Google Test</i> project naming it <code>AvatarHealth-Test</code> (detailed in <a href="https://learn.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp?view=vs-2022#create-a-test-project-in-visual-studio-2022">VS doc section</a>), and configure it like the screenshot below:
+</p>
+<figure>
+	<img src="../assets/images/blog/tdd-cpp/VS-new-project_GoogleTests-config.jpg" alt="Test Runner: first test fail" title="VS new project: Google Test config" class="imageSmallText">
+	<figcaption>VS new project: Google Test config</figcaption>
+</figure>
+<p>
+	To export the functions that you want to test, add the output .obj or .lib files to the dependencies of the test project detailed in this <a href="https://learn.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp?view=vs-2022#link-to-object-or-library-files">VS doc section</a>.
+
+</p>
+
 <h2>The requirements for <i>definition and start state</i></h2>
 <p>
 	The requirement is the same as in the corresponding <a href="./blog/tdd-health/part3">C# Part 3</a>
@@ -25,15 +46,38 @@
 <h3><span class="redFail">RED (test fails)</span></h3>
 <pre><code [highlight]="test1Red2"></code></pre>
 <figure>
-	<img src="../assets/images/blog/tdd-cpp/TestRunner_first-test-fails.jpg" alt="Visual Studio Test Explorer: first test fail" title="Visual Studio Test Explorer: first test fail" class="imageSmallText">
-	<figcaption>
-		Visual Studio Test Explorer: first test fail
-	</figcaption>
+	<img src="../assets/images/blog/tdd-cpp/TestRunner_first-test-fails.jpg" alt="Test Runner: first test fail" title="Test Runner: first test fail" class="imageSmallText">
+	<figcaption>Test Runner: first test fail</figcaption>
 </figure>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="impl1Green"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="test1Refactor"></code></pre>
 
+<pre><code [highlight]="impl1Refactor"></code></pre>
 
+<h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
+
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="test2Red"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="impl2Green"></code></pre>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="impl2Refactor"></code></pre>
+
+<figure>
+	<img src="../assets/images/blog/tdd-cpp/TestRunner_before-parameterized-refactor.jpg" alt="Test Runner: before parameterized refactor" title="Test Runner: before parameterized refactor" class="imageSmallText">
+	<figcaption>Test Runner: before parameterized refactor</figcaption>
+</figure>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="test3Green"></code></pre>
+
+<figure>
+	<img src="../assets/images/blog/tdd-cpp/TestRunner_after-parameterized-refactor.jpg" alt="Test Runner: after parameterized refactor" title="Test Runner: after parameterized refactor" class="imageSmallText">
+	<figcaption>Test Runner: after parameterized refactor</figcaption>
+</figure>
