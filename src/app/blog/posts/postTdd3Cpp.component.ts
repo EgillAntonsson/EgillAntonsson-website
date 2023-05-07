@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PostComponent } from './post.component'
+import { PostTdd3Component } from './postTdd3.component'
 
 @Component({
 	selector: 'app-post-tdd-3-cpp',
@@ -7,20 +7,32 @@ import { PostComponent } from './post.component'
 	styleUrls: ['./../blog.component.css']
 })
 
-export class PostTdd3CppComponent extends PostComponent {
+export class PostTdd3CppComponent extends PostTdd3Component {
 
-	test1Red = `// HealthTest.cpp
+	override codeTestRedDoesNotCompileStartingValue() {
+		return `// HealthTest.cpp
 #include "pch.h"
 #include "../AvatarHealth/Health.h"
 
-TEST(Constructor, Points_HasStartingValue)
+TEST(Constructor, PointsHasStartingValue)
 {
 	Health health;
 	EXPECT_EQ(health.points, 12);
 }
 `
+	}
 
-test1Red2 = `// Health.h
+	override redAfterDoesNotCompileStartingValue() {
+		return `<p>I name the first param in the <a href=http://google.github.io/googletest/reference/testing.html#TEST">TEST</a> macro after the <i>entry point</i> of the test (<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>), thus is named <code>Constructor</code> in this case. The rest of the test case naming goes into the second param (Google Test docs states that it should not contain underscores). You can see how this lays out in the Test Explorer in the screenshots below.</p>`
+	}
+
+	override redStartingValueImgUrl() {
+		let base = super.redStartingValueImgUrl();
+		return base.substring(0, base.length-3) + 'jpg'
+	}
+
+	override codeTestRedStartingValue() {
+		return `// Health.h
 #pragma once
 
 class Health
@@ -29,25 +41,47 @@ public:
 	int points;
 };
 `
+	}
 
-	impl1Green = `// Health.h
+override codeImplGreenStartingValue() {
+	return `// Health.h
 class Health
 {
 public:
 	int points = 12;
 };
 `
+}
 
-	test1Refactor = `// HealthTest.cpp
-TEST(Constructor, CurrentPoints_HasStartingValue)
+	override codeTestRefactorStartingValue() {
+	return `// HealthTest.cpp
+TEST(Constructor, CurrentPointsHasStartingValue)
 {
 	auto startingPoints = 12;
 	Health health = Health(startingPoints);
 	EXPECT_EQ(health.GetCurrentPoints(), startingPoints);
 }
 `
+}
 
-	impl1Refactor = `// Health.cpp
+codeImplRefactorHeaderStartingValue() {
+	return `// Health.h
+#pragma once
+
+class Health
+{
+public:
+	Health(int startingPoints);
+	int GetCurrentPoints();
+
+private:
+	int currentPoints;
+};
+`
+}
+
+override codeImplRefactorStartingValue() {
+	return `// Health.cpp
 #include "Health.h"
 
 Health::Health(int startingPoints)
@@ -60,8 +94,10 @@ int Health::GetCurrentPoints()
 	return currentPoints;
 }
 `
+}
 
-	test2Red = `// HealthTest.cpp
+ override codeTestRedInvalidStartingPoints() {
+	return `// HealthTest.cpp
 TEST(Constructor, ThrowsExWhenStartingPointsIsInvalid)
 {
 	EXPECT_THROW(
@@ -70,8 +106,10 @@ TEST(Constructor, ThrowsExWhenStartingPointsIsInvalid)
 		}, std::out_of_range);
 }
 `
+ }
 
-	impl2Green = `//Health.cpp
+ 	override codeImplGreenInvalidStartingPoints() {
+		return `//Health.cpp
 Health::Health(int startingPoints)
 {
 	if (startingPoints < 1)
@@ -82,8 +120,10 @@ Health::Health(int startingPoints)
 	Health::currentPoints = startingPoints;
 }
 `
+ 	}
 
-impl2Refactor = `//Health.cpp
+	override codeImplRefactorInvalidStartingPoints() {
+		return `//Health.cpp
 #include <format>
 
 using namespace std;
@@ -100,8 +140,14 @@ Health::Health(int startingPoints)
 	Health::currentPoints = startingPoints;
 }
 `
+	 }
 
-	test3Green = `// HealthTest.cpp
+	 override parameterizedRefactor2() {
+		return `<p>To achieve this in a maintainable way I use the <a href=http://google.github.io/googletest/reference/testing.html#TEST">TEST_P</a> macro and define the needed structure for it:</p>`
+	 }
+
+	 override codeTestRefactorParameterized() {
+		return `// HealthTest.cpp
 using namespace std;
 using ::testing::TestWithParam;
 using ::testing::Values;
@@ -129,5 +175,14 @@ TEST_P(ThrowsExWhenStartingPoints, Value)
 		}, out_of_range);
 }
 `
+	 }
 
+	 override parameterizedRefactor3() {
+		return `<p>I try to map the naming to follow my naming convention and to display according in the test runner that now runs 4 tests in total:</p>`
+	 }
+
+	override parameterizedRefactorImgUrl() {
+		let base = super.parameterizedRefactorImgUrl();
+		return base.substring(0, base.length-3) + 'jpg'
+	}
 }

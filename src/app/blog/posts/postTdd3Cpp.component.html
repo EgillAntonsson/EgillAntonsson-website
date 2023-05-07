@@ -23,7 +23,7 @@
 	I create a new (C++) <i>Windows Desktop Application</i> project naming it <code>AvatarHealth</code> and this also creates the solution for the project. For the unit tests I add within the solution a new (C++) <i>Google Test</i> project naming it <code>AvatarHealth-Test</code> (detailed in <a href="https://learn.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp?view=vs-2022#create-a-test-project-in-visual-studio-2022">VS doc section</a>), and configure it like the screenshot below:
 </p>
 <figure>
-	<img src="../assets/images/blog/tdd-cpp/VS-new-project_GoogleTests-config.jpg" alt="Test Runner: first test fail" title="VS new project: Google Test config" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/part3/VS-new-project_GoogleTests-config.jpg" alt="Test Runner: first test fail" title="VS new project: Google Test config" class="imageSmallText">
 	<figcaption>VS new project: Google Test config</figcaption>
 </figure>
 <p>
@@ -31,53 +31,63 @@
 
 </p>
 
-<h2>The requirements for <i>definition and start state</i></h2>
-<p>
-	The requirement is the same as in the corresponding <a href="./blog/tdd-health/part3">C# Part 3</a>
-</p>
-<ul class="list inline">
-	<li>Avatar Health starts with 12 Health Points (equals to the visual representation of 3 Hearts * 4 Fractions)</li>
-</ul>
+<div [innerHTML]="requirements"></div>
+
 <h2>Health Points starting value</h2>
 
 <h3><span class="redFail">RED (does not compile)</span></h3>
-<pre><code [highlight]="test1Red"></code></pre>
+<div [innerHTML]="redDoesNotCompileStartingValue()"></div>
+<pre><code [highlight]="codeTestRedDoesNotCompileStartingValue()"></code></pre>
+<div [innerHTML]="redAfterDoesNotCompileStartingValue()"></div>
 
 <h3><span class="redFail">RED (test fails)</span></h3>
-<pre><code [highlight]="test1Red2"></code></pre>
-<figure>
-	<img src="../assets/images/blog/tdd-cpp/TestRunner_first-test-fails.jpg" alt="Test Runner: first test fail" title="Test Runner: first test fail" class="imageSmallText">
-	<figcaption>Test Runner: first test fail</figcaption>
-</figure>
+<div [innerHTML]="redStartingValue1()"></div>
+<pre><code [highlight]="codeTestRedStartingValue()"></code></pre>
+<div [innerHTML]="redStartingValueImg()"></div>
+<div [innerHTML]="redStartingValue2()"></div>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<pre><code [highlight]="impl1Green"></code></pre>
+<div [innerHTML]="greenStartingValue()"></div>
+<pre><code [highlight]="codeImplGreenStartingValue()"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
-<pre><code [highlight]="test1Refactor"></code></pre>
+<div [innerHTML]="greenStartingValue1()"></div>
+<div [innerHTML]="greenStartingValue2()"></div>
+<pre><code [highlight]="codeTestRefactorStartingValue()"></code></pre>
 
-<pre><code [highlight]="impl1Refactor"></code></pre>
+<p>
+	I create the <code>Health.cpp</code> file and write the implementation in it, and remove the 'green step' quick implementation (the hardcoded <code>12</code> value) from the <code>Health.h</code> header file. Going forward the header file will only contain definitions (that resolve 'red does not compile' steps) and temporary quick implementations for resolving some 'green' steps, thus the implementation will be in the <code>.cpp</code> file.
+</p>
+<pre><code [highlight]="codeImplRefactorHeaderStartingValue()"></code></pre>
+<div [innerHTML]="greenStartingValue3()"></div>
+<pre><code [highlight]="codeImplRefactorStartingValue()"></code></pre>
 
 <h2>Handle invalid <span class="code">StartingPoints</span> values</h2>
+<div [innerHTML]="invalidStartingPoints()"></div>
 
 <h3><span class="redFail">RED</span></h3>
-<pre><code [highlight]="test2Red"></code></pre>
+<div [innerHTML]="redInvalidStartingPoints1()"></div>
+<pre><code [highlight]="codeTestRedInvalidStartingPoints()"></code></pre>
+<div [innerHTML]="testNamingConvention()"></div>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<pre><code [highlight]="impl2Green"></code></pre>
+<pre><code [highlight]="codeImplGreenInvalidStartingPoints()"></code></pre>
+<div [innerHTML]="greenInvalidStartingPoints()"></div>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
-<pre><code [highlight]="impl2Refactor"></code></pre>
+<pre><code [highlight]="codeImplRefactorInvalidStartingPoints()"></code></pre>
+<div [innerHTML]="refactorInvalidStartingPoints()"></div>
 
 <figure>
-	<img src="../assets/images/blog/tdd-cpp/TestRunner_before-parameterized-refactor.jpg" alt="Test Runner: before parameterized refactor" title="Test Runner: before parameterized refactor" class="imageSmallText">
+	<img src="../assets/images/blog/tdd/part3/TestRunner_before-parameterized-refactor.jpg" alt="Test Runner: before parameterized refactor" title="Test Runner: before parameterized refactor" class="imageSmallText">
 	<figcaption>Test Runner: before parameterized refactor</figcaption>
 </figure>
 
+<h2>Testing more values for verification</h2>
+<div [innerHTML]="testingMoreValues()"></div>
 <h3><span class="greenRefactor">REFACTOR</span></h3>
-<pre><code [highlight]="test3Green"></code></pre>
-
-<figure>
-	<img src="../assets/images/blog/tdd-cpp/TestRunner_after-parameterized-refactor.jpg" alt="Test Runner: after parameterized refactor" title="Test Runner: after parameterized refactor" class="imageSmallText">
-	<figcaption>Test Runner: after parameterized refactor</figcaption>
-</figure>
+<div [innerHTML]="parameterizedRefactor1()"></div>
+<div [innerHTML]="parameterizedRefactor2()"></div>
+<pre><code [highlight]="codeTestRefactorParameterized()"></code></pre>
+<div [innerHTML]="parameterizedRefactor3()"></div>
+<div [innerHTML]="parameterizedRefactorImg()"></div>
