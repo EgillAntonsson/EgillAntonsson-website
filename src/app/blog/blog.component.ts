@@ -31,10 +31,10 @@ export class BlogComponent implements OnDestroy {
 				this.blogService.selectedPost = this.blogService.posts[0]
 				this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 			} else {
-				// short term solution, only works up to 10 posts, refine later with regex
-				const indexFromUrl = urlEnd.substring(urlEnd.length - 1, urlEnd.length)
-				// model index is 0-based, indexFromUrl is 1-based
-				this.blogService.selectedPost = this.blogService.posts[parseInt(indexFromUrl, 10) - 1]
+				const post = this.blogService.tryGetPostWithRoutPath(urlEnd)
+				if (post !== null) {
+					this.blogService.selectedPost = post
+				}
 			}
 		})
 

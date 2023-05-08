@@ -814,17 +814,33 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
 		<priority>1.0</priority>
-		<lastmod>2023-03-16</lastmod>
+		<lastmod>2023-05-08</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_first-test-fails.PNG</image:loc>
-			<image:title>Unity Test Runner: first test fail (the nested class displays nicely)</image:title>
-			<image:caption>Unity Test Runner: first test fail (the nested class displays nicely)</image:caption>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.PNG</image:loc>
+			<image:title>The test runner after first test fail</image:title>
+			<image:caption>The test runner after first test fail</image:caption>
 		</image:image>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_tests-using-TestCase.PNG</image:loc>
-			<image:title>Unity Test Runner: tests using TestCase attribute</image:title>
-			<image:caption>Unity Test Runner: tests using TestCase attribute</image:caption>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_after-parameterized-refactor.PNG</image:loc>
+			<image:title>The test runner after parameterized refactor</image:title>
+			<image:caption>The test runner after parameterized refactor</image:caption>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd-health/part3-cpp</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.jpg</image:loc>
+			<image:title>The test runner after first test fail</image:title>
+			<image:caption>The test runner after first test fail</image:caption>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_after-parameterized-refactor.jpg</image:loc>
+			<image:title>The test runner after parameterized refactor</image:title>
+			<image:caption>The test runner after parameterized refactor</image:caption>
 		</image:image>
 	</url>
 	<url>

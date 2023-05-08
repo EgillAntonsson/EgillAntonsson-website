@@ -9,12 +9,18 @@ import {PageNotFoundComponent} from './pagenotfound.component'
 import { PostTdd1Component } from './blog/posts/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/postTdd2.component'
 import { PostTdd3Component } from './blog/posts/postTdd3.component'
+import { PostTdd3CppComponent } from './blog/posts/postTdd3Cpp.component'
 import { PostTdd4Component } from './blog/posts/postTdd4.component'
 import { PostTdd5Component } from './blog/posts/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/postTdd8.component'
 import { PostTdd9Component } from './blog/posts/postTdd9.component'
+import { PostRoutePath } from './shared/services/blog.service'
+
+
+// const tddHealthPart3 = 'tdd-health/part3'
+// const tddHealthPart3Cpp = 'tdd-health/part3-cpp'
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,7 +28,8 @@ const routes: Routes = [
 	{path: 'blog', component: BlogComponent, children: [
 		{path: 'tdd-health/part1', component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
-		{path: 'tdd-health/part3', component: PostTdd3Component},
+		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
+		{path: PostRoutePath.tddHealthPart3Cpp, component: PostTdd3CppComponent},
 		{path: 'tdd-health/part4', component: PostTdd4Component},
 		{path: 'tdd-health/part5', component: PostTdd5Component},
 		{path: 'tdd-health/part6', component: PostTdd6Component},
