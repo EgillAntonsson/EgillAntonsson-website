@@ -9,7 +9,8 @@ import { LogType } from 'shared/enums/logType'
 import { RandomNumber } from './randomNumber.service'
 import { MyTracksService } from './myTracks.service'
 import { PlayState } from '../enums/playState'
-import { MusicStreamer } from './musicStreamer.service'
+import { MusicStreamer } from './musicstreamer.service'
+import {RealtimeVisualService} from './realtimeVisual.service'
 import { YoutubeService } from './youtube.service'
 import { StreamSource } from '../enums/streamSource'
 import { MessageService, MessageType } from './message.service'
@@ -70,7 +71,7 @@ export class MusicService implements OnDestroy {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private htmlService: HtmlElementService,private logService: LogService) {
+	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private realtimeVisualService: RealtimeVisualService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private htmlService: HtmlElementService, private logService: LogService) {
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -164,7 +165,12 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	initStreamer() {
+	initStreamers() {
+		this.initSoundCloudStreamer()
+		this.initRealtimeVisualService()
+	}
+
+	initSoundCloudStreamer() {
 		if (this.musicStreamer.isInitialized) {
 			return;
 		}
@@ -173,6 +179,10 @@ export class MusicService implements OnDestroy {
 		if (streamUrl != '') {
 			this.musicStreamer.load(streamUrl, false)
 		}
+	}
+
+	initRealtimeVisualService() {
+		this.realtimeVisualService.init()
 	}
 
 	playerUiInitialized(gainsDisabled: BooleanEmitter) {

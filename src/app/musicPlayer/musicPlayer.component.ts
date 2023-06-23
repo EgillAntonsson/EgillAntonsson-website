@@ -109,7 +109,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
-		this.musicService.initStreamer()
+		this.musicService.initStreamers()
 		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
 		this.musicService.onWindowInitSize(window.innerWidth, window.innerHeight)
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { SoundData } from 'soundcommon/interface/soundData'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
-import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack } from '../data/track'
+import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack, RealtimeVisualTrack } from '../data/track'
 import { LogService } from './log.service'
 import { SoundManagerService } from './soundManager.service'
 
@@ -65,6 +65,7 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
+				this.lecube(),
 				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
@@ -73,8 +74,7 @@ export class MyTracksService {
 				this.icelandSocksIntro(),
 				this.fortidin(),
 				this.toddlerTune(),
-				this.oddTimesInSpace(),
-				this.lecube()
+				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
 			{name: 'Kanez Kane', tracks: [
 				this.winterQueen(),
@@ -213,6 +213,16 @@ export class MyTracksService {
 				this._tracksByRootUrl.set(track.rootUrl, track)
 			}
 		}
+	}
+
+	private lecube() {
+		const rootUrl = 'lecube'
+		const name = 'Lecube'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		// const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
+		const about = `About LeCube`
+		return new RealtimeVisualTrack(rootUrl, name, artworkPath, about)
+		// return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private winterQueen() {
@@ -603,14 +613,6 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const name = 'Odd Times in Space'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
-	}
-
-	private lecube() {
-		const rootUrl = 'lecube'
-		const name = 'Lecube'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private introduction() {
