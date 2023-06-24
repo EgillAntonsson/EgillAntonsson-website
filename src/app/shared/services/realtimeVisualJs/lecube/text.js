@@ -1,5 +1,8 @@
 import { mat4 } from "gl-matrix";
 import { kdb } from "./kdb";
+import { camera } from "./camera";
+import { sync } from "./sync";
+import { clamp } from "./utils";
 
 export var text = function() {
 	var rand = new Alea(20);
@@ -171,8 +174,8 @@ export var text = function() {
 		var view = camera.view();
 
 		shader.use();
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
-		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
+		gl.uniformMatrix4fv(shader.u.uProjection, false, projection);
+		gl.uniformMatrix4fv(shader.u.uView, false, view);
 
 
 		// Make the colors cycle when the plasma shows
@@ -194,7 +197,8 @@ export var text = function() {
 			var y = 60;
 			var z = 0;
 
-			model.setIdentity();
+			// model.setIdentity();
+			mat4.identity(model);
 
 			if (i > count/2) {
 				x = 800 * (4 * (alpha - 0.5) - 1);
@@ -204,13 +208,16 @@ export var text = function() {
 				z = -250;
 			}
 
-			model.translate(x, y, z);
-			model.scale(scale, scale, scale);
+			// model.translate(x, y, z);
+			mat4.translate(model, model, [x, y, z]);
+			// model.scale(scale, scale, scale);
+			mat4.scale(model, model, [scale, scale, scale]);
 			if (i > count/2) {
-				model.rotate(180, 0, 1, 0);
+				// model.rotate(180, 0, 1, 0);
+				mat4.rotate(model, model, Math.PI, [0, 1, 0]);
 			}
 
-			gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
+			gl.uniformMatrix4fv(shader.u.uModel, false, model);
 
 			var text = textDisplayObjList[i];
 			text.bind(gl, shader.a.vertex);

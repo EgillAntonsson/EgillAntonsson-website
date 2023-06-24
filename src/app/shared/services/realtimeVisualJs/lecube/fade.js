@@ -1,5 +1,5 @@
 import { kdb, geometry } from "./kdb"
-// import { sync } from './sync';
+import { sync } from './sync';
 
 export var fade = function() {
 	var quad, shader;

@@ -1,7 +1,8 @@
-import { mat4 } from "gl-matrix";
+import { mat4, vec3 } from "gl-matrix";
 import { kdb, geometry } from "./kdb";
 import { sync } from "./sync";
 import { camera } from "./camera";
+import { clamp, alea } from "./utils";
 
 export var roller = function() {
 	var cube, shader;
@@ -22,9 +23,17 @@ export var roller = function() {
 		var x = -2*alpha;
 		var y = Math.sin(3.1415*alpha) * edgeDistance;
 
-		matrix.setIdentity();
-		matrix.translate(-x, y, 0);
-		matrix.rotate(-90*alpha, 0, 0, 1);
+		mat4.identity(matrix);
+		var degrees = -90*alpha;
+		var radians = degrees * Math.PI / 180;
+		const axis = vec3.create();
+		axis[0] = 0;
+		axis[1] = 0;
+		axis[2] = 1;
+		mat4.translate(matrix, matrix, [-x, y, 0]);
+
+		// TODO: fix the rotation
+		// mat4.rotate(matrix, matrix, radians, axis);
 
 		return matrix;
 	};
@@ -41,7 +50,7 @@ export var roller = function() {
 		shader.uniform('uColor');
 
 		var i, x, y, z;
-		var random = new Alea(1);
+		var random = new alea(1);
 
 		var offset = [-250, 1, 0];
 		for (i=pattern.length-1;i>=0;i--) {
@@ -102,7 +111,14 @@ export var roller = function() {
 		var step = sync.step(t, 0);
 
 		var T = t*2.0*60.0/85.0;
+
+		// debug
+		// T = T + 14;
+		// console.log(T);
+
 		var alpha = step*(T % 1);
+
+		// console.log(alpha);
 
 		var dx = step * Math.floor(sync.tounit(2*t)) * 2;
 		var dxfract = 2*alpha;
@@ -117,28 +133,29 @@ export var roller = function() {
 		shader.use();
 		cube.bind(gl, shader.a.vertex);
 
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
-		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
+		gl.uniformMatrix4fv(shader.u.uProjection, false, projection);
+		gl.uniformMatrix4fv(shader.u.uView, false, view);
 		gl.uniform3f(shader.u.uColor, color[0], color[1], color[2]);
 
 		roll(model, clamp(alpha*1.2, 0, 1));
 
-		var m = new Matrix4();
+		var m = mat4.create();
 
 		for (var i=0;i<CUBE_COUNT;i++) {
 			var p = cubes[i];
 
 			if (lecube[i][0] <= p[0] + dx) {
 				p = lecube[i];
-				m.setTranslate(p[0], p[1], p[2]);
+				mat4.translate(m, model, [p[0], p[1], p[2]]);
 			} else {
-				m.setTranslate(p[0] + dx, p[1], p[2]);
-				m.concat(model);
+				mat4.translate(m, model, [p[0] + dx, p[1], p[2]]);
+
+				// INFO: This is probably needed when when the rotation is fixed
+				// m.concat(model); // old way, just for reference
+				// mat4.multiply(m, m, model); // new way
 			}
 
-
-			gl.uniformMatrix4fv(shader.u.uModel, false, m.elements);
-
+			gl.uniformMatrix4fv(shader.u.uModel, false, m);
 
 			cube.draw(gl);
 		}
@@ -149,78 +166,3 @@ export var roller = function() {
 		update : update
 	};
 }();
-
-// From http://baagoe.com/en/RandomMusings/javascript/
-function Alea() {
-  return (function(args) {
-    // Johannes Baagøe <baagoe@baagoe.com>, 2010
-    var s0 = 0;
-    var s1 = 0;
-    var s2 = 0;
-    var c = 1;
-
-    if (args.length == 0) {
-      args = [+new Date];
-    }
-    var mash = Mash();
-    s0 = mash(' ');
-    s1 = mash(' ');
-    s2 = mash(' ');
-
-    for (var i = 0; i < args.length; i++) {
-      s0 -= mash(args[i]);
-      if (s0 < 0) {
-        s0 += 1;
-      }
-      s1 -= mash(args[i]);
-      if (s1 < 0) {
-        s1 += 1;
-      }
-      s2 -= mash(args[i]);
-      if (s2 < 0) {
-        s2 += 1;
-      }
-    }
-    mash = null;
-
-    var random = function() {
-      var t = 2091639 * s0 + c * 2.3283064365386963e-10; // 2^-32
-      s0 = s1;
-      s1 = s2;
-      return s2 = t - (c = t | 0);
-    };
-    random.uint32 = function() {
-      return random() * 0x100000000; // 2^32
-    };
-    random.fract53 = function() {
-      return random() +
-        (random() * 0x200000 | 0) * 1.1102230246251565e-16; // 2^-53
-    };
-    random.version = 'Alea 0.9';
-    random.args = args;
-    return random;
-
-  } (Array.prototype.slice.call(arguments)));
-};
-
-function Mash() {
-	var n = 0xefc8249d;
-
-	var mash = function (data) {
-			data = data.toString();
-			for (var i = 0; i < data.length; i++) {
-					n += data.charCodeAt(i);
-					var h = 0.02519603282416938 * n;
-					n = h >>> 0;
-					h -= n;
-					h *= n;
-					n = h >>> 0;
-					h -= n;
-					n += h * 0x100000000; // 2^32
-			}
-			return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-	};
-
-	mash.version = 'Mash 0.9';
-	return mash;
-}

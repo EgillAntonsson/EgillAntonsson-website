@@ -1,5 +1,6 @@
 import { mat4, vec3 } from "gl-matrix";
 import { sync } from "./sync";
+import { ease } from "./utils";
 
 export var camera = function() {
 	var projection = mat4.create();

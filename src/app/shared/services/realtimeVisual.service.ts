@@ -1,4 +1,5 @@
-import {Injectable } from "@angular/core"
+import {Inject, Injectable } from "@angular/core"
+import { DOCUMENT } from '@angular/common';
 import {kdb} from '../services/realtimeVisualJs/lecube/kdb'
 import {sync} from '../services/realtimeVisualJs/lecube/sync'
 import {camera} from '../services/realtimeVisualJs/lecube/camera'
@@ -15,11 +16,10 @@ import {scroller} from '../services/realtimeVisualJs/lecube/scroller'
 export class RealtimeVisualService {
 
 
-	constructor() {
+	constructor(@Inject(DOCUMENT) private document: Document) {
 	}
 
 	init() {
-		console.log(" init ***************************")
 		this.play()
 	}
 
@@ -53,7 +53,6 @@ export class RealtimeVisualService {
 		gl.enable(gl.DEPTH_TEST);
 		gl.enable(gl.CULL_FACE);
 
-		// TODO: initialize effects here
 		camera.initialize(gl);
 		roller.initialize(gl);
 		landscape.initialize(gl);
@@ -61,12 +60,21 @@ export class RealtimeVisualService {
 		fade.initialize(gl);
 		scroller.initialize(gl);
 
+
+		// seems to be only used for below DEBUG background effect.
+
 		// quad = geometry.quad(1);
 
 		// background = new kdb.Program('v_background', 'f_background');
 		// background.attribute('vertex');
 
-			// document.getElementById("music").play();
+
+		const musicElement = this.document.getElementById("music");
+		if (musicElement != null) {
+			const music = musicElement as HTMLAudioElement;
+			music.play();
+		}
+
 			kdb.loop(this.main);
 	}
 
@@ -90,7 +98,6 @@ export class RealtimeVisualService {
 		//quad.draw(gl);
 		//gl.clear(gl.DEPTH_BUFFER_BIT);
 
-		// TODO: run the effects here
 		if (time >= end) {
 			kdb.togglePause();
 			return;

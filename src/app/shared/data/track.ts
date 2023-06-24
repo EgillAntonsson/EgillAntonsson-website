@@ -45,6 +45,11 @@ export class LocalTrack extends Track {
 		this.play = play
 	}
 }
+export class RealtimeVisualTrack extends Track {
+	constructor(rootUrl: string, name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
+		super(StreamSource.RealtimeVisual, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+	}
+}
 
 export class YoutubeTrack extends Track {
 	readonly youtubeId: string
@@ -64,11 +69,6 @@ export class SoundcloudTrack extends Track {
 	}
 }
 
-export class RealtimeVisualTrack extends Track {
-	constructor(rootUrl: string, name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
-		super(StreamSource.RealtimeVisual, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
-	}
-}
 
 export class LayeredMusicTrack extends LocalTrack {
 	readonly layeredMusicController: LayeredMusicController
