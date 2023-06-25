@@ -1,16 +1,17 @@
-import { mat4 } from "gl-matrix";
+// import { mat4 } from "gl-matrix";
 import {sync} from "./sync";
 import {text} from "./text";
 import { kdb } from "./kdb"
 import { linear } from "./utils"
+import {Matrix4} from "../lib-vendor/webgl/cuon-matrix";
 
 export var scroller = function() {
 	var shader;
 	var texts;
 
-	var projection = mat4.create();
-	var view = mat4.create();
-	var model = mat4.create();
+	var projection = new Matrix4();
+	var view = new Matrix4();
+	var model = new Matrix4();
 
 	var initialize = function(gl) {
         texts = [
@@ -41,13 +42,13 @@ export var scroller = function() {
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
-        		text: "RELEASED IN 2014",
+        		text: "@KING 2014",
         		start: sync.totime(9),
         		stop:  sync.totime(11),
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
-        		text: "NOW WITH UPDATED MUSIC",
+        		text: "NOW WITH ENHANCED MUSIC",
         		start: sync.totime(12),
         		stop:  sync.totime(14),
         		fadeTime: sync.totime(0.25),
@@ -189,8 +190,7 @@ export var scroller = function() {
 
 		var bottom = -9/16;
 		var top = 9/16;
-		mat4.orthoNO(projection, -1, 1, bottom, top, 0.1, 100);
-
+		projection.ortho(-1, 1, bottom, top, 0.1, 100);
 	};
 
 	var nextdistortion = 0;
@@ -208,14 +208,11 @@ export var scroller = function() {
 		var z = -1;
 
 		var scale = detail.scale || 0.02;
-		// model.setIdentity();
-		mat4.identity(model);
-		// model.translate(x, y, z);
-		mat4.translate(model, model, [x, y, z]);
-		// model.scale(scale, scale, scale);
-		mat4.scale(model, model, [scale, scale, scale]);
+		model.setIdentity();
+		model.translate(x, y, z);
+		model.scale(scale, scale, scale);
 
-		gl.uniformMatrix4fv(shader.u.uModel, false, model);
+		gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
 		gl.uniform3f(shader.u.uColor, detail.color[0], detail.color[1], detail.color[2]);
 
 		var message = detail.message;
@@ -249,14 +246,11 @@ export var scroller = function() {
 		var y = 9/16 - 0.015;
 		var z = -1;
 
-		// model.setIdentity();
-		mat4.identity(model);
-		// model.translate(x, y, z);
-		mat4.translate(model, model, [x, y, z]);
-		// model.scale(scale, scale, scale);
-		mat4.scale(model, model, [scale, scale, scale]);
+		model.setIdentity();
+		model.translate(x, y, z);
+		model.scale(scale, scale, scale);
 
-		gl.uniformMatrix4fv(shader.u.uModel, false, model);
+		gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
 		gl.uniform3f(shader.u.uColor, detail.color[0], detail.color[1], detail.color[2]);
 
 		var fadeTime = detail.fadeTime || sync.totime(1);
@@ -268,8 +262,8 @@ export var scroller = function() {
 
 	var update = function(gl, time, dt) {
 		shader.use();
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection);
-		gl.uniformMatrix4fv(shader.u.uView, false, view);
+		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
+		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
 
 		gl.lineWidth(2);
 		if (sync.tounit(time) < 88) {

@@ -1,12 +1,13 @@
-import { mat4, vec3 } from "gl-matrix";
+// import { mat4, vec3 } from "gl-matrix";
 import { kdb, geometry } from "./kdb";
 import { sync } from "./sync";
 import { camera } from "./camera";
 import { clamp, alea } from "./utils";
+import {Matrix4} from "../lib-vendor/webgl/cuon-matrix";
 
 export var roller = function() {
 	var cube, shader;
-	var model = mat4.create();
+	var model = new Matrix4();
 
 	var CUBE_COUNT = 60;
 	var cubes = [];
@@ -23,17 +24,9 @@ export var roller = function() {
 		var x = -2*alpha;
 		var y = Math.sin(3.1415*alpha) * edgeDistance;
 
-		mat4.identity(matrix);
-		var degrees = -90*alpha;
-		var radians = degrees * Math.PI / 180;
-		const axis = vec3.create();
-		axis[0] = 0;
-		axis[1] = 0;
-		axis[2] = 1;
-		mat4.translate(matrix, matrix, [-x, y, 0]);
-
-		// TODO: fix the rotation
-		// mat4.rotate(matrix, matrix, radians, axis);
+		matrix.setIdentity();
+		matrix.translate(-x, y, 0);
+		matrix.rotate(-90*alpha, 0, 0, 1);
 
 		return matrix;
 	};
@@ -111,14 +104,7 @@ export var roller = function() {
 		var step = sync.step(t, 0);
 
 		var T = t*2.0*60.0/85.0;
-
-		// debug
-		// T = T + 14;
-		// console.log(T);
-
 		var alpha = step*(T % 1);
-
-		// console.log(alpha);
 
 		var dx = step * Math.floor(sync.tounit(2*t)) * 2;
 		var dxfract = 2*alpha;
@@ -133,29 +119,27 @@ export var roller = function() {
 		shader.use();
 		cube.bind(gl, shader.a.vertex);
 
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection);
-		gl.uniformMatrix4fv(shader.u.uView, false, view);
+		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
+		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
 		gl.uniform3f(shader.u.uColor, color[0], color[1], color[2]);
 
 		roll(model, clamp(alpha*1.2, 0, 1));
 
-		var m = mat4.create();
+		var m = new Matrix4();
 
 		for (var i=0;i<CUBE_COUNT;i++) {
+
 			var p = cubes[i];
 
 			if (lecube[i][0] <= p[0] + dx) {
 				p = lecube[i];
-				mat4.translate(m, model, [p[0], p[1], p[2]]);
+				m.setTranslate(p[0], p[1], p[2]);
 			} else {
-				mat4.translate(m, model, [p[0] + dx, p[1], p[2]]);
-
-				// INFO: This is probably needed when when the rotation is fixed
-				// m.concat(model); // old way, just for reference
-				// mat4.multiply(m, m, model); // new way
+				m.setTranslate(p[0] + dx, p[1], p[2]);
+				m.concat(model);
 			}
 
-			gl.uniformMatrix4fv(shader.u.uModel, false, m);
+			gl.uniformMatrix4fv(shader.u.uModel, false, m.elements);
 
 			cube.draw(gl);
 		}

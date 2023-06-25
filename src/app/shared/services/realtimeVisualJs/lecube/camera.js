@@ -1,11 +1,12 @@
-import { mat4, vec3 } from "gl-matrix";
+// import { mat4, vec3 } from "gl-matrix";
 import { sync } from "./sync";
 import { ease } from "./utils";
+import {Matrix4} from "../lib-vendor/webgl/cuon-matrix";
 
 export var camera = function() {
-	var projection = mat4.create();
-	var view = mat4.create();
-	var model = mat4.create();
+	var projection = new Matrix4();
+	var view = new Matrix4();
+	var model = new Matrix4();
 
 	var eyeX = 10;
 	var eyeY = 10;
@@ -17,8 +18,7 @@ export var camera = function() {
 
 	var initialize = function(gl) {
 		gl.disable(gl.CULL_FACE);
-		// projection.SetPerspective(90, 16/9, 0.1, 1000);
-		mat4.perspectiveNO(projection, 90, 16/9, 0.1, 1000);
+		projection.setPerspective(90, 16/9, 0.1, 1000);
 	};
 
 	var overTheTop = function(t, offsetX) {
@@ -125,24 +125,7 @@ export var camera = function() {
 			eyeZ = centerZ + Math.cos(t*0.25)*radius;
 		}
 
-
-		const eye = vec3.create();
-eye[0] = eyeX;
-eye[1] = eyeY;
-eye[2] = eyeZ;
-
-const center = vec3.create();
-center[0] = centerX;
-center[1] = centerY;
-center[2] = centerZ;
-
-const up = vec3.create();
-up[0] = 0;
-up[1] = 1;
-up[2] = 0;
-
-		mat4.lookAt(view, eye, center, up)
-		// view.setLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);
+		view.setLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);
 	};
 
 	return {

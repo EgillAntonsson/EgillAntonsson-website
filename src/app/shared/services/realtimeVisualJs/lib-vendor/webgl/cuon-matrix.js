@@ -12,7 +12,7 @@
  * それ以外の場合、単位行列に初期化される。
  * @param opt_src 要素をコピーしてくる行列（オプション）
  */
-var Matrix4 = function(opt_src) {
+export var Matrix4 = function(opt_src) {
     var i, s, d;
     if (opt_src && typeof opt_src === 'object' && opt_src.hasOwnProperty('elements')) {
         s = opt_src.elements;

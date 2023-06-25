@@ -2,8 +2,9 @@ import { createNoise2D } from 'simplex-noise';
 import { kdb } from "./kdb";
 import { camera } from "./camera";
 import { sync } from "./sync";
-import { mat4 } from "gl-matrix";
+// import { mat4 } from "gl-matrix";
 import { alea } from "./utils";
+import {Matrix4} from "../lib-vendor/webgl/cuon-matrix";
 
 export var landscape = function() {
 	var W = 100;
@@ -77,7 +78,7 @@ export var landscape = function() {
 	var update = function(gl, time, dt) {
 		var projection = camera.projection();
 		var view = camera.view();
-		var model = mat4.create()
+		var model = new Matrix4();
 
 		// make the plasma fade in with the fade-in of the synth (not in music right now, but will be)
 		var plasma = sync.interval(time, 28, 4, 84, 4);
@@ -88,9 +89,9 @@ export var landscape = function() {
 		gl.enableVertexAttribArray(shader.a.vertex);
 		gl.vertexAttribPointer(shader.a.vertex, buffer.stride, gl.FLOAT, false, 0, 0);
 
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection);
-		gl.uniformMatrix4fv(shader.u.uView, false, view);
-		gl.uniformMatrix4fv(shader.u.uModel, false, model);
+		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
+		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
+		gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
 
 		gl.uniform1f(shader.u.uTime, time);
 		gl.uniform2f(shader.u.uMix, plasma, desaturate);
