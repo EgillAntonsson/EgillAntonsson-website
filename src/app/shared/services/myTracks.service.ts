@@ -216,12 +216,12 @@ export class MyTracksService {
 	}
 
 	private lecube() {
-		const rootUrl = 'lecube'
-		const name = 'LeCube'
+		const rootUrl = 'marching-into-mass-psychosis'
+		const name = 'Marching Into Mass Psychosis'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		// const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
 		const about = `About LeCube`
-		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/lecube.ogg`)],
+		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/${rootUrl}.ogg`)],
 		() => {
 			return async () => {
 				const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)

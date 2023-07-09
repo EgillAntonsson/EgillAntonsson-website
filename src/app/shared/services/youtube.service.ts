@@ -4,7 +4,7 @@ import { LogService } from "./log.service";
 import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";
 import { MessageType } from 'app/shared/services/message.service'
-import { HtmlElementService } from './htmlElement.service'
+// import { HtmlElementService } from './htmlElement.service'
 import { YoutubeTrack } from "../data/track";
 
 @Injectable({
@@ -19,13 +19,13 @@ export class YoutubeService {
 	private playWhenReady = false
 	private isFullScreen = false
 
-	private playerWidth = 200;
-	private playerHeight = 200;
+	// private playerWidth = 200;
+	// private playerHeight = 200;
 
 	readonly instancePlayedListeners!: Map<string, () => void>
 	readonly instanceEndedListeners!: Map<string, (trackEnded?: boolean, serviceDidStop?: boolean) => void>
 
-	constructor(private windowRef: WindowRefService, private messageService: MessageService, private logService: LogService, private htmlService: HtmlElementService) {
+	constructor(private windowRef: WindowRefService, private messageService: MessageService, private logService: LogService) {
 		this.instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
 	}
@@ -34,70 +34,61 @@ export class YoutubeService {
 		this.playerElement = playerElement
 	}
 
-	onWindowInitSize(width: number, _height: number) {
-		this.playerWidth = width
-	}
+	// onWindowInitSize(width: number, _height: number) {
+	// 	this.playerWidth = width
+	// }
 
 	onWindowResize(width: number, _height: number) {
-		this.setPlayerSize(width)
+		return this.setPlayerSize(width)
 	}
 
-	private setPlayerSize(width: number) {
+	private setPlayerSize(windowWidth: number) {
 		if (this.player === undefined) {
-			return
+			return 0;
 		}
 
 		// below is ok for now
 		// the margin has to match the margin in styles.css
 
 		let playerMargin = 0
-		if (width < 451) {
+		if (windowWidth < 451) {
 			playerMargin = 0
-		} else if (width <= 703) {
+		} else if (windowWidth <= 703) {
 			playerMargin = 0.1
-		} else if (width <= 1053) {
+		} else if (windowWidth <= 1053) {
 			playerMargin = 0.2
-		} else if (width <= 1403) {
+		} else if (windowWidth <= 1403) {
 			playerMargin = 0.3
-		} else if (width <= 2000) {
+		} else if (windowWidth <= 2000) {
 			playerMargin = 0.35
 		} else  {
 			playerMargin = 0.37
 		}
 
-		this.logService.log(LogType.Info, 'YoutubeService:setPlayerSize: width before', width);
+		this.logService.log(LogType.Info, 'YoutubeService:setPlayerSize: width before', windowWidth);
 
-		let w = width
+		let w = windowWidth
 		let bodyMargin = 0.05
 		let offset = 3 //0.009
 
 		let playerContainerWidth = w * (1 - (bodyMargin * 2))
 		w = playerContainerWidth * (1 - (playerMargin * 2))
 
-		this.playerWidth = w + offset
+		let playerWidth = w + offset
 
 		let nineSixteenRatio = 0.5625
-		this.playerHeight = this.playerWidth * nineSixteenRatio
+		let playerHeight = playerWidth * nineSixteenRatio
 
-		this.player.setSize(this.playerWidth, this.playerHeight)
+		this.player.setSize(playerWidth, playerHeight)
 
-		let headerContainerElement = this.htmlService.get('headerContainer')
-		let headerBackgroundElement = this.htmlService.get('headerBackground')
-
-		// height has to match what is in styles.css and view calculation
-		// nav tag is calculated height 35px
-		// padding at top and add below player set to 22
-		let contHeight = 22 + 35 + this.playerHeight
-
-		headerContainerElement.value.nativeElement.style.height =  contHeight + 'px'
-		headerBackgroundElement.value.nativeElement.style.height =  contHeight + 'px'
+		return playerHeight
 	}
 
-	onPlayerReady(player: YT.Player, volume: number, isSelectedTrackWithActiveYoutubeVisuals: boolean) {
-    this.logService.log(LogType.Info, 'onPlayerReady, width and heigh:', this.playerWidth, this.playerHeight);
+	onPlayerReady(player: YT.Player, volume: number, isSelectedTrackWithActiveYoutubeVisuals: boolean, windowWidth: number, _windowHeight: number) {
 		this.player = player;
+		let playerHeight = 0;
 		if (isSelectedTrackWithActiveYoutubeVisuals) {
-			this.setPlayerSize(this.playerWidth)
+			playerHeight = this.setPlayerSize(windowWidth)
 		}
 		this.volume = volume
 
@@ -124,6 +115,7 @@ export class YoutubeService {
 				}
 			}
 		});
+		return playerHeight;
 	}
 
 	toFullScreen() {

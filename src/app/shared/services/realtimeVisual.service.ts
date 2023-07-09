@@ -12,21 +12,20 @@ import {scroller} from '../services/realtimeVisualJs/lecube/scroller'
 	providedIn: 'root',
 })
 
+/*
+ * Hardcoded to Lecube, which can hold until I have another realtime visual to implement.
+ */
 export class RealtimeVisualService {
 
 
-	constructor() {
-	}
+	constructor() {}
 
-	init() {
-		this.play()
-	}
+	init(offsetLeft: number, windowWidth: number, windowHeight: number) {
+		var w = windowWidth
+		console.log(offsetLeft)
+		w -= offsetLeft * 2;
+		var h = windowHeight
 
-
-		// var quad, background;
-	play() {
-		var w = Math.max(window.innerWidth, document.body.clientWidth);
-		var h = Math.max(window.innerHeight, document.body.clientHeight);
 		if (w < h*16/9) {
 			h = Math.floor(w * 9 / 16);
 		} else {
@@ -46,6 +45,12 @@ export class RealtimeVisualService {
 
 			this.initialize(gl, w, h);
 		}
+
+		return h
+	}
+
+	onWindowResize(width: number, _height: number) {
+		return width;
 	}
 
 	initialize(gl: { enable: (arg0: any) => void; DEPTH_TEST: any; CULL_FACE: any; }, _w: number, _h: number) {
@@ -75,6 +80,14 @@ export class RealtimeVisualService {
 		// }
 
 			kdb.loop(this.main);
+
+			kdb.setStartTime(-11.2)
+			kdb.togglePause()
+	}
+
+	play() {
+		kdb.setStartTime(0)
+		kdb.togglePause()
 	}
 
 	main(gl: { clearColor: (arg0: number, arg1: number, arg2: number, arg3: number) => void; clear: (arg0: number) => void; COLOR_BUFFER_BIT: number; DEPTH_BUFFER_BIT: number; }, time: number, dt: any) {

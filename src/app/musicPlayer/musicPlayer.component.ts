@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core'
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core'
 import { MusicService } from 'app/shared/services/music.service'
 import { BooleanEmitter } from 'soundcommon/emitter/booleanEmitter'
 import { Options } from '@angular-slider/ngx-slider'
@@ -6,18 +6,21 @@ import { EmitterEvent } from 'soundcommon/enum/emitterEvent';
 import { Subscription } from 'rxjs'
 import { MessageService, MessageType } from 'app/shared/services/message.service'
 import { Color } from 'app/shared/enums/color'
-import { YoutubeTrack } from 'app/shared/data/track';
+import { RealtimeVisualTrack, YoutubeTrack } from 'app/shared/data/track';
+import { HtmlElementService } from 'app/shared/services/htmlElement.service';
 
 @Component({
 	selector: 'app-music-player',
 	templateUrl: './musicPlayer.component.html',
 	styleUrls: ['./musicPlayer.component.css']
 })
-export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
+export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 	readonly label = 'MusicPlayer'
 
 	@ViewChild('youtubePlayer')
 	youtubePlayerElement!: ElementRef
+	@ViewChild('WebGLCanvas')
+  WebGlCanvasElement!: ElementRef;
 
 	get selectedTrack() {
 		return this.musicService.selectedTrack
@@ -25,6 +28,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 
 	get selectedTrackAsYoutubeTrack() {
 		return this.musicService.selectedTrack as YoutubeTrack
+	}
+
+	get selectedTrackAsRealtimeVisualTrack() {
+		return this.musicService.selectedTrack as RealtimeVisualTrack
 	}
 
 	get playState() {
@@ -86,7 +93,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		return Color.Disabled
 	}
 
-	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef) {
+	constructor(private musicService: MusicService, private messageService: MessageService, private changeDetectorRef: ChangeDetectorRef, private htmlElementService: HtmlElementService) {
 		this.enableGains = (value: boolean) => {
 			if (value) {
 				this.optionsMasterGain = Object.assign({}, this.optionsMasterGain, {disabled: true, getSelectionBarColor: this.sliderColorsDisabled, getPointerColor: this.sliderColorsDisabled})
@@ -108,10 +115,14 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
 		})
 	}
 
-	ngAfterViewInit(): void {
-		this.musicService.initStreamers()
-		this.musicService.sendYoutubePlayerElement(this.youtubePlayerElement)
-		this.musicService.onWindowInitSize(window.innerWidth, window.innerHeight)
+	private ngInitiated = false
+
+	ngAfterViewChecked(): void {
+		if (!this.ngInitiated && this.htmlElementService.isInitialized) {
+			this.ngInitiated = true
+			const offsetLeft = this.WebGlCanvasElement.nativeElement.offsetParent.offsetLeft
+			this.musicService.init(this.youtubePlayerElement, offsetLeft, window.innerWidth, window.innerHeight)
+		}
   }
 
   ngOnDestroy() {
@@ -126,7 +137,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
 	onPlayerReady(player: YT.Player) {
-		this.musicService.onYoutubePlayerReady(player)
+		this.musicService.onYoutubePlayerReady(player, window.innerWidth, window.innerHeight)
   }
 
 	onPlayerStateChange(event: any) {

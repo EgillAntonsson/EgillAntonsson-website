@@ -38,11 +38,11 @@ export class BlogComponent implements OnDestroy {
 			}
 		})
 
-		this.musicService.minimizeMusicPlayer(true)
+		this.musicService.toggleMinimizeMusicPlayer(true)
 	}
 
 	ngOnDestroy() {
-		this.musicService.minimizeMusicPlayer(false)
+		this.musicService.toggleMinimizeMusicPlayer(false)
 	}
 
 	onSeriesClick(seriesIndex: number) {

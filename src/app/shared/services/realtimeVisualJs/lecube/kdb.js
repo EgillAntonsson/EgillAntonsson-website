@@ -9,6 +9,10 @@ export var kdb = function() {
 	var showTime = false;
 	var shaderMap = {};
 
+	var setStartTime = function(time) {
+		startTime = time
+	}
+
 	/**
 	 * Initialize WebGL and KDB.
 	 * @param {string} canvasId
@@ -22,7 +26,7 @@ export var kdb = function() {
 		canvas.height = height;
 
 		window.addEventListener('keydown', function(e) {
-			switch (e.keyCode) {
+			switch (e.key) {
 				case 32:
 					showTime = true;
 					break;
@@ -38,16 +42,17 @@ export var kdb = function() {
 						audio.pause();
 					}
 					break;
-				case 37:
+				case 'b':
+					console.log('b pressed')
 					startTime += 2;
 					showTime = true;
 					break;
-				case 39:
+				case 'f':
 					startTime -= 2;
 					showTime = true;
 					break;
 				default:
-					console.log(e.keyCode);
+					console.log(e.key);
 			}
 		});
 
@@ -316,7 +321,8 @@ export var kdb = function() {
 		staticBuffer : staticBuffer,
 		shader : shader,
 		Program : Program,
-		Buffer : Buffer
+		Buffer : Buffer,
+		setStartTime:	setStartTime,
 	};
 }();
 

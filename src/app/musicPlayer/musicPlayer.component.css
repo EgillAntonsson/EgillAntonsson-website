@@ -1,3 +1,7 @@
+#WebGLCanvas {
+	border: none;
+	position: absolute;
+}
 
 .playerContainer {
 	position: fixed;

@@ -91,11 +91,18 @@ export class MusicStreamer {
 	}
 
 	pause() {
-		this.logService.log(LogType.Info, "musicStreamer pause")
+		if (this.widget === undefined) {
+			this.logService.log(LogType.Info, 'musicStreamer pause, no widget defined returning early')
+			return
+		}
 		this.widget.pause()
 	}
 
 	set volume(volume: number) {
+		if (this.widget === undefined) {
+			this.logService.log(LogType.Info, 'musicStreamer pause, no widget defined returning early')
+			return
+		}
 		if (this.isMuted) {
 			return
 		}
