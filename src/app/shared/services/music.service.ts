@@ -183,6 +183,7 @@ export class MusicService implements OnDestroy {
 
 	initRealtimeVisualService() {
 		this.realtimeVisualService.init()
+		// this.soundManager.playFromStart(this._selectedTrack as LocalTrack, this.playerUiGainsDisabled)
 	}
 
 	playerUiInitialized(gainsDisabled: BooleanEmitter) {

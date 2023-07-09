@@ -46,8 +46,13 @@ export class LocalTrack extends Track {
 	}
 }
 export class RealtimeVisualTrack extends Track {
-	constructor(rootUrl: string, name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
+	readonly soundDatas: SoundData[]
+	readonly play: () => () => Promise<void>
+
+	constructor(soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string, name: string, artworkPath: string = '', about: string = '', soundcloudUrl: string = '', spotifyUrl: string = '', buyUrl: string = '') {
 		super(StreamSource.RealtimeVisual, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+		this.soundDatas = soundDatas
+		this.play = play
 	}
 }
 

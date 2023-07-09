@@ -217,12 +217,22 @@ export class MyTracksService {
 
 	private lecube() {
 		const rootUrl = 'lecube'
-		const name = 'Lecube'
+		const name = 'LeCube'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		// const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
 		const about = `About LeCube`
-		return new RealtimeVisualTrack(rootUrl, name, artworkPath, about)
-		// return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
+		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/lecube.ogg`)],
+		() => {
+			return async () => {
+				const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+
+				const {instance, endedPromise} = await sound.play()
+				this.instancePlayedListeners.forEach((listener) => listener(instance))
+				await endedPromise
+				this.instanceEndedListeners.forEach((listener) => listener())
+			}
+		}, rootUrl, name, artworkPath, about)
+		return track
 	}
 
 	private winterQueen() {

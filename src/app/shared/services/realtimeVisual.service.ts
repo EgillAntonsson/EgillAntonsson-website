@@ -1,5 +1,4 @@
-import {Inject, Injectable } from "@angular/core"
-import { DOCUMENT } from '@angular/common';
+import {Injectable} from "@angular/core"
 import {kdb} from '../services/realtimeVisualJs/lecube/kdb'
 import {sync} from '../services/realtimeVisualJs/lecube/sync'
 import {camera} from '../services/realtimeVisualJs/lecube/camera'
@@ -16,7 +15,7 @@ import {scroller} from '../services/realtimeVisualJs/lecube/scroller'
 export class RealtimeVisualService {
 
 
-	constructor(@Inject(DOCUMENT) private document: Document) {
+	constructor() {
 	}
 
 	init() {
@@ -36,8 +35,8 @@ export class RealtimeVisualService {
 
 		// divide the size by two to save some power during development
 		// the CSS style on #WebGLCanvas will scale it up by two to compensate
-		//w /= 2;
-		//h /= 2;
+		// w /= 2;
+		// h /= 2;
 
 		var gl = kdb.initialize("WebGLCanvas", w, h);
 		if (gl === null) {
@@ -69,11 +68,11 @@ export class RealtimeVisualService {
 		// background.attribute('vertex');
 
 
-		const musicElement = this.document.getElementById("music");
-		if (musicElement != null) {
-			const music = musicElement as HTMLAudioElement;
-			music.play();
-		}
+		// const musicElement = this.document.getElementById("music");
+		// if (musicElement != null) {
+		// 	const music = musicElement as HTMLAudioElement;
+		// 	music.play();
+		// }
 
 			kdb.loop(this.main);
 	}
