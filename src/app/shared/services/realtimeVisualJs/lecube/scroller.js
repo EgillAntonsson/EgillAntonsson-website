@@ -41,16 +41,16 @@ export var scroller = function() {
         		stop:  sync.totime(8),
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
-        	}, {
-        		text: "@KING 2014",
+					}, {
+        		text: "            FROM 2014",
         		start: sync.totime(9),
         		stop:  sync.totime(11),
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
-        		text: "NOW WITH ENHANCED MUSIC",
-        		start: sync.totime(12),
-        		stop:  sync.totime(14),
+        		text: "NOW WITH MASS PSYCHOSIS",
+        		start: sync.totime(13),
+        		stop:  sync.totime(15),
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
 					}, {

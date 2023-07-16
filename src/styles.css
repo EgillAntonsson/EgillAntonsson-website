@@ -648,8 +648,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: red; }
-	h4 { color: red; }
+	/* h1 { color: red; } */
+	/* h4 { color: red; } */
 }
 
 @media screen and (min-width: 2001px) {
@@ -683,6 +683,6 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: yellow; }
+	/* h1 { color: yellow; } */
 }
 /* #endregion */

@@ -26,14 +26,14 @@
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/music/marching-into-mass-psychosis</loc>
+		<loc>https://www.egill.rocks/music/lecube</loc>
 		<priority>1.0</priority>
 		<lastmod>2023-03-03</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/marching-into-mass-psychosis.jpg</image:loc>
-			<image:title>Screenshot from the demoscene entry with the sound track Marching Into Mass Psychosis by Egill Antonsson</image:title>
-			<image:caption>Screenshot from the demoscene entry with the sound track Marching Into Mass Psychosis by Egill Antonsson</image:caption>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/lecube.jpg</image:loc>
+			<image:title>Screenshot from the demoscene entry LECUBE, sound track by Egill Antonsson</image:title>
+			<image:caption>Screenshot from the demoscene entry LECUBE, sound track by Egill Antonsson</image:caption>
 				<image:geo_location>Sweden</image:geo_location>
 		</image:image>
 	</url>
