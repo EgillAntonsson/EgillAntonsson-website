@@ -17,19 +17,43 @@ import {scroller} from '../services/realtimeVisualJs/lecube/scroller'
  */
 export class RealtimeVisualService {
 
+	private playerWidth = 400
+	private playerHeight = 300
 
 	constructor() {}
 
-	init(offsetLeft: number, windowWidth: number, windowHeight: number) {
-		var w = windowWidth
-		console.log(offsetLeft)
-		w -= offsetLeft * 2;
-		var h = windowHeight
-
-		if (w < h*16/9) {
-			h = Math.floor(w * 9 / 16);
+	// onWindowResize should be called before init.
+	init() {
+		var gl = kdb.initialize("WebGLCanvas", this.playerWidth, this.playerHeight);
+		if (gl === null) {
+			alert("Could not initialize WebGL");
 		} else {
-			w = Math.floor(h * 16 / 9);
+			sync.init(85.0/60.0); // set the sync unit to 85 BPM
+
+			this.initialize(gl, this.playerWidth, this.playerHeight);
+		}
+
+		return this.playerHeight
+	}
+
+	onWindowResize(windowWidth: number, windowHeight: number, offsetLeft: number) {
+		const playerSize = this.getPlayerSize(windowWidth, windowHeight, offsetLeft)
+		kdb.resize(playerSize.playerWidth, playerSize.playerHeight)
+		this.playerWidth = playerSize.playerWidth
+		this.playerHeight = playerSize.playerHeight
+		return this.playerHeight
+	}
+
+	private getPlayerSize(windowWidth: number, windowHeight: number, offsetLeft: number) {
+		var playerWidth = windowWidth
+		console.log(offsetLeft)
+		playerWidth -= offsetLeft * 2
+		var playerHeight = windowHeight
+
+		if (playerWidth < playerHeight*16/9) {
+			playerHeight = Math.floor(playerWidth * 9 / 16);
+		} else {
+			playerWidth = Math.floor(playerHeight * 16 / 9);
 		}
 
 		// divide the size by two to save some power during development
@@ -37,20 +61,7 @@ export class RealtimeVisualService {
 		// w /= 2;
 		// h /= 2;
 
-		var gl = kdb.initialize("WebGLCanvas", w, h);
-		if (gl === null) {
-			alert("Could not initialize WebGL");
-		} else {
-			sync.init(85.0/60.0); // set the sync unit to 85 BPM
-
-			this.initialize(gl, w, h);
-		}
-
-		return h
-	}
-
-	onWindowResize(width: number, _height: number) {
-		return width;
+		return {playerWidth, playerHeight}
 	}
 
 	initialize(gl: { enable: (arg0: any) => void; DEPTH_TEST: any; CULL_FACE: any; }, _w: number, _h: number) {
@@ -83,9 +94,10 @@ export class RealtimeVisualService {
 
 			kdb.setStartTime(-11.2)
 			kdb.togglePause()
-	}
+		}
 
-	play() {
+	playFromStart(windowWidth: number, windowHeight: number, offsetLeft: number) {
+		this.getPlayerSize(windowWidth, windowHeight, offsetLeft)
 		kdb.setStartTime(0)
 		kdb.togglePause()
 	}
@@ -121,5 +133,15 @@ export class RealtimeVisualService {
 		scroller.update(gl, time, dt);
 		fade.update(gl, time, dt);
 	}
-
+	pause() {
+		kdb.togglePause();
 	}
+
+	resume() {
+		var time = kdb.getStartTime();
+		kdb.togglePause();
+		var offsetToSyncTimeWithMusic = 0.6;
+		kdb.setStartTime(time + offsetToSyncTimeWithMusic);
+	}
+
+}

@@ -120,8 +120,12 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 	ngAfterViewChecked(): void {
 		if (!this.ngInitiated && this.htmlElementService.isInitialized) {
 			this.ngInitiated = true
-			const offsetLeft = this.WebGlCanvasElement.nativeElement.offsetParent.offsetLeft
-			this.musicService.init(this.youtubePlayerElement, offsetLeft, window.innerWidth, window.innerHeight)
+			console.log(this.WebGlCanvasElement);
+			let offsetLeft = 0;
+			if (this.WebGlCanvasElement.nativeElement.offsetLeft !== undefined) {
+				offsetLeft = this.WebGlCanvasElement.nativeElement.offsetLeft;
+			}
+			this.musicService.init(this.youtubePlayerElement, window.innerWidth, window.innerHeight, offsetLeft)
 		}
   }
 
@@ -133,7 +137,11 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	@HostListener('window:resize', ['$event'])
   onWindowResize() {
-		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
+		let offsetLeft = 0;
+			if (this.WebGlCanvasElement.nativeElement.offsetLeft !== undefined) {
+				offsetLeft = this.WebGlCanvasElement.nativeElement.offsetLeft;
+			}
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, offsetLeft)
   }
 
 	onPlayerReady(player: YT.Player) {

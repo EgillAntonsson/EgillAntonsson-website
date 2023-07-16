@@ -6,11 +6,16 @@ export var kdb = function() {
 	var pause = false;
 	var updateCallback = null;
 	var startTime = 0;
-	var showTime = false;
+	var showTime = true;
 	var shaderMap = {};
+	var canvasId = "";
 
 	var setStartTime = function(time) {
 		startTime = time
+	}
+
+	var getStartTime = function() {
+		return startTime
 	}
 
 	/**
@@ -20,7 +25,8 @@ export var kdb = function() {
 	 * @param {int} height
 	 */
 	var initialize = function(canvasId, width, height) {
-		canvas = document.getElementById(canvasId);
+		this.canvasId = canvasId
+		canvas = document.getElementById(this.canvasId)
 
 		canvas.width = width;
 		canvas.height = height;
@@ -68,6 +74,25 @@ export var kdb = function() {
 		}
 	};
 
+	var resize = function(width, height) {
+		if (this.canvasId === undefined || this.canvasId === null) {
+			return
+		}
+
+		console.log("smu")
+
+		const canvasTemp = gl.canvas
+
+		canvasTemp.width = width;
+		canvasTemp.height = height;
+
+		gl.viewport(0, 0, width, height)
+
+		canvas = document.getElementById(this.canvasId)
+		canvas.width = width;
+		canvas.height = height;
+	};
+
 	/**
 	 * Toggles the pause state.
 	 */
@@ -90,6 +115,9 @@ export var kdb = function() {
 	 * @param {function(gl, time, deltaTime)} callback
 	 */
 	var loop = function(callback) {
+		if (showTime) {
+			console.log("Time: " + startTime);
+		}
 		updateCallback = callback;
 		startTime = performance.now()*0.001;
 		var lastFrame = startTime;
@@ -99,10 +127,6 @@ export var kdb = function() {
 				var dt = (t - lastFrame);
 				lastFrame = t;
 				var tt = Math.max(0, t - startTime);
-				if (showTime) {
-					console.log("Time: " + tt);
-					showTime = false;
-				}
 				callback(gl, tt, dt);
 			}
 			if (!pause) {
@@ -313,6 +337,7 @@ export var kdb = function() {
 
 	return {
 		initialize : initialize,
+		resize : resize,
 		fullscreen : fullscreen,
 		togglePause : togglePause,
 		loop : loop,
@@ -323,6 +348,7 @@ export var kdb = function() {
 		Program : Program,
 		Buffer : Buffer,
 		setStartTime:	setStartTime,
+		getStartTime:	getStartTime
 	};
 }();
 

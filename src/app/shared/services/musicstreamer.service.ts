@@ -33,6 +33,7 @@ export class MusicStreamer {
 	}
 
 	init() {
+		this.logService.log(LogType.Info, "Soundcloud player service: init")
 		if (this._isInitialized === true) {
 			return;
 		}
@@ -48,7 +49,7 @@ export class MusicStreamer {
 	}
 
 	load(url: string, playWhenLoaded: boolean) {
-		this.logService.log(LogType.Info, "musicStreamer load with url", url)
+		this.logService.log(LogType.Info, "Soundcloud player service: load with url", url)
 
 		var options = {
 			auto_play: false,
@@ -64,7 +65,7 @@ export class MusicStreamer {
 		}
 
 		this.widget.load(url, options).then( () => {
-			this.logService.log(LogType.Info, "musicStreamer load completed with url", url)
+			this.logService.log(LogType.Info, "Soundcloud player service: load completed with url", url)
 			this.loadedUrl = url
 			if (playWhenLoaded) {
 				this.playViaWidget();
@@ -73,12 +74,12 @@ export class MusicStreamer {
 	}
 
 	play() {
-		this.logService.log(LogType.Info, "musicStreamer play")
+		this.logService.log(LogType.Info, "Soundcloud player service: play")
 		this.playViaWidget()
 	}
 
 	playFromStart(track: Track) {
-		this.logService.log(LogType.Info, "musicStreamer playFromStart", track)
+		this.logService.log(LogType.Info, "Soundcloud player service: playFromStart", track)
 		let url = track.soundcloudUrl;
 		this.load(url, true)
 		this.widget.setVolume(this._volume)
@@ -92,7 +93,7 @@ export class MusicStreamer {
 
 	pause() {
 		if (this.widget === undefined) {
-			this.logService.log(LogType.Info, 'musicStreamer pause, no widget defined returning early')
+			this.logService.log(LogType.Info, 'Soundcloud player service: pause, no widget defined returning early')
 			return
 		}
 		this.widget.pause()
@@ -100,7 +101,7 @@ export class MusicStreamer {
 
 	set volume(volume: number) {
 		if (this.widget === undefined) {
-			this.logService.log(LogType.Info, 'musicStreamer pause, no widget defined returning early')
+			this.logService.log(LogType.Info, 'Soundcloud player service: pause, no widget defined returning early')
 			return
 		}
 		if (this.isMuted) {
