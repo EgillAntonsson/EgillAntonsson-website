@@ -96,6 +96,7 @@ I'll never give it to 3rd party or display it publicly.`
 	ngAfterViewInit(): void {
 		this.htmlService.set('headerBackground', this.headerBackgroundElement)
 		this.htmlService.set('headerContainer', this.headerContainerElement)
+		this.htmlService.isInitialized = true
 	}
 
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { SoundData } from 'soundcommon/interface/soundData'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
-import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack } from '../data/track'
+import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack, RealtimeVisualTrack } from '../data/track'
 import { LogService } from './log.service'
 import { SoundManagerService } from './soundManager.service'
 
@@ -56,6 +56,7 @@ export class MyTracksService {
 	constructor(private soundManager: SoundManagerService, private logService: LogService) {
 		this._instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
+		// for instanceEndedListeners send in 'true' to indicate that the track ended
 	}
 
 	init() {
@@ -65,6 +66,7 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
+				this.lecube(),
 				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
@@ -73,10 +75,10 @@ export class MyTracksService {
 				this.icelandSocksIntro(),
 				this.fortidin(),
 				this.toddlerTune(),
-				this.oddTimesInSpace(),
-				this.lecube()
+				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
 			{name: 'Kanez Kane', tracks: [
+				this.tonisTimeMachine(),
 				this.winterQueen(),
 				this.komaKoma(),
 				this.strawberryCityLights()
@@ -215,12 +217,31 @@ export class MyTracksService {
 		}
 	}
 
+	private lecube() {
+		const rootUrl = 'lecube'
+		const name = 'LECUBE ◇ Mass Psychosis'
+		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const about = `About LeCube`
+		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/${rootUrl}.ogg`)],
+		() => {
+			return async () => {
+				const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
+
+				const {instance, endedPromise} = await sound.play()
+				this.instancePlayedListeners.forEach((listener) => listener(instance))
+				await endedPromise
+				this.instanceEndedListeners.forEach((listener) => listener(true))
+			}
+		}, rootUrl, name, artworkPath, about)
+		return track
+	}
+
 	private winterQueen() {
 		const rootUrl = 'winter-queen'
 		const name = 'Winter Queen'
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
-		const about = `This is the third released song (early 2023). Created in the first Stockholm session when Sindri visited me. Fittingly the weather both in Sweden and Iceland was quite chilling during the production to the release`
+		const about = `This is the third released song (early 2023). Created in the first Stockholm session when Sindri visited me. Fittingly the weather both in Sweden and Iceland was cold throughout the production phase.`
 
 		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl)
 	}
@@ -242,9 +263,20 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
 		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
-		const about = `This is the first released song (late 2022). The artwork is computer generated from using the title as input.`
+		const about = `This is the first released song (late 2022).`
 
 		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+	}
+
+	private tonisTimeMachine() {
+		const rootUrl = 'tonis-time-machine'
+		const name = "Toni's Time Machine"
+		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
+		const about = `This is the latest song release (mid 2023). Tony invented the greatest time machine of all time!`
+
+		return new YoutubeTrack('J4h4s7IQSSs', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private pesi2002() {
@@ -603,14 +635,6 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const name = 'Odd Times in Space'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
-	}
-
-	private lecube() {
-		const rootUrl = 'lecube'
-		const name = 'Lecube'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lecube'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
 	private introduction() {

@@ -4,7 +4,7 @@
 	<url>
 		<loc>https://www.egill.rocks/</loc>
 		<priority>0.8</priority>
-		<lastmod>2023-02-20</lastmod>
+		<lastmod>2023-07-16</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
@@ -16,13 +16,25 @@
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
 		<priority>1.0</priority>
-		<lastmod>2023-02-20</lastmod>
+		<lastmod>2023-07-16</lastmod>
 		<changefreq>weekly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 			<image:title>Egill Antonsson artist</image:title>
 			<image:caption>Egill Antonsson artist</image:caption>
 			<image:geo_location>Sweden</image:geo_location>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/lecube</loc>
+		<priority>1.0</priority>
+		<lastmod>2023-03-03</lastmod>
+		<changefreq>weekly</changefreq>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/lecube.jpg</image:loc>
+			<image:title>Screenshot from the demoscene entry LECUBE, sound track by Egill Antonsson</image:title>
+			<image:caption>Screenshot from the demoscene entry LECUBE, sound track by Egill Antonsson</image:caption>
+				<image:geo_location>Sweden</image:geo_location>
 		</image:image>
 	</url>
 	<url>
@@ -784,7 +796,7 @@
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
 		<priority>0.8</priority>
-		<lastmod>2022-01-08</lastmod>
+		<lastmod>2023-07-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/lifting/Egill_Antonsson_against_the_dragon_breath.jpg</image:loc>
@@ -802,7 +814,7 @@
 	<url>
 		<loc>https://www.egill.rocks/blog</loc>
 		<priority>1.0</priority>
-		<lastmod>2023-03-16</lastmod>
+		<lastmod>2023-07-16</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

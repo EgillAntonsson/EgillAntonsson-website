@@ -34,6 +34,7 @@
     "ngx-youtube-player": "^12.0.2",
     "papaparse": "^5.3.1",
     "rxjs": "^6.6.0",
+    "simplex-noise": "^4.0.1",
     "soundcloud-widget": "^0.2.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
