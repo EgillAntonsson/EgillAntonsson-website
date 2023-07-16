@@ -219,7 +219,7 @@ export class MyTracksService {
 
 	private lecube() {
 		const rootUrl = 'lecube'
-		const name = 'LECUBE ◈ Mass Psychosis'
+		const name = 'LECUBE ◇ Mass Psychosis'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const about = `About LeCube`
 		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/${rootUrl}.ogg`)],
