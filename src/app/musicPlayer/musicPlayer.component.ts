@@ -19,7 +19,7 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	@ViewChild('youtubePlayer')
 	youtubePlayerElement!: ElementRef
-	@ViewChild('WebGLCanvas')
+	@ViewChild('webGlCanvas')
   WebGlCanvasElement!: ElementRef;
 
 	get selectedTrack() {
@@ -57,6 +57,7 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	private enableGains: (value: boolean) => void
 	private _gainsDisabled: BooleanEmitter = new BooleanEmitter(false)
+	private ngInitiated = false
 	get gainsDisabled() {
 		return this._gainsDisabled.value
 	}
@@ -115,17 +116,11 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 		})
 	}
 
-	private ngInitiated = false
-
 	ngAfterViewChecked(): void {
 		if (!this.ngInitiated && this.htmlElementService.isInitialized) {
 			this.ngInitiated = true
-			console.log(this.WebGlCanvasElement);
-			let offsetLeft = 0;
-			if (this.WebGlCanvasElement.nativeElement.offsetLeft !== undefined) {
-				offsetLeft = this.WebGlCanvasElement.nativeElement.offsetLeft;
-			}
-			this.musicService.init(this.youtubePlayerElement, window.innerWidth, window.innerHeight, offsetLeft)
+			this.onWindowResize()
+			this.musicService.init(this.youtubePlayerElement, this.WebGlCanvasElement)
 		}
   }
 
@@ -137,11 +132,13 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	@HostListener('window:resize', ['$event'])
   onWindowResize() {
-		let offsetLeft = 0;
-			if (this.WebGlCanvasElement.nativeElement.offsetLeft !== undefined) {
-				offsetLeft = this.WebGlCanvasElement.nativeElement.offsetLeft;
-			}
-		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, offsetLeft)
+		let parentLeft = 0
+		let parentWidth = 0
+		if (this.WebGlCanvasElement.nativeElement.offsetParent !== null) {
+			parentLeft = this.WebGlCanvasElement.nativeElement.offsetParent.offsetLeft
+			parentWidth = this.WebGlCanvasElement.nativeElement.offsetParent.offsetWidth
+		}
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, parentLeft,  parentWidth)
   }
 
 	onPlayerReady(player: YT.Player) {

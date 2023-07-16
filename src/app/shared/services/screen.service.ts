@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { LogService } from './log.service'
-import { LogType } from 'shared/enums/logType';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,16 +20,28 @@ export class ScreenService {
 	// These max-width values are the truth source, e.g. max-width values in style css should match them
 	// The most min-width to be considered is 360px (Galaxy S8+)
 
-	private _currentWidthRange = WidthRange.XXS
+	// private _currentWidthRange = WidthRange.XXS
 
-	get currentWidthRange() {
-		return this._currentWidthRange
+	getCurrentWidthRange(windowWidth: number): WidthRange {
+		if (windowWidth <= 451) {
+			return WidthRange.XXS
+		} else if (windowWidth <= 703) {
+			return WidthRange.XS
+		} else if (windowWidth <= 1053) {
+			return WidthRange.S
+		} else if (windowWidth <= 1403) {
+			return WidthRange.M
+		} else if (windowWidth <= 2000) {
+			return WidthRange.L
+		} else {
+			return WidthRange.XL
+		}
 	}
 
-	set currentWidthRange(value: number) {
-		this.logger.log(LogType.Info, 'currentWidthRange: ' + this._currentWidthRange)
-		this._currentWidthRange = value
-	}
+	// set currentWidthRange(value: number) {
+	// 	this.logger.log(LogType.Info, 'currentWidthRange: ' + this._currentWidthRange)
+	// 	this._currentWidthRange = value
+	// }
 
 	// Returns BreakpointState obj, where .matches returns true if within width and false if beyond
 	onBpMaxWidthXS(): Observable<BreakpointState> {
@@ -54,7 +64,7 @@ export class ScreenService {
 		return this.observer.observe(['(max-width: 2000px)']);
 	}
 
-	constructor(private observer: BreakpointObserver, private logger:LogService) {
+	constructor(private observer: BreakpointObserver) {
 
 		// this.onBpMaxWidthXS().subscribe((state: BreakpointState) => {
 		// 	if (state.matches) {

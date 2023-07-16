@@ -1,14 +1,14 @@
 import { WebGLUtils } from "../lib-vendor/webgl/webgl-utils";
 
 export var kdb = function() {
-	var canvas = null;
-	var gl = null;
-	var pause = false;
-	var updateCallback = null;
-	var startTime = 0;
-	var showTime = true;
-	var shaderMap = {};
-	var canvasId = "";
+	var canvas = null
+	var gl = null
+	var pause = false
+	var updateCallback = null
+	var startTime = 0
+	var showTime = false
+	var shaderMap = {}
+	let initialized = false
 
 	var setStartTime = function(time) {
 		startTime = time
@@ -18,96 +18,43 @@ export var kdb = function() {
 		return startTime
 	}
 
-	/**
-	 * Initialize WebGL and KDB.
-	 * @param {string} canvasId
-	 * @param {int} width
-	 * @param {int} height
-	 */
-	var initialize = function(canvasId, width, height) {
-		this.canvasId = canvasId
-		canvas = document.getElementById(this.canvasId)
-
+	function initialize(canvas, width, height) {
 		canvas.width = width;
 		canvas.height = height;
-
-		window.addEventListener('keydown', function(e) {
-			switch (e.key) {
-				case 32:
-					showTime = true;
-					break;
-				case 77:
-					document.getElementById("WebAudio").pause();
-					break;
-				case 27:
-					togglePause();
-					var audio = document.getElementById("WebAudio");
-					if (audio.paused) {
-						audio.play();
-					} else {
-						audio.pause();
-					}
-					break;
-				case 'b':
-					console.log('b pressed')
-					startTime += 2;
-					showTime = true;
-					break;
-				case 'f':
-					startTime -= 2;
-					showTime = true;
-					break;
-				default:
-					console.log(e.key);
-			}
-		});
 
 		try {
 			gl = WebGLUtils.setupWebGL(canvas);
 			gl.getExtension('OES_standard_derivatives');
 			gl.viewport(0, 0, canvas.width, canvas.height);
-			console.log("KDB: viewport (" + width + ", " + height + ")");
+			initialized = true;
 			return gl;
 		} catch (e) {
-			console.log("Could not initialize WebGL", e);
 			return null;
 		}
-	};
+	}
+
 
 	var resize = function(width, height) {
-		if (this.canvasId === undefined || this.canvasId === null) {
+		if (!initialized) {
 			return
 		}
-
-		console.log("smu")
-
-		const canvasTemp = gl.canvas
-
-		canvasTemp.width = width;
-		canvasTemp.height = height;
-
-		gl.viewport(0, 0, width, height)
-
-		canvas = document.getElementById(this.canvasId)
+		const canvas = gl.canvas
 		canvas.width = width;
 		canvas.height = height;
+		gl.viewport(0, 0, width, height)
 	};
 
-	/**
-	 * Toggles the pause state.
-	 */
-	var togglePause = function() {
+	var doPause = function() {
+		pause = true
+	};
+
+	var resume = function() {
 		if (updateCallback === null) {
 			// not started yet
 			return;
 		}
-		pause = !pause;
-		if (pause) {
-			console.log("KDB: Paused");
-		} else {
-			console.log("KDB: Unpaused");
-			loop(updateCallback);
-		}
+		pause = false
+		loop(updateCallback)
 	};
 
 	/**
@@ -339,7 +286,9 @@ export var kdb = function() {
 		initialize : initialize,
 		resize : resize,
 		fullscreen : fullscreen,
-		togglePause : togglePause,
+		// togglePause : togglePause,
+		doPause : doPause,
+		resume : resume,
 		loop : loop,
 		loadImage : loadImage,
 		loadText : loadText,
