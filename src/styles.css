@@ -490,6 +490,7 @@ hr {
 /* '@media screen' put last because order in this file matters.
 min width considered 360px (Galaxy S8+) */
 
+/* WidthRange.XXS */
 @media screen and (max-width: 451px) {
 	body {
 		font-size: 95%;
@@ -516,10 +517,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: green; } */
-	/* h4 { color: green; } */
+	h1 { color: green; }
+	h4 { color: green; }
 }
 
+/* WidthRange.XS */
 @media screen and (min-width:  452px) and (max-width: 703px) {
 	body {
 		font-size: 100%;
@@ -543,10 +545,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: orange; } */
-	/* h4 { color: orange; } */
+	h1 { color: orange; }
+	h4 { color: orange; }
 }
 
+/* WidthRange.S */
 @media screen and (min-width: 704px) and (max-width: 1053px) {
 	body {
 		font-size: 105%;
@@ -578,10 +581,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: purple; } */
-	/* h4 { color: purple; } */
+	h1 { color: purple; }
+	h4 { color: purple; }
 }
 
+/* WidthRange.M */
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
 	body {
 		font-size: 110%;
@@ -613,10 +617,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: aqua; } */
-	/* h4 { color: aqua; } */
+	h1 { color: aqua; }
+	h4 { color: aqua; }
 }
 
+/* WidthRange.L */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
 	body {
 		font-size: 115%;
@@ -648,10 +653,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: red; } */
-	/* h4 { color: red; } */
+	h1 { color: red; }
+	h4 { color: red; }
 }
 
+/* WidthRange.XL */
 @media screen and (min-width: 2001px) {
 	body {
 		font-size: 115%;
@@ -683,6 +689,6 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: yellow; } */
+	h1 { color: yellow; }
 }
 /* #endregion */

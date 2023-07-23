@@ -43,55 +43,111 @@ export class RealtimeVisualService {
 		return this.playerHeight
 	}
 
-	onWindowResize(windowWidth: number, windowHeight: number, parentLeft: number, _parentWidth: number) {
-		const playerSize = this.getPlayerSize(windowWidth, windowHeight, parentLeft)
+	onWindowResize(windowWidth: number, windowHeight: number, parentLeft: number, _parentWidth: number, playerMargin: number) {
+		const playerSize = this.getPlayerSize(windowWidth, windowHeight, parentLeft, playerMargin)
 		kdb.resize(playerSize.playerWidth, playerSize.playerHeight)
 		this.playerWidth = playerSize.playerWidth
 		this.playerHeight = playerSize.playerHeight
 		return this.playerHeight
 	}
 
-	private getPlayerSize(windowWidth: number, windowHeight: number, parentLeft: number) {
+	private getPlayerSize(windowWidth: number, windowHeight: number, parentLeft: number, playerMargin: number) {
+
+		console.log('playerMargin', playerMargin)
+		console.log('windowWidth', windowWidth)
+		console.log('windowHeight', windowHeight)
+		console.log('parentLeft', parentLeft)
+
 		const widthRange = this.screenService.getCurrentWidthRange(windowWidth)
-		let widthMultiplier = 1.0
-		// TODO: figure out why leftOffset is needed to center the player
-		let leftOffset = 6
-		// left property is set in css media screen
+		let playerMarginLeftRightPercentage = 0
+		// setting the offset to align with bottom horizontal line of the page
+		let offset = 15
 		switch (widthRange) {
+			case WidthRange.XXS:
+				playerMarginLeftRightPercentage = 0
+				offset = 15
+				break
+			case WidthRange.XS:
+				playerMarginLeftRightPercentage = 0
+				offset = 15
+				break
 			case WidthRange.S:
-				widthMultiplier = 0.8
-				leftOffset = 0
+				playerMarginLeftRightPercentage = 0.05
+				offset = 15
 				break
 			case WidthRange.M:
-				widthMultiplier = 0.6
-				leftOffset = -15
+				playerMarginLeftRightPercentage = 0.15
+				offset = 15
 				break
 			case WidthRange.L:
-				widthMultiplier = 0.5
-				leftOffset = -35
+				playerMarginLeftRightPercentage = 0.25
+				offset = 20
 				break
 			case WidthRange.XL:
-				widthMultiplier = 0.4
-				leftOffset = -50
+				playerMarginLeftRightPercentage = 0.30
+				offset = 25
 				break
 		}
 
 
-		var playerWidth = windowWidth
-		playerWidth *= widthMultiplier
-		playerWidth -= (parentLeft + leftOffset) * 2
+		console.log('widthRange', widthRange)
+		console.log(playerMarginLeftRightPercentage)
 
-		var playerHeight = windowHeight;
+		// let w = windowWidth
+		// let bodyMarginLeftRightPercentage = 0.05
+		// playerMarginLeftRightPercentage = 0
 
-		if (playerWidth < playerHeight * 16 / 9) {
-			playerHeight = Math.floor(playerWidth * 9 / 16)
-		} else {
-			playerWidth = Math.floor(playerHeight * 16 / 9)
-		}
+		// let playerContainerWidth = windowWidth * (1 - (bodyMarginLeftRightPercentage * 2))
+		let playerContainerWidth = windowWidth - (parentLeft * 2)
+		let w = playerContainerWidth * (1 - (playerMarginLeftRightPercentage * 2))
+		let playerWidth = w - offset
+
+		let nineSixteenRatio = 0.5625
+		let playerHeight = playerWidth * nineSixteenRatio
+
+		console.log(playerHeight, playerWidth, playerContainerWidth, w, offset)
 
 		return { playerWidth, playerHeight }
+		// return { playerWidth: orgW + offset, playerHeight: orgH }
 
-		// return {playerWidth: windowWidth, playerHeight: windowHeight}
+		// const widthRange = this.screenService.getCurrentWidthRange(windowWidth)
+		// let widthMultiplier = 1.0
+		// // TODO: figure out why leftOffset is needed to center the player
+		// let leftOffset = 6
+		// // left property is set in css media screen
+		// switch (widthRange) {
+		// 	case WidthRange.S:
+		// 		widthMultiplier = 0.8
+		// 		leftOffset = 0
+		// 		break
+		// 	case WidthRange.M:
+		// 		widthMultiplier = 0.6
+		// 		leftOffset = -15
+		// 		break
+		// 	case WidthRange.L:
+		// 		widthMultiplier = 0.5
+		// 		leftOffset = -35
+		// 		break
+		// 	case WidthRange.XL:
+		// 		widthMultiplier = 0.4
+		// 		leftOffset = -50
+		// 		break
+		// }
+
+
+		// var playerWidth = windowWidth
+		// playerWidth *= widthMultiplier
+		// playerWidth -= (parentLeft + leftOffset) * 2
+
+		// var playerHeight = windowHeight;
+
+		// if (playerWidth < playerHeight * 16 / 9) {
+		// 	playerHeight = Math.floor(playerWidth * 9 / 16)
+		// } else {
+		// 	playerWidth = Math.floor(playerHeight * 16 / 9)
+		// }
+
+		// return { playerWidth, playerHeight }
 	}
 
 	private initialize(gl: { enable: (arg0: any) => void; DEPTH_TEST: any; CULL_FACE: any; }) {

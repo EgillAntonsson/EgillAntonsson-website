@@ -1,7 +1,8 @@
 #webGlCanvas {
 	border: none;
 	position: absolute;
-	margin-top: 10px;
+	/* margin-top: 10px; */
+	padding: 10px 0px;
 }
 
 .playerContainer {
@@ -255,6 +256,7 @@ ul {
 
 /*#region media screen */
 
+/* WidthRange.XSS */
 @media screen and (max-width: 451px) {
 	.youtubePlayer {
 		margin: 0px 0%
@@ -279,9 +281,10 @@ ul {
 	}
 }
 
+/* WidthRange.XS */
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	.youtubePlayer {
-		margin: 0px 10%
+	.youtubePlayer , #webGlCanvas {
+		margin: 0px 0%
 	}
 
 	.myPlayer {
@@ -307,9 +310,10 @@ ul {
 	}
 }
 
+/* WidthRange.S */
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	.youtubePlayer {
-		margin: 0px 20%
+	.youtubePlayer, #webGlCanvas {
+		margin: 0px 5%
 	}
 
 	.myPlayer {
@@ -329,14 +333,12 @@ ul {
 		margin-right: 5%;
 	}
 
-	#webGlCanvas {
-		left: 10%;
-	}
 }
 
+/* WidthRange.M */
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	.youtubePlayer {
-		margin: 0px 30%
+	.youtubePlayer, #webGlCanvas {
+		margin: 0px 15%
 	}
 
 	.myPlayer {
@@ -344,14 +346,15 @@ ul {
 		width: 70%;
 	}
 
-	#webGlCanvas {
+	/* #webGlCanvas {
 		left: 20%;
-	}
+	} */
 }
 
+/* WidthRange.L */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
-	.youtubePlayer {
-		margin: 0px 35%
+	.youtubePlayer, #webGlCanvas {
+		margin: 0px 25%
 	}
 
 	.myPlayer {
@@ -359,14 +362,15 @@ ul {
 		width: 60%;
 	}
 
-	#webGlCanvas {
+	/* #webGlCanvas {
 		left: 25%;
-	}
+	} */
 }
 
+/* WidthRange.XL */
 @media screen and (min-width: 2001px) {
-	.youtubePlayer {
-		margin: 0px 37%
+	.youtubePlayer, #webGlCanvas {
+		margin: 0px 30%
 	}
 
 	.myPlayer {
@@ -374,9 +378,9 @@ ul {
 		width: 50%;
 	}
 
-	#webGlCanvas {
+	/* #webGlCanvas {
 		left: 30%;
-	}
+	} */
 }
 
 /* #endregion */

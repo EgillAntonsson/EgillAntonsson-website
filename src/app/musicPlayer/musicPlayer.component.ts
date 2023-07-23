@@ -138,7 +138,10 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 			parentLeft = this.WebGlCanvasElement.nativeElement.offsetParent.offsetLeft
 			parentWidth = this.WebGlCanvasElement.nativeElement.offsetParent.offsetWidth
 		}
-		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, parentLeft,  parentWidth)
+		let playerMargin = 10;
+		// console.log(window.getComputedStyle(this.WebGlCanvasElement.nativeElement).marginTop)
+		console.log(this.WebGlCanvasElement)
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, parentLeft, parentWidth, playerMargin)
   }
 
 	onPlayerReady(player: YT.Player) {

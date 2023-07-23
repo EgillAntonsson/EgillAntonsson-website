@@ -28,6 +28,7 @@ export class MusicService implements OnDestroy {
 	private windowHeight = 300
 	private parentLeft = 0
 	private parentWidth = 0
+	playerMargin: any
 	get selectedTrack() {
 		return this._selectedTrack
 	}
@@ -106,10 +107,10 @@ export class MusicService implements OnDestroy {
 		this.realtimeVisualService.init(webGlCanvasElement)
 	}
 
-	onWindowResize(width: number, height: number, parentLeft: number, parentWidth: number) {
+	onWindowResize(width: number, height: number, parentLeft: number, parentWidth: number, playerMargin: number) {
 		this.logService.log(LogType.Info, `${this.label} onWindowResize width ${width} height ${height} offsetWidth ${parentWidth}`)
 		if (this._selectedTrack.source == StreamSource.RealtimeVisual) {
-			var playerHeight = this.realtimeVisualService.onWindowResize(width, height, parentLeft, parentWidth)
+			var playerHeight = this.realtimeVisualService.onWindowResize(width, height, parentLeft, parentWidth, playerMargin)
 			this.setHeaderContainerHeightForRealtimeVisual(playerHeight)
 		}
 		else if (this.isSelectedTrackWithActiveYoutubeVisuals) {
@@ -122,6 +123,7 @@ export class MusicService implements OnDestroy {
 		this.windowHeight = height
 		this.parentLeft = parentLeft
 		this.parentWidth = parentWidth
+		this.playerMargin = playerMargin
 	}
 
 	get isSelectedTrackWithActiveYoutubeVisuals() {
@@ -192,7 +194,7 @@ export class MusicService implements OnDestroy {
 			if (minimize) {
 				this.setHeaderContainerHeightForMyPlayer()
 			} else {
-				let playerHeight = this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth)
+				let playerHeight = this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth, this.playerMargin)
 				this.setHeaderContainerHeightForRealtimeVisual(playerHeight)
 			}
 			(this.selectedTrack as RealtimeVisualTrack).isGraphicsActive = !minimize
@@ -259,7 +261,7 @@ export class MusicService implements OnDestroy {
 		this._playState = PlayState.Loading
 		this._selectedTrack = this.nextSelectedTrack
 
-		this.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth)
+		this.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth, this.playerMargin)
 
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
@@ -454,7 +456,7 @@ export class MusicService implements OnDestroy {
 		this._playStateChangeListener()
 
 		if (this._selectedTrack.source === StreamSource.RealtimeVisual) {
-			this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth)
+			this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight, this.parentLeft, this.parentWidth, this.playerMargin)
 			this.realtimeVisualService.playFromStart()
 		}
 	}
