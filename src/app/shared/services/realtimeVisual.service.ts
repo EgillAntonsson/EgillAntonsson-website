@@ -66,7 +66,8 @@ export class RealtimeVisualService {
 		scroller.initialize(gl);
 
 		kdb.loop(this.main);
-		kdb.setStartTime(-11.2)
+		const randomStartTime = this.getRandomStartTimeForStillImage()
+		kdb.setStartTime(randomStartTime)
 		kdb.doPause()
 	}
 
@@ -76,9 +77,12 @@ export class RealtimeVisualService {
 		}
 		kdb.setStartTime(0)
 		kdb.resume()
+	}
 
-		// to start late in the track for debugging purposes
-		// kdb.setStartTime(-100)
+	getRandomStartTimeForStillImage() {
+		const min = -110 // around the end of the track
+		const max = -50 // around the start of the track
+		return Math.random() * (max - min) + min
 	}
 
 	private main(gl: { clearColor: (arg0: number, arg1: number, arg2: number, arg3: number) => void; clear: (arg0: number) => void; COLOR_BUFFER_BIT: number; DEPTH_BUFFER_BIT: number; }, time: number, dt: any) {

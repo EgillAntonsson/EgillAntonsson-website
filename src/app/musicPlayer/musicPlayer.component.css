@@ -63,17 +63,33 @@
 }
 
 .playing {
-	width: 16px;
+	width: 0px;
 	height: 16px;
-	background-color: var(--colorWhiteLightMed);
+
 	transform: translate(8%, 4%);
-	animation: rotation 3s infinite linear;
+	animation-name: rotate-pause;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 	transition: all 0.2s;
+
+	border-style: double;
+  border-width: 0px 0 0px 16px;
 }
 
-@keyframes rotation {
-	from {transform: rotate(0deg);}
-	to   {transform: rotate(-359deg);}
+@keyframes rotate-pause {
+  0% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-180deg);
+  }
+	60% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 
 .nextContainer {
