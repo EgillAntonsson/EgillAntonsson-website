@@ -537,6 +537,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 105px;
+		margin-left: -2px;
 	}
 
 	.treeContainer {
@@ -569,6 +570,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 110px;
+		margin-left: -3px;
 	}
 
 	.treeContainer {
@@ -605,6 +607,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 115px;
+		margin-left: -4px;
 	}
 
 	.treeContainer {
@@ -641,6 +644,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 120px;
+		margin-left: -5px;
 	}
 
 	.formTextFields {
@@ -677,6 +681,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 125px;
+		margin-left: -6px;
 	}
 
 	.treeContainer {

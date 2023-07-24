@@ -43,111 +43,15 @@ export class RealtimeVisualService {
 		return this.playerHeight
 	}
 
-	onWindowResize(windowWidth: number, windowHeight: number, parentLeft: number, _parentWidth: number, playerMargin: number) {
-		const playerSize = this.getPlayerSize(windowWidth, windowHeight, parentLeft, playerMargin)
-		kdb.resize(playerSize.playerWidth, playerSize.playerHeight)
-		this.playerWidth = playerSize.playerWidth
-		this.playerHeight = playerSize.playerHeight
+	onWindowResize(windowWidth: number, _windowHeight: number) {
+		const rectMarginPercentageByWidthRange = new Map<WidthRange, number>([[WidthRange.Default, 0], [WidthRange.S, 0.05], [WidthRange.M, 0.15], [WidthRange.L, 0.25], [WidthRange.XL, 0.30]])
+		const rectWidthCorrectionByWidthRange = new Map<WidthRange, number>([[WidthRange.Default, 0], [WidthRange.XXS, 16], [WidthRange.XS, 16], [WidthRange.S, 8], [WidthRange.M, 6], [WidthRange.L, 3]])
+		const playerSize = this.screenService.getRectSizeForHorizontalCenter(windowWidth, rectMarginPercentageByWidthRange, rectWidthCorrectionByWidthRange)
+
+		kdb.resize(playerSize.width, playerSize.height)
+		this.playerWidth = playerSize.width
+		this.playerHeight = playerSize.height
 		return this.playerHeight
-	}
-
-	private getPlayerSize(windowWidth: number, windowHeight: number, parentLeft: number, playerMargin: number) {
-
-		console.log('playerMargin', playerMargin)
-		console.log('windowWidth', windowWidth)
-		console.log('windowHeight', windowHeight)
-		console.log('parentLeft', parentLeft)
-
-		const widthRange = this.screenService.getCurrentWidthRange(windowWidth)
-		let playerMarginLeftRightPercentage = 0
-		// setting the offset to align with bottom horizontal line of the page
-		let offset = 15
-		switch (widthRange) {
-			case WidthRange.XXS:
-				playerMarginLeftRightPercentage = 0
-				offset = 15
-				break
-			case WidthRange.XS:
-				playerMarginLeftRightPercentage = 0
-				offset = 15
-				break
-			case WidthRange.S:
-				playerMarginLeftRightPercentage = 0.05
-				offset = 15
-				break
-			case WidthRange.M:
-				playerMarginLeftRightPercentage = 0.15
-				offset = 15
-				break
-			case WidthRange.L:
-				playerMarginLeftRightPercentage = 0.25
-				offset = 20
-				break
-			case WidthRange.XL:
-				playerMarginLeftRightPercentage = 0.30
-				offset = 25
-				break
-		}
-
-
-		console.log('widthRange', widthRange)
-		console.log(playerMarginLeftRightPercentage)
-
-		// let w = windowWidth
-		// let bodyMarginLeftRightPercentage = 0.05
-		// playerMarginLeftRightPercentage = 0
-
-		// let playerContainerWidth = windowWidth * (1 - (bodyMarginLeftRightPercentage * 2))
-		let playerContainerWidth = windowWidth - (parentLeft * 2)
-		let w = playerContainerWidth * (1 - (playerMarginLeftRightPercentage * 2))
-		let playerWidth = w - offset
-
-		let nineSixteenRatio = 0.5625
-		let playerHeight = playerWidth * nineSixteenRatio
-
-		console.log(playerHeight, playerWidth, playerContainerWidth, w, offset)
-
-		return { playerWidth, playerHeight }
-		// return { playerWidth: orgW + offset, playerHeight: orgH }
-
-		// const widthRange = this.screenService.getCurrentWidthRange(windowWidth)
-		// let widthMultiplier = 1.0
-		// // TODO: figure out why leftOffset is needed to center the player
-		// let leftOffset = 6
-		// // left property is set in css media screen
-		// switch (widthRange) {
-		// 	case WidthRange.S:
-		// 		widthMultiplier = 0.8
-		// 		leftOffset = 0
-		// 		break
-		// 	case WidthRange.M:
-		// 		widthMultiplier = 0.6
-		// 		leftOffset = -15
-		// 		break
-		// 	case WidthRange.L:
-		// 		widthMultiplier = 0.5
-		// 		leftOffset = -35
-		// 		break
-		// 	case WidthRange.XL:
-		// 		widthMultiplier = 0.4
-		// 		leftOffset = -50
-		// 		break
-		// }
-
-
-		// var playerWidth = windowWidth
-		// playerWidth *= widthMultiplier
-		// playerWidth -= (parentLeft + leftOffset) * 2
-
-		// var playerHeight = windowHeight;
-
-		// if (playerWidth < playerHeight * 16 / 9) {
-		// 	playerHeight = Math.floor(playerWidth * 9 / 16)
-		// } else {
-		// 	playerWidth = Math.floor(playerHeight * 16 / 9)
-		// }
-
-		// return { playerWidth, playerHeight }
 	}
 
 	private initialize(gl: { enable: (arg0: any) => void; DEPTH_TEST: any; CULL_FACE: any; }) {
@@ -172,6 +76,8 @@ export class RealtimeVisualService {
 		}
 		kdb.setStartTime(0)
 		kdb.resume()
+
+		// to start late in the track for debugging purposes
 		// kdb.setStartTime(-100)
 	}
 
