@@ -517,8 +517,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: green; }
-	h4 { color: green; }
+	/* h1 { color: green; } */
+	/* h4 { color: green; } */
 }
 
 /* WidthRange.XS */
@@ -546,8 +546,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: orange; }
-	h4 { color: orange; }
+	/* h1 { color: orange; } */
+	/* h4 { color: orange; } */
 }
 
 /* WidthRange.S */
@@ -583,8 +583,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: purple; }
-	h4 { color: purple; }
+	/* h1 { color: purple; } */
+	/* h4 { color: purple; } */
 }
 
 /* WidthRange.M */
@@ -620,8 +620,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: aqua; }
-	h4 { color: aqua; }
+	/* h1 { color: aqua; } */
+	/* h4 { color: aqua; } */
 }
 
 /* WidthRange.L */
@@ -657,8 +657,8 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: red; }
-	h4 { color: red; }
+	/* h1 { color: red; } */
+	/* h4 { color: red; } */
 }
 
 /* WidthRange.XL */
@@ -694,6 +694,6 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	h1 { color: yellow; }
+	/* h1 { color: yellow; } */
 }
 /* #endregion */
