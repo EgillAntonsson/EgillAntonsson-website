@@ -80,8 +80,8 @@ export class RealtimeVisualService {
 	}
 
 	getRandomStartTimeForStillImage() {
-		const min = -130 // around the end of the track
-		const max = -5 // around the start of the track
+		const min = -136 // around the end of the track
+		const max = 2 // around the start of the track
 		return Math.random() * (max - min) + min
 	}
 
