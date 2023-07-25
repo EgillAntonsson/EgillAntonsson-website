@@ -43,55 +43,15 @@ export class RealtimeVisualService {
 		return this.playerHeight
 	}
 
-	onWindowResize(windowWidth: number, windowHeight: number, parentLeft: number, _parentWidth: number) {
-		const playerSize = this.getPlayerSize(windowWidth, windowHeight, parentLeft)
-		kdb.resize(playerSize.playerWidth, playerSize.playerHeight)
-		this.playerWidth = playerSize.playerWidth
-		this.playerHeight = playerSize.playerHeight
+	onWindowResize(windowWidth: number, _windowHeight: number) {
+		const rectMarginPercentageByWidthRange = new Map<WidthRange, number>([[WidthRange.Default, 0], [WidthRange.S, 0.05], [WidthRange.M, 0.15], [WidthRange.L, 0.25], [WidthRange.XL, 0.30]])
+		const rectWidthCorrectionByWidthRange = new Map<WidthRange, number>([[WidthRange.Default, 0], [WidthRange.XXS, 16], [WidthRange.XS, 16], [WidthRange.S, 8], [WidthRange.M, 6], [WidthRange.L, 3]])
+		const playerSize = this.screenService.getRectSizeForHorizontalCenter(windowWidth, rectMarginPercentageByWidthRange, rectWidthCorrectionByWidthRange)
+
+		kdb.resize(playerSize.width, playerSize.height)
+		this.playerWidth = playerSize.width
+		this.playerHeight = playerSize.height
 		return this.playerHeight
-	}
-
-	private getPlayerSize(windowWidth: number, windowHeight: number, parentLeft: number) {
-		const widthRange = this.screenService.getCurrentWidthRange(windowWidth)
-		let widthMultiplier = 1.0
-		// TODO: figure out why leftOffset is needed to center the player
-		let leftOffset = 6
-		// left property is set in css media screen
-		switch (widthRange) {
-			case WidthRange.S:
-				widthMultiplier = 0.8
-				leftOffset = 0
-				break
-			case WidthRange.M:
-				widthMultiplier = 0.6
-				leftOffset = -15
-				break
-			case WidthRange.L:
-				widthMultiplier = 0.5
-				leftOffset = -35
-				break
-			case WidthRange.XL:
-				widthMultiplier = 0.4
-				leftOffset = -50
-				break
-		}
-
-
-		var playerWidth = windowWidth
-		playerWidth *= widthMultiplier
-		playerWidth -= (parentLeft + leftOffset) * 2
-
-		var playerHeight = windowHeight;
-
-		if (playerWidth < playerHeight * 16 / 9) {
-			playerHeight = Math.floor(playerWidth * 9 / 16)
-		} else {
-			playerWidth = Math.floor(playerHeight * 16 / 9)
-		}
-
-		return { playerWidth, playerHeight }
-
-		// return {playerWidth: windowWidth, playerHeight: windowHeight}
 	}
 
 	private initialize(gl: { enable: (arg0: any) => void; DEPTH_TEST: any; CULL_FACE: any; }) {
@@ -106,7 +66,8 @@ export class RealtimeVisualService {
 		scroller.initialize(gl);
 
 		kdb.loop(this.main);
-		kdb.setStartTime(-11.2)
+		const randomStartTime = this.getRandomStartTimeForStillImage()
+		kdb.setStartTime(randomStartTime)
 		kdb.doPause()
 	}
 
@@ -116,7 +77,12 @@ export class RealtimeVisualService {
 		}
 		kdb.setStartTime(0)
 		kdb.resume()
-		// kdb.setStartTime(-100)
+	}
+
+	getRandomStartTimeForStillImage() {
+		const min = -136 // around the end of the track
+		const max = 2 // around the start of the track
+		return Math.random() * (max - min) + min
 	}
 
 	private main(gl: { clearColor: (arg0: number, arg1: number, arg2: number, arg3: number) => void; clear: (arg0: number) => void; COLOR_BUFFER_BIT: number; DEPTH_BUFFER_BIT: number; }, time: number, dt: any) {

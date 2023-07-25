@@ -490,6 +490,7 @@ hr {
 /* '@media screen' put last because order in this file matters.
 min width considered 360px (Galaxy S8+) */
 
+/* WidthRange.XXS */
 @media screen and (max-width: 451px) {
 	body {
 		font-size: 95%;
@@ -520,6 +521,7 @@ min width considered 360px (Galaxy S8+) */
 	/* h4 { color: green; } */
 }
 
+/* WidthRange.XS */
 @media screen and (min-width:  452px) and (max-width: 703px) {
 	body {
 		font-size: 100%;
@@ -535,6 +537,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 105px;
+		margin-left: -2px;
 	}
 
 	.treeContainer {
@@ -547,6 +550,7 @@ min width considered 360px (Galaxy S8+) */
 	/* h4 { color: orange; } */
 }
 
+/* WidthRange.S */
 @media screen and (min-width: 704px) and (max-width: 1053px) {
 	body {
 		font-size: 105%;
@@ -566,6 +570,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 110px;
+		margin-left: -3px;
 	}
 
 	.treeContainer {
@@ -582,6 +587,7 @@ min width considered 360px (Galaxy S8+) */
 	/* h4 { color: purple; } */
 }
 
+/* WidthRange.M */
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
 	body {
 		font-size: 110%;
@@ -601,6 +607,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 115px;
+		margin-left: -4px;
 	}
 
 	.treeContainer {
@@ -617,6 +624,7 @@ min width considered 360px (Galaxy S8+) */
 	/* h4 { color: aqua; } */
 }
 
+/* WidthRange.L */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
 	body {
 		font-size: 115%;
@@ -636,6 +644,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 120px;
+		margin-left: -5px;
 	}
 
 	.formTextFields {
@@ -652,6 +661,7 @@ min width considered 360px (Galaxy S8+) */
 	/* h4 { color: red; } */
 }
 
+/* WidthRange.XL */
 @media screen and (min-width: 2001px) {
 	body {
 		font-size: 115%;
@@ -671,6 +681,7 @@ min width considered 360px (Galaxy S8+) */
 
 	.headerContainer, .headerBackground {
 		height: 125px;
+		margin-left: -6px;
 	}
 
 	.treeContainer {

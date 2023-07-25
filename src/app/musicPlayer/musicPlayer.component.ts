@@ -132,13 +132,7 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	@HostListener('window:resize', ['$event'])
   onWindowResize() {
-		let parentLeft = 0
-		let parentWidth = 0
-		if (this.WebGlCanvasElement.nativeElement.offsetParent !== null) {
-			parentLeft = this.WebGlCanvasElement.nativeElement.offsetParent.offsetLeft
-			parentWidth = this.WebGlCanvasElement.nativeElement.offsetParent.offsetWidth
-		}
-		this.musicService.onWindowResize(window.innerWidth, window.innerHeight, parentLeft,  parentWidth)
+		this.musicService.onWindowResize(window.innerWidth, window.innerHeight)
   }
 
 	onPlayerReady(player: YT.Player) {

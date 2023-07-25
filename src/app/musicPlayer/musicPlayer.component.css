@@ -1,7 +1,8 @@
 #webGlCanvas {
 	border: none;
 	position: absolute;
-	margin-top: 10px;
+	padding: 10px 0px;
+	margin: 0px 0%;
 }
 
 .playerContainer {
@@ -62,17 +63,33 @@
 }
 
 .playing {
-	width: 16px;
+	width: 0px;
 	height: 16px;
-	background-color: var(--colorWhiteLightMed);
+
 	transform: translate(8%, 4%);
-	animation: rotation 3s infinite linear;
+	animation-name: rotate-pause;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 	transition: all 0.2s;
+
+	border-style: double;
+  border-width: 0px 0 0px 16px;
 }
 
-@keyframes rotation {
-	from {transform: rotate(0deg);}
-	to   {transform: rotate(-359deg);}
+@keyframes rotate-pause {
+  0% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-180deg);
+  }
+	60% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 
 .nextContainer {
@@ -255,8 +272,9 @@ ul {
 
 /*#region media screen */
 
+/* WidthRange.XSS */
 @media screen and (max-width: 451px) {
-	.youtubePlayer {
+	.youtubePlayer, #webGlCanvas {
 		margin: 0px 0%
 	}
 
@@ -279,9 +297,10 @@ ul {
 	}
 }
 
+/* WidthRange.XS */
 @media screen and (min-width:  452px) and (max-width: 703px) {
-	.youtubePlayer {
-		margin: 0px 10%
+	.youtubePlayer, #webGlCanvas {
+		margin: 0px 0%
 	}
 
 	.myPlayer {
@@ -307,14 +326,13 @@ ul {
 	}
 }
 
+/* WidthRange.S */
 @media screen and (min-width: 704px) and (max-width: 1053px) {
-	.youtubePlayer {
-		margin: 0px 20%
+	.youtubePlayer, #webGlCanvas, .myPlayer {
+		margin: 0px 5%
 	}
-
 	.myPlayer {
-		margin: 0px 5%;
-		width: 80%;
+		width: 90%;
 	}
 
 	.playIconContainer {
@@ -329,53 +347,36 @@ ul {
 		margin-right: 5%;
 	}
 
-	#webGlCanvas {
-		left: 10%;
-	}
 }
 
+/* WidthRange.M */
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
-	.youtubePlayer {
-		margin: 0px 30%
+	.youtubePlayer, #webGlCanvas, .myPlayer {
+		margin: 0px 15%
 	}
 
 	.myPlayer {
-		margin: 0px 10%;
 		width: 70%;
 	}
-
-	#webGlCanvas {
-		left: 20%;
-	}
 }
 
+/* WidthRange.L */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
-	.youtubePlayer {
-		margin: 0px 35%
+	.youtubePlayer, #webGlCanvas, .myPlayer {
+		margin: 0px 25%
 	}
-
 	.myPlayer {
-		margin: 0 15%;
-		width: 60%;
-	}
-
-	#webGlCanvas {
-		left: 25%;
-	}
-}
-
-@media screen and (min-width: 2001px) {
-	.youtubePlayer {
-		margin: 0px 37%
-	}
-
-	.myPlayer {
-		margin: 0px 20%;
 		width: 50%;
 	}
+}
 
-	#webGlCanvas {
-		left: 30%;
+/* WidthRange.XL */
+@media screen and (min-width: 2001px) {
+	.youtubePlayer, #webGlCanvas, .myPlayer {
+		margin: 0px 30%
+	}
+	.myPlayer {
+		width: 40%;
 	}
 }
 
