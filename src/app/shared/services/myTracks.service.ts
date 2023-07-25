@@ -66,7 +66,7 @@ export class MyTracksService {
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
-				this.lecube(),
+				this.leCube(),
 				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
@@ -151,7 +151,8 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `I started playing the piano around the age of 7. In my teenage years I added guitar (inspired by <a href="https://www.slashonline.com/">Slash</a> and others), electric bass (because all in the band can't be guitarists) and singing, and from time to time beating the drums. Note that the tracks published under my name sometimes involved collaborations with others (mentioned in the "About" section).`
+		return `I began my musical journey at age 7 with the piano. As a teenager, I found myself drawn to the allure of the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. To start a band with my two friends (all three were guitarist), I took up the electric bass, appreciating its significance in modern music genres. Later, I refocused on the piano, studying jazz at FÍH music school. I had the privilege of learning from exceptional mentors (including <a href="https://www.agnarmagnusson.com"  target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>). Around the turn of this century I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which blazed brightly before fading out. Throughout my live I've collaborated with Sindri Bergmann Þórarinsson and we currently produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.
+		<br><br>Some tracks under my name feature collaborations with other talented musicians, and you can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
 	private get pathToDirEgillAntonsson() {
@@ -217,11 +218,12 @@ export class MyTracksService {
 		}
 	}
 
-	private lecube() {
-		const rootUrl = 'lecube'
+	private leCube() {
+		const rootUrl = 'le-cube'
 		const name = 'Le Cube ◇ Mass Psychosis'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
-		const about = `About LeCube`
+		const about = `A demoscene entry collaboration with my friend Erik Byström (klovman) in 2014. He created and programmed the visuals and I (Vulkanoman) created the music. In 2023 I enhanced the music a la Mass Psychosis.`
+
 		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/${rootUrl}.ogg`)],
 		() => {
 			return async () => {
@@ -547,7 +549,17 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jonas B. Antonsson, composed by Jonas and me, performed by me and mixed and produced by Julius Jonasson.`
+		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. Dóri created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
+		<br>Lyrics:<br>
+		Snjóar kaldri ströndu á, sefur jökulfoldin.<br>
+		Varin öllum vættum þá, vistinn blóði goldin.<br>
+		Tungl er horfið sól er sest, ennþá mun hún rísa.<br>
+		Víkingum hún vandar mest, í vonar landi ísa.<br>
+		<br>Translated to English:<br>
+		Snow falls on a cold beach, the frozen earth is sleeping.<br>
+		Guarded by all wights, thus staying will cost blood.<br>
+		The moon has gone the sun has set, but she will rise again.<br>
+		For the vikings that settled and stayed, in a land of ice and hope.`
 
 		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
 	}
@@ -559,13 +571,24 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
-		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017.<br>
-I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it.<br>
-In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>.<br>
-In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<br>
-helped me structure the song and write the lyrics,<br>
-and he recorded my vocals in his studio in Reykjavik.<br>
-In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
+		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017. I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it. In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>. In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson helped me structure the song and write the lyrics,
+and he recorded my vocals in his studio in Reykjavik. In April 2022 I recorded the rest of the instruments, processed and mixed the song.<br>
+<br>LYRICS<br>
+Verse 1:<br>
+Someday's, the skies are cloudy.<br>
+Someday's, there is no light.<br>
+Pre-Chorus:<br>
+And I thank you, for all the times we had.<br>
+And I thank you, for the moments that you cared.<br>
+Chorus:<br>
+Stars are shining bright tonight.<br>
+Harmonies of shade and light.<br>
+And everything's alright.<br>
+Verse 2:<br>
+I smile, though the skies are cloudy.<br>
+And I shine, when there's no light.<br>
+-> Pre-Chorus -> Chorus...
+`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
@@ -576,12 +599,27 @@ In April 2022 I recorded the rest of the instruments, processed and mixed the so
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
 		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
-		const about = `In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson<br> asked me to collaborate with him to make a pop song.<br>
-Although we've played some pop over the years, we have not focused on creating one per se.<br>
-So our goal now was to focus on the 'formula of what makes a good (modern) pop song',<br>
-and also speed up our workflow to complete the song in couple of days (from start to finish).<br>
-We created the song and lyrics together, I sang in the lyrics and Sindri mixed, processed and polished the whole song.<br>
-We put the song under artist Egill Antonsson (for convenience) although it's truly a collaboration.`
+
+		const about = `In the spring of 2021, my friend and music partner, Sindri Bergmann Thorarinsson, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.<br>
+<br>Lyrics:<br>
+Verse 1:<br>
+Woke up this morning late, it was half past 8, still stuck in the rhythm.<br>
+You feel so far away, life's so dull and grey, when we're not together.<br>
+Pre-Chorus:<br>
+But I know, there's a place, you and I will meet again.<br>
+And I know, that in time, you and I will meet again.<br>
+Chorus:<br>
+Though it feels far away, do the walk day by day, you and I will meet again.<br>
+Though you are far away, we can talk every day, you and I will meet again.<br>
+Verse 2:<br>
+I tried to dance alone, to our favorite song, in front of the mirror.<br>
+I miss your beat so much, and your caring touch, us two in the rhythm.<br>
+-> Pre-Chorus -> Chorus<br>
+Bridge:<br>
+And we'll dance, you and I, to the off beat and the rhythm.<br>
+And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet you in heaven.<br>
+-> Chorus`
+
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
@@ -592,9 +630,8 @@ We put the song under artist Egill Antonsson (for convenience) although it's tru
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
 		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
-		const about = `Released at the <a href="https://edisonparty.com">Edison demo-party</a> in 2021 under my new handle/pseudonym Vulkanoman.<br>
-My original title for the tune was 'Tivoli Chase Cop 27/16' but I renamed<br>
-as I got more and more inspired by my recent trip to the then ongoing volcano eruption in <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>`
+		const about = `Debuted at the 2021 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym, Vulkanoman, this creation was initially named 'Tivoli Chase Cop 27/16.' However, the inspiration struck me during the then recent journey where I witnessed the live volcanic eruption at <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>, leading me to retitle the track.`
+
 	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
@@ -602,7 +639,9 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const rootUrl = 'just-in-time'
 		const name = 'Just in Time'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		const about = `Debuted at the 2020 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym Undur (now my current pseudonym is Vulkanoman). The title is a reference to the fact that I finished the song just in time for the party, and having missed the deadline the year before...`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
 	}
 
 	private icelandSocksIntro() {
@@ -610,7 +649,7 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const name = 'Iceland Socks: Intro'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
-		const about = `Sindri Bergman Thorarinsson and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
+		const about = `Sindri Bergmann Þórarinsson and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
 	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -619,7 +658,23 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const name = 'Fortíðin'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
+		const about = `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. Sindri Bergmann Þórarinsson assisted me with recording and mixing.<br>
+		<br>LYRICS<br>
+		Verse 1:<br>
+		Þitt blíða bros, gæti brætt allan heiminn.<br>
+		Augun blá, svo himnesk og dreymin.<br>
+		Hlæjandi, hamingjan smitar mig.<br>
+		Syngjandi, beint frá sálinni.<br>
+		Chorus:<br>
+		Er ég horfi á þig þá finn ég kærleik þinn.<br>
+		Er ég hlusta á þig þá sefast hugur minn.<br>
+		En þú ert fortíðin.<br>
+		Verse 2:<br>
+		Örlögin, tóku þig frá mér.<br>
+		Örlögin, skildu mig eftir hér.<br>
+		Það eina sem hjá mér eftir er, eru myndir upp á vegg, gamlar upptökur, og góðar minningar.<br>
+		-> Chorus`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private toddlerTune() {
@@ -627,14 +682,16 @@ as I got more and more inspired by my recent trip to the then ongoing volcano er
 		const name = 'Toddlers Tune'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
+		const about = `When my daughter, Soffía Rós Egilsdóttir, was around 3 years old, I captured a precious moment of her singing a delightful melody. Inspired by her tune, I embarked on a creative journey, crafting chords and rhythm to complement her sweet voice. This harmonious fusion evolved into this song, that I aptly titled 'Toddler's Tune'`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private oddTimesInSpace() {
 		const rootUrl = 'odd-times-in-space'
 		const name = 'Odd Times in Space'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name)
+		const about = `Inaugurated at the 2016 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my former pseudonym 'Undur' (now known as 'Vulkanoman'), the composition bears a title inspired by its odd time signature, odd drum beat emphasis at times, and 'space-like' ambiance (whatever that means).`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
 	}
 
 	private introduction() {

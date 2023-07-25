@@ -17,15 +17,15 @@ export abstract class Track {
 	artistAbout!: string
 
 
-	static readonly dir = '../../assets/tracks/'
-	private readonly defaultArtworkFilename = 'Egill_Antonsson.png'
+	public static readonly dir = '../../assets/tracks/'
+	public static readonly defaultArtworkPath = Track.dir + 'Egill_Antonsson.png'
 
 	constructor(source: StreamSource, rootUrl: string, name: string, artworkPath: string, about: string, soundcloudUrl: string, spotifyUrl: string, buyUrl: string) {
 		this.source = source
 		this.name = name
 		this.artworkPath = artworkPath
 		if (artworkPath === '') {
-			this.artworkPath = Track.dir + this.defaultArtworkFilename
+			this.artworkPath = Track.dir + Track.defaultArtworkPath
 		}
 		this.about = about
 		this.rootUrl = rootUrl

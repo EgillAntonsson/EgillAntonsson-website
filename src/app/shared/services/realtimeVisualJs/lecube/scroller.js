@@ -48,8 +48,8 @@ export var scroller = function() {
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
-        		text: "NOW WITH MASS PSYCHOSIS",
-        		start: sync.totime(13),
+        		text: "FROM 2023 WITH MASS PSYCHOSIS",
+        		start: sync.totime(12),
         		stop:  sync.totime(15),
         		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
