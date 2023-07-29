@@ -151,8 +151,10 @@ export class MyTracksService {
 	}
 
 	private get aboutEgillAntonsson() {
-		return `I began my musical journey at age 7 with the piano. As a teenager, I found myself drawn to the allure of the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. To start a band with my two friends (all three were guitarist), I took up the electric bass, appreciating its significance in modern music genres. Later, I refocused on the piano, studying jazz at FÍH music school. I had the privilege of learning from exceptional mentors (including <a href="https://www.agnarmagnusson.com"  target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>). Around the turn of this century I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which blazed brightly before fading out. Throughout my live I've collaborated with Sindri Bergmann Þórarinsson and we currently produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.
-		<br><br>Some tracks under my name feature collaborations with other talented musicians, and you can find more details about these collaborations in the 'About' section of the corresponding tracks.`
+		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
+		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with Sindri Bergmann Þórarinsson. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
+		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
 	private get pathToDirEgillAntonsson() {
@@ -243,6 +245,7 @@ export class MyTracksService {
 		const name = 'Winter Queen'
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/winter-queen-kanez-kane/i0evkfp38ctac'
 		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (Sindri visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
@@ -269,7 +272,7 @@ export class MyTracksService {
 		-> Pre-chorus -> Chorus<br>
 		Weather forecast: It seems like there's a storm, coming...<br>`
 
-		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl)
+		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private komaKoma() {
@@ -303,7 +306,7 @@ export class MyTracksService {
 		But they're out of their mind, of their mind, of their mind!<br>
 		Chorus -> Post-chorus<br>
 		Post-chorus outro:<br>
-		Revolution (got a message to the whole/free generation).<br>
+		Revolution (got a message to the whole / free generation).<br>
 		Revolution (got a message to the heart).<br>`
 
 		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
@@ -326,7 +329,7 @@ export class MyTracksService {
 		Strawberry city lights, angels shine every night.<br>
 		No turn here makes it right, I'm waiting at the gate!<br>
 		Perfume and ecstasy, Candyman sets you free.<br>
-		Love, guns and sickened nuns, they'll/please help me find my way!<br>
+		Love, guns and sickened nuns, they'll / please help me find my way!<br>
 		Verse 2:<br>
 		Gone, dead, forever, forever!<br>
 		Going home, oh, 6 feet under<br>
@@ -349,7 +352,7 @@ export class MyTracksService {
 		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (Sindri visited me).<br>
 		<br>LYRICS<br>
 		Chorus:<br>
-		Toni's living in the past.<br>
+		Toni's living in the past...<br>
 		Verse 1:<br>
 		Toni was a man, trapped, lost in the past.<br>
 		Lived in his stories, old times were his way, but<br>
