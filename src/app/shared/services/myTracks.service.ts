@@ -160,7 +160,7 @@ export class MyTracksService {
 	}
 
 	private get aboutKanezKane() {
-		return `A partnership with my friend Sindri Bergmann Thorarinsson. We have done lots of music through the decades but currently only released to the world a small part of it. We decided to changed that so stay tuned :)`
+		return `A partnership with my friend Sindri Bergmann Thorarinsson. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
 	}
 
 	private get aboutBraedraminning() {
@@ -243,7 +243,31 @@ export class MyTracksService {
 		const name = 'Winter Queen'
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
-		const about = `This is the third released song (early 2023). Created in the first Stockholm session when Sindri visited me. Fittingly the weather both in Sweden and Iceland was cold throughout the production phase.`
+		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (Sindri visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
+		<br>LYRICS<br>
+		Verse 1:<br>
+		Josefine, the frostbites and scars.<br>
+		Josefine, you're cold from afar.<br>
+		Every night I pray for... Every night I scream...<br>
+		I'm afraid I'll end up like my queen.<br>
+		Verse 2:<br>
+		Josefine, the north wind is harsh.<br>
+		Josefine, my shivering dreams.<br>
+		Every day I beg you... Every day I try...<br>
+		Nothing but the icing on your heart.<br>
+		Pre-chorus:<br>
+		Oh, the long, cold winter nights.<br>
+		Cold breath, nothing seems right.<br>
+		Chorus:<br>
+		Josefine, winter queen.<br>
+		Josefine, don't be so mean, my winter queen.<br>
+		Verse 3:<br>
+		Josefine, a cold summer day.<br>
+		Josefine, I'm melting away.<br>
+		Every time I feel you... Every time I cry...<br>
+		Your frosty tongue is waiting in the dark.<br>
+		-> Pre-chorus -> Chorus<br>
+		Weather forecast: It seems like there's a storm, coming...<br>`
 
 		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl)
 	}
@@ -254,7 +278,33 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
 		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
-		const about = `This is the second released song (early 2023). Jump on and join the Revolution!`
+		const about = `This second song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!<br>
+		<br>LYRICS<br>
+		Verse 1:<br>
+		His name was Koma Koma, he had to move around.<br>
+		Heard he came from Bangaboo, the dark side of town.<br>
+		50 years in coma, still looking 22, I thought he was a miracle too.<br>
+		Pre-chorus:<br>
+		Oh, he sees you, feels you, calls out your name, and tells us stories of time.<br>
+		Chorus:<br>
+		Oh, the nights were so long, we kept playing along, talking about revolution.<br>
+		Oh, the people were kind, they got into your mind, talking about revolution.<br>
+		Post-chorus:<br>
+		Revolution (everybody do what I say), in the mind (everybody jump).<br>
+		Revolution (everybody do what I say), in the heart (everybody jump).<br>
+		Verse 2:<br>
+		He was always moving, never standing still.<br>
+		Had a vision of the world, was willing to kill.<br>
+		Put you in a koma, there's magic in his eyes, you would always follow his will.<br>
+		Pre-chorus -> Chorus -> Post-chorus<br>
+		Bridge:<br>
+		Jump, jump, jump, jump, jump, jump, jump, jump...<br>
+		Revolution, revolution, revolution of the mind.<br>
+		But they're out of their mind, of their mind, of their mind!<br>
+		Chorus -> Post-chorus<br>
+		Post-chorus outro:<br>
+		Revolution (got a message to the whole/free generation).<br>
+		Revolution (got a message to the heart).<br>`
 
 		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -265,7 +315,27 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
 		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
-		const about = `This is the first released song (late 2022).`
+		const about = `This first song release by Kanez Kane, 15th December 2022.<br>
+		<br>LYRICS<br>
+		Verse 1:<br>
+		Rose, fame, forever, forever!<br>
+		Going home, oh, it went sideways.<br>
+		Birds, bees, forever, forever.<br>
+		Growing tall, oh, wait for Fridays.<br>
+		Chorus:<br>
+		Strawberry city lights, angels shine every night.<br>
+		No turn here makes it right, I'm waiting at the gate!<br>
+		Perfume and ecstasy, Candyman sets you free.<br>
+		Love, guns and sickened nuns, they'll/please help me find my way!<br>
+		Verse 2:<br>
+		Gone, dead, forever, forever!<br>
+		Going home, oh, 6 feet under<br>
+		Stars, light, oh never, oh never!<br>
+		Growing old, oh, makes you wonder.<br>
+		-> Chorus
+		Verse outro:
+		Rose, fame, forever, forever!<br>
+		Going home, oh, 6 feet under<br>`
 
 		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -276,7 +346,22 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
-		const about = `This is the latest song release (mid 2023). Tony invented the greatest time machine of all time!`
+		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (Sindri visited me).<br>
+		<br>LYRICS<br>
+		Chorus:<br>
+		Toni's living in the past.<br>
+		Verse 1:<br>
+		Toni was a man, trapped, lost in the past.<br>
+		Lived in his stories, old times were his way, but<br>
+		Toni was ashamed, felt guilty of lies.<br>
+		Invented the greatest machine of all time.<br>
+		-> Chorus<br>
+		Verse 2:<br>
+		Toni traveled time, loved getting away.<br>
+		While sitting still in his room every day, but<hbr>
+		Toni's mission failed when blowing a fuse.<br>
+		Short circuit accident, stuck in the room.<br>
+		-> Chorus`
 
 		return new YoutubeTrack('J4h4s7IQSSs', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -551,15 +636,15 @@ Egill - vocals (and maybe guitar)<br>
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
 		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. Dóri created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
 		<br>Lyrics:<br>
-		Snjóar kaldri ströndu á, sefur jökulfoldin.<br>
-		Varin öllum vættum þá, vistinn blóði goldin.<br>
-		Tungl er horfið sól er sest, ennþá mun hún rísa.<br>
-		Víkingum hún vandar mest, í vonar landi ísa.<br>
+		Snjóar kaldri ströndu á, sefur jökulfoldin<br>
+		Varin öllum vættum þá, vistinn blóði goldin<br>
+		Tungl er horfið sól er sest, ennþá mun hún rísa<br>
+		Víkingum hún vandar mest, í vonar landi ísa<br>
 		<br>Translated to English:<br>
-		Snow falls on a cold beach, the frozen earth is sleeping.<br>
-		Guarded by all wights, thus staying will cost blood.<br>
-		The moon has gone the sun has set, but she will rise again.<br>
-		For the vikings that settled and stayed, in a land of ice and hope.`
+		Snow falls on a cold beach, the frozen earth is sleeping<br>
+		Guarded by all wights, thus staying will cost blood<br>
+		The moon has gone the sun has set, but she will rise again<br>
+		For the vikings that settled and stayed, in a land of ice and hope`
 
 		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
 	}
