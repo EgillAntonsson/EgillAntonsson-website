@@ -186,7 +186,10 @@ export class MyTracksService {
 	}
 
 	private get aboutKuai() {
-		return ``
+		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> and <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
+		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by <a href="http://www.77.is" target="_blank">Dóri</a>. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
+		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir (Guðmundur arranged the cello parts).<br>
+		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period, Guðmundur re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
 	}
 
 	private get braedraminningArtworkPath() {
@@ -637,7 +640,7 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. Dóri created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
+		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
 		<br>Lyrics:<br>
 		Snjóar kaldri ströndu á, sefur jökulfoldin<br>
 		Varin öllum vættum þá, vistinn blóði goldin<br>
@@ -809,78 +812,104 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
 	}
 
-	private get artworkKuai() {
+	private get kuaiArtwork() {
 		return 	`${this.pathToDirKuai}KUAI.jpg`
+	}
+
+	private get kuaiBuyUrl() {
+		return 'https://www.qobuz.com/se-en/album/kuai-kuai/kqeu1azl013da'
 	}
 
 	private pirringur() {
 		const rootUrl = 'pirringur'
 		const name = 'Pirringur'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
+		const about = `Pirringur means irritation in Icelandic. We started with this track in concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> in the FÍH concert hall.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private apollo() {
 		const rootUrl = 'apollo'
 		const name = 'Apollo'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/apollo'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/3ayL6r8u4hkHZzLFSGLq5j?si=42bf7eb320d14012'
+		const about = `The name comes from The Apollo program (an iconic chapter in space history named after Apollo, the Greek god of light, music, and the Sun. The choice of this name was deliberate, as it captured the grand scale and significance of the proposed program). I visualize this track as a space mission that ends is an intense catastrophic failure.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private andsetinn() {
 		const rootUrl = 'andsetinn'
 		const name = 'Andsetinn'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andsetinn'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/7MRGsSRocQ9CUEP7MzzutU?si=39de5d4ba04f4ded'
+		const about = `Andsetinn means possessed in Icelandic which is fitting for this track. The Yamaha C-35 organ and Hammond organ in the end were played by me.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private hamskipti() {
 		const rootUrl = 'hamskipti'
 		const name = 'Hamskipti'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/hamskipti'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/03YyiL49fyp9pPoynSk0e5?si=cd62c0313293492f'
+		const about = `Hamskipti means shape-shifting or transformation in Icelandic, and are common themes in mythology and folklore, including the Icelandic Viking sagas. I heavily slap the bass in this one.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private rover() {
 		const rootUrl = 'rover'
 		const name = 'Rover'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rover'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/2nM3ir2HXQIYx9HHdYgu3c?si=731010727fb94acc'
+		const about = `Rover was recorded and mixed by Jón Elvar Hafsteinsson in 1999. Jón said that he had never recorded so much anger before (you can hear <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> and me screaming in the background in the metal parts which ends with the word "Mamma").  When we were thinking about what to name the track we found the name Rover on some card board in my parents garage which was our main rehearsal space at the time.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private andefni() {
 		const rootUrl = 'andefni'
 		const name = 'Andefni'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
+		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> fills in the void. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> shreds the guitar in the end.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private agndofa() {
 		const rootUrl = 'agndofa'
 		const name = 'Agndofa'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/agndofa'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/39v1wVL4fWnPWEt8D8tl40?si=500e84677daa4aec'
+		const about = `Andefni means stunned in Icelandic. By coincidence during the long guitar feedback some radio broadcast came through the speakers, and we decided to keep it in the track.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private ofurte() {
 		const rootUrl = 'ofurte'
 		const name = 'Ofurte'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/ofurte'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/1deKl4F86Lns3pgbeQspyw?si=536593297c194d76'
+		const about = `Ofurte means super tea in Icelandic. At concerts this track was the start of the last part of our set (followed by Lesblinda I and II) transitioning to softer unwinding (although the last track Lesblinda II is a climatic power blast). The Hammond organ in the end was played by my and recorded by <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> in the FÍH concert hall.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+	}
+
+	private get aboutLesblinda() {
+		return `Lesblinda means dyslexia in Icelandic. Initially, we called both parts (I and II) "Korterið," meaning quarter in Icelandic, as it typically spanned about a quarter of an hour in performance time. However, the length remained open-ended due to the improvised and interwoven guitar melodies, guided by occasional cues signaling section changes. A memorable aspect of our live performances was concluding with "Korterið," where part I exudes a mellow ambiance and Part II serves as a contrasting, climactic power blast. In the studio recording the cellos were played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir, arranged by  <a href="https://gudmundursteinn.net" target="_blank">Guðmundur</a>. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður</a> played the piano, and I played the Hammond organ.`
 	}
 
 	private lesblindaI() {
 		const rootUrl = 'lesblinda-i'
-		const name = 'lesblinda I'
+		const name = 'Lesblinda I'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-i'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/6ZPVNTF0o9B79SGKRulrUh?si=4a0d989e1c674d53'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private lesblindaII() {
 		const rootUrl = 'lesblinda-ii'
-		const name = 'lesblinda II'
+		const name = 'Lesblinda II'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-ii'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.artworkKuai)
+		const spotifyUrl = 'https://open.spotify.com/track/6tOuId7SigO9IMiUwaavCU?si=e1bf6a3f596c4da6'
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private godsruleLayered() {
