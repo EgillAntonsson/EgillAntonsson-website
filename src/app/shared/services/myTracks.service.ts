@@ -150,10 +150,45 @@ export class MyTracksService {
 		this._isInitialized = true
 	}
 
+	private urlSindri(fullName = false) {
+		let name = 'Sindri'
+		if (fullName) {
+			name = 'Sindri Bergmann Þórarinsson'
+		}
+		return `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about" target="_blank">${name}</a>`
+	}
+
+	private urlSteini(fullName = false) {
+		let name = 'Steini' // nickname
+		if (fullName) {
+			name = 'Guðmundur Steinn Gunnarsson'
+
+		}
+		return `<a href="https://gudmundursteinn.net" target="_blank">${name}</a>`
+	}
+
+	private urlSiggi(fullName = false) {
+		let name = 'Siggi' // nickname
+		if (fullName) {
+			name = 'Sigurður Þór Rögnvaldsson'
+
+		}
+		return `<a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">${name}</a>`
+	}
+
+ 	private urlDori(fullName = false) {
+		let name = 'Dóri' // nickname
+		if (fullName) {
+			name = 'Halldór Andri Bjarnason'
+		}
+		return `<a href="http://www.77.is" target="_blank">${name}</a>`
+	}
+
+
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
-		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with Sindri Bergmann Þórarinsson. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
+		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
@@ -162,7 +197,7 @@ export class MyTracksService {
 	}
 
 	private get aboutKanezKane() {
-		return `A partnership with my friend Sindri Bergmann Thorarinsson. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
+		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
 	}
 
 	private get aboutBraedraminning() {
@@ -178,7 +213,7 @@ export class MyTracksService {
 	}
 
 	private get aboutTribeOfOranges() {
-		return `A partnership with my friend Sindri Bergmann Thorarinsson.<We coined the name when we needed to which can be shortened to TOO. Me and Sindri have done a lot together and some are under TOO.`
+		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. Some of our music is under Tribe Of Oranges.`
 	}
 
 	private get pathToDirTribeOfOranges() {
@@ -186,10 +221,10 @@ export class MyTracksService {
 	}
 
 	private get aboutKuai() {
-		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> and <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
-		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by <a href="http://www.77.is" target="_blank">Dóri</a>. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
-		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir (Guðmundur arranged the cello parts).<br>
-		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period, Guðmundur re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
+		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and ${this.urlSteini(true)} (called Steini) and ${this.urlSiggi(true)} (called Siggi) on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
+		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by ${this.urlDori()}. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
+		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir ( ${this.urlSteini()} arranged the cello parts).<br>
+		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period,  ${this.urlSteini()} re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
 	}
 
 	private get braedraminningArtworkPath() {
@@ -197,7 +232,7 @@ export class MyTracksService {
 	}
 
 	private get aboutBraedraminningTake2002() {
-		return `My take on this song, recorded and mixed in 2001-2002. Sindri Bergmann Thorarinsson mastered it as far as could be done in 2022.
+		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.
 	`
 	}
 
@@ -249,7 +284,7 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/winter-queen-kanez-kane/i0evkfp38ctac'
-		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (Sindri visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
+		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
 		Josefine, the frostbites and scars.<br>
@@ -332,7 +367,7 @@ export class MyTracksService {
 		Strawberry city lights, angels shine every night.<br>
 		No turn here makes it right, I'm waiting at the gate!<br>
 		Perfume and ecstasy, Candyman sets you free.<br>
-		Love, guns and sickened nuns, they'll / please help me find my way!<br>
+		Love, guns and sticky nuns, they'll / please help me find my way!<br>
 		Verse 2:<br>
 		Gone, dead, forever, forever!<br>
 		Going home, oh, 6 feet under<br>
@@ -352,7 +387,7 @@ export class MyTracksService {
 		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
-		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (Sindri visited me).<br>
+		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
 		<br>LYRICS<br>
 		Chorus:<br>
 		Toni's living in the past...<br>
@@ -662,7 +697,7 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
-		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017. I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it. In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>. In the spring of 2021 my friend and music partner Sindri Bergmann Thorarinsson helped me structure the song and write the lyrics,
+		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017. I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it. In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>. In the spring of 2021 my friend and music partner <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> helped me structure the song and write the lyrics,
 and he recorded my vocals in his studio in Reykjavik. In April 2022 I recorded the rest of the instruments, processed and mixed the song.<br>
 <br>LYRICS<br>
 Verse 1:<br>
@@ -691,7 +726,7 @@ And I shine, when there's no light.<br>
 		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
 
-		const about = `In the spring of 2021, my friend and music partner, Sindri Bergmann Thorarinsson, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.<br>
+		const about = `In the spring of 2021, my friend and music partner, <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.<br>
 <br>Lyrics:<br>
 Verse 1:<br>
 Woke up this morning late, it was half past 8, still stuck in the rhythm.<br>
@@ -731,7 +766,6 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Just in Time'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
 		const about = `Debuted at the 2020 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym Undur (now my current pseudonym is Vulkanoman). The title is a reference to the fact that I finished the song just in time for the party, and having missed the deadline the year before...`
-
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
 	}
 
@@ -740,7 +774,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Iceland Socks: Intro'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
-		const about = `Sindri Bergmann Þórarinsson and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
+		const about = `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
 	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -749,7 +783,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Fortíðin'
 		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
-		const about = `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. Sindri Bergmann Þórarinsson assisted me with recording and mixing.<br>
+		const about = `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> assisted me with recording and mixing.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
 		Þitt blíða bros, gæti brætt allan heiminn.<br>
@@ -790,9 +824,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Introduction'
 		const artworkPath = `${this.pathToDirTribeOfOranges}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
-		const about = `Sindri Bergmann Thorarinsson and me made this for a theatre play,<br>
-and it was played at the start of it, and thus it's named Introduction.<br>
-For the artwork I chose the 'the indian head', which is a valuable family artifact.`
+		const about = `${this.urlSindri()} and I created this track for a theater play, we called it Introduction as it was played in the beginning. We incorporated drums played by <a href="https://www.discogs.com/artist/429294-Birgir-Baldursson" target="_blank">Birgir Baldursson</a>, that we initially recorded for another track I had composed (yet to be released). We took great care to produce the bassdrum sound, and we gave it a lot of space in the lower frequencies as the bass guitar only joins in the climax, while the guitar, piano and our voices float above in the higher frequencies. <a href="https://soundcloud.com/maniacs-of-noise" target="_blank">Maniacs of Noise / Jeroen Tel</a> commented on this track on Soundcloud, saying: "The best thing about this song is the bassdrum (that's not meant as an insult, it truly stands out!). :-)".<br>
+		When I decided to share this track with the world, I opted for a distinct track artwork unrelated to the play. The artwork chosen was Indíánahöfuðið, a sculpture created by my oldest brother, Jónas. This potent piece holds immense sentimental value as a treasured family artifact, representing a Native American figure. Listening to the track, I envision a captivating tale of the clash of cultures, where the old meets the new, the past intertwines with the present, and the native converges with the foreign.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -801,7 +834,8 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Routine'
 		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
+		const about = `${this.urlSindri()} and I explored the untapped potential of everyday household objects found within the confines of my apartment. We crafted a composition that entailed a minimalist electric piano chord progression complemented by a touch of didgeridoo randomness. The artwork for this track captures a candid moment of camaraderie, as we engaged in a friendly game of chess on my apartment's balcony. The photo reveals us adorned in cozy gloves and hats, testament to the sunny yet brisk winter day that accompanied our artistic pursuits.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private hhiCommercial() {
@@ -809,7 +843,8 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Song for HHI commercial'
 		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath)
+		const about = `${this.urlSindri()} and I performed a song for Happdrætti Háskóla Íslands (University of Iceland Lottery) for their video commercial campaign where the company provided the predefined lyrics, melody and chord guideline. Since this was for a lottery commercial we recorded various coins sounds and made that part of the song. The best entries were filmed as commercials with the artists and aired, and we were among those. It was aired in the winter of 2008, if memory serves me right (I haven't been able to dig up the commercial video or much info about the commercial campaign).`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private get kuaiArtwork() {
@@ -825,7 +860,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Pirringur'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
-		const about = `Pirringur means irritation in Icelandic. We started with this track in concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> in the FÍH concert hall.`
+		const about = `Pirringur means irritation in Icelandic. We started with this track in concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by ${this.urlSteini()} in the FÍH concert hall.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -834,7 +869,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Apollo'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/apollo'
 		const spotifyUrl = 'https://open.spotify.com/track/3ayL6r8u4hkHZzLFSGLq5j?si=42bf7eb320d14012'
-		const about = `The name comes from The Apollo program (an iconic chapter in space history named after Apollo, the Greek god of light, music, and the Sun. The choice of this name was deliberate, as it captured the grand scale and significance of the proposed program). I visualize this track as a space mission that ends is an intense catastrophic failure.`
+		const about = `"The name of this track draws inspiration from the Apollo program (an iconic chapter in space history named after Apollo, the Greek god of light, music, and the Sun). In my artistic vision, this track embodies a space mission that ultimately culminates in a dramatic and intense catastrophic failure.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -861,7 +896,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Rover'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rover'
 		const spotifyUrl = 'https://open.spotify.com/track/2nM3ir2HXQIYx9HHdYgu3c?si=731010727fb94acc'
-		const about = `Rover was recorded and mixed by Jón Elvar Hafsteinsson in 1999. Jón said that he had never recorded so much anger before (you can hear <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> and me screaming in the background in the metal parts which ends with the word "Mamma").  When we were thinking about what to name the track we found the name Rover on some card board in my parents garage which was our main rehearsal space at the time.`
+		const about = `Rover was recorded and mixed by Jón Elvar Hafsteinsson in 1999. Jón said that he had never recorded so much anger before (you can hear ${this.urlSteini()} and me screaming in the background in the metal parts which ends with the word "Mamma").  When we were thinking about what to name the track we found the name Rover on some card board in my parents garage which was our main rehearsal space at the time.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -870,7 +905,7 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Andefni'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
 		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
-		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> fills in the void. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> shreds the guitar in the end.`
+		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from ${this.urlSteini()} fills in the void. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> shreds the guitar in the end.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -888,12 +923,12 @@ For the artwork I chose the 'the indian head', which is a valuable family artifa
 		const name = 'Ofurte'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/ofurte'
 		const spotifyUrl = 'https://open.spotify.com/track/1deKl4F86Lns3pgbeQspyw?si=536593297c194d76'
-		const about = `Ofurte means super tea in Icelandic. At concerts this track was the start of the last part of our set (followed by Lesblinda I and II) transitioning to softer unwinding (although the last track Lesblinda II is a climatic power blast). The Hammond organ in the end was played by my and recorded by <a href="https://gudmundursteinn.net" target="_blank">Guðmundur Steinn Gunnarsson</a> in the FÍH concert hall.`
+		const about = `Ofurte translates to "super tea" in Icelandic. Both during concerts and on the album, this track marks the final part of the musical journey, starting with a mellow melody pattern. The  Hammond organ solo at the end was played by me and recorded by ${this.urlSteini()} at the FÍH concert hall.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private get aboutLesblinda() {
-		return `Lesblinda means dyslexia in Icelandic. Initially, we called both parts (I and II) "Korterið," meaning quarter in Icelandic, as it typically spanned about a quarter of an hour in performance time. However, the length remained open-ended due to the improvised and interwoven guitar melodies, guided by occasional cues signaling section changes. A memorable aspect of our live performances was concluding with "Korterið," where part I exudes a mellow ambiance and Part II serves as a contrasting, climactic power blast. In the studio recording the cellos were played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir, arranged by  <a href="https://gudmundursteinn.net" target="_blank">Guðmundur</a>. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður</a> played the piano, and I played the Hammond organ.`
+		return `Lesblinda means dyslexia in Icelandic. Initially, we called both parts (I and II) "Korterið," meaning quarter in Icelandic, as it typically spanned about a quarter of an hour in performance time. However, the length remained open-ended due to the improvised and interwoven guitar melodies, guided by occasional cues signaling section changes. A memorable aspect of our live performances was concluding with "Korterið," where part I exudes a mellow ambiance and Part II serves as a contrasting, climactic power blast. In the studio recording ${this.urlSiggi} played the piano, and I played the Hammond organ.`
 	}
 
 	private lesblindaI() {
