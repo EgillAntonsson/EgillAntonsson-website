@@ -3,11 +3,12 @@ import { BehaviorSubject } from 'rxjs'
 
 @Injectable({providedIn: 'root'})
 
-/// not used at the moment but works as expected if needed
 /// https://www.purcellyoon.com/insights/articles/angular-sharing-html-elements-between-components-using-an-element-manager-service
 export class HtmlElementService {
 
   protected elements: any;
+	public isInitialized = false;
+
   constructor() {
     this.elements = {};
   }

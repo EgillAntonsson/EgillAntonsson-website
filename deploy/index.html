@@ -11,7 +11,7 @@
 		</style>
   <link href="./src/styles.css" type="text/css">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>:root{--colorBlackLight:#111;--colorGrayLight:#969896;--colorGrayLightMed:#8B91A2;--colorGrayDarkMed:#424242;--colorGrayDark:#212121;--colorWhiteLight:#EEE;--colorWhiteLightMed:#DDD;--colorGreenLight:#B9CA4A;--colorGreenLightMed:#99AA2A;--colorGreenMed:#798A0A;--colorGreenMedDark:#596A06;--colorGreenDark:#394A00;--colorOrangeLight:#DD8800;--colorOrangeLightMed:#BD6800;--colorOrangeMed:#9D4800;--colorOrangeMedDark:#7D2800;--colorOrangeDark:#5D0800;--colorRed:#CC4400;--colorBlueLight:#7AA6DA;--colorPurpleLight:#C397D8;--colorBackground:var(--colorBlackLight);--colorForeground:var(--colorWhiteLight);--colorActive:var(--colorGreenLight);--colorPending:var(--colorOrangeLight);--colorLink:var(--colorBlueLight);--colorLinkVisited:var(--colorPurpleLight);--screenWidth0:451px}body{font-family:Lato,Helvetica,sans-serif;margin:10px 5%;background:var(--colorBackground)}body{color:var(--colorForeground)}input{border-style:solid;border-width:1px;border-color:var(--colorGrayLightMed);font-size:102%;font-family:Lato,Helvetica,sans-serif;background:var(--colorGrayDark);color:var(--colorWhiteLight)}textarea{border-style:solid;border-width:1px;border-color:var(--colorGrayLightMed);font-size:102%;font-family:Lato,Helvetica,sans-serif;background:var(--colorGrayDark);color:var(--colorWhiteLight);resize:vertical}@media screen and (max-width: 451px){body{font-size:95%;letter-spacing:0px;word-spacing:0px}}@media screen and (min-width: 452px) and (max-width: 703px){body{font-size:100%;letter-spacing:.1px;word-spacing:.2px}}@media screen and (min-width: 704px) and (max-width: 1053px){body{font-size:105%;letter-spacing:.2px;word-spacing:.4px}}@media screen and (min-width: 1054px) and (max-width: 1403px){body{font-size:110%;letter-spacing:.3px;word-spacing:.6px}}@media screen and (min-width: 1404px) and (max-width: 2000px){body{font-size:115%;letter-spacing:.4px;word-spacing:.8px}}@media screen and (min-width: 2001px){body{font-size:115%;letter-spacing:.4px;word-spacing:.8px}}</style><link rel="stylesheet" href="styles.e5521331f3f1193b.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.e5521331f3f1193b.css"></noscript></head>
+<style>:root{--colorBlackLight:#111;--colorGrayLight:#969896;--colorGrayLightMed:#8B91A2;--colorGrayDarkMed:#424242;--colorGrayDark:#212121;--colorWhiteLight:#EEE;--colorWhiteLightMed:#DDD;--colorGreenLight:#B9CA4A;--colorGreenLightMed:#99AA2A;--colorGreenMed:#798A0A;--colorGreenMedDark:#596A06;--colorGreenDark:#394A00;--colorOrangeLight:#DD8800;--colorOrangeLightMed:#BD6800;--colorOrangeMed:#9D4800;--colorOrangeMedDark:#7D2800;--colorOrangeDark:#5D0800;--colorRed:#CC4400;--colorBlueLight:#7AA6DA;--colorPurpleLight:#C397D8;--colorBackground:var(--colorBlackLight);--colorForeground:var(--colorWhiteLight);--colorActive:var(--colorGreenLight);--colorPending:var(--colorOrangeLight);--colorLink:var(--colorBlueLight);--colorLinkVisited:var(--colorPurpleLight);--screenWidth0:451px}body{font-family:Lato,Helvetica,sans-serif;margin:10px 5%;background:var(--colorBackground)}body{color:var(--colorForeground)}input{border-style:solid;border-width:1px;border-color:var(--colorGrayLightMed);font-size:102%;font-family:Lato,Helvetica,sans-serif;background:var(--colorGrayDark);color:var(--colorWhiteLight)}textarea{border-style:solid;border-width:1px;border-color:var(--colorGrayLightMed);font-size:102%;font-family:Lato,Helvetica,sans-serif;background:var(--colorGrayDark);color:var(--colorWhiteLight);resize:vertical}@media screen and (max-width: 451px){body{font-size:95%;letter-spacing:0px;word-spacing:0px}}@media screen and (min-width: 452px) and (max-width: 703px){body{font-size:100%;letter-spacing:.1px;word-spacing:.2px}}@media screen and (min-width: 704px) and (max-width: 1053px){body{font-size:105%;letter-spacing:.2px;word-spacing:.4px}}@media screen and (min-width: 1054px) and (max-width: 1403px){body{font-size:110%;letter-spacing:.3px;word-spacing:.6px}}@media screen and (min-width: 1404px) and (max-width: 2000px){body{font-size:115%;letter-spacing:.4px;word-spacing:.8px}}@media screen and (min-width: 2001px){body{font-size:115%;letter-spacing:.4px;word-spacing:.8px}}</style><link rel="stylesheet" href="styles.4cbc294200611c2d.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.4cbc294200611c2d.css"></noscript></head>
 <body>
 <script type="application/ld+json">
 {
@@ -35,7 +35,141 @@
 	<input name="Email">
 	<input name="UrlEnd">
 </form>
+
+<!-- For VisualTrack -->
+<!-- can I refactor this to be close to the rest of the webgl code ? -->
+<script id="v_visualtrack" type="x-shader/x-vertex">
+	attribute vec3 vertex;
+	attribute vec3 normal;
+	attribute vec2 uv;
+
+	uniform mat4 uProjection;
+	uniform mat4 uView;
+	uniform mat4 uModel;
+
+	varying vec3 fragPosition;
+	varying vec3 fragNormal;
+	varying vec2 fragUV;
+
+	void main(void) {
+		fragPosition = vertex;
+		fragNormal = normal;
+		fragUV = uv;
+		mat4 modelView = uView * uModel;
+		// normal = modelView * inputNormal
+		gl_Position = uProjection * modelView * vec4(vertex, 1.0);
+	}
+</script>
+
+<script id="v_background" type="x-shader/x-vertex">
+	attribute vec3 vertex;
+ void main(void) {
+		 gl_Position = vec4(vertex, 1.0);
+	 }
+</script>
+
+<script id="f_background" type="x-shader/x-fragment">
+ precision mediump float;
+ uniform vec4 uColor;
+ void main(void) {
+	 gl_FragColor = uColor;
+ }
+</script>
+
+<script id="v_solid" type="x-shader/x-vertex">
+	attribute vec3 vertex;
+
+	uniform mat4 uProjection;
+	uniform mat4 uView;
+	uniform mat4 uModel;
+
+ varying vec3 fragPosition;
+ void main(void) {
+	 fragPosition = vertex;
+	 mat4 modelView = uView * uModel;
+	 // normal = modelView * inputNormal
+		 gl_Position = uProjection * modelView * vec4(vertex, 1.0);
+	 }
+</script>
+
+<script id="f_solid" type="x-shader/x-fragment">
+ precision mediump float;
+ varying vec3 fragPosition;
+ uniform vec3 uColor;
+ void main(void) {
+	 vec3 color = uColor + .1*length(fragPosition);
+	 gl_FragColor = vec4(color, 1.0);
+ }
+</script>
+
+<script id="f_text" type="x-shader/x-fragment">
+ precision mediump float;
+ varying vec3 fragPosition;
+ uniform vec3 uColor;
+ void main(void) {
+	 //vec3 color = uColor + .1*length(fragPosition);
+	 gl_FragColor = vec4(uColor, 1.0);
+ }
+</script>
+
+<script id="f_plasma" type="x-shader/x-fragment">
+ #extension GL_OES_standard_derivatives : enable
+ precision mediump float;
+ varying vec3 fragPosition;
+
+ uniform float uTime;
+ uniform vec2 uMix;
+
+ float hash( float n ) { return fract(sin(n)*43758.5453); }
+
+ float noise( in vec2 x ) {
+		 vec2 p = floor(x);
+		 vec2 f = fract(x);
+
+		 f = f*f*(3.0-2.0*f);
+		 float n = p.x + p.y*57.0;
+		 return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x),
+										mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
+ }
+
+ const float PI=3.1415926;
+ const vec2 iResolution = vec2(80., 80.);
+
+ void main() {
+	 float bt = uTime*(85./60.);
+	 float t = floor(bt) + pow(fract(bt), 3.);
+
+	 vec2 uv = (fragPosition.xz / iResolution.xy);
+	 vec3 s = vec3(uv, uv.x*uv.y);
+	 vec3 p = vec3(0.);
+
+	 p += sin(s.x*3. + t*.7 + 8.);
+	 p += sin(s.y*2. + t*.3 + 5.);
+	 p += sin(s.z*5. + t*.4 - 1.);
+	 p += sin(s + t);
+	 p += sin(dot(uv, uv) + t);
+
+		 vec3 plasma = .5 + .5 * sin(PI * (p + vec3(0.0, 0.5, 1.0)));
+
+		 vec2 grid = mod(fragPosition.xz*.5, vec2(1.));
+
+		 float f = abs(mix(fwidth(fragPosition.x), fwidth(fragPosition.y), .5));
+	 float c =  min(
+		 smoothstep(0., .05 + f*.5, abs(grid.x-.5)),
+		 smoothstep(0., .05 + f*.5, abs(grid.y-.5))
+	 );
+	 float c2 = 1. - .25*noise(floor(.25*fragPosition.xz + .25));
+	 vec3 shader = vec3(min(1.,f + c) * c2);
+	 vec3 bw = vec3((plasma.x+plasma.y+plasma.z)/3.);
+
+	 vec3 color = mix(shader, mix(bw, plasma, uMix.y), .9*uMix.x);
+
+		 gl_FragColor = vec4(color, 1);
+ }
+</script>
+<audio id="music" src="assets/audio/LeCubePsy4.ogg" preload="auto"></audio>
+
 <app-root></app-root>
-<script src="runtime.2bcf3a5582257354.js" type="module"></script><script src="polyfills.03f317667587c42e.js" type="module"></script><script src="main.bfe00fdcd3509c39.js" type="module"></script>
+<script src="runtime.2b8cfb0053acceb7.js" type="module"></script><script src="polyfills.243cbfe4f909fa03.js" type="module"></script><script src="main.76c76459f6de4a30.js" type="module"></script>
 
 </body></html>

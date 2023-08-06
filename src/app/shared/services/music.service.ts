@@ -1,6 +1,6 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core'
 import { SoundManagerService } from './soundManager.service'
-import { Track, Artist, LocalTrack, YoutubeTrack} from 'app/shared/data/track'
+import { Track, Artist, LocalTrack, YoutubeTrack, RealtimeVisualTrack} from 'app/shared/data/track'
 import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { BooleanEmitter } from '../../../soundcommon/emitter/booleanEmitter'
 import { WindowRefService } from './windowRef.service'
@@ -9,7 +9,8 @@ import { LogType } from 'shared/enums/logType'
 import { RandomNumber } from './randomNumber.service'
 import { MyTracksService } from './myTracks.service'
 import { PlayState } from '../enums/playState'
-import { MusicStreamer } from './musicStreamer.service'
+import { MusicStreamer } from './musicstreamer.service'
+import {RealtimeVisualService} from './realtimeVisual.service'
 import { YoutubeService } from './youtube.service'
 import { StreamSource } from '../enums/streamSource'
 import { MessageService, MessageType } from './message.service'
@@ -23,7 +24,9 @@ export class MusicService implements OnDestroy {
 	readonly label = 'MusicService'
 	readonly urlPathRoot = 'music/'
 	private _selectedTrack: Track
-	private windowWidth: number = 300
+	private windowWidth = 400
+	private windowHeight = 300
+	playerMargin: any
 	get selectedTrack() {
 		return this._selectedTrack
 	}
@@ -45,12 +48,7 @@ export class MusicService implements OnDestroy {
 		}
 		this._selectedTrack = this.nextSelectedTrack = track
 
-		// When navigating directly to track via url,
-		// the shuffle is set to false, so a whole album can be advertised
-		this._isShuffle = false
-		if (this.isSelectedTrackWithActiveYoutubeVisuals) {
-			this.youtubeService.onWindowInitSize(this.windowWidth, 0)
-		} else {
+		if (!this.isSelectedTrackWithActiveYoutubeVisuals) {
 			this.setHeaderContainerHeightForMyPlayer()
 		}
 	}
@@ -70,7 +68,7 @@ export class MusicService implements OnDestroy {
 		return this._isShuffle
 	}
 
-	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private htmlService: HtmlElementService,private logService: LogService) {
+	constructor(private soundManager: SoundManagerService, private musicStreamer: MusicStreamer, private youtubeService: YoutubeService, private realtimeVisualService: RealtimeVisualService, private windowRef: WindowRefService,  private myTracks: MyTracksService, private randomNumber: RandomNumber, private messageService: MessageService, private htmlService: HtmlElementService, private logService: LogService) {
 		this.setupInstanceListeners()
 
 		this.soundManager.instance.init(this.windowRef.nativeWindow, logService.log)
@@ -101,22 +99,25 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	sendYoutubePlayerElement(youtubeElement: ElementRef<any>) {
+	init(youtubeElement: ElementRef<any>, webGlCanvasElement: ElementRef<any>) {
 		this.youtubeService.savePlayerElement(youtubeElement)
-	}
-
-	onWindowInitSize(width: number, height: number) {
-		this.youtubeService.onWindowInitSize(width, height)
-		this.windowWidth = width
+		this.initSoundCloudStreamer()
+		this.realtimeVisualService.init(webGlCanvasElement)
 	}
 
 	onWindowResize(width: number, height: number) {
-		if (this.isSelectedTrackWithActiveYoutubeVisuals) {
-			this.youtubeService.onWindowResize(width, height)
+		if (this._selectedTrack.source == StreamSource.RealtimeVisual) {
+			var playerHeight = this.realtimeVisualService.onWindowResize(width, height)
+			this.setHeaderContainerHeightForRealtimeVisual(playerHeight)
+		}
+		else if (this.isSelectedTrackWithActiveYoutubeVisuals) {
+			let playerHeight = this.youtubeService.onWindowResize(width, height)
+			this.setHeaderContainerHeight(playerHeight)
 		} else {
 			this.setHeaderContainerHeightForMyPlayer()
 		}
 		this.windowWidth = width
+		this.windowHeight = height
 	}
 
 	get isSelectedTrackWithActiveYoutubeVisuals() {
@@ -124,24 +125,44 @@ export class MusicService implements OnDestroy {
 	}
 
 	private setHeaderContainerHeightForMyPlayer() {
+		this.setHeaderContainerHeight(this.getMyPlayerHeight())
+	}
+
+	private getMyPlayerHeight() {
+		// .myPlayer height set to 25px in css + padding (9 + 7)
+		return 25 + 9 + 7
+	}
+
+	private setHeaderContainerHeightForRealtimeVisual(playerHeight: number) {
+		const marginTop = 10 // 10px margin top like in the css
+			const heightOffset = 3 // 3px offset for the border
+			this.setHeaderContainerHeight(playerHeight + this.getMyPlayerHeight() + marginTop + heightOffset)
+	}
+
+	private setHeaderContainerHeight(height: number) {
 		let headerContainerElement = this.htmlService.get('headerContainer')
 		let headerBackgroundElement = this.htmlService.get('headerBackground')
 
 		// height has to match what is in styles.css and view calculation
 		// nav tag is calculated height 35px
 		// padding at top and add below player set to 22
-		// .myPlayer height set to 25px in css + padding (9 + 7)
-		let contHeight = 22 + 35 + 25 + 16
+		height = height + 35 + 22;
 
-		headerContainerElement.value.nativeElement.style.height =  contHeight + 'px'
-		headerBackgroundElement.value.nativeElement.style.height =  contHeight + 'px'
+		headerContainerElement.value.nativeElement.style.height =  height + 'px'
+		headerBackgroundElement.value.nativeElement.style.height =  height + 'px'
 	}
 
-	onYoutubePlayerReady(player: YT.Player) {
-		this.youtubeService.onPlayerReady(player, this.masterGain * 100, this.isSelectedTrackWithActiveYoutubeVisuals)
+	onYoutubePlayerReady(player: YT.Player, windowWidth: number, windowHeight: number) {
+		let playerHeight = this.youtubeService.onPlayerReady(player, this.masterGain * 100, this.isSelectedTrackWithActiveYoutubeVisuals, windowWidth, windowHeight)
+		if (playerHeight > 0) {
+			this.setHeaderContainerHeight(playerHeight)
+		}
 	}
 
 	OnYoutubePlayerStateChange(playerState: YT.PlayerState) {
+		if (this._selectedTrack.source !== StreamSource.Youtube) {
+			return
+		}
 		if (playerState === YT.PlayerState.PAUSED && this.playState !== PlayState.Paused) {
 			this.pause()
 		}
@@ -153,18 +174,28 @@ export class MusicService implements OnDestroy {
 		}
 	}
 
-	minimizeMusicPlayer(minimize: boolean) {
+	toggleMinimizeMusicPlayer(minimize: boolean) {
 		if (this.selectedTrack.source === StreamSource.Youtube && (this.selectedTrack as YoutubeTrack).displayOnYoutube) {
-			(this.selectedTrack as YoutubeTrack).isGraphicsActive = !minimize
 			if (minimize) {
 				this.setHeaderContainerHeightForMyPlayer()
 			} else {
-				this.youtubeService.onWindowResize(this.windowWidth, 0)
+				let playerHeight = this.youtubeService.onWindowResize(this.windowWidth, this.windowHeight)
+				this.setHeaderContainerHeight(playerHeight)
 			}
+			(this.selectedTrack as YoutubeTrack).isGraphicsActive = !minimize
+		}
+		if (this.selectedTrack.source === StreamSource.RealtimeVisual) {
+			if (minimize) {
+				this.setHeaderContainerHeightForMyPlayer()
+			} else {
+				let playerHeight = this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight)
+				this.setHeaderContainerHeightForRealtimeVisual(playerHeight)
+			}
+			(this.selectedTrack as RealtimeVisualTrack).isGraphicsActive = !minimize
 		}
 	}
 
-	initStreamer() {
+	initSoundCloudStreamer() {
 		if (this.musicStreamer.isInitialized) {
 			return;
 		}
@@ -218,77 +249,73 @@ export class MusicService implements OnDestroy {
 		this.playFromStart()
 	}
 
-	private play() {
-		this.logService.log(LogType.Info, 'play() in MusicService')
-		switch (this._selectedTrack.source) {
-			case StreamSource.Youtube:
-				this.youtubeService.play()
-				break;
-			case StreamSource.Soundcloud:
-				this.musicStreamer.play()
-				break;
-			default:
-				this.playViaSoundManager()
-				break;
-		}
-	}
-
-	private playViaSoundManager() {
-		this.soundManager.play()
-		// As my tracks send 'started' event via play(), then for the case of 'pause and play' before that we set it state to Playing
-		this._playState = PlayState.Playing
-	}
-
 	private playFromStart() {
 		this.logService.log(LogType.Info, 'playFromStart() in MusicService')
 		this.stop()
 		this._playState = PlayState.Loading
 		this._selectedTrack = this.nextSelectedTrack
 
+		this.onWindowResize(this.windowWidth, this.windowHeight)
+
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
 				this.youtubeService.playFromStart(this._selectedTrack as YoutubeTrack)
-				if (this.isSelectedTrackWithActiveYoutubeVisuals) {
-					this.youtubeService.onWindowResize(this.windowWidth, 0)
-				} else {
-					this.setHeaderContainerHeightForMyPlayer()
-				}
-				break;
+				// if (this.isSelectedTrackWithActiveYoutubeVisuals) {
+				// 	let playerHeight = this.youtubeService.onWindowResize(this.windowWidth, 0)
+				// 	this.setHeaderContainerHeight(playerHeight)
+				// } else {
+				// 	this.setHeaderContainerHeightForMyPlayer()
+				// }
+				break
+			case StreamSource.RealtimeVisual:
+				this.playFromStartRealtimeVisual()
+				break
 			case StreamSource.Soundcloud:
 				this.musicStreamer.playFromStart(this._selectedTrack)
-				this.setHeaderContainerHeightForMyPlayer()
-				break;
-			default:
-				this.soundManager.playFromStart(this._selectedTrack as LocalTrack, this.playerUiGainsDisabled)
-				this.setHeaderContainerHeightForMyPlayer()
-				break;
+				// this.setHeaderContainerHeightForMyPlayer()
+				break
+			case StreamSource.Local:
+				this.playFromStartLocalPlayer()
+				// this.setHeaderContainerHeightForMyPlayer()
+				break
 		}
+	}
+
+	private playFromStartRealtimeVisual() {
+		// realtime visual will start playing when the audio has loaded and starts playing
+		this.playFromStartLocalPlayer()
+	}
+
+	private playFromStartLocalPlayer() {
+		this.soundManager.playFromStart(this._selectedTrack as LocalTrack, this.playerUiGainsDisabled)
 	}
 
 	private pause() {
 		this.logService.log(LogType.Info, 'pause() in MusicService')
 		switch (this._selectedTrack.source) {
 			case StreamSource.Youtube:
-				this.pauseYoutube()
+				this.youtubeService.pause()
 				break;
 			case StreamSource.Soundcloud:
-				this.pauseSoundcloud()
+				this.musicStreamer.pause()
+				break;
+			case StreamSource.RealtimeVisual:
+				this.pauseRealtimeVisual();
 				break;
 			default:
-				this.soundManager.instance.pause()
-				this._playState = PlayState.Paused
+				this.pauseLocalPlayer();
 				break;
 		}
-	}
-
-	private pauseYoutube() {
-		this.youtubeService.pause()
 		this._playState = PlayState.Paused
 	}
 
-	private pauseSoundcloud() {
-		this.musicStreamer.pause()
-		this._playState = PlayState.Paused
+	private pauseRealtimeVisual() {
+		this.realtimeVisualService.pause()
+		this.pauseLocalPlayer();
+	}
+
+	private pauseLocalPlayer() {
+		this.soundManager.instance.pause()
 	}
 
 	stop() {
@@ -297,9 +324,11 @@ export class MusicService implements OnDestroy {
 			case StreamSource.Soundcloud:
 				this.musicStreamer.pause()
 				break;
+			case StreamSource.RealtimeVisual:
+				this.stopRealtimeVisual()
+			break;
 			case StreamSource.Local:
-				this.soundManager.stop(this._selectedTrack)
-				this.myTracks.instanceEndedListeners.forEach((listener) => listener(false))
+				this.stopLocalPlayer()
 				break;
 			case StreamSource.Youtube:
 				this.youtubeService.pause()
@@ -307,6 +336,45 @@ export class MusicService implements OnDestroy {
 		}
 
 		this._playState = PlayState.Stopped
+	}
+
+	private stopRealtimeVisual() {
+		this.realtimeVisualService.pause()
+		this.stopLocalPlayer()
+	}
+
+	private stopLocalPlayer() {
+		this.soundManager.stop(this._selectedTrack)
+		this.myTracks.instanceEndedListeners.forEach((listener) => listener(false))
+	}
+
+	private play() {
+		switch (this._selectedTrack.source) {
+			case StreamSource.Youtube:
+				this.youtubeService.play()
+				break;
+			case StreamSource.Soundcloud:
+				this.musicStreamer.play()
+				break;
+			case StreamSource.RealtimeVisual:
+				this.playRealtimeVisualPlayer()
+				break;
+			default:
+				this.playLocalPlayer()
+				break;
+		}
+	}
+
+	private playRealtimeVisualPlayer() {
+		this.realtimeVisualService.resume();
+		this.playLocalPlayer()
+	}
+
+	private playLocalPlayer() {
+		this.soundManager.play()
+		// My tracks for Local Player / soundManager invoke played listeners when played for the first time, but not when paused and played again.
+		// Thus we need to set it to Playing state here.
+		this._playState = PlayState.Playing
 	}
 
 	private nextTrack() {
@@ -380,6 +448,11 @@ export class MusicService implements OnDestroy {
 		this._playState = PlayState.Playing
 		// listener needs to be called here as the seems view does not update when State is right away set from 'Loading' to 'Playing' (when no loading is needed)
 		this._playStateChangeListener()
+
+		if (this._selectedTrack.source === StreamSource.RealtimeVisual) {
+			this.realtimeVisualService.onWindowResize(this.windowWidth, this.windowHeight)
+			this.realtimeVisualService.playFromStart()
+		}
 	}
 
 	addInstancePlayedListener(name: string, listener: (soundInstance?: SoundInstance) => void) {

@@ -1,7 +1,6 @@
 ##### Domain Redirects from Netlify
 
 # Redirect domain aliases to primary domain
-https://www.egillantonsson.rocks/* https://www.egill.rocks/:splat 301!
 https://www.egillantonsson.org/* https://www.egill.rocks/:splat 301!
 https://www.egillantonsson.net/* https://www.egill.rocks/:splat 301!
 
