@@ -15,8 +15,6 @@ interface Played {
 	providedIn: 'root',
 })
 export class MyTracksService {
-	readonly pathRoot = '../../assets/audio'
-	readonly pathGame = `${this.pathRoot}/game`
 
 	private _isInitialized = false
 	get isInitialized() {
@@ -51,16 +49,100 @@ export class MyTracksService {
 		this._timeout = value
 	}
 
-	constructor(private soundManager: SoundManagerService, private logService: LogService) {
-		this._instancePlayedListeners = new Map()
-		this.instanceEndedListeners = new Map()
-		// for instanceEndedListeners send in 'true' to indicate that the track ended
+//#region Dirs And Paths
+	private readonly dirEgillAntonsson = `${Track.dir}/egillantonsson/`
+	private readonly dirKanez = `${Track.dir}/kanez/`
+	private readonly dirTribeOfOranges = `${Track.dir}/too/`
+	private readonly dirGameMusicLayered = `${Track.dir}/game/music-layered/`
+	private readonly dirGameMusic = `${Track.dir}/game/music`
+	private readonly dirBraedraminning = `${Track.dir}/braedraminning/`
+	private readonly pathBraedraminningArtwork = `${this.dirBraedraminning}braedraminning.jpeg`
+	private readonly dirKuai = `${Track.dir}/kuai/`
+	private readonly pathKuaiArtwork = `${this.dirKuai}KUAI.jpg`
+//#endregion
+
+	//#region Name URLS
+	private urlSindri(fullName = false) {
+		let name = 'Sindri'
+		if (fullName) {
+			name = 'Sindri Bergmann Þórarinsson'
+		}
+		return `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about" target="_blank">${name}</a>`
 	}
 
-	init() {
-		if (this._isInitialized) {
-			return
+	private urlSteini(fullName = false) {
+		let name = 'Steini' // nickname
+		if (fullName) {
+			name = 'Guðmundur Steinn Gunnarsson'
+
 		}
+		return `<a href="https://gudmundursteinn.net" target="_blank">${name}</a>`
+	}
+
+	private urlSiggi(fullName = false) {
+		let name = 'Siggi' // nickname
+		if (fullName) {
+			name = 'Sigurður Þór Rögnvaldsson'
+
+		}
+		return `<a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">${name}</a>`
+	}
+
+	private urlDori(fullName = false) {
+		let name = 'Dóri' // nickname
+		if (fullName) {
+			name = 'Halldór Andri Bjarnason'
+		}
+		return `<a href="http://www.77.is" target="_blank">${name}</a>`
+	}
+//#endregion
+
+private get aboutGameMusicLayered() {
+	return `When I was Head of Sound at the Gogogic gaming company I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
+	}
+
+	private get aboutEgillAntonsson() {
+		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
+		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
+		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
+	}
+
+	private get aboutKanez() {
+		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
+	}
+
+	private get aboutBraedraminning() {
+		return `My parents kept a cassette with the recordings of the songs my older brothers made. To make sure the songs survived that old cassette, I published the album Bræðraminning, which also includes my takes on their songs.`
+	}
+
+	private get aboutTribeOfOranges() {
+		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. Some of our music is under Tribe Of Oranges.`
+	}
+
+	private get aboutKuai() {
+		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and ${this.urlSteini(true)} (called Steini) and ${this.urlSiggi(true)} (called Siggi) on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
+		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by ${this.urlDori()}. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
+		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir ( ${this.urlSteini()} arranged the cello parts).<br>
+		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period,  ${this.urlSteini()} re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
+	}
+
+	private get aboutBraedraminningTake2002() {
+		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.
+	`
+}
+
+
+constructor(private soundManager: SoundManagerService, private logService: LogService) {
+	this._instancePlayedListeners = new Map()
+	this.instanceEndedListeners = new Map()
+	// for instanceEndedListeners send in 'true' to indicate that the track ended
+}
+
+init() {
+	if (this._isInitialized) {
+		return
+	}
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
@@ -148,120 +230,23 @@ export class MyTracksService {
 		this._isInitialized = true
 	}
 
-	private urlSindri(fullName = false) {
-		let name = 'Sindri'
-		if (fullName) {
-			name = 'Sindri Bergmann Þórarinsson'
-		}
-		return `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about" target="_blank">${name}</a>`
-	}
-
-	private urlSteini(fullName = false) {
-		let name = 'Steini' // nickname
-		if (fullName) {
-			name = 'Guðmundur Steinn Gunnarsson'
-
-		}
-		return `<a href="https://gudmundursteinn.net" target="_blank">${name}</a>`
-	}
-
-	private urlSiggi(fullName = false) {
-		let name = 'Siggi' // nickname
-		if (fullName) {
-			name = 'Sigurður Þór Rögnvaldsson'
-
-		}
-		return `<a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">${name}</a>`
-	}
-
- 	private urlDori(fullName = false) {
-		let name = 'Dóri' // nickname
-		if (fullName) {
-			name = 'Halldór Andri Bjarnason'
-		}
-		return `<a href="http://www.77.is" target="_blank">${name}</a>`
-	}
-
-	private get aboutGameMusicLayered() {
-		return `When I was Head of Sound at the Gogogic gaming company I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
-	}
-
-	private get aboutEgillAntonsson() {
-		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
-		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
-		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
-		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
-	}
-
-	private get dirEgillAntonsson() {
-		return `${Track.dir}/egillantonsson/`
-	}
-
-	private get aboutKanez() {
-		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
-	}
-
-	private get aboutBraedraminning() {
-		return `My parents kept a cassette with the recordings of the songs my older brothers made. To make sure the songs survived that old cassette, I published the album Bræðraminning, which also includes my takes on their songs.`
-	}
-
-	private get dirKanez() {
-		return `${Track.dir}/kanez/`
-	}
-
-	private get dirGameMusicLayered() {
-		return `${Track.dir}/game/music-layered/`
-	}
-
-	private get dirBraedraminning() {
-		return `${Track.dir}/braedraminning/`
-	}
-
-	private get aboutTribeOfOranges() {
-		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. Some of our music is under Tribe Of Oranges.`
-	}
-
-	private get dirTribeOfOranges() {
-		return `${Track.dir}/too/`
-	}
-
-	private get aboutKuai() {
-		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and ${this.urlSteini(true)} (called Steini) and ${this.urlSiggi(true)} (called Siggi) on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
-		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by ${this.urlDori()}. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
-		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir ( ${this.urlSteini()} arranged the cello parts).<br>
-		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period,  ${this.urlSteini()} re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
-	}
-
-	private get braedraminningArtworkPath() {
-		return `${this.dirBraedraminning}braedraminning.jpeg`
-	}
-
-	private get aboutBraedraminningTake2002() {
-		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.
-	`
-	}
-
-	private get pathToDirKuai() {
-		return `${Track.dir}/kuai/`
-	}
-
 	private flattenTracks() {
-		this._tracksByRootUrl = new Map<string, Track>()
-		this._flatTracks = []
-		let index = 0
-		for (let i = 0; i < this._byTracks.length; i++) {
-			for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
-				const track = this._byTracks[i].tracks[j]
-				track.index = index++
-				const artist = this._byTracks[i]
-				track.artistName = artist.name
-				track.artistAbout = artist.about
-				this._flatTracks.push(track)
+			this._tracksByRootUrl = new Map<string, Track>()
+			this._flatTracks = []
+			let index = 0
+			for (let i = 0; i < this._byTracks.length; i++) {
+				for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
+					const track = this._byTracks[i].tracks[j]
+					track.index = index++
+					const artist = this._byTracks[i]
+					track.artistName = artist.name
+					track.artistAbout = artist.about
+					this._flatTracks.push(track)
 
-				this._tracksByRootUrl.set(track.rootUrl, track)
+					this._tracksByRootUrl.set(track.rootUrl, track)
+				}
 			}
 		}
-	}
 
 	private leCube() {
 		const rootUrl = 'le-cube'
@@ -419,7 +404,7 @@ export class MyTracksService {
 		const spotifyUrl = 'https://open.spotify.com/track/6viU3JhxNEKkY2paBuOEaP'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private mouse2002() {
@@ -431,7 +416,7 @@ export class MyTracksService {
 		const about = this.aboutBraedraminningTake2002 + `<br>
 I did my take on the lyrics, thus differing to some extent.
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private rubber2002() {
@@ -441,7 +426,7 @@ I did my take on the lyrics, thus differing to some extent.
 		const spotifyUrl = 'https://open.spotify.com/track/23kZ3ftMMyigpXU49Rq35Q'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private solos2002() {
@@ -451,7 +436,7 @@ I did my take on the lyrics, thus differing to some extent.
 		const spotifyUrl = 'https://open.spotify.com/track/5J8kU1mdqcqKZ0Wb3sxrqj'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 		private takeCare2002() {
@@ -461,7 +446,7 @@ I did my take on the lyrics, thus differing to some extent.
 			const spotifyUrl = 'https://open.spotify.com/track/6xiCd9HFh0SaJEngXtgldj'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about = this.aboutBraedraminningTake2002
-			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
 		private beLikeYou2002() {
@@ -471,7 +456,7 @@ I did my take on the lyrics, thus differing to some extent.
 			const spotifyUrl = 'https://open.spotify.com/track/4zcgAvMsU46YVTKGmS8vJA'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 			const about = this.aboutBraedraminningTake2002
-			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
 	private story2002() {
@@ -484,7 +469,7 @@ I did my take on the lyrics, thus differing to some extent.
 I 'upped the drama' in the lyrics by knocking the headmaster OUT, instead of down.<br>
 I don't remember if it was intentional or not.
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private frumlag2002() {
@@ -494,7 +479,7 @@ I don't remember if it was intentional or not.
 		const spotifyUrl = 'https://open.spotify.com/track/5fFuGjJMqLS0iPMmiZ3SBc'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
 		const about = this.aboutBraedraminningTake2002
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private world2002() {
@@ -508,7 +493,7 @@ I think I 'upped the drama' in the lyrics with 'The world is nothing except hate
 as it could be that Egill sung 'The world is nothing I say "Hey"'.<br>
 I also added lyrics where missing, etc.<br>
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private withoutThem2002() {
@@ -521,7 +506,7 @@ I also added lyrics where missing, etc.<br>
 I kept with the 'no no no' like in the original (probably the lyrics were not ready)<br>
 and in fact went all in on 'no no no' and other sounds :)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private myDearOldBrothers() {
@@ -535,7 +520,7 @@ I thought this might be an original song and thus wanted to bring it to life for
 I added details and shaped the song (making some changes)<br>
 and wrote the lyrics (changing the title with it).
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private pesi1974() {
@@ -550,7 +535,7 @@ Egill - wurlitzer<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private mouse1975() {
@@ -564,7 +549,7 @@ Egill - wurlitzer and vocals<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private rubber1975() {
@@ -578,7 +563,7 @@ Egill - wurlitzer and vocals<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private solos1975() {
@@ -592,7 +577,7 @@ Egill - organ<br>
 Jónas - guitar<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 		private takeCare1976() {
@@ -605,7 +590,7 @@ Jónas - guitar<br>
 I think this is shortly after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
 		private beLikeYou1976() {
@@ -618,7 +603,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 I think this is not long after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
 	private story1976() {
@@ -631,7 +616,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 I think this is not long after Jónas is gone but I'm not sure,<br>
 thus I'm guessing a bit the year of this recording (and for the others as well).
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private frumlag1977() {
@@ -644,7 +629,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 Egill - organ<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private world1977() {
@@ -657,7 +642,7 @@ Egill - organ<br>
 Egill - vocals (and maybe guitar)<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private withoutThem1977() {
@@ -670,13 +655,13 @@ Egill - vocals (and maybe guitar)<br>
 Egill - vocals (and maybe guitar)<br>
 (I will list the band mates later when I have my notes)
 `
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.braedraminningArtworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
 	private votThemeSong() {
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
-		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
@@ -852,10 +837,6 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
-	private get kuaiArtwork() {
-		return 	`${this.pathToDirKuai}KUAI.jpg`
-	}
-
 	private get kuaiBuyUrl() {
 		return 'https://www.qobuz.com/album/kuai-kuai/kqeu1azl013da'
 	}
@@ -866,7 +847,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
 		const about = `Pirringur means irritation in Icelandic. We started with this track in concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by ${this.urlSteini()} in the FÍH concert hall.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private apollo() {
@@ -875,7 +856,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/apollo'
 		const spotifyUrl = 'https://open.spotify.com/track/3ayL6r8u4hkHZzLFSGLq5j?si=42bf7eb320d14012'
 		const about = `"The name of this track draws inspiration from the Apollo program (an iconic chapter in space history named after Apollo, the Greek god of light, music, and the Sun). In my artistic vision, this track embodies a space mission that ultimately culminates in a dramatic and intense catastrophic failure.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private andsetinn() {
@@ -884,7 +865,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andsetinn'
 		const spotifyUrl = 'https://open.spotify.com/track/7MRGsSRocQ9CUEP7MzzutU?si=39de5d4ba04f4ded'
 		const about = `Andsetinn means possessed in Icelandic which is fitting for this track. The Yamaha C-35 organ and Hammond organ in the end were played by me.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private hamskipti() {
@@ -893,7 +874,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/hamskipti'
 		const spotifyUrl = 'https://open.spotify.com/track/03YyiL49fyp9pPoynSk0e5?si=cd62c0313293492f'
 		const about = `Hamskipti means shape-shifting or transformation in Icelandic, and are common themes in mythology and folklore, including the Icelandic Viking sagas. I heavily slap the bass in this one.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private rover() {
@@ -902,7 +883,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rover'
 		const spotifyUrl = 'https://open.spotify.com/track/2nM3ir2HXQIYx9HHdYgu3c?si=731010727fb94acc'
 		const about = `Rover was recorded and mixed by Jón Elvar Hafsteinsson in 1999. Jón said that he had never recorded so much anger before (you can hear ${this.urlSteini()} and me screaming in the background in the metal parts which ends with the word "Mamma").  When we were thinking about what to name the track we found the name Rover on some card board in my parents garage which was our main rehearsal space at the time.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private andefni() {
@@ -911,7 +892,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
 		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
 		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from ${this.urlSteini()} fills in the void. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> shreds the guitar in the end.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private agndofa() {
@@ -920,7 +901,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/agndofa'
 		const spotifyUrl = 'https://open.spotify.com/track/39v1wVL4fWnPWEt8D8tl40?si=500e84677daa4aec'
 		const about = `Andefni means stunned in Icelandic. By coincidence during the long guitar feedback some radio broadcast came through the speakers, and we decided to keep it in the track.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private ofurte() {
@@ -929,7 +910,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/ofurte'
 		const spotifyUrl = 'https://open.spotify.com/track/1deKl4F86Lns3pgbeQspyw?si=536593297c194d76'
 		const about = `Ofurte translates to "super tea" in Icelandic. Both during concerts and on the album, this track marks the final part of the musical journey, starting with a mellow melody pattern. The  Hammond organ solo at the end was played by me and recorded by ${this.urlSteini()} at the FÍH concert hall.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private get aboutLesblinda() {
@@ -941,7 +922,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Lesblinda I'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-i'
 		const spotifyUrl = 'https://open.spotify.com/track/6ZPVNTF0o9B79SGKRulrUh?si=4a0d989e1c674d53'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 	private lesblindaII() {
@@ -949,7 +930,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Lesblinda II'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-ii'
 		const spotifyUrl = 'https://open.spotify.com/track/6tOuId7SigO9IMiUwaavCU?si=e1bf6a3f596c4da6'
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
 	}
 
 
@@ -961,10 +942,10 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
 			[
-				SoundData.musicLoop('godsruleEnvironmentLayer', `${this.pathGame}/loton_MusicVillageEnvironmentLayer.ogg`, 0.075),
-				SoundData.musicLoop('godsruleStringLayer', `${this.pathGame}/loton_MusicVillageStringLayer.ogg`, 0.55),
-				SoundData.musicLoop('godsruleHarpLayer', `${this.pathGame}/loton_MusicVillageHarpLayer.ogg`, 0.4),
-				SoundData.musicLoop('godsrulePianoLayer', `${this.pathGame}/loton_MusicVillagePianoLayer.ogg`, 0.35)
+				SoundData.musicLoop('godsruleEnvironmentLayer', `${this.dirGameMusicLayered}/loton_MusicVillageEnvironmentLayer.ogg`, 0.075),
+				SoundData.musicLoop('godsruleStringLayer', `${this.dirGameMusicLayered}/loton_MusicVillageStringLayer.ogg`, 0.55),
+				SoundData.musicLoop('godsruleHarpLayer', `${this.dirGameMusicLayered}/loton_MusicVillageHarpLayer.ogg`, 0.4),
+				SoundData.musicLoop('godsrulePianoLayer', `${this.dirGameMusicLayered}/loton_MusicVillagePianoLayer.ogg`, 0.35)
 			],
 			() => {
 				return async () => {
@@ -996,10 +977,10 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
 			[
-				SoundData.musicLoop('votWindLayer', `${this.pathGame}/VOT_InterfaceMusic_0.mp3`),
-				SoundData.musicLoop('votChoirLayer', `${this.pathGame}/VOT_InterfaceMusic_3.ogg`),
-				SoundData.musicLoop('votHarpLayer', `${this.pathGame}/VOT_InterfaceMusic_2.ogg`),
-				SoundData.musicLoop('votMelodyLayer', `${this.pathGame}/VOT_InterfaceMusic_1.ogg`)
+				SoundData.musicLoop('votWindLayer', `${this.dirGameMusicLayered}/VOT_InterfaceMusic_0.mp3`),
+				SoundData.musicLoop('votChoirLayer', `${this.dirGameMusicLayered}/VOT_InterfaceMusic_3.ogg`),
+				SoundData.musicLoop('votHarpLayer', `${this.dirGameMusicLayered}/VOT_InterfaceMusic_2.ogg`),
+				SoundData.musicLoop('votMelodyLayer', `${this.dirGameMusicLayered}/VOT_InterfaceMusic_1.ogg`)
 			],
 			() => {
 				return async () => {
@@ -1028,9 +1009,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('cppMusicIntro', `${this.pathGame}/CPP_workMusicIntroScreen.ogg`, 0.7),
-				SoundData.music('cppMusicScaleBeat', `${this.pathGame}/CPP_musicTransitionBeatFade.ogg`, 0.6),
-				SoundData.music('cppMusicMakePop', `${this.pathGame}/CPP_workMusicMakePopLoop.ogg`, 0.7),
+				SoundData.music('cppMusicIntro', `${this.dirGameMusic}/CPP_workMusicIntroScreen.ogg`, 0.7),
+				SoundData.music('cppMusicScaleBeat', `${this.dirGameMusic}/CPP_musicTransitionBeatFade.ogg`, 0.6),
+				SoundData.music('cppMusicMakePop', `${this.dirGameMusic}/CPP_workMusicMakePopLoop.ogg`, 0.7),
 			],
 			() => {
 				return async () => {
@@ -1074,9 +1055,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('ssixMenu', `${this.pathGame}/SSIX_menu.ogg`),
-				SoundData.music('ssixGame', `${this.pathGame}/SSIX_game.ogg`),
-				SoundData.music('ssixHexago', `${this.pathGame}/SSIX_HexagoTune.ogg`),
+				SoundData.music('ssixMenu', `${this.dirGameMusic}/SSIX_menu.ogg`),
+				SoundData.music('ssixGame', `${this.dirGameMusic}/SSIX_game.ogg`),
+				SoundData.music('ssixHexago', `${this.dirGameMusic}/SSIX_HexagoTune.ogg`),
 			],
 			() => {
 				return async () => {
@@ -1115,12 +1096,12 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('sffIntroMenuMusic', `${this.pathGame}/SFF_IntroMenuMusic.ogg`, 0.9),
-				SoundData.music('sffMenuMusic', `${this.pathGame}/SFF_MenuMusic.ogg`, 0.9),
-				SoundData.music('sffLevelMusicNoEnv', `${this.pathGame}/SFF_LevelMusic_noEnv.ogg`),
-				SoundData.music('sffLevelMusicBubbling', `${this.pathGame}/SFF_LevelMusic_bubbling.ogg`),
-				SoundData.music('sffLoseJingle', `${this.pathGame}/SFF_LoseJingle.ogg`, 0.9),
-				SoundData.music('sffWinJingle', `${this.pathGame}/SFF_WinJingle.ogg`, 0.9)
+				SoundData.music('sffIntroMenuMusic', `${this.dirGameMusic}/SFF_IntroMenuMusic.ogg`, 0.9),
+				SoundData.music('sffMenuMusic', `${this.dirGameMusic}/SFF_MenuMusic.ogg`, 0.9),
+				SoundData.music('sffLevelMusicNoEnv', `${this.dirGameMusic}/SFF_LevelMusic_noEnv.ogg`),
+				SoundData.music('sffLevelMusicBubbling', `${this.dirGameMusic}/SFF_LevelMusic_bubbling.ogg`),
+				SoundData.music('sffLoseJingle', `${this.dirGameMusic}/SFF_LoseJingle.ogg`, 0.9),
+				SoundData.music('sffWinJingle', `${this.dirGameMusic}/SFF_WinJingle.ogg`, 0.9)
 			],
 			() => {
 				return async () => {
@@ -1178,8 +1159,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('habitariumMainTheme', `${this.pathGame}/Habitarium_main_theme.ogg`, 0.9),
-				SoundData.music('habitariumInGameLoop', `${this.pathGame}/Habitarium_InGameLoop.ogg`, 0.8)
+				SoundData.music('habitariumMainTheme', `${this.dirGameMusic}/Habitarium_main_theme.ogg`, 0.9),
+				SoundData.music('habitariumInGameLoop', `${this.dirGameMusic}/Habitarium_InGameLoop.ogg`, 0.8)
 			],
 			() => {
 				return async () => {
@@ -1213,14 +1194,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('tpMainThemeIntro', `${this.pathGame}/TP_mainThemeIntro.ogg`, 0.8),
-				SoundData.music('tpMainThemeBridge', `${this.pathGame}/TP_mainThemeBridge.ogg`, 0.8),
-				SoundData.music('tpSpaceWorld', `${this.pathGame}/TP_spaceWorld.ogg`, 0.8),
-				SoundData.music('tpTomb', `${this.pathGame}/TP_tomb.ogg`, 0.8),
-				SoundData.music('tpLazyStyle', `${this.pathGame}/TP_lazyStyle.ogg`, 0.8),
-				SoundData.music('tpCutScene', `${this.pathGame}/TP_cutScene.ogg`, 0.8),
-				SoundData.music('tpInGame', `${this.pathGame}/TP_inGame.ogg`, 0.8),
-				SoundData.music('tpOutOfTime', `${this.pathGame}/TP_outoftime.ogg`, 0.8),
+				SoundData.music('tpMainThemeIntro', `${this.dirGameMusic}/TP_mainThemeIntro.ogg`, 0.8),
+				SoundData.music('tpMainThemeBridge', `${this.dirGameMusic}/TP_mainThemeBridge.ogg`, 0.8),
+				SoundData.music('tpSpaceWorld', `${this.dirGameMusic}/TP_spaceWorld.ogg`, 0.8),
+				SoundData.music('tpTomb', `${this.dirGameMusic}/TP_tomb.ogg`, 0.8),
+				SoundData.music('tpLazyStyle', `${this.dirGameMusic}/TP_lazyStyle.ogg`, 0.8),
+				SoundData.music('tpCutScene', `${this.dirGameMusic}/TP_cutScene.ogg`, 0.8),
+				SoundData.music('tpInGame', `${this.dirGameMusic}/TP_inGame.ogg`, 0.8),
+				SoundData.music('tpOutOfTime', `${this.dirGameMusic}/TP_outoftime.ogg`, 0.8),
 			],
 			() => {
 				return async () => {
@@ -1303,8 +1284,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('jol2008mainMusic', `${this.pathGame}/jolagogo2008_main_music.ogg`),
-				SoundData.music('jol2008gameOver', `${this.pathGame}/jolagogo2008_game_over.ogg`)
+				SoundData.music('jol2008mainMusic', `${this.dirGameMusic}/jolagogo2008_main_music.ogg`),
+				SoundData.music('jol2008gameOver', `${this.dirGameMusic}/jolagogo2008_game_over.ogg`)
 			],
 			() => {
 				return async () => {
@@ -1337,8 +1318,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('jol2009bridge', `${this.pathGame}/jolagogo2009_Bridge.ogg`),
-				SoundData.music('jol2009chorus', `${this.pathGame}/jolagogo2009_Chorus.ogg`),
+				SoundData.music('jol2009bridge', `${this.dirGameMusic}/jolagogo2009_Bridge.ogg`),
+				SoundData.music('jol2009chorus', `${this.dirGameMusic}/jolagogo2009_Chorus.ogg`),
 			],
 			() => {
 				return async () => {
@@ -1376,7 +1357,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Who\'s Your Friend'
 
 		const track = new LocalTrack(
-			[SoundData.music('wyf',  `${this.pathGame}/WYF_ThemeSong.ogg`)],
+			[SoundData.music('wyf',  `${this.dirGameMusic}/WYF_ThemeSong.ogg`)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -1395,8 +1376,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('kyfIntroMusic', `${this.pathGame}/KYF_IntroMusic_WithAudience.ogg`),
-				SoundData.music('kyf90secMusic', `${this.pathGame}/KYF_90secondsMusic.ogg`)
+				SoundData.music('kyfIntroMusic', `${this.dirGameMusic}/KYF_IntroMusic_WithAudience.ogg`),
+				SoundData.music('kyf90secMusic', `${this.dirGameMusic}/KYF_90secondsMusic.ogg`)
 			],
 			() => {
 				return async () => {
@@ -1433,7 +1414,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Stack\'em'
 
 		const track = new LocalTrack(
-			[SoundData.music('stackem', `${this.pathGame}/Stackem_Tune_loop.ogg`, 0.9)],
+			[SoundData.music('stackem', `${this.dirGameMusic}/Stackem_Tune_loop.ogg`, 0.9)],
 			() => {
 				return async () => {
 					const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -1457,9 +1438,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('glowMainMusic', `${this.pathGame}/GLOB_main_music.mp3`, 0.8),
-				SoundData.music('glowVillageMusic', `${this.pathGame}/GLOB_village_music.mp3`),
-				SoundData.music('glowWack', `${this.pathGame}/GLOB_wack_a_mole.mp3`, 0.8)
+				SoundData.music('glowMainMusic', `${this.dirGameMusic}/GLOB_main_music.mp3`, 0.8),
+				SoundData.music('glowVillageMusic', `${this.dirGameMusic}/GLOB_village_music.mp3`),
+				SoundData.music('glowWack', `${this.dirGameMusic}/GLOB_wack_a_mole.mp3`, 0.8)
 			],
 			() => {
 				return async () => {
@@ -1559,9 +1540,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('votFeudDrums', `${this.pathGame}/VOT_FeudMusic_drums.ogg`),
-				SoundData.music('votFeud', `${this.pathGame}/VOT_FeudMusic.ogg`),
-				SoundData.music('votFeudEnding', `${this.pathGame}/VOT_FeudEnding.ogg`),
+				SoundData.music('votFeudDrums', `${this.dirGameMusic}/VOT_FeudMusic_drums.ogg`),
+				SoundData.music('votFeud', `${this.dirGameMusic}/VOT_FeudMusic.ogg`),
+				SoundData.music('votFeudEnding', `${this.dirGameMusic}/VOT_FeudEnding.ogg`),
 			],
 			() => {
 				return async () => {
@@ -1611,8 +1592,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		// INFO: keeping this track short for now for testing purposes
 		const track = new LocalTrack(
 			[
-				// SoundData.music('crisisBegin', `${this.pathGame}/Krepp_Byrjun.ogg`, 0.9),
-				SoundData.music('crisisEnd', `${this.pathGame}/Krepp_Endir.ogg`, 0.9)
+				// SoundData.music('crisisBegin', `${this.dirGameMusic}/Krepp_Byrjun.ogg`, 0.9),
+				SoundData.music('crisisEnd', `${this.dirGameMusic}/Krepp_Endir.ogg`, 0.9)
 			],
 			() => {
 				return async () => {
