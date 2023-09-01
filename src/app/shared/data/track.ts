@@ -17,15 +17,15 @@ export abstract class Track {
 	artistAbout!: string
 
 
-	public static readonly dir = '../../assets/tracks/'
-	public static readonly defaultArtworkPath = Track.dir + 'Egill_Antonsson.png'
+	public static readonly dir = '../../assets/tracks'
+	public static readonly defaultArtworkPath = `${Track.dir}/Egill_Antonsson.png`
 
 	constructor(source: StreamSource, rootUrl: string, name: string, artworkPath: string, about: string, soundcloudUrl: string, spotifyUrl: string, buyUrl: string) {
 		this.source = source
 		this.name = name
 		this.artworkPath = artworkPath
 		if (artworkPath === '') {
-			this.artworkPath = Track.dir + Track.defaultArtworkPath
+			this.artworkPath = Track.defaultArtworkPath
 		}
 		this.about = about
 		this.rootUrl = rootUrl
@@ -79,8 +79,8 @@ export class SoundcloudTrack extends Track {
 
 export class LayeredMusicTrack extends LocalTrack {
 	readonly layeredMusicController: LayeredMusicController
-	constructor(layeredMusicController: LayeredMusicController, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string, name: string) {
-		super(soundDatas, play, rootUrl, name)
+	constructor(layeredMusicController: LayeredMusicController, soundDatas: SoundData[], play: () => () => Promise<void>, rootUrl: string, name: string, artworkPath: string = '', about: string = '') {
+		super(soundDatas, play, rootUrl, name, artworkPath, about)
 		this.layeredMusicController = layeredMusicController
 	}
 }

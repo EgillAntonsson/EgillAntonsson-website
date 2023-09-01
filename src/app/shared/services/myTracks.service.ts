@@ -17,8 +17,6 @@ interface Played {
 export class MyTracksService {
 	readonly pathRoot = '../../assets/audio'
 	readonly pathGame = `${this.pathRoot}/game`
-	readonly pathKuai = `${this.pathRoot}/kuai`
-	readonly pathBrothers = `${this.pathRoot}/braedraminning`
 
 	private _isInitialized = false
 	get isInitialized() {
@@ -82,7 +80,7 @@ export class MyTracksService {
 				this.winterQueen(),
 				this.komaKoma(),
 				this.strawberryCityLights()
-			], about: this.aboutKanezKane},
+			], about: this.aboutKanez},
 			{name: 'KUAI', tracks: [
 				this.pirringur(),
 				this.apollo(),
@@ -103,7 +101,7 @@ export class MyTracksService {
 			{name: 'Game Music - Layered', tracks: [
 				this.godsruleLayered(),
 				this.votLayered()
-			], about: ''},
+			], about: this.aboutGameMusicLayered},
 			{name: 'Game Music', tracks: [
 				this.cakePopParty(),
 				this.symbol6(),
@@ -184,6 +182,9 @@ export class MyTracksService {
 		return `<a href="http://www.77.is" target="_blank">${name}</a>`
 	}
 
+	private get aboutGameMusicLayered() {
+		return `When I was Head of Sound at the Gogogic gaming company I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
+	}
 
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
@@ -192,11 +193,11 @@ export class MyTracksService {
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
-	private get pathToDirEgillAntonsson() {
-		return Track.dir + 'egillantonsson/'
+	private get dirEgillAntonsson() {
+		return `${Track.dir}/egillantonsson/`
 	}
 
-	private get aboutKanezKane() {
+	private get aboutKanez() {
 		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
 	}
 
@@ -204,20 +205,24 @@ export class MyTracksService {
 		return `My parents kept a cassette with the recordings of the songs my older brothers made. To make sure the songs survived that old cassette, I published the album Bræðraminning, which also includes my takes on their songs.`
 	}
 
-	private get pathToDirKanez() {
-		return Track.dir + 'kanez/'
+	private get dirKanez() {
+		return `${Track.dir}/kanez/`
 	}
 
-	private get pathToDirBraedraminning() {
-		return Track.dir + 'braedraminning/'
+	private get dirGameMusicLayered() {
+		return `${Track.dir}/game/music-layered/`
+	}
+
+	private get dirBraedraminning() {
+		return `${Track.dir}/braedraminning/`
 	}
 
 	private get aboutTribeOfOranges() {
 		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. Some of our music is under Tribe Of Oranges.`
 	}
 
-	private get pathToDirTribeOfOranges() {
-		return Track.dir + 'too/'
+	private get dirTribeOfOranges() {
+		return `${Track.dir}/too/`
 	}
 
 	private get aboutKuai() {
@@ -228,7 +233,7 @@ export class MyTracksService {
 	}
 
 	private get braedraminningArtworkPath() {
-		return `${this.pathToDirBraedraminning}braedraminning.jpeg`
+		return `${this.dirBraedraminning}braedraminning.jpeg`
 	}
 
 	private get aboutBraedraminningTake2002() {
@@ -237,7 +242,7 @@ export class MyTracksService {
 	}
 
 	private get pathToDirKuai() {
-		return Track.dir + 'kuai/'
+		return `${Track.dir}/kuai/`
 	}
 
 	private flattenTracks() {
@@ -261,10 +266,10 @@ export class MyTracksService {
 	private leCube() {
 		const rootUrl = 'le-cube'
 		const name = 'Le Cube ◇ Mass Psychosis'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const about = `A demoscene entry collaboration with my friend Erik Byström (klovman) in 2014. He created and programmed the visuals and I (Vulkanoman) created the music. In 2023 I enhanced the music a la Mass Psychosis.`
 
-		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.pathToDirEgillAntonsson}/${rootUrl}.ogg`)],
+		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.dirEgillAntonsson}/${rootUrl}.ogg`)],
 		() => {
 			return async () => {
 				const sound = this.soundManager.instance.getSound(track.soundDatas[0].key)
@@ -281,9 +286,9 @@ export class MyTracksService {
 	private winterQueen() {
 		const rootUrl = 'winter-queen'
 		const name = 'Winter Queen'
-		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/winter-queen-kanez-kane/i0evkfp38ctac'
+		const buyUrl = 'https://www.qobuz.com/album/winter-queen-kanez-kane/i0evkfp38ctac'
 		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
@@ -316,7 +321,7 @@ export class MyTracksService {
 	private komaKoma() {
 		const rootUrl = 'koma-koma'
 		const name = 'Koma Koma'
-		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
 		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
 		const about = `This second song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!<br>
@@ -353,30 +358,30 @@ export class MyTracksService {
 	private strawberryCityLights() {
 		const rootUrl = 'strawberry-city-lights'
 		const name = 'Strawberry City Lights'
-		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
-		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/b31j9xshkikja'
+		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/qhcm8paksnp5a'
 		const about = `This first song release by Kanez Kane, 15th December 2022.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
-		Rose, fame, forever, forever!<br>
+		Rose, fame, forever, forever.<br>
 		Going home, oh, it went sideways.<br>
 		Birds, bees, forever, forever.<br>
 		Growing tall, oh, wait for Fridays.<br>
 		Chorus:<br>
 		Strawberry city lights, angels shine every night.<br>
-		No turn here makes it right, I'm waiting at the gate!<br>
+		No turn here makes it right, I'm waiting at the gate.<br>
 		Perfume and ecstasy, Candyman sets you free.<br>
-		Love, guns and sticky nuns, they'll / please help me find my way!<br>
+		Love, guns and sticky nuns, they'll / please help me find my way.<br>
 		Verse 2:<br>
-		Gone, dead, forever, forever!<br>
-		Going home, oh, 6 feet under<br>
-		Stars, light, oh never, oh never!<br>
+		Gone, dead, forever, forever.<br>
+		Going home, oh, 6 feet under.<br>
+		Stars, light, oh never, oh never.<br>
 		Growing old, oh, makes you wonder.<br>
-		-> Chorus
-		Verse outro:
-		Rose, fame, forever, forever!<br>
-		Going home, oh, 6 feet under<br>`
+		-> Chorus<br>
+		Verse outro:<br>
+		Rose, fame, forever, forever.<br>
+		Going home, oh, 6 feet under.<br>`
 
 		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
@@ -384,9 +389,9 @@ export class MyTracksService {
 	private tonisTimeMachine() {
 		const rootUrl = 'tonis-time-machine'
 		const name = "Toni's Time Machine"
-		const artworkPath = `${this.pathToDirKanez}${rootUrl}.jpg`
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
+		const buyUrl = 'https://www.qobuz.com/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
 		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
 		<br>LYRICS<br>
 		Chorus:<br>
@@ -671,7 +676,7 @@ Egill - vocals (and maybe guitar)<br>
 	private votThemeSong() {
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
-		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
@@ -693,7 +698,7 @@ Egill - vocals (and maybe guitar)<br>
 	private harmoniesOfShadeAndLight() {
 		const rootUrl = 'harmonies-of-shade-and-light'
 		const name = 'Harmonies of Shade and Light'
-		const artworkPath =  `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
 		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
@@ -721,7 +726,7 @@ And I shine, when there's no light.<br>
 	private weWillMeetAgain() {
 		const rootUrl = 'we-will-meet-again'
 		const name = 'We Will Meet Again'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
 		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
@@ -752,7 +757,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private magmaMerryGoRound() {
 		const rootUrl = 'magma-merrygoround'
 		const name = 'Magma MerryGoRound'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
 		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
@@ -772,7 +777,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private icelandSocksIntro() {
 		const rootUrl = 'iceland-socks-intro'
 		const name = 'Iceland Socks: Intro'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
 		const about = `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
 	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
@@ -781,7 +786,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private fortidin() {
 		const rootUrl = 'fortidin'
 		const name = 'Fortíðin'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
 		const about = `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> assisted me with recording and mixing.<br>
 		<br>LYRICS<br>
@@ -805,7 +810,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private toddlerTune() {
 		const rootUrl = 'toddlers-tune'
 		const name = 'Toddlers Tune'
-		const artworkPath = `${this.pathToDirEgillAntonsson}${rootUrl}.jpg`
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
 		const about = `When my daughter, Soffía Rós Egilsdóttir, was around 3 years old, I captured a precious moment of her singing a delightful melody. Inspired by her tune, I embarked on a creative journey, crafting chords and rhythm to complement her sweet voice. This harmonious fusion evolved into this song, that I aptly titled 'Toddler's Tune'`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
@@ -822,7 +827,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private introduction() {
 		const rootUrl = 'introduction'
 		const name = 'Introduction'
-		const artworkPath = `${this.pathToDirTribeOfOranges}${rootUrl}.jpg`
+		const artworkPath = `${this.dirTribeOfOranges}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
 		const about = `${this.urlSindri()} and I created this track for a theater play, we called it Introduction as it was played in the beginning. We incorporated drums played by <a href="https://www.discogs.com/artist/429294-Birgir-Baldursson" target="_blank">Birgir Baldursson</a>, that we initially recorded for another track I had composed (yet to be released). We took great care to produce the bassdrum sound, and we gave it a lot of space in the lower frequencies as the bass guitar only joins in the climax, while the guitar, piano and our voices float above in the higher frequencies. <a href="https://soundcloud.com/maniacs-of-noise" target="_blank">Maniacs of Noise / Jeroen Tel</a> commented on this track on Soundcloud, saying: "The best thing about this song is the bassdrum (that's not meant as an insult, it truly stands out!). :-)".<br>
 		When I decided to share this track with the world, I opted for a distinct track artwork unrelated to the play. The artwork chosen was Indíánahöfuðið, a sculpture created by my oldest brother, Jónas. This potent piece holds immense sentimental value as a treasured family artifact, representing a Native American figure. Listening to the track, I envision a captivating tale of the clash of cultures, where the old meets the new, the past intertwines with the present, and the native converges with the foreign.`
@@ -832,7 +837,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private routine() {
 		const rootUrl = 'routine'
 		const name = 'Routine'
-		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
+		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
 		const about = `${this.urlSindri()} and I explored the untapped potential of everyday household objects found within the confines of my apartment. We crafted a composition that entailed a minimalist electric piano chord progression complemented by a touch of didgeridoo randomness. The artwork for this track captures a candid moment of camaraderie, as we engaged in a friendly game of chess on my apartment's balcony. The photo reveals us adorned in cozy gloves and hats, testament to the sunny yet brisk winter day that accompanied our artistic pursuits.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
@@ -841,9 +846,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private hhiCommercial() {
 		const rootUrl = 'song-for-hhi-commercial'
 		const name = 'Song for HHI commercial'
-		const artworkPath = `${this.pathToDirTribeOfOranges}tribe-of-oranges.jpg`
+		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
-		const about = `${this.urlSindri()} and I performed a song for Happdrætti Háskóla Íslands (University of Iceland Lottery) for their video commercial campaign where the company provided the predefined lyrics, melody and chord guideline. Since this was for a lottery commercial we recorded various coins sounds and made that part of the song. The best entries were filmed as commercials with the artists and aired, and we were among those. It was aired in the winter of 2008, if memory serves me right (I haven't been able to dig up the commercial video or much info about the commercial campaign).`
+		const about = `${this.urlSindri()} and I performed a song for Happdrætti Háskóla Íslands (University of Iceland Lottery) for their video commercial campaign where the company provided the predefined lyrics, melody and chord guideline. Since this was for a lottery commercial we recorded various coins sounds and made that part of the song. The best entries were filmed as commercials with the artists and aired, and we were among those. It was aired in the winter of 2008, if memory serves me right.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -852,7 +857,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	}
 
 	private get kuaiBuyUrl() {
-		return 'https://www.qobuz.com/se-en/album/kuai-kuai/kqeu1azl013da'
+		return 'https://www.qobuz.com/album/kuai-kuai/kqeu1azl013da'
 	}
 
 	private pirringur() {
@@ -947,9 +952,11 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.kuaiArtwork, this.aboutLesblinda, spotifyUrl, this.kuaiBuyUrl)
 	}
 
+
 	private godsruleLayered() {
 		const rootUrl = 'godsrule-village'
 		const name = 'Godsrule: Village'
+		const about = `This music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -976,7 +983,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					}
 					track.layeredMusicController.start(instances)
 				}
-			}, rootUrl, name
+			}, rootUrl, name, `${Track.dir}/game/music-layered/godsrule-village.jpg`, about
 		)
 		return track
 	}
@@ -984,6 +991,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private votLayered() {
 		const rootUrl = 'vikings-of-thule-map'
 		const name = 'Vikings of Thule: Map'
+		const about = `This music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -1010,7 +1018,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					}
 					track.layeredMusicController.start(instances)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${Track.dir}/game/vot.jpg`, about)
 		return track
 	}
 
@@ -1500,9 +1508,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('godsruleBattle', `${this.pathGame}/LOTON_BattleBaseLayer.ogg`),
-				SoundData.music('godsruleDefeat', `${this.pathGame}/LOTON_CombatDefeatMusic.ogg`),
-				SoundData.music('godsruleVictory', `${this.pathGame}/LOTON_CombatVictory.ogg`),
+				SoundData.music('godsruleBattle', `${this.dirGameMusicLayered}/LOTON_BattleBaseLayer.ogg`),
+				SoundData.music('godsruleDefeat', `${this.dirGameMusicLayered}/LOTON_CombatDefeatMusic.ogg`),
+				SoundData.music('godsruleVictory', `${this.dirGameMusicLayered}/LOTON_CombatVictory.ogg`),
 			],
 			() => {
 				return async () => {
