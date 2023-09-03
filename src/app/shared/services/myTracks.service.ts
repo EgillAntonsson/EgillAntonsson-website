@@ -61,7 +61,7 @@ export class MyTracksService {
 	private readonly pathKuaiArtwork = `${this.dirKuai}KUAI.jpg`
 //#endregion
 
-	//#region Name URLS
+	//#region URLS
 	private urlSindri(fullName = false) {
 		let name = 'Sindri'
 		if (fullName) {
@@ -95,16 +95,14 @@ export class MyTracksService {
 		}
 		return `<a href="http://www.77.is" target="_blank">${name}</a>`
 	}
-//#endregion
 
-private get aboutGameMusicLayered() {
-	return `When I was Head of Sound at the Gogogic gaming company I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
-	}
+	private urlGogogic = `<a href=https://www.facebook.com/gogogic target="_blank">Gogogic</a>`
+//#endregion
 
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
-		Around the turn of this century, I was in the band <a href="http://localhost:4200/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="http://localhost:4200/music/tonis-time-machine">Kanez Kane</a>.<br>
+		Around the turn of this century, I was in the band <a href="https://egill.rocks/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="https://egill.rocks/music/tonis-time-machine" target="_blank">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
@@ -128,21 +126,24 @@ private get aboutGameMusicLayered() {
 	}
 
 	private get aboutBraedraminningTake2002() {
-		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.
-	`
-}
-
-
-constructor(private soundManager: SoundManagerService, private logService: LogService) {
-	this._instancePlayedListeners = new Map()
-	this.instanceEndedListeners = new Map()
-	// for instanceEndedListeners send in 'true' to indicate that the track ended
-}
-
-init() {
-	if (this._isInitialized) {
-		return
+		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.`
 	}
+
+	private readonly aboutGameMusicLayered = `When Head of Sound at the company ${this.urlGogogic} from 2008 to 2013 I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
+
+	private readonly aboutGameMusic = `When I was Head of Sound at the company ${this.urlGogogic} from 2008 to 2013  I composed, designed and produced the Music and SFX for the games.`
+
+
+	constructor(private soundManager: SoundManagerService, private logService: LogService) {
+		this._instancePlayedListeners = new Map()
+		this.instanceEndedListeners = new Map()
+		// for instanceEndedListeners send in 'true' to indicate that the track ended
+	}
+
+	init() {
+		if (this._isInitialized) {
+			return
+		}
 
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
@@ -199,7 +200,7 @@ init() {
 				this.godsrule(),
 				this.vot(),
 				this.crisisGame()
-			], about: ''},
+			], about: this.aboutGameMusic},
 			{name: 'Bræðraminning', tracks: [
 				this.pesi2002(),
 				this.mouse2002(),
@@ -665,7 +666,7 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company Gogogic. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
+		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company ${this.urlGogogic}. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
 		<br>Lyrics:<br>
 		Snjóar kaldri ströndu á, sefur jökulfoldin<br>
 		Varin öllum vættum þá, vistinn blóði goldin<br>
@@ -764,7 +765,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Iceland Socks: Intro'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
-		const about = `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company Gogogic created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
+		const about = `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company ${this.urlGogogic} created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
 	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -999,13 +1000,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					}
 					track.layeredMusicController.start(instances)
 				}
-			}, rootUrl, name, `${Track.dir}/game/vot.jpg`, about)
+			}, rootUrl, name, `${this.dirGameMusicLayered}/${rootUrl}.jpg`, about)
 		return track
 	}
 
 	private cakePopParty() {
 		const rootUrl = 'cake-pop-party'
 		const name = 'Cake Pop Party'
+		const about = `I composed and produced this Music for this game. This track starts with the Intro music looped twice, then transitions into the in-game 'Make the Pop' music, and then the whole thing is looped twice. A short description of the game is "A social entertainment game for the iPad and iPhone. The key ingredient of the game is the ability of players to create, design and share their unique cake pop creations globally within the app and on the social networks for added fun. Developed by ${this.urlGogogic}, published by FreshGames.`
 
 		const track = new LocalTrack(
 			[
@@ -1045,7 +1047,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/cake-pop-party.png`, about)
 		return track
 	}
 
