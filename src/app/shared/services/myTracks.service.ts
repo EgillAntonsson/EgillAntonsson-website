@@ -1029,7 +1029,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private symbol6() {
 		const rootUrl = 'symbol-6'
 		const name = 'Symbol 6'
-		const about = `I composed and produced the music and sfx for this game. I was a bit inspired by the song <a href="https://soundcloud.com/r-nar-li-bjarnason/easy-cream?in=r-nar-li-bjarnason/sets/fiff" target="_blank">Easy Cream by the band Fiff</a> as I use the same verse chord progression, but I change the time signature from 4 to 6. This track starts with the drum beat that was during the menu, then goes into the in-game music, and goes into the old version of the in-game music (with less drums). Then the whole thing is looped twice. Developed and by published by ${this.urlGogogic}.`
+		const about = `I composed and produced the music and sfx for this game. I was a bit inspired by the song <a href="https://soundcloud.com/r-nar-li-bjarnason/easy-cream?in=r-nar-li-bjarnason/sets/fiff" target="_blank">Easy Cream by the band Fiff</a> as I use the same verse chord progression, but I change the time signature from 4 to 6. This track starts with the drum beat that was during the menu, then goes into the in-game music, and goes into the old version of the in-game music (with less drums). Then the whole thing is looped twice. Developed and published by ${this.urlGogogic}.`
 
 		const track = new LocalTrack(
 			[
@@ -1071,7 +1071,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private softFreakFiesta() {
 		const rootUrl = 'soft-freak-fiesta'
 		const name = 'Soft Freak Fiesta'
-		const about = `I composed and produced the music and sfx for this game. This track starts with the Intro into menu music, then goes into in-game music. First with default level, then with bubbling acid / lava ambience level. Then the You Loose jingle is played, then the whole thing is looped twice, but now it ends with You Win jingle. Developed and by published by ${this.urlGogogic}.`
+		const about = `I composed and produced the music and sfx for this game. This track starts with the Intro into menu music, then goes into in-game music. First with default level, then with bubbling acid / lava ambience level. Then the You Loose jingle is played, then the whole thing is looped twice, but now it ends with You Win jingle. Developed and published by ${this.urlGogogic}.`
 
 		const track = new LocalTrack(
 			[
@@ -1135,7 +1135,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private habitarium() {
 		const rootUrl = 'habitarium'
 		const name = 'Habitarium'
-		const about = `I composed and produced the music and sfx for this <a href="https://www.neopets.com/habitarium/" target="_blank">game</a> that was developed by ${this.urlGogogic} but was for Neopets that was then owned by <a href="https://www.nickelodeon.com" target="_blank>Nickelodeon</a>. This track starts with the main theme music and then goes into in-game music, then the whole thing is looped twice. After the delivery at some point the owners (maybe after change of ownership) added a music track that was not done by me.`
+		const about = `I composed and produced the music and sfx for this <a href="https://www.neopets.com/habitarium/" target="_blank">game</a> that was developed by ${this.urlGogogic} but was for Neopets that was then owned by <a href="https://www.nickelodeon.com" target="_blank">Nickelodeon</a>. This track starts with the main theme music and then goes into in-game music, then the whole thing is looped twice. After the delivery at some point the owners (maybe after change of ownership) added a music track that was not done by me.`
 
 		const track = new LocalTrack(
 			[
@@ -1337,7 +1337,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private whosYourFriend() {
 		const rootUrl = 'whos-your-friend'
 		const name = 'Who\'s Your Friend'
-		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (selected randomly) in 90 seconds, thus the track is the same length as the game sessions 90 seconds. Developed by ${this.urlGogogic}.`
+		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (selected randomly) in 90 seconds, thus the track is the same length as the game sessions 90 seconds. Developed and published by ${this.urlGogogic}.`
 
 		const track = new LocalTrack(
 			[SoundData.music('wyf',  `${this.dirGameMusic}/WYF_ThemeSong.ogg`)],
@@ -1356,7 +1356,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private knowYourFriend() {
 		const rootUrl = 'know-your-friend'
 		const name = 'Know Your Friend'
-		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (presented 4 choices randomly) in 90 seconds. The track starts with 90 seconds game session then goes to the Game Finished and Result music with applause ambience (looped twice). Developed by ${this.urlGogogic}.`
+		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (presented 4 choices randomly) in 90 seconds. The track starts with 90 seconds game session then goes to the Game Finished and Result music with applause ambience (looped twice). Developed and published by ${this.urlGogogic}.`
 
 		const track = new LocalTrack(
 			[
@@ -1467,7 +1467,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private godsrule() {
 		const rootUrl = 'godsrule-battle'
 		const name = 'Godsrule: Battle'
-		const about = `I composed and produced the music and sfx for this game. This track starts with the battle music, then goes to Combat Ended with Defeat music, then goes to Combat Ended with Victory (to showcase both, though would not happen in the actual game). Developed by ${this.urlGogogic} published by Sega.`
+		const about = `I composed and produced the music and sfx for this game. This track starts with the battle music, then goes to Combat Ended with Defeat music, then goes to Combat Ended with Victory (to showcase both, though would not happen in the actual game). Developed by ${this.urlGogogic} and published by Sega.`
 
 		const track = new LocalTrack(
 			[
