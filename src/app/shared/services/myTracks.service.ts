@@ -165,6 +165,8 @@ export class MyTracksService {
 				this.strawberryCityLights()
 			], about: this.aboutKanez},
 			{name: 'KUAI', tracks: [
+				this.andefniLive(),
+				this.pirringurLive(),
 				this.pirringur(),
 				this.apollo(),
 				this.andsetinn(),
@@ -797,12 +799,30 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		return 'https://www.qobuz.com/album/kuai-kuai/kqeu1azl013da'
 	}
 
+	private andefniLive() {
+		const rootUrl = 'andefni-live'
+		const name = 'Andefni - Live'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
+		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
+		const about = `Performed Live in Laugardalshöll 2nd of june 2001 at the Reykjavik Mini Festival. In the end ${this.urlSiggi()} shreds his guitar to smithereens.`
+		return new YoutubeTrack('6cLPGWQJ2Vs', true,  rootUrl, name, this.pathKuaiArtwork, about, soundcloudUrl, spotifyUrl, this.kuaiBuyUrl)
+	}
+
+	private pirringurLive() {
+		const rootUrl = 'pirringur-live'
+		const name = 'Pirringur - Live'
+		const soundcloudUrl = 'https://soundcloud.com/kuai-iceland/pirringur-live'
+		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
+		const about = `Performed Live in Laugardalshöll 2nd of june 2001 at the Reykjavik Mini Festival. We started with this track on concerts and thus also on this concert.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
+	}
+
 	private pirringur() {
 		const rootUrl = 'pirringur'
 		const name = 'Pirringur'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
-		const about = `Pirringur means irritation in Icelandic. We started with this track in concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by ${this.urlSteini()} in the FÍH concert hall.`
+		const about = `Pirringur means irritation in Icelandic. We started with this track on concerts and thus it was fitting to start the album with it. The Hammond organ in the end was played by my and recorded by ${this.urlSteini()} in the FÍH concert hall.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -847,7 +867,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Andefni'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
 		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
-		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from ${this.urlSteini()} fills in the void. <a href="https://www.last.fm/music/Sigurdur+R%C3%B6gnvaldsson" target="_blank">Sigurður Þór Rögnvaldsson</a> shreds the guitar in the end.`
+		const about = `Andefni means antimatter in Icelandic. Steinar Sigurðsson plays the saxophone where the wired guitar play from ${this.urlSteini()} fills in the void. Then in the end ${this.urlSiggi()} shreds his guitar to smithereens.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
