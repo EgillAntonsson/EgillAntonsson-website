@@ -49,5 +49,5 @@ if len(missing_links) > 0:
 
 formatted_date = datetime.datetime.now().strftime("%Y-%m-%d")
 
-print("sitemap.xml is VALID\nCheck if 'priority' and 'changefreq' needs tweaking and change 'lastmod' where applicable.\nToday is {:s}".format(formatted_date))
+print("sitemap.xml is VALID\nChange 'lastmod' where applicable.\nToday is {:s}".format(formatted_date))
 print('----------')
