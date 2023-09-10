@@ -813,7 +813,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Pirringur - Live'
 		const soundcloudUrl = 'https://soundcloud.com/kuai-iceland/pirringur-live'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
-		const about = `Performed Live in Laugardalshöll 2nd of june 2001 at the Reykjavik Mini Festival. We started with this track on concerts and thus also on this concert.`
+		const about = `Performed Live in Laugardalshöll 2nd of June 2001 at the Reykjavik Mini Festival. We started with this track on concerts and thus also on this concert.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathKuaiArtwork, about, spotifyUrl, this.kuaiBuyUrl)
 	}
 
@@ -1289,7 +1289,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name, `${this.dirGameMusic}/jol-gogogic.jpg`, about)
+			}, rootUrl, name, `${this.dirGameMusic}/christmas-gogogic.jpg`, about)
 		return track
 	}
 
@@ -1563,7 +1563,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						asyncTimeout()
 					}, ((played.instance.sourceNode.buffer?.duration || 10) * 1000) - 799)
 				}
-			}, rootUrl, name, `${this.dirGameMusic}/vot-duel.jpg`, about)
+			}, rootUrl, name, `${this.dirGameMusic}/${rootUrl}.jpg`, about)
 		return track
 	}
 
