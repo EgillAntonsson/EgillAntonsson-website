@@ -913,7 +913,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private godsruleLayered() {
 		const rootUrl = 'godsrule-village'
 		const name = 'Godsrule: Village'
-		const about = `I composed and produced the music and sfx for this gamet. The Village music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
+		const about = `I composed and produced the music and sfx for this game. The Village music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody. Developed by ${this.urlGogogic} and published by Sega.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -948,7 +948,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private votLayered() {
 		const rootUrl = 'vikings-of-thule-map'
 		const name = 'Vikings of Thule: Map'
-		const about = `I composed and produced the music and sfx for this game. The Map music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
+		const about = `I composed and produced the music and sfx for this game. The Map music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody. Developed and published by ${this.urlGogogic}.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -1467,6 +1467,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private godsrule() {
 		const rootUrl = 'godsrule-battle'
 		const name = 'Godsrule: Battle'
+		const about = `I composed and produced the music and sfx for this game. This track starts with the battle music, then goes to Combat Ended with Defeat music, then goes to Combat Ended with Victory (to showcase both, though would not happen in the actual game). Developed by ${this.urlGogogic} published by Sega.`
 
 		const track = new LocalTrack(
 			[
@@ -1511,7 +1512,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await playReturn.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name, `${this.dirGameMusic}/godsrule-battle.jpg`)
+			}, rootUrl, name, `${this.dirGameMusic}/godsrule-battle.jpg`, about)
 		return track
 	}
 
