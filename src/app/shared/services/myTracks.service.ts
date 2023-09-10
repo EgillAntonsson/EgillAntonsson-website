@@ -126,7 +126,7 @@ export class MyTracksService {
 	}
 
 	private get aboutBraedraminningTake2002() {
-		return `My take on this song, recorded and mixed in 2001-2002. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> mastered it as far as could be done in 2022.`
+		return `My take on this song, recorded and mixed in 2001-2002. ${this.urlSindri(true)} mastered in 2022 (as well as could be done).`
 	}
 
 	private readonly aboutGameMusicLayered = `When Head of Sound at the company ${this.urlGogogic} from 2008 to 2013 I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
@@ -186,19 +186,19 @@ export class MyTracksService {
 				this.votLayered()
 			], about: this.aboutGameMusicLayered},
 			{name: 'Game Music', tracks: [
-				this.cakePopParty(),
-				this.symbol6(),
-				this.softFreakFiesta(),
-				this.habitarium(),
+				this.godsrule(),
+				this.vot(),
 				this.tinyPlaces(),
+				this.cakePopParty(),
+				this.softFreakFiesta(),
+				this.symbol6(),
+				this.habitarium(),
 				this.jol2008(),
 				this.jol2009(),
 				this.whosYourFriend(),
 				this.knowYourFriend(),
 				this.stackem(),
 				this.glowbulleville(),
-				this.godsrule(),
-				this.vot(),
 				this.crisisGame()
 			], about: this.aboutGameMusic},
 			{name: 'Bræðraminning', tracks: [
@@ -414,9 +414,7 @@ export class MyTracksService {
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1f2eGiZiCMOMZZbKc52IIH'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = this.aboutBraedraminningTake2002 + `<br>
-I did my take on the lyrics, thus differing to some extent.
-`
+		const about = this.aboutBraedraminningTake2002 + ' I did my take on the lyrics, thus differing to some extent.'
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -466,10 +464,7 @@ I did my take on the lyrics, thus differing to some extent.
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0zcnfEWqzmaCfp7hsbcA9Z'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = this.aboutBraedraminningTake2002 + `<br>
-I 'upped the drama' in the lyrics by knocking the headmaster OUT, instead of down.<br>
-I don't remember if it was intentional or not.
-`
+		const about = this.aboutBraedraminningTake2002 +  `I increased the drama in the lyrics e.g. by knocking the headmaster OUT, instead of DOWN (I don't remember if it specific thing was intentional or not.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -489,11 +484,7 @@ I don't remember if it was intentional or not.
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5EFT7M2r9kiJqPn2EtXNoz'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = this.aboutBraedraminningTake2002  + `<br>
-I think I 'upped the drama' in the lyrics with 'The world is nothing except hate'<br>
-as it could be that Egill sung 'The world is nothing I say "Hey"'.<br>
-I also added lyrics where missing, etc.<br>
-`
+		const about = this.aboutBraedraminningTake2002  + ` I think I increased the drama in the lyrics with 'The world is nothing except hate' as it could be that Egill sung 'The world is nothing I say Hey'. I also added lyrics where they were missing or unclear.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -503,10 +494,7 @@ I also added lyrics where missing, etc.<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5cfstB4Y5eIFI79e4KBAk8'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = this.aboutBraedraminningTake2002  + `<br>
-I kept with the 'no no no' like in the original (probably the lyrics were not ready)<br>
-and in fact went all in on 'no no no' and other sounds :)
-`
+		const about = this.aboutBraedraminningTake2002  + ` I kept with the 'no no no' like in the original, and additionally went ALL IN on other verbal sounds.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -516,13 +504,14 @@ and in fact went all in on 'no no no' and other sounds :)
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/my-dear-old-brothers?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6mnJyUYVPeoEx8oKUBu4Zw'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = `I saw a chord progression with the title 'Lady Lobo' written in a note book that belonged to the brothers.<br>
-I thought this might be an original song and thus wanted to bring it to life for the album.<br>
-I added details and shaped the song (making some changes)<br>
-and wrote the lyrics (changing the title with it).
+		const about = `I saw a chord progression with the title 'Lady Lobo' written in a note book that belonged to my brothers. I thought this might be an original song and thus wanted to bring it to life for the album. I shaped the song, found the melody and lyrics and re-titled and performed it. It ends with traveling back in time to the 70s and the original songs.
 `
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
+
+	private braedraminning70s = `Recorded with their band Lazarus or Fló (not sure which one)`
+	private circa70sYear = `I'm guessing a bit on the year of this recording`
+	private lazarusOrFlo = `guitar: Árni Björnsson or Júlíus Jónasson, bass: Páll Hartmannsson or Einar Arngrímsson, drums: Hermann Tómasson or Vignir Hallgrímsson`
 
 	private pesi1974() {
 		const rootUrl = 'pesi-year-1974'
@@ -530,12 +519,8 @@ and wrote the lyrics (changing the title with it).
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-1974?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5wmAzE3Mc0uWjhjxRf95OQ'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about = `Jónas wrote this song for Egill to play on the wurlitzer piano.<br>
-Recorded with their band playing that was either Lazarus or Fló (not sure which one).<br>
-Egill - wurlitzer<br>
-Jónas - guitar<br>
-(I will list the band mates later when I have my notes)
-`
+		const about = `Jónas wrote this song for Egill to play on the wurlitzer piano. ${this.braedraminning70s}. ${this.circa70sYear}. Wurlitzer piano: Egill,
+guitar: Jónas, ${this.lazarusOrFlo}.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -545,11 +530,7 @@ Jónas - guitar<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3qtGfywTgrjxBMQcCdN1xo'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
-Egill - wurlitzer and vocals<br>
-Jónas - guitar<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `${this.braedraminning70s}. ${this.circa70sYear}. Vocals and wurlitzer piano: Egill, guitar: Jónas, ${this.lazarusOrFlo}.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -559,11 +540,7 @@ Jónas - guitar<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/700fVJsCrH4BBpsMW7B60t'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
-Egill - wurlitzer and vocals<br>
-Jónas - guitar<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `${this.braedraminning70s}. ${this.circa70sYear}. Vocals and wurlitzer piano: Egill, guitar: Jónas and background vocals, ${this.lazarusOrFlo}.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -573,11 +550,7 @@ Jónas - guitar<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3X7wZlcTxFwkLs7rvEkkWZ'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Recorded with their band that was either Lazarus or Fló (not sure which one).<br>
-Egill - organ<br>
-Jónas - guitar<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `${this.braedraminning70s}. ${this.circa70sYear}. Organ: Egill, guitar: Jónas, ${this.lazarusOrFlo}.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -587,10 +560,7 @@ Jónas - guitar<br>
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/2V0X8p2Tefcg5MTrnuuplo'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-			const about =  `Egill playing by himself.<br>
-I think this is shortly after Jónas is gone but I'm not sure,<br>
-thus I'm guessing a bit the year of this recording (and for the others as well).
-`
+			const about =  `Egill playing by himself. It feels to me that this is shortly after Jónas is gone but I'm not sure, ${this.circa70sYear}.`
 			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
@@ -600,10 +570,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/23YxXCBVwziMTdJnIGqLZx'
 			const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-			const about =  `Egill playing by himself.<br>
-I think this is not long after Jónas is gone but I'm not sure,<br>
-thus I'm guessing a bit the year of this recording (and for the others as well).
-`
+			const about =  `Egill playing by himself. It feels to me that this is shortly after Jónas is gone but I'm not sure, ${this.circa70sYear}.`
 			return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 		}
 
@@ -613,10 +580,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-1976?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/47Tf6lPTTaibh0LFGi6ULh'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Egill playing by himself.<br>
-I think this is not long after Jónas is gone but I'm not sure,<br>
-thus I'm guessing a bit the year of this recording (and for the others as well).
-`
+		const about =  `Egill playing by himself. It feels to me that this is shortly after Jónas is gone but I'm not sure, ${this.circa70sYear}.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -626,10 +590,7 @@ thus I'm guessing a bit the year of this recording (and for the others as well).
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1TV6QGFbW0mdtO8GqXCfay'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
-Egill - organ<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `Egill playing the organ with couple of band mates who play guitar, bass and a 'drum', who could be (I'm not sure) Árni Björnsson or Júlíus Jónasson or Páll Hartmannsson or Einar Arngrímsson or Hermann Tómasson or Vignir Hallgrímsson.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -639,10 +600,7 @@ Egill - organ<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6dI0WypRxmbUK7Rw9TaHpT'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
-Egill - vocals (and maybe guitar)<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `Egill playing the organ and singing with couple of band mates who play guitar and bass, who could be (I'm not sure) Árni Björnsson or Júlíus Jónasson, Páll Hartmannsson or Einar Arngrímsson`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -652,10 +610,7 @@ Egill - vocals (and maybe guitar)<br>
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0rcIAwxbRtRhYbKX0bq142'
 		const buyUrl = 'https://www.qobuz.com/album/braeraminning-in-memory-of-the-brothers-egill-antonsson/pa3y1de6ejnqb'
-		const about =  `Egill playing with his band mates from either Lazarus or Fló (not sure which one).<br>
-Egill - vocals (and maybe guitar)<br>
-(I will list the band mates later when I have my notes)
-`
+		const about =  `Egill singing and playing the guitar with the drums from the Yamaha organ. But it could be that someone else is playing the guitar and then likely Árni Björnsson or Júlíus Jónasson.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, this.pathBraedraminningArtwork, about, spotifyUrl, buyUrl)
 	}
 
@@ -938,7 +893,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private godsruleLayered() {
 		const rootUrl = 'godsrule-village'
 		const name = 'Godsrule: Village'
-		const about = `This music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
+		const about = `I composed and produced the music and sfx for this gamet. The Village music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -965,7 +920,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					}
 					track.layeredMusicController.start(instances)
 				}
-			}, rootUrl, name, `${Track.dir}/game/music-layered/godsrule-village.jpg`, about
+			}, rootUrl, name, `${Track.dir}/game/music-layered/godsrule-village.webp`, about
 		)
 		return track
 	}
@@ -973,7 +928,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private votLayered() {
 		const rootUrl = 'vikings-of-thule-map'
 		const name = 'Vikings of Thule: Map'
-		const about = `This music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
+		const about = `I composed and produced the music and sfx for this game. The Map music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody.`
 
 		const track = new LayeredMusicTrack(
 			new LayeredMusicController(this.instanceEndedListeners, this.logService.log),
@@ -1007,7 +962,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private cakePopParty() {
 		const rootUrl = 'cake-pop-party'
 		const name = 'Cake Pop Party'
-		const about = `I composed and produced this Music for this game. This track starts with the Intro music looped twice, then transitions into the in-game 'Make the Pop' music, and then the whole thing is looped twice. A short description of the game is "A social entertainment game for the iPad and iPhone. The key ingredient of the game is the ability of players to create, design and share their unique cake pop creations globally within the app and on the social networks for added fun. Developed by ${this.urlGogogic}, published by FreshGames.`
+		const about = `I composed and produced the music and sfx for this game. I was inspired by the intro of <a href="https://open.spotify.com/track/3qI94hINNNeb4S7xQi18lS?si=daef63ec063e4901" target="_blank">Blame it on the Boogie by The Jacksons</a>. This track starts with the Intro music looped twice, then goes into the in-game 'Make the Pop' music. Then the whole thing is looped twice. A short description of the game: A social entertainment game for the iPad and iPhone. The key ingredient of the game is the ability of players to create, design and share their unique cake pop creations globally within the app and on the social networks for added fun. Developed by ${this.urlGogogic} and published by <a href="https://www.facebook.com/profile.php?id=100063882670798" target="_blank">FreshGames</a>.`
 
 		const track = new LocalTrack(
 			[
@@ -1054,6 +1009,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 	private symbol6() {
 		const rootUrl = 'symbol-6'
 		const name = 'Symbol 6'
+		const about = `I composed and produced the music and sfx for this game. I was a bit inspired by the song <a href="https://soundcloud.com/r-nar-li-bjarnason/easy-cream?in=r-nar-li-bjarnason/sets/fiff" target="_blank">Easy Cream by the band Fiff</a> as I use the same verse chord progression, but I change the time signature from 4 to 6. This track starts with the drum beat that was during the menu, then goes into the in-game music, and goes into the old version of the in-game music (with less drums). Then the whole thing is looped twice. Developed and by published by ${this.urlGogogic}`
 
 		const track = new LocalTrack(
 			[
@@ -1088,13 +1044,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/symbol-6.jpg`, about)
 		return track
 	}
 
 	private softFreakFiesta() {
 		const rootUrl = 'soft-freak-fiesta'
 		const name = 'Soft Freak Fiesta'
+		const about = `I composed and produced the music and sfx for this game. This track starts with the Intro into menu music, then goes into in-game music. First with default level, then with bubbling acid / lava ambience level. Then the You Loose jingle is played, then the whole thing is looped twice, but now it ends with You Win jingle. Developed and by published by ${this.urlGogogic}`
 
 		const track = new LocalTrack(
 			[
@@ -1151,13 +1108,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						--nrOfLoop
 					} while (nrOfLoop > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/soft-freak-fiesta.jpg`, about)
 		return track
 	}
 
 	private habitarium() {
 		const rootUrl = 'habitarium'
 		const name = 'Habitarium'
+		const about = `I composed and produced the music and sfx for this <a href="https://www.neopets.com/habitarium/" target="_blank">game</a> that was developed by ${this.urlGogogic} but was for Neopets that was then owned by <aNickelodeon. This track starts with the main theme music and then goes into in-game music, then the whole thing is looped twice. After the delivery at some point the owners (maybe after change of ownership) added a music track that was not done by me.`
 
 		const track = new LocalTrack(
 			[
@@ -1185,14 +1143,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					nrOfLoop--
 					} while (nrOfLoop > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/habitarium.png`, about)
 		return track
 	}
 
 	private tinyPlaces() {
 		const rootUrl = 'tiny-places'
 		const name = 'Tiny Places'
-		const artworkPath = `${Track.dir}game/${rootUrl}.png`
+		const about = `I composed and produced the music and sfx for this game. This track starts with the intro music and then goes to the main theme music, where I was inspired by the <a href="https://open.spotify.com/track/5duZVZ4m1TaJDTCbeHG8TG?si=a7ac919c95274a51" target="_blank">Indiana Jones theme</a>. Then it goes to the Space Bonus Level where Nap floats in space, and where I was inspired by communication by the melody line in the movie <a href="https://www.youtube.com/watch?v=nkykqyMEarA" target="_blank">Close Encounters of the Third Kind</a>. Then it goes to the Pyramid Tomb Bonus Level. Then it goes the 'Lazy style', then it goes to a short xylophone cut scene and then the in-game music, and it ends with The Time is Running Out and Game Over. Developed by ${this.urlGogogic} and published by <a href="https://www.bigfishgames.com" target="_blank">Big Fish Games</a>.`
 
 		const track = new LocalTrack(
 			[
@@ -1276,13 +1234,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name, artworkPath)
+			}, rootUrl, name, `${this.dirGameMusic}/tiny-places.jpg`, about)
 		return track
 	}
 
 	private jol2008() {
 		const rootUrl = 'christmas-game-2008'
 		const name = 'Christmas Game 2008'
+		const about = `I composed and produced the music and sfx for the 2008 Gogogic Christmas Game. It was a ${this.urlGogogic} tradition to publish a game each Christmas that people could play for free and get int the holiday spirit. This year the game was packaging christmas correctly and in due time. This track plays the the main music twice and  then ends with the Game Over jingle.`
 
 		const track = new LocalTrack(
 			[
@@ -1310,13 +1269,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/jol-gogogic.jpg`, about)
 		return track
 	}
 
 	private jol2009() {
 		const rootUrl = 'christmas-game-2009'
 		const name = 'Christmas Game 2009'
+		const about = `I composed and produced the music and sfx for the 2009 Gogogic Christmas Game. It was a ${this.urlGogogic} tradition to publish a game each Christmas that people could play for free and get int the holiday spirit. This year the game was solving the christmas puzzle that pushing out slimy balls through some pipes, thus I shuffled and juiced up the comp around the same melody tones from last year's game. This track starts with the Bridge and then goes to the Chorus. Then the whole thing is looped twice.`
 
 		const track = new LocalTrack(
 			[
@@ -1350,13 +1310,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/jol-gogogic.jpg`, about)
 		return track
 	}
 
 	private whosYourFriend() {
 		const rootUrl = 'whos-your-friend'
 		const name = 'Who\'s Your Friend'
+		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (selected randomly) in 90 seconds, thus the track is the same length as the game sessions 90 seconds. Developed by ${this.urlGogogic}`
 
 		const track = new LocalTrack(
 			[SoundData.music('wyf',  `${this.dirGameMusic}/WYF_ThemeSong.ogg`)],
@@ -1368,13 +1329,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, Track.defaultArtworkPath, about)
 		return track
 	}
 
 	private knowYourFriend() {
 		const rootUrl = 'know-your-friend'
 		const name = 'Know Your Friend'
+		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (presented 4 choices randomly) in 90 seconds. The track starts with 90 seconds game session then goes to the Game Finished and Result music with applause ambience (looped twice). Developed by ${this.urlGogogic}`
 
 		const track = new LocalTrack(
 			[
@@ -1400,20 +1362,16 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					played = await intro.play()
 					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
 					await played.endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener())
-
-					played = await seconds.play()
-					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
-					await played.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/know-your-friend.jpg`, about)
 		return track
 	}
 
 	private stackem() {
 		const rootUrl = 'stack-em'
 		const name = 'Stack\'em'
+		const about = `I composed and produced the music and sfx for this game that was about stacking your sheep as high as you can, competing for the high score with your fellow farmers. This track is looped twice. Developed by ${this.urlGogogic} and published by <a href="https://www.bigfishgames.com" target="_blank">Big Fish Games</a>.`
 
 		const track = new LocalTrack(
 			[SoundData.music('stackem', `${this.dirGameMusic}/Stackem_Tune_loop.ogg`, 0.9)],
@@ -1430,13 +1388,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/stack-em.webp`, about)
 		return track
 	}
 
 	private glowbulleville() {
 		const rootUrl = 'glowbulleville'
 		const name = 'Glowbulleville'
+		const about = `I composed and produced the music and sfx for this game which was the first one I did at ${this.urlGogogic}. This track starts with the main music, then goes to the village music (looped twice), then goes to the in-game music, then the whole thing is looped twice.`
 
 		const track = new LocalTrack(
 			[
@@ -1481,7 +1440,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						nrOfLoops--
 					} while (nrOfLoops > 0)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, Track.defaultArtworkPath, about)
 		return track
 	}
 
@@ -1491,9 +1450,9 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 
 		const track = new LocalTrack(
 			[
-				SoundData.music('godsruleBattle', `${this.dirGameMusicLayered}/LOTON_BattleBaseLayer.ogg`),
-				SoundData.music('godsruleDefeat', `${this.dirGameMusicLayered}/LOTON_CombatDefeatMusic.ogg`),
-				SoundData.music('godsruleVictory', `${this.dirGameMusicLayered}/LOTON_CombatVictory.ogg`),
+				SoundData.music('godsruleBattle', `${this.dirGameMusic}/LOTON_BattleBaseLayer.ogg`),
+				SoundData.music('godsruleDefeat', `${this.dirGameMusic}/LOTON_CombatDefeatMusic.ogg`),
+				SoundData.music('godsruleVictory', `${this.dirGameMusic}/LOTON_CombatVictory.ogg`),
 			],
 			() => {
 				return async () => {
@@ -1532,13 +1491,14 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 					await playReturn.endedPromise
 					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/godsrule-battle.jpg`)
 		return track
 	}
 
 	private vot() {
-		const rootUrl = 'vikings-of-thule-fued'
-		const name = 'Vikings of Thule: Feud'
+		const rootUrl = 'vikings-of-thule-duel'
+		const name = 'Vikings of Thule: Duel'
+		const about = `I composed and produced the music and sfx for this game. This track starts with the drums when the duel initiated popup displays, then goes to the duel music when the duel starts. The duel end popup queues the duel end music where the music ends (and wind ambience continues). Developed and published by ${this.urlGogogic}.`
 
 		const track = new LocalTrack(
 			[
@@ -1583,37 +1543,37 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 						asyncTimeout()
 					}, ((played.instance.sourceNode.buffer?.duration || 10) * 1000) - 799)
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/vot-duel.jpg`, about)
 		return track
 	}
 
 	private crisisGame() {
 		const rootUrl = 'the-crisis-game'
 		const name = 'The Crisis Game'
+		const about = `The Crisis Game or Kreppuspilið in Icelandic was a board game created after the Icelandic financial crisis that ${this.urlGogogic} produced. I created the jingle for the the video shorts campaign which is available <a href="https://www.youtube.com/@kreppur/videos" target="_blank">here</a>.`
 
-		// INFO: keeping this track short for now for testing purposes
 		const track = new LocalTrack(
 			[
-				// SoundData.music('crisisBegin', `${this.dirGameMusic}/Krepp_Byrjun.ogg`, 0.9),
+				SoundData.music('crisisBegin', `${this.dirGameMusic}/Krepp_Byrjun.ogg`, 0.9),
 				SoundData.music('crisisEnd', `${this.dirGameMusic}/Krepp_Endir.ogg`, 0.9)
 			],
 			() => {
 				return async () => {
 					const begin = this.soundManager.instance.getSound(track.soundDatas[0].key)
-					// const end = this.soundManager.instance.getSound(track.soundDatas[1].key)
+					const end = this.soundManager.instance.getSound(track.soundDatas[1].key)
 
 					let played: Played
 					played = await begin.play()
 					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
 					await played.endedPromise
-					this.instanceEndedListeners.forEach((listener) => listener(true))
+					this.instanceEndedListeners.forEach((listener) => listener())
 
-					// played = await end.play()
-					// this.instancePlayedListeners.forEach((listener) => listener(played.instance))
-					// await played.endedPromise
-					// this.instanceEndedListeners.forEach((listener) => listener(true))
+					played = await end.play()
+					this.instancePlayedListeners.forEach((listener) => listener(played.instance))
+					await played.endedPromise
+					this.instanceEndedListeners.forEach((listener) => listener(true))
 				}
-			}, rootUrl, name)
+			}, rootUrl, name, `${this.dirGameMusic}/the-crisis-game.jpg`, about)
 		return track
 	}
 
