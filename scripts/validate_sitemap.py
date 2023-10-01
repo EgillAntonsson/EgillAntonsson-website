@@ -15,7 +15,7 @@ class MyHTMLParser(HTMLParser):
 
 # Get all the routerlinks from this .html
 parser = MyHTMLParser()
-tree = html.parse('src/app/app.component.html')
+tree = html.parse('../src/app/app.component.html')
 parser.feed(html.tostring(tree).decode("utf-8"))
 parser.close()
 
@@ -28,7 +28,7 @@ base_url = 'https://www.egill.rocks'
 missing_links = links.copy()
 
 # Check that sitemap has all the links that are routerlinks in .html
-tree = ET.parse('deploy/sitemap.xml')
+tree = ET.parse('../deploy/sitemap.xml')
 root = tree.getroot()
 url_el = list(root)
 for el in url_el:

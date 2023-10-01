@@ -10,9 +10,8 @@ describe('LiftingService', () => {
 		const logServiceSpy = jasmine.createSpyObj(LogService, ['log'])
 		const service = new LiftingService(httpClientSpy, logServiceSpy)
 
-		// INFO: testing against actual json data 'creatures.json',
-		// as implementation uses 'require' and not sure how to mock away.
-		// If json data changes much and breaks test, thenS find a way to mock to mock
+		// Testing against actual json data 'creatures.json' as implementation uses 'require' and I'm not sure how to mock it away.
+		// If json data changes much and breaks test then find a way to mock.
 		const testAssert = (sentInKg: number, expectedCreatureLifted: Array<CreatureLifted>) => {
 
 			const ret = service.weightInCreatures(sentInKg)

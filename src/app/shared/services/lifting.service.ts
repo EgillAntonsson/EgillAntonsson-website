@@ -15,6 +15,7 @@ export class LiftingService {
 	hasCalculatedMyStats = false
 
 	constructor(private http: HttpClient, private logService: LogService) {
+
 		/** Load creature list
 		* Sorts by the heaviest first.
 		* mammals: gathered from https://thewebsiteofeverything.com/animals/mammals/adult-weight.html
@@ -36,7 +37,7 @@ export class LiftingService {
 		// calculate egillTotalLifted
 		let totalKgLifted = 0.0
 
-		const pathFitNotes = '../../assets/data/FitNotes_Export.csv'
+		const pathFitNotes = '../../assets/data/FitNotes_Export_Processed.csv'
 
 		// Parse local CSV file
 		this.http.get(pathFitNotes, {responseType: 'text'}).subscribe(data => {
@@ -55,12 +56,22 @@ export class LiftingService {
 				theData.splice(error.row, 1)
 			}
 
+			var hasFaultyCalculation = false
+
 			theData.forEach(fitNoteRow => {
-				const weight = fitNoteRow['Weight (kgs)']
+				const weight = fitNoteRow.Weight
 				const reps = fitNoteRow.Reps
 
 				if (weight !== '' && reps !== '') {
-					totalKgLifted += parseFloat(weight) * parseFloat(reps)
+					const kgLiftedForRow = parseFloat(weight) * parseFloat(reps)
+					totalKgLifted += kgLiftedForRow
+
+					if (isNaN(totalKgLifted)) {
+						if (!hasFaultyCalculation) {
+							this.logService.log(LogType.Error, `totalKgLifted is NaN. FitNoteRow: Date: ${fitNoteRow.Date}, Exercise:  ${fitNoteRow.Exercise}, Weight: ${weight}, Reps: ${reps}`)
+							hasFaultyCalculation = true
+						}
+					}
 				}
 			})
 
@@ -89,7 +100,9 @@ export class LiftingService {
 			}
 
 			if (count > 0) {
-				creaturesLifted.push({count: count, creature: {name: creature.name, kg: creature.kg, url: creature.url}})
+				// const creatureImpl = new CreatureImpl(creature.name, creature.kg, creature.url)
+				// creaturesLifted.push({count: count, creature: creatureImpl})
+				creaturesLifted.push({count: count, creature: creature})
 			}
 
 		})
@@ -105,6 +118,26 @@ export interface Creature {
 	url: string | undefined
 }
 
+// export class CreatureImpl implements Creature {
+// 	name: string
+// 	kg: number
+// 	readonly url: string | undefined
+
+// 	constructor(name: string, kg: number, url: string | undefined) {
+// 		this.name = name
+// 		this.kg = kg
+// 		this.url = url
+// 	}
+
+// 	getNameAndUrl() {
+// 		if (this.url === undefined || this.url === '') {
+// 			return this.name
+// 		}
+// 		return `<a href="${this.url}">${this.name}</a>`
+// 	}
+
+// }
+
 export interface CreatureLifted {
 	count: number
 	creature: Creature
@@ -112,7 +145,8 @@ export interface CreatureLifted {
 
 export interface FitNoteRow {
 	Date: string
-	'Weight (kgs)': string
+	Exercise: string
+	Weight: string
 	Reps: string
 }
 

@@ -12,8 +12,7 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 		<td class="center">{{totalKgLifted | mynumber: 3:'/':1000}}</td>
 		<td>
 			<ul>
-				<li *ngFor="let item of totalCreaturesLifted">
-					{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber: 1}} kg{{item.count > 1 ? ' each' : ''}})
+				<li *ngFor="let creatureLifted of totalCreaturesLifted" [innerHTML]="creatureLifted.render()">
 				</li>
 			</ul>
 		</td>
@@ -55,8 +54,7 @@ During the period {{firstDate | date: 'd. MMMM yyyy'}} - {{lastDate | date: 'd. 
 			<td class="center">{{convertLastInputSubmit}}</td>
 			<td>
 				<ul>
-					<li *ngFor="let item of convertResult">
-						{{item.count}}x  <a href="{{item.creature.url}}">{{item.creature.name}}</a> ({{item.creature.kg | mynumber: 1 }} kg {{item.count > 1 ? ' each' : ''}})
+					<li *ngFor="let creatureLifted of convertResult" [innerHTML]="creatureLifted.render()">
 					</li>
 				</ul>
 			</td>
