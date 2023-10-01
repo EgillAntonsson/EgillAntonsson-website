@@ -26,7 +26,8 @@
 	},
 	{
 		"name": "Blue whale",
-		"kg": 136000
+		"kg": 136000,
+		"url": "https://en.wikipedia.org/wiki/Blue_whale"
 	},
 	{
 		"name": "Tarrasque",
@@ -39,23 +40,24 @@
 	},
 	{
 		"kg": 96400,
-		"name": "Argentinosaurus huinculensis (dinosaur)"
+		"name": "Argentinosaurus huinculensis dinosaur"
 	},
 	{
 		"kg": 80000,
-		"name": "'Antarctosaurus' giganteus (dinosaur)"
+		"name": "'Antarctosaurus' giganteus dinosaur",
+		"url": "https://en.wikipedia.org/wiki/Antarctosaurus#%22Antarctosaurus%22_giganteus"
 	},
 	{
 		"kg": 75900,
-		"name": "Notocolossus gonzalezparejasi (dinosaur)"
+		"name": "Notocolossus gonzalezparejasi dinosaur"
 	},
 	{
 		"kg": 75000,
-		"name": "Mamenchisaurus sinocanadorum (dinosaur)"
+		"name": "Mamenchisaurus sinocanadorum dinosaur"
 	},
 	{
 		"kg": 72600,
-		"name": "Apatosaurus ajax (dinosaur)"
+		"name": "Apatosaurus ajax dinosaur"
 	},
 	{
 		"kg": 70000,
@@ -63,19 +65,19 @@
 	},
 	{
 		"kg": 69000,
-		"name": "Patagotitan mayorum (dinosaur)"
+		"name": "Patagotitan mayorum dinosaur"
 	},
 	{
 		"kg": 60000,
-		"name": "Sauroposeidon proteles (dinosaur)"
+		"name": "Sauroposeidon proteles dinosaur"
 	},
 	{
 		"kg": 59300,
-		"name": "Dreadnoughtus schrani (dinosaur)"
+		"name": "Dreadnoughtus schrani dinosaur"
 	},
 	{
 		"kg": 59000,
-		"name": "Paralititan stromeri (dinosaur)"
+		"name": "Paralititan stromeri dinosaur"
 	},
 	{
 		"kg": 45000,
@@ -96,7 +98,7 @@
 	},
 	{
 		"kg": 20900,
-		"name": "Spinosaurus aegyptiacus (dinosaur)"
+		"name": "Spinosaurus aegyptiacus dinosaur"
 	},
 	{
 		"kg": 20000,
@@ -104,7 +106,7 @@
 	},
 	{
 		"kg": 18500,
-		"name": "Tyrannosaurus rex (dinosaur)"
+		"name": "Tyrannosaurus rex dinosaur"
 	},
 	{
 		"kg": 16000,
@@ -112,11 +114,11 @@
 	},
 	{
 		"kg": 15100,
-		"name": "Carcharodontosaurus saharicus (dinosaur)"
+		"name": "Carcharodontosaurus saharicus dinosaur"
 	},
 	{
 		"kg": 13800,
-		"name": "Giganotosaurus carolinii (dinosaur)"
+		"name": "Giganotosaurus carolinii dinosaur"
 	},
 	{
 		"kg": 11380,
@@ -128,15 +130,15 @@
 	},
 	{
 		"kg": 7300,
-		"name": "Acrocanthosaurus atokensis (dinosaur)"
+		"name": "Acrocanthosaurus atokensis dinosaur"
 	},
 	{
 		"kg": 7000,
-		"name": "Oxalaia quilombensis (dinosaur)"
+		"name": "Oxalaia quilombensis dinosaur"
 	},
 	{
 		"kg": 6999,
-		"name": "Tyrannotitan chubutensis (dinosaur)"
+		"name": "Tyrannotitan chubutensis dinosaur"
 	},
 	{
 		"kg": 6500,
@@ -144,11 +146,11 @@
 	},
 	{
 		"kg": 6400,
-		"name": "Deinocheirus mirificus (dinosaur)"
+		"name": "Deinocheirus mirificus dinosaur"
 	},
 	{
 		"kg": 6000,
-		"name": "Chilantaisaurus tashuikouensis (dinosaur)"
+		"name": "Chilantaisaurus tashuikouensis dinosaur"
 	},
 	{
 		"kg": 5600,
@@ -156,7 +158,7 @@
 	},
 	{
 		"kg": 5200,
-		"name": "Suchomimus tenerensis (dinosaur)"
+		"name": "Suchomimus tenerensis dinosaur"
 	},
 	{
 		"kg": 4800,
@@ -176,7 +178,8 @@
 	},
 	{
 		"kg": 2701,
-		"name": "Cuvier's beaked whale"
+		"name": "Cuvier's beaked whale",
+		"url": "https://en.wikipedia.org/wiki/Cuvier's_beaked_whale"
 	},
 	{
 		"kg": 2200,
@@ -257,7 +260,8 @@
 	},
 	{
 		"kg": 630,
-		"name": "American bison"
+		"name": "American bison",
+		"url": "https://en.wikipedia.org/wiki/American_bison"
 	},
 	{
 		"kg": 610,
@@ -486,7 +490,8 @@
 	},
 	{
 		"kg": 120,
-		"name": "Tiger"
+		"name": "Tiger",
+		"url": "https://en.wikipedia.org/wiki/Tiger"
 	},
 	{
 		"kg": 118,
@@ -694,7 +699,8 @@
 	},
 	{
 		"kg": 34,
-		"name": "Tufted deer"
+		"name": "Tufted deer",
+		"url": "https://en.wikipedia.org/wiki/Tufted_deer"
 	},
 	{
 		"kg": 33,
@@ -831,6 +837,7 @@
 	},
 	{
 		"kg": 0.5,
-		"name": "African hedgehog"
+		"name": "Four-toed hedgehog",
+		"url": "https://en.wikipedia.org/wiki/Four-toed_hedgehog"
 	}
 ]

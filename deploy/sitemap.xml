@@ -504,8 +504,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
-		<lastmod>2023-07-25</lastmod>
-		<changefreq>monthly</changefreq>
+		<lastmod>2023-10-01</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/lifting/Egill_Antonsson_against_the_dragon_breath.jpg</image:loc>
 		</image:image>
@@ -520,12 +519,10 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
 		<lastmod>2023-05-08</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.PNG</image:loc>
 		</image:image>
@@ -536,7 +533,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3-cpp</loc>
 		<lastmod>2023-05-08</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.jpg</image:loc>
 		</image:image>
@@ -547,7 +543,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part4</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-refactoring-ThrowsError-impl.PNG</image:loc>
 		</image:image>
@@ -555,7 +550,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part5</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_tests-protected-from-instant-kill.PNG</image:loc>
 		</image:image>
@@ -563,7 +557,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part6</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-replenish-tests.PNG</image:loc>
 		</image:image>
@@ -571,7 +564,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part7</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/TestRunner_after-increase-tests.PNG</image:loc>
 		</image:image>
@@ -579,7 +571,6 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part8</loc>
 		<lastmod>2023-03-16</lastmod>
-		<changefreq>monthly</changefreq>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/MenuItem_GameConfigInstance.png</image:loc>
 		</image:image>
