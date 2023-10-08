@@ -6,7 +6,7 @@ export class LogService {
 
 	// Set to 'true' to enable logging while developing,
 	// should always be set to 'false' for deployment.
-	private static IS_ENABLED = false
+	private static IS_ENABLED = true
 
 	log(logType: LogType, msg?: any, ...rest: any[]) {
 		if (LogService.IS_ENABLED) {

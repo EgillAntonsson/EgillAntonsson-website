@@ -1,0 +1,82 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+
+<h2>Introduction</h2>
+<p>
+	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank">TDD and modeling a chess game</a>), I'm doing this to practice the TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations will be skipped here as they are already covered in that series.
+<h2>Using Unity</h2>
+<p>
+	I will use <a href="https://unity.com">Unity</a> and its packages  <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html" target="_blank">Test Framework</a>, a Unity integration of the <a href="https://nunit.org" target="_blank">NUnit</a> framework, and <a href="https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/index.html" target="_blank">Code Coverage</a> analysis tool. Other C# .NET framework could be used instead, but Unity was the handiest for me to use. The whole project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
+</p>
+
+<h2>Setup</h2>
+<p>
+	I create a new Unity project (3D). Both packages <i>Test Framework</i> and <i>Code Coverage</i> are already installed as they are part of the already installed <i>Engineering</i> feature set. The package <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">doc</a> detail how to setup tests for a project. My project structure starts simple:
+</p>
+<ul class="list inline">
+	<li>Test code: <i>Scripts/Tests/EditMode/[ClassName]Test.cs</i></li>
+	<li>Production code: <i>Scripts/Runtime/[ClassName].cs</i></li>
+</ul>
+<p>
+	As the folder structure implies I'll do <i>EditMode</i> tests for the <i>Runtime</i> production code. My main reasons to prefer <i>EditMode</i> (over <i>PlayMode</i>) tests are:
+</p>
+<ul class="list inline">
+	<li>They run faster as there is no PlayMode startup cost (in line with <i>What is a good Unit Test</i> section in <a href="./blog/tdd-health/part1">Part 1</a>)</li>
+	<li>Tests for the domain logic should not need the <i>PlayMode</i> test feature to run as <a href="https://docs.unity3d.com/Manual/Coroutines.html">Coroutine</a> to wait or step through frames."</li>
+</ul>
+<p>
+	The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
+</p>
+
+<h2>TDD cycle to drive the design</h2>
+<p>
+	The chess rules are known to many and I will not go into detail here, but they can be found on the internet (e.g. <a href="https://www.chess.com/learn-how-to-play-chess" target="_blank">Chess.com</a>). The intention is to let the TDD cycle drive the design but I will start with the minimum design below, and then start with the King.
+</p>
+<ul class="list inline">
+	<li>The board is 8x8 squares, 8 horizontal rows that are called Ranks and 8 vertical columns that are called Files</li>
+	<li>Each piece has a <i>Position</i> on one of the squares and can move in its own way into a new position</li>
+	<li>The domain model will define 0-based <i>Row(s)</i> and <i>Column(s)</i> and a position as (<i>Row</i>, <i>Column</i>), although the presentation / view is 'a' to 'h' Ranks and 1-based Files. This should streamline the domain model calculations and processing.</li>
+</ul>
+
+<h2>King has a position</h2>
+<h3><span class="redFail">RED (does not compile)</span></h3>
+<div [innerHTML]="hasPositionRedDoesNotCompileText()"></div>
+<pre><code [highlight]="hasPositionRedDoesNotCompileCode()"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<div [innerHTML]="hasPositionGreenText()"></div>
+<pre><code [highlight]="hasPositionGreenCode()"></code></pre>
+<div [innerHTML]="hasPositionGreenText1()"></div>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<div [innerHTML]="hasPositionRefactorText()"></div>
+<pre><code [highlight]="PositionRefactorCodeTest()"></code></pre>
+<pre><code [highlight]="PositionRefactorCodeProd()"></code></pre>
+<div [innerHTML]="hasPositionRefactorText1()"></div>
+<pre><code [highlight]="KingRefactorCodeTest()"></code></pre>
+<pre><code [highlight]="KingRefactorCodeProd()"></code></pre>
+<div [innerHTML]="hasPositionRefactorText2()"></div>
+
+<h2>Optimizing Position equality</h2>
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<div [innerHTML]="positionEqualityRefactorText()"></div>
+<div [innerHTML]="positionEqualityRefactorText1()"></div>
+<pre><code [highlight]="positionEqualityRefactorCode()"></code></pre>
+<div [innerHTML]="positionEqualityRefactorText2()"></div>
+
+<h2>King has move definitions</h2>
+<h3><span class="redFail">RED</span></h3>
+<div [innerHTML]="GetMoveDefinitionsRedText()"></div>
+<pre><code [highlight]="GetMoveDefinitionsRedCode()"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<div [innerHTML]="getMoveDefinitionsGreenText()"></div>
+<pre><code [highlight]="getMoveDefinitionsGreenCode()"></code></pre>

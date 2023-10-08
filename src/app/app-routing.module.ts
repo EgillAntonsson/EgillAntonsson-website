@@ -15,12 +15,9 @@ import { PostTdd5Component } from './blog/posts/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/postTdd8.component'
-import { PostTdd9Component } from './blog/posts/postTdd9.component'
+import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { PostRoutePath } from './shared/services/blog.service'
 
-
-// const tddHealthPart3 = 'tdd-health/part3'
-// const tddHealthPart3Cpp = 'tdd-health/part3-cpp'
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -29,13 +26,13 @@ const routes: Routes = [
 		{path: 'tdd-health/part1', component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
 		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
-		{path: PostRoutePath.tddHealthPart3Cpp, component: PostTdd3CppComponent},
+		{path: PostRoutePath.tddHealthPart3_Cpp, component: PostTdd3CppComponent},
 		{path: 'tdd-health/part4', component: PostTdd4Component},
 		{path: 'tdd-health/part5', component: PostTdd5Component},
 		{path: 'tdd-health/part6', component: PostTdd6Component},
 		{path: 'tdd-health/part7', component: PostTdd7Component},
 		{path: 'tdd-health/part8', component: PostTdd8Component},
-		{path: 'tdd-health/part9', component: PostTdd9Component}
+		{path:  PostRoutePath.tddChessPart1, component: PostChess1Component},
 	]},
 	{path: 'music', component: MusicPageComponent},
 	{path: 'music/:trackName', component: MusicPageComponent},

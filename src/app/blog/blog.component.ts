@@ -31,13 +31,17 @@ export class BlogComponent implements OnDestroy {
 				this.blogService.selectedPost = this.blogService.posts[0]
 				this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 			} else {
-				const post = this.blogService.tryGetPostWithRoutPath(urlEnd)
+				const post = this.blogService.tryGetPostWithRoutePath(urlEnd)
 				if (post !== null) {
 					this.blogService.selectedPost = post
 				}
 			}
 		})
 
+		this.musicService.toggleMinimizeMusicPlayer(true)
+	}
+
+	ngAfterViewChecked(): void {
 		this.musicService.toggleMinimizeMusicPlayer(true)
 	}
 
