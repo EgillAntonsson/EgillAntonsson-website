@@ -36,14 +36,27 @@
 	The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
 </p>
 
-<h2>TDD cycle to drive the design</h2>
+<h2>The rules</h2>
 <p>
-	The chess rules are known to many and I will not go into detail here, but they can be found on the internet (e.g. <a href="https://www.chess.com/learn-how-to-play-chess" target="_blank">Chess.com</a>). The intention is to let the TDD cycle drive the design but I will start with the minimum design below, and then start with the King.
+	Chess has been played for over a thousand years, and it evolved roughly into its current form by about 1500. The chess rules are known to many and the fundamental rules are:
 </p>
 <ul class="list inline">
-	<li>The board is 8x8 squares, 8 horizontal rows that are called Ranks and 8 vertical columns that are called Files</li>
-	<li>Each piece has a <i>Position</i> on one of the squares and can move in its own way into a new position</li>
-	<li>The domain model will define 0-based <i>Row(s)</i> and <i>Column(s)</i> and a position as (<i>Row</i>, <i>Column</i>), although the presentation / view is 'a' to 'h' Ranks and 1-based Files. This should streamline the domain model calculations and processing.</li>
+	<li>The game of chess is a two player turn based game</li>
+	<li>Each player controls sixteen pieces of six types on a chessboard</li>
+	<li>The board is 8x8 squares, 8 horizontal rows that are called Ranks and presented as letters from 'a' to 'h', and 8 vertical columns that are called Files, presented numbers as 1 to 8</li>
+	<li>Each piece has a position on one of the squares and can move to a new position, capturing the opponent piece if in that position</li>
+	<li>Each piece type (King, Queen, Rook, Knight, Bishop, Pawn) moves in its unique way</li>
+	<li>The object of the game is to checkmate the opponent's king</li>
+</ul>
+
+<h2>Some up-front design</h2>
+<p>
+	The intention is to let the TDD cycle drive the design by taking on the next rule / requirement. But before starting the TDD cycle I'll do some up-front design to get a sense of the domain and its concepts, identifying and defining key foundational concepts that I foresee will streamline the domain logic calculations and processing:
+</p>
+<ul class="list inline">
+	<li>A <i>Position</i> data structure seems to be at the foundation of the model</li>
+	<li>The board squares have positions, and the pieces have a position and move into a new position, and each type moves in its unique way.</li>
+	<li>The domain model should be defined in 0-based <i>Row(s)</i> and <i>Column(s)</i> and a <i>Position</i> as (<i>Row</i>, <i>Column</i>), although the presentation / view will be 'a' to 'h' Ranks and 1-based Files.</li>
 </ul>
 
 <h2>King has a position</h2>
