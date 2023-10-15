@@ -11,7 +11,7 @@
 
 <h2>Introduction</h2>
 <p>
-	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank">TDD and modeling a chess game</a>), I'm doing this to practice the TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations will be skipped here as they are already covered in that series.
+	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank">TDD and modeling a chess game</a>), I'm doing this to practice the TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations and steps will be skipped here as they are already covered in that series.
 <h2>Using Unity</h2>
 <p>
 	I will use <a href="https://unity.com">Unity</a> and its packages  <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html" target="_blank">Test Framework</a>, a Unity integration of the <a href="https://nunit.org" target="_blank">NUnit</a> framework, and <a href="https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/index.html" target="_blank">Code Coverage</a> analysis tool. Other C# .NET framework could be used instead, but Unity was the handiest for me to use. The whole project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
@@ -41,55 +41,50 @@
 	Chess has been played for over a thousand years, and it evolved roughly into its current form by about 1500. The chess rules are known to many and the fundamental rules are:
 </p>
 <ul class="list inline">
-	<li>The game of chess is a two player turn based game</li>
-	<li>Each player controls sixteen pieces of six types on a chessboard</li>
-	<li>The board is 8x8 squares, 8 horizontal rows that are called Ranks and presented as letters from 'a' to 'h', and 8 vertical columns that are called Files, presented numbers as 1 to 8</li>
-	<li>Each piece has a position on one of the squares and can move to a new position, capturing the opponent piece if in that position</li>
+	<li>The game of chess is a two player turn based game where each player controls sixteen pieces on a chessboard</li>
+	<li>The board is 8x8 squares, 8 horizontal rows that are called Ranks (and presented as letters from 'a' to 'h'), and 8 vertical columns that are called Files (presented numbers as 1 to 8)</li>
+	<li>Each piece has a position in one of the squares and can move to a new position, capturing an opponent piece if in that position</li>
 	<li>Each piece type (King, Queen, Rook, Knight, Bishop, Pawn) moves in its unique way</li>
-	<li>The object of the game is to checkmate the opponent's king</li>
+	<li>The object of the game is to checkmate the opponent's King</li>
 </ul>
 
 <h2>Some up-front design</h2>
 <p>
-	The intention is to let the TDD cycle drive the design by taking on the next rule / requirement. But before starting the TDD cycle I'll do some up-front design to get a sense of the domain and its concepts, identifying and defining key foundational concepts that I foresee will streamline the domain logic calculations and processing:
+	I'll let the TDD cycle drive the design by taking on the next rule / requirement, one at a time. But I'll now do some up-front design to identify some domain model concepts that I foresee will be key and built upon.
 </p>
-<ul class="list inline">
-	<li>A <i>Position</i> data structure seems to be at the foundation of the model</li>
-	<li>The board squares have positions, and the pieces have a position and move into a new position, and each type moves in its unique way.</li>
-	<li>The domain model should be defined in 0-based <i>Row(s)</i> and <i>Column(s)</i> and a <i>Position</i> as (<i>Row</i>, <i>Column</i>), although the presentation / view will be 'a' to 'h' Ranks and 1-based Files.</li>
-</ul>
+<h3>The Position</h3>
+<p>
+	A <i>Position</i> data structure seems to be at the base of the domain model. The board squares have/are <i>Position(s)</i>, and the pieces have a <i>Position</i> and move into a new <i>Position</i>. To streamline calculations in the domain model the <i>Position</i> should be defined as 0-based <i>Row(s)</i> and <i>Column(s)</i>, although the presentation / view will be 'a' to 'h' Ranks and 1-based Files.
+</p>
 
-<h2>King has a position</h2>
+<h2>Cycling the Position</h2>
 <h3><span class="redFail">RED (does not compile)</span></h3>
-<div [innerHTML]="hasPositionRedDoesNotCompileText()"></div>
-<pre><code [highlight]="hasPositionRedDoesNotCompileCode()"></code></pre>
+<div [innerHTML]="PositionRowColRedText()"></div>
+<pre><code [highlight]="PositionRowColRedCode()"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<div [innerHTML]="hasPositionGreenText()"></div>
-<pre><code [highlight]="hasPositionGreenCode()"></code></pre>
-<div [innerHTML]="hasPositionGreenText1()"></div>
+<div [innerHTML]="PositionRowColGreenText()"></div>
+<pre><code [highlight]="PositionRowColGreenCode()"></code></pre>
+<div [innerHTML]="PositionRowColGreenText1()"></div>
 
-<h3><span class="greenRefactor">REFACTOR</span></h3>
-<div [innerHTML]="hasPositionRefactorText()"></div>
-<pre><code [highlight]="PositionRefactorCodeTest()"></code></pre>
-<pre><code [highlight]="PositionRefactorCodeProd()"></code></pre>
-<div [innerHTML]="hasPositionRefactorText1()"></div>
-<pre><code [highlight]="KingRefactorCodeTest()"></code></pre>
-<pre><code [highlight]="KingRefactorCodeProd()"></code></pre>
-<div [innerHTML]="hasPositionRefactorText2()"></div>
+<h2>Handle invalid parameter values</h2>
 
-<h2>Optimizing Position equality</h2>
-<h3><span class="greenRefactor">REFACTOR</span></h3>
-<div [innerHTML]="positionEqualityRefactorText()"></div>
-<div [innerHTML]="positionEqualityRefactorText1()"></div>
-<pre><code [highlight]="positionEqualityRefactorCode()"></code></pre>
-<div [innerHTML]="positionEqualityRefactorText2()"></div>
-
-<h2>King has move definitions</h2>
 <h3><span class="redFail">RED</span></h3>
-<div [innerHTML]="GetMoveDefinitionsRedText()"></div>
-<pre><code [highlight]="GetMoveDefinitionsRedCode()"></code></pre>
+<pre><code [highlight]="PositionRowInvalidRedCode()"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
-<div [innerHTML]="getMoveDefinitionsGreenText()"></div>
-<pre><code [highlight]="getMoveDefinitionsGreenCode()"></code></pre>
+<pre><code [highlight]="PositionRowInvalidGreenCode()"></code></pre>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="PositionRowInvalidRefactorCode()"></code></pre>
+
+<h3><span class="redFail">RED</span></h3>
+<pre><code [highlight]="PositionColInvalidRedCode()"></code></pre>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="PositionColInvalidGreenCode()"></code></pre>
+
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<pre><code [highlight]="PositionColInvalidRefactorCode()"></code></pre>
+
+<p>I update the ParamName in test from row / column to coord</p>

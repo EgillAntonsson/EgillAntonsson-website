@@ -10,7 +10,7 @@ import { PostComponent } from '../post.component'
 export class PostChess1Component extends PostComponent {
 
 	hasPositionRedDoesNotCompileText() {
-		return `<p>I create the test file and write the first (very basic) test and see it fail as the code does not compile.
+		return `<p>I create the test file and write the first test and see it fail as the code does not compile.
 </p>`
 	}
 
@@ -35,35 +35,15 @@ public class KingTest
 }
 `
 	}
-	hasPositionGreenText() {
-		return `<p>It is effortless to make the test pass as my IDE (<a href="https://www.jetbrains.com/rider/" target="_blank">Jetbrains Rider</a>) and AI tool (<a href="https://github.com/features/copilot/" target="_blank">Github Copilot</a>) help me out as I start to type.`
+	PositionRowColGreenText() {
+		return `<p>It is effortless to make the test pass, and jump over step <i>Red (test fails)</i>, as my IDE (<a href="https://www.jetbrains.com/rider/" target="_blank">Jetbrains Rider</a>) and AI tool (<a href="https://github.com/features/copilot/" target="_blank">Github Copilot</a>) assist me as I start to type.</p>`
 	}
 
-	hasPositionGreenText1() {
-		return `<p>Since this was straightforward I jumped over explicitly doing step 'Red (test fails)' though it has the value of verifying that the test was actually failing before it was made to pass. Going forward I will I do both RED steps (unless straightforward) but will combine them in this presentation and simply call it step RED.</p>`
+	PositionRowColRedText() {
+		return `<p><p>I create the test file and write the first (very basic) test and see it fail as the code does not compile.</p>`
 	}
 
-	hasPositionGreenCode() {
-		return `// King.cs
-public class King
-{
-	public int Row { get; }
-	public int Column { get; }
-
-	public King(int row, int column)
-	{
-		Row = row;
-		Column = column;
-	}
-}
-`
-	}
-
-	hasPositionRefactorText() {
-		return `<p>Defining a <i>Position</i> that has the <i>Row</i> and <i>Column</i> and the King having the <i>position</i> should improve the design. Thus I create 2 new files <i>PositionTest</i> and <i>Position</i>.</p>`
-	}
-
-	PositionRefactorCodeTest() {
+	PositionRowColRedCode() {
 		return `// PositionTest.cs
 using NUnit.Framework;
 
@@ -72,18 +52,18 @@ public class PositionTest
 	public class Constructor
 	{
 		[Test]
-		public void Position_IsSet()
+		public void RowAndColumn_Initialized()
 		{
-			var position = new Position(2, 3);
-			Assert.That(position.Row, Is.EqualTo(2));
-			Assert.That(position.Column, Is.EqualTo(3));
+			var position = new Position(0, 1);
+			Assert.That(position.Row, Is.EqualTo(0));
+			Assert.That(position.Column, Is.EqualTo(1));
 		}
 	}
 }
 `
 	}
 
-	PositionRefactorCodeProd() {
+	PositionRowColGreenCode() {
 		return `// Position.cs
 public struct Position
 {
@@ -99,47 +79,122 @@ public struct Position
 `
 	}
 
-	hasPositionRefactorText1() {
-		return `<p>I think it fits well to have <i>Position</i> as <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/structs#161-general" target="_blank">Struct</a>. Then I refactor the <i>King</i> to have the <i>Position</i>.</p>`
+	PositionRowColGreenText1() {
+		return `<p>I think it fits well to have <i>Position</i> as <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/structs#161-general" target="_blank">Struct</a>, and I encapsulate the properties with getters (if later it turns out that the domain design needs setters then they'll be TDD cycled in).</p>`
 	}
 
-	KingRefactorCodeTest() {
-		return `// KingTest.cs
-using NUnit.Framework;
-
-public class KingTest
+PositionRowInvalidRedCode() {
+	return `// PositionTest.cs
+[Test]
+public void Error_WhenRowParamIsInvalid()
 {
-	public class Constructor
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(), delegate
 	{
-		[Test]
-		public void Position_IsSet()
+		new Position(-1, 0);
+	});
+	Assert.That((exception as ArgumentException)?.ParamName, Does.Match("row").IgnoreCase);
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
+}
+`
+}
+
+PositionRowInvalidGreenCode() {
+	return `// Position.cs
+using System;
+
+public Position(int row, int column)
+{
+	if (row < 0)
+	{
+		throw new ArgumentOutOfRangeException(nameof(row), "Invalid");
+	}
+	Row = row;
+	Column = column;
+}
+`
+}
+
+PositionRowInvalidRefactorCode() {
+	return `// Position.cs
+public Position(int row, int column)
+{
+	const int lowestValidValue = 0;
+	if (row < lowestValidValue)
+	{
+		throw new ArgumentOutOfRangeException(nameof(row), $"Value {row} is invalid, it should be equal or higher than {lowestValidValue}");
+	}
+	Row = row;
+	Column = column;
+}
+`
+}
+
+PositionColInvalidRedCode() {
+	return `// PositionTest.cs
+[Test]
+public void Error_WhenColumnParamIsInvalid()
+{
+	var exception = Assert.Throws(Is.TypeOf<ArgumentOutOfRangeException>(), delegate
+	{
+		new Position(0, -1);
+	});
+	Assert.That((exception as ArgumentException)?.ParamName, Does.Match("column").IgnoreCase);
+	Assert.That(exception.Message, Does.Match("invalid").IgnoreCase);
+}
+`
+}
+
+PositionColInvalidGreenCode() {
+	return `// Position.cs
+public Position(int row, int column)
+{
+	const int lowestValidValue = 0;
+	if (row < lowestValidValue)
+	{
+		throw new ArgumentOutOfRangeException(nameof(row), $"Value {row} is invalid, it should be equal or higher than {lowestValidValue}");
+	}
+	if (column < lowestValidValue)
+	{
+		throw new ArgumentOutOfRangeException(nameof(column), $"Value {column} is invalid, it should be equal or higher than {lowestValidValue}");
+	}
+	Row = row;
+	Column = column;
+}
+
+`
+}
+
+PositionColInvalidRefactorCode() {
+	return `// Position.cs
+public readonly struct Position
+{
+	public int Row { get; }
+	public int Column { get; }
+
+	public Position(int row, int column)
+	{
+		Row = row;
+		Column = column;
+		Validate();
+	}
+
+	private void Validate()
+	{
+		ValidateCoord(Row);
+		ValidateCoord(Column);
+	}
+
+	private static void ValidateCoord(int coord)
+	{
+		const int lowestValidValue = 0;
+		if (coord < lowestValidValue)
 		{
-			var position = new Position(2, 3);
-			var king = new King(position);
-			Assert.That(king.Position, Is.EqualTo(position));
+			throw new ArgumentOutOfRangeException(nameof(coord), $"Value {coord} is invalid, it should be equal or higher than {lowestValidValue}");
 		}
 	}
 }
 `
-	}
-
-	KingRefactorCodeProd() {
-		return `// King.cs
-public class King
-{
-	public Position Position { get; }
-
-	public King(Position position)
-	{
-		Position = position;
-	}
 }
-`
-	}
-
-	hasPositionRefactorText2() {
-		return `<p>The tests passes thus all is good. But I want to improve <i>Position</i> in ways that I know will provide value going forward, so I'll cycle that.</p>`
-	}
 
 	positionEqualityRefactorText() {
 		return `<p>The equality test assertions on the position work because any struct has a default implementation of value equality. I'll paraphrase from the <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type" target="_blank">Microsoft doc</a>: "Any struct has a default implementation of value equality that it inherits from the <i>System.ValueType</i>. This implementation uses reflection which is relatively slow compared to a custom implementation that you write specifically for the type."</p>`
