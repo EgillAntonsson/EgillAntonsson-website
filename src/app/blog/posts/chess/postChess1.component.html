@@ -48,21 +48,24 @@
 	<li>The object of the game is to checkmate the opponent's King</li>
 </ul>
 
-<h2>Some up-front design</h2>
+<h2>Some upfront design</h2>
 <p>
-	I'll let the TDD cycle drive the design by taking on the next rule / requirement, one at a time. But I'll now do some up-front design to identify some domain model concepts that I foresee will be key and built upon.
+	I'll let the TDD cycle drive the design by taking on the next rule / requirement, one at a time. But I'll now design upfront: identifying a domain model concepts that I foresee will be a key building block.
 </p>
 <h3>The Position</h3>
 <p>
-	A <i>Position</i> data structure seems to be at the base of the domain model. The board squares have/are <i>Position(s)</i>, and the pieces have a <i>Position</i> and move into a new <i>Position</i>. To streamline calculations in the domain model the <i>Position</i> should be defined as 0-based <i>Row(s)</i> and <i>Column(s)</i>, although the presentation / view will be 'a' to 'h' Ranks and 1-based Files.
-</p>
+	A <i>Position</i> data structure seems to be at the base of the domain model. The board squares have/are <i>Position(s)</i>, and the pieces have a <i>Position</i> and move into a new <i>Position</i>. To streamline calculations in the domain model the <i>Position</i> will be defined as 0-based <i>Row(s)</i> and <i>Column(s)</i>, although the presentation / view will be 'a' to 'h' Ranks and 1-based Files. I deem it well fitting to define <i>Position</i> as a <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/structs#161-general" target="_blank">Struct</a>.</p>
 
 <h2>Cycling the Position</h2>
 <h3><span class="redFail">RED (does not compile)</span></h3>
-<div [innerHTML]="PositionRowColRedText()"></div>
-<pre><code [highlight]="PositionRowColRedCode()"></code></pre>
+<div [innerHTML]="PositionRowColRedCompileText()"></div>
+<pre><code [highlight]="PositionRowColRedCompileCode()"></code></pre>
 
-<h3><span class="greenPass">GREEN</span></h3>
+<h3><span class="redFail">RED (test fails)</span></h3>
+<div [innerHTML]="PositionRowColRedTestFailsText()"></div>
+<pre><code [highlight]="PositionRowColRedTestFailsCode()"></code></pre>
+
+<h3><span class="greenPass">GREEN and REFACTOR</span></h3>
 <div [innerHTML]="PositionRowColGreenText()"></div>
 <pre><code [highlight]="PositionRowColGreenCode()"></code></pre>
 <div [innerHTML]="PositionRowColGreenText1()"></div>
@@ -70,21 +73,33 @@
 <h2>Handle invalid parameter values</h2>
 
 <h3><span class="redFail">RED</span></h3>
+<div [innerHTML]="PositionRowInvalidRedText()"></div>
 <pre><code [highlight]="PositionRowInvalidRedCode()"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
 <pre><code [highlight]="PositionRowInvalidGreenCode()"></code></pre>
+<div [innerHTML]="PositionRowInvalidGreenText()"></div>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
 <pre><code [highlight]="PositionRowInvalidRefactorCode()"></code></pre>
+<div [innerHTML]="PositionRowInvalidRefactorText()"></div>
 
 <h3><span class="redFail">RED</span></h3>
+<div [innerHTML]="PositionColInvalidRedText()"></div>
 <pre><code [highlight]="PositionColInvalidRedCode()"></code></pre>
 
 <h3><span class="greenPass">GREEN</span></h3>
+<div [innerHTML]="PositionColInvalidGreenText()"></div>
 <pre><code [highlight]="PositionColInvalidGreenCode()"></code></pre>
 
 <h3><span class="greenRefactor">REFACTOR</span></h3>
+<div [innerHTML]="PositionColInvalidRefactorText()"></div>
 <pre><code [highlight]="PositionColInvalidRefactorCode()"></code></pre>
+<div [innerHTML]="PositionColInvalidRefactorText1()"></div>
 
-<p>I update the ParamName in test from row / column to coord</p>
+<h2>Positions should be equal when with same Row and Column</h2>
+<div [innerHTML]="positionsAreEqualIntroText()"></div>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="PositionsAreEqualTestCode()"></code></pre>
+<div [innerHTML]="PositionsAreEqualGreenText()"></div>
