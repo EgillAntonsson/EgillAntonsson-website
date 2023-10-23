@@ -11,30 +11,11 @@
 
 <h2>Introduction</h2>
 <p>
-	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank">TDD and modeling a chess game</a>), I'm doing this to practice the TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations and steps will be skipped here as they are already covered in that series.
-<h2>Using Unity</h2>
-<p>
-	I will use <a href="https://unity.com">Unity</a> and its packages  <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html" target="_blank">Test Framework</a>, a Unity integration of the <a href="https://nunit.org" target="_blank">NUnit</a> framework, and <a href="https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/index.html" target="_blank">Code Coverage</a> analysis tool. Other C# .NET framework could be used instead, but Unity was the handiest for me to use. The whole project is on <a href="https://github.com/EgillAntonsson/tdd-avatar-health-in-unity">GitHub</a>.
-</p>
+	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already done something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank"><i>TDD and modeling a chess game</i> by <i>Erik Dietrich</i></a>), I'm doing this to craft my TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations will be skipped here as they are already covered in that series.
 
-<h2>Setup</h2>
-<p>
-	I create a new Unity project (3D). Both packages <i>Test Framework</i> and <i>Code Coverage</i> are already installed as they are part of the already installed <i>Engineering</i> feature set. The package <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html">doc</a> detail how to setup tests for a project. My project structure starts simple:
-</p>
-<ul class="list inline">
-	<li>Test code: <i>Scripts/Tests/EditMode/[ClassName]Test.cs</i></li>
-	<li>Production code: <i>Scripts/Runtime/[ClassName].cs</i></li>
-</ul>
-<p>
-	As the folder structure implies I'll do <i>EditMode</i> tests for the <i>Runtime</i> production code. My main reasons to prefer <i>EditMode</i> (over <i>PlayMode</i>) tests are:
-</p>
-<ul class="list inline">
-	<li>They run faster as there is no PlayMode startup cost (in line with <i>What is a good Unit Test</i> section in <a href="./blog/tdd-health/part1">Part 1</a>)</li>
-	<li>Tests for the domain logic should not need the <i>PlayMode</i> test feature to run as <a href="https://docs.unity3d.com/Manual/Coroutines.html">Coroutine</a> to wait or step through frames."</li>
-</ul>
-<p>
-	The doc <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html">EditMode vs. PlayMode tests</a> explains the difference further.
-</p>
+<div [innerHTML]="usingUnity('https://github.com/EgillAntonsson/chess')"></div>
+
+<div [innerHTML]="setup"></div>
 
 <h2>The rules</h2>
 <p>
@@ -97,9 +78,10 @@
 <pre><code [highlight]="PositionColInvalidRefactorCode()"></code></pre>
 <div [innerHTML]="PositionColInvalidRefactorText1()"></div>
 
-<h2>Positions should be equal when with same Row and Column</h2>
-<div [innerHTML]="positionsAreEqualIntroText()"></div>
-
-<h3><span class="greenPass">GREEN</span></h3>
-<pre><code [highlight]="PositionsAreEqualTestCode()"></code></pre>
-<div [innerHTML]="PositionsAreEqualGreenText()"></div>
+<p>Running all the test now looks like this:</p>
+<figure>
+	<img src="../assets/images/blog/tdd/chess/TestRunner_green-Position-row-column.jpg" alt="Unity Test Runner: Position row and column tests" title="Unity Test Runner: Position row and column tests" class="imageSmallText">
+	<figcaption>
+		Unity Test Runner: Position row and column tests
+	</figcaption>
+</figure>

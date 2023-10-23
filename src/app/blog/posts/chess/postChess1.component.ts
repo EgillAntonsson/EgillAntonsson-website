@@ -224,44 +224,4 @@ PositionColInvalidRefactorText1() {
 <li>For <i>PositionTest</i> I update that the <i>ParamName</i> should match "coord" (instead of "row" or "column")</li></ul>`
 }
 
-
-positionsAreEqualIntroText() {
-	return `<p>I foresee that the Domain logic will be checking <i>Positions</i> for equality. So I write a test for it.</p>`
-}
-
-PositionsAreEqualTestCode() {
-	return `
-[Test]
-public void AreEqual_WhenWithSameRowAndSameColumn()
-{
-	var position = new Position(2, 3);
-	Assert.That(position, Is.EqualTo(new Position(2, 3)));
-}
-`
-}
-
-PositionsAreEqualGreenText() {
-		return `<p>The test passes without any implementation from me because any struct has a default implementation of value equality. Paraphrasing from the <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type" target="_blank">Microsoft doc</a>: "Any struct has a default implementation of value equality that it inherits from the <i>System.ValueType</i>. This implementation uses reflection which is relatively slow compared to a custom implementation that you write specifically for the type."</p>`
-	}
-
-	positionEqualityRefactorText1() {
-		return `<p>Although my default approach is to use the profiler to identify and verify optimization changes, I'll take the doc words for this and do a custom equality implementation. It also makes intent of the code more explicit. I add the line to the existing test case.</p>`
-	}
-
-	positionEqualityRefactorCode() {
-		return `// PositionTest.cs
-Assert.That(position, Is.EqualTo(new Position(2, 3)));
-`
-	}
-
-	positionEqualityRefactorText2() {
-		return `<p>Although my default approach is to use the profiler to identify and verify optimization changes, I'll take the doc words for this and do a custom equality implementation. It also makes intent of the code more explicit. I add the line to the existing test case.</p>`
-	}
-
-	positionEqualityRefactorCode2() {
-		return `// PositionTest.cs
-Assert.That(position, Is.EqualTo(new Position(2, 3)));
-`
-	}
-
 }

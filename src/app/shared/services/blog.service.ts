@@ -27,9 +27,9 @@ export class BlogService {
 				]
 			}
 		]
-		const seriesTddChessTitle = 'TDD-ing Chess in C# and C++'
+		const seriesTddChessTitle = 'TDD-ing Chess in C#'
 		this.series.push({title: seriesTddChessTitle, posts: [
-			new Post('Part 1 - Implementation begins - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 7), new Date(2023, 9, 7))
+			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 9, 23))
 		]})
 
 
