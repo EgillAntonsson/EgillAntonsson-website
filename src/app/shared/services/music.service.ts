@@ -148,6 +148,8 @@ export class MusicService implements OnDestroy {
 		// padding at top and add below player set to 22
 		height = height + 35 + 22;
 
+		this.logService.log(LogType.Info, 'setHeaderContainerHeight', height)
+
 		headerContainerElement.value.nativeElement.style.height =  height + 'px'
 		headerBackgroundElement.value.nativeElement.style.height =  height + 'px'
 	}

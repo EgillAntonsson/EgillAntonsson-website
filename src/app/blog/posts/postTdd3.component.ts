@@ -56,7 +56,7 @@ public class HealthTest
 	}
 
 	redStartingValue1() {
-		return `<p>I write the minimal production code for the compiler to compile successfully and then run the test and I want to see it fail to verify that the test is not passing when it should not.</p>`
+		return `<p>I write the minimal production code to compile successfully and intentionally make the test fail to verify that the test is not passing when it should not (testing the test).</p>`
 	}
 
 	codeTestRedStartingValue() {
@@ -87,7 +87,7 @@ public class Health
 	}
 
 	redStartingValue2() {
-		return `<p>Going forward I will skip demonstrating both 'red' steps and only demonstrate one and simply call it RED (although I do both steps when coding).
+		return `<p>Going forward I will usually skip demonstrating both RED steps and only demonstrate one and simply call it RED, But I do both steps when coding as it is important to test the test.
 	</p>`
 	}
 

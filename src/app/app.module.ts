@@ -17,6 +17,7 @@ import { MusicPageComponent } from './musicPage/musicPage.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
 import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 import { RandomNumber, RandomNumberService } from './shared/services/randomNumber.service'
 import { PostTdd1Component } from './blog/posts/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/postTdd2.component'
@@ -27,8 +28,8 @@ import { PostTdd5Component } from './blog/posts/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/postTdd8.component'
-import { PostTdd9Component } from './blog/posts/postTdd9.component'
-import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
+import { PostChess1Component } from './blog/posts/chess/postChess1.component'
+
 
 @NgModule({
 	imports: [
@@ -61,7 +62,7 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 		PostTdd6Component,
 		PostTdd7Component,
 		PostTdd8Component,
-		PostTdd9Component
+		PostChess1Component
 	],
 	bootstrap: [AppComponent],
 	providers: [{
