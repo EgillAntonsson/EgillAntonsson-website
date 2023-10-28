@@ -1,23 +1,22 @@
 import { Component, } from '@angular/core'
 import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms'
-import { LiftingService, CreatureLifted } from '../shared/services/lifting.service'
+import { LiftingService, Creature } from '../shared/services/lifting.service'
 
 @Component({
 	selector: 'app-lift',
 	templateUrl: './lifting.component.html',
 	styleUrls: ['./lifting.component.css']
 })
+
 export class LiftingComponent {
 
 	firstDate: Date = new Date(2016, 6, 15)
 	lastDate: Date = new Date()
 	totalKgLifted = 0
-	totalCreaturesLifted: Array<CreatureLifted> = []
-
-
+	totalCreaturesLifted: Array<CreatureLiftedRenderer> = []
 
 	convertLastInputSubmit = 0
-	convertResult: Array<CreatureLifted> = []
+	convertResult: Array<CreatureLiftedRenderer> = []
 	convertForm: UntypedFormGroup
 	inputKgControl
 	maximumInputAllowed = 999999999
@@ -27,13 +26,16 @@ export class LiftingComponent {
 
 		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
 			this.totalKgLifted = myLiftingStats.totalKgLifted
-			this.totalCreaturesLifted = myLiftingStats.totalCreaturesLifted
+			for (const creatureLifted of myLiftingStats.totalCreaturesLifted) {
+				this.totalCreaturesLifted.push(new CreatureLiftedRenderer(creatureLifted.count, creatureLifted.creature))
+			}
 			this.firstDate = myLiftingStats.firstDate
 			this.lastDate = myLiftingStats.lastDate
 		})
 
 
-		// INFO: input html set to type "number", which does not allow characters on desktop, but good to have also the pattern (might be needed on mobile, to be later verified)
+		// Input html should be set to type "number", which does not allow characters on desktop.
+		// Also adding Validators.pattern as it might be needed for mobile.
 		const initialKgValue = 120
 		this.convertForm = this.fb.group({
 			inputKg: [initialKgValue,[
@@ -48,7 +50,6 @@ export class LiftingComponent {
 		this.convert(initialKgValue)
 	}
 
-
 	inputEvent() {
 		const inputNumber = parseFloat(this.inputKgControl.value)
 
@@ -61,7 +62,29 @@ export class LiftingComponent {
 	}
 
 	private convert(number: number) {
-		this.convertResult = this.liftingService.weightInCreatures(number)
+		const creaturesLifted = this.liftingService.weightInCreatures(number)
+		for (const creatureLifted of creaturesLifted) {
+			this.convertResult.push(new CreatureLiftedRenderer(creatureLifted.count, creatureLifted.creature))
+		}
 	}
 
+}
+
+export class CreatureLiftedRenderer {
+	readonly count: number
+	readonly creature: Creature
+
+	constructor(count: number, creature: Creature) {
+		this.count = count
+		this.creature = creature
+	};
+
+	render() {
+		let creatureName = this.creature.name
+		if (this.creature.url !== '' && this.creature.url !== undefined) {
+			creatureName = `<a href="${this.creature.url}" target="_blank">${this.creature.name}</a>`
+		}
+		console.log('creatureName', creatureName)
+		return `${this.count}x ${creatureName}`
+	}
 }

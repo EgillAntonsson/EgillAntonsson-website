@@ -4,18 +4,7 @@ This is the codebase project for my personal website:
 
 ## [Egill.rocks](https://egill.rocks)
 
-## Development 💻💾
-
-Project uses the [Angular](https://angular.io) framework
-
-### Angular CLI most used commands 📜
-
-- [> ng serve](https://angular.io/cli/serve)
-- [> ng test](https://angular.io/guide/testing#set-up-testing)
-- [> ng e2e](https://angular.io/cli/e2e)
-- [> ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
-
-## Build steps 🛠️
+## Build 🛠️
 
 py scripts require `Python 3.7.1`
 
@@ -32,8 +21,24 @@ py scripts require `Python 3.7.1`
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc4a4897-0a5a-4854-b26c-ff66d80c0d94/deploy-status)](https://app.netlify.com/sites/egillantonsson/deploys)
 
-### Domain redirects
-
-Are defined in file [deploy/_redirects](deploy/_redirects) and handled by Netlify.
+Domain redirects are defined in file [deploy/_redirects](deploy/_redirects) and handled by Netlify.
 
 ## [License](LICENSE) 📜
+
+## Development 💻
+
+Project uses the [Angular](https://angular.io) framework
+
+### Angular CLI most used commands 📜
+
+- [ng serve](https://angular.io/cli/serve)
+- [ng test](https://angular.io/guide/testing#set-up-testing)
+- [ng e2e](https://angular.io/cli/e2e)
+- [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
+
+## Tons lifted | Creature lifted 🏋️‍♂️
+
+Steps to update the `Tons lifted / Creature lifted` table:
+1. In the [FitNotes](http://www.fitnotesapp.com) app export the workout data as a CSV file (`Settings > Spreadsheet Export >` with `WorkoutData` selected).
+1. Put the CSV file in the `scripts/fitNotesExport/` folder.
+1. Be in dir `scripts/fitNotesExport/` and run `py fitNotesExport.py` to generate the `src/assets/data/FitNotes_Export_Processed.csv` file, that the website uses to display the table.
