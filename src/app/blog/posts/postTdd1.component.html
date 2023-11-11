@@ -1,4 +1,3 @@
-<!-- <h1>TDD-ing Avatar Health in C# via Unity</h1> -->
 <h1>{{post.seriesTitle}}</h1>
 <h2>{{post.title}}</h2>
 <div class="byAndDate">
@@ -9,56 +8,78 @@
 		updated on {{updatedDateToString}}
 	</small>
 </div>
-
-<h2>What is TDD ?</h2>
+<h2>Introduction</h2>
 <p>
-	TDD is an acronym for <i>Test Driven Development</i><br>
-	and is a workflow discipline / approach for developers, focused on <b>when</b> to write unit tests,<br>
-	and the heart of it is the <a href="http://www.jamesshore.com/v2/blog/2005/red-green-refactor">RED / GREEN / REFACTOR cycle:</a>
-</p>
-<ol class="list">
-	<li><span class="redFail">RED:</span> Write a test that fails</li>
-	<li><span class="greenPass">GREEN:</span> Get the test to pass, with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> Evaluate if refactoring is needed, e.g. remove a <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smell</a>
-</ol>
-<p>The cycle should focus is on fulfilling a requirement on the SUT (Subject/Unit Under Test)<br>
-	repeating it until you are confident that the SUT has become generic enough to handle all meaningful cases<br>
-	(as the tests become more specific).<br>
-	At some interval you should stop and evaluate if the design of the overall system is sound, if not then refactor it.<br>
-	(all tests run and passing as frequently as needed).<br>
-	This is my summarization of Uncle Bob's post <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">The Cycles of TDD</a>.<br>
-	(Bob terms additional cycles within and around RED / GREEN / REFACTOR).
+ Test-Focused Development is a broad term that encompasses a variety of methodologies that prioritize writing unit tests as a significant part of the development process. The main methodology is Test-Driven Development (TDD) that focuses on <i>when</i> to write unit tests, thus there are 2 underlying and skills needed to be applied as well to reap the benefits of TDD (and more broadly Test-Focused Development): Writing <b>Good</b> unit tests and designing <b>Good</b> architecture. Let's go through these 3 skills.
 </p>
 
-<h2>What is a good Unit Test ?</h2>
+<h2>Good unit test</h2>
 <p>
-	A good unit test is focused on a specific SUT requirement,<br>
-	of meaningful logic (e.g. don't test simple getter properties on their own).<br>
-	The test code should be kept as clean as the production code (<span class="greenRefactor">REFACTOR</span> step in TDD applies to both).<br>
-	Here are definitions from <b>Roy Osherove</b> in <i>The Art of Unit testing, 3rd edition</i><br>
-	(for him the word 'unit' in unit testing stands for 'unit of work'):
+	A good unit test should focus on a specific observable requirement on the SUT (Subject / Unit Under Test). The book <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition" target="_blank">The Art of Unit testing, 3rd edition</a> by <b>Roy Osherove</b> focuses on writing good unit tests and the below definitions are from the book (for him the word 'unit' in unit testing stands for 'unit of work' or a 'use case').
 </p>
-
-<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/25">Unit of Work definition</a></h3>
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/38">Unit of work</a></h3>
 <p>
-A <i>unit of work</i> is the sum of actions that take place between the invocation of an <i>entry point</i><br>
-up until a noticeable end result through one or more <i>exit points</i>.<br>
-The <i>entry point</i> is the thing we trigger.<br>
-Given a publicly visible function, for example:
+A <i>unit of work</i> is the sum of actions that take place between the invocation of an <i>entry point</i> (what is triggered) up until a noticeable end result through one or more <i>exit points</i>.
+</p>
+<p>
+	Given a publicly visible function:
 </p>
 <ul class="list inline">
 	<li>The function's body is all or part of the <i>unit of work</i>.</li>
 	<li>The function's declaration and signature are the <i>entry point</i> into the body.</li>
 	<li>The resulting outputs or behaviors of the function are its <i>exit points</i>.</li>
 </ul>
-
-<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-6/193">Good Unit Test definition</a></h3>
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/137">A Good unit test</a></h3>
+<h4>A Good automated test (not just unit test)</h4>
+<ul class="list">
+	<li>Should be easy to read and understand the intent of the author and to write.</li>
+	<li>Should be consistent in its results (it always returns the same result if you don't change anything between runs).</li>
+	<li>Should be useful and provide actionable results.</li>
+	<li>Anyone should be able to run it at the push of a button.</li>
+	<li>When it fails, it should be easy to detect what was expected and pinpoint the problem.</li>
+</ul>
+<h4>Good unit test</h4>
+<ul class="list">
+	<li>Should run quickly.</li>
+	<li>Should have full control of the code under test.</li>
+	<li>Should be fully isolated (runs independently of other tests).</li>
+	<li>Should run in memory without requiring system files, networks, databases...</li>
+	<li>should be as synchronous and linear as possible (no parallel threads if we can help it).</li>
+</ul>
+<h4><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/206" target="_blank">Good unit test summarized</a></h4>
 <p>
-A <i>unit test</i> is an automated piece of code that invokes the <i>unit of work</i><br>
-through an <i>entry point</i>, and then checks one of its <i>exit points</i>.<br>
-It can be written easily and runs quickly.<br>
-<b>It's trustworthy, readable & maintainable.<br>
-It is consistent as long as the production code we control has not changed.</b>
+	A unit test is an automated piece of code that invokes the unit of work through an entry point, and then checks one of its exit points. It can be written easily and runs quickly. <b>It's trustworthy, readable & maintainable. It is consistent as long as the production code we control has not changed.</b>
+</p>
+
+<h2>Good code architecture</h2>
+<p>
+	Designing good code architecture is a fundamental skill on provides good of value on its own, but also needs to be applied to reap the benefits of TDD (and more broadly Test-Focused Development). This applies to principles from both Object Oriented programming and <a href="https://livebook.manning.com/book/functional-programming-in-scala-second-edition/" target="_blank">Functional programming</a> (for example function with side effects complicates / limits testability).
+</p>
+<p>
+	There is a correlation also in the other direction as TDD, done in the <b>Good</b> way, pushes for  good code code design and maintainability (for both the production and the test code), for example:
+</p>
+<ul class="list inline">
+	<li><a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a></li>
+	<li>code should be low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupled</a> / have minimal dependencies</li>
+	<li>each unit should have a readable and requirement focused interface and internals should be <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulated</a></li>
+</ul>
+<h2>Test-Driven Development</h2>
+<p>
+	Test-Driven Development (acronym TDD) and is a workflow discipline for developers. TDD is focused on <i>when</i> to write unit tests. The workflow is not focused on <i>how</i> to write good unit test, so let's first go through that and then continue with the TDD definition.<br>
+</p>
+<figure>
+	<img src="../assets/images/blog/tdd/what/tdd-red-green-refactor.svg" alt="TDD: RED GREEN REFACTOR" title="TDD: RED GREEN REFACTOR" class="imageSmallTextNoBorder">
+	<figcaption>
+		The three steps of the TDD cycle
+	</figcaption>
+</figure>
+<ol class="list">
+	<li><span class="redFail">RED:</span> Write a test and see it fail (verifying that the test is not passing when it should not)</li>
+	<li><span class="greenPass">GREEN:</span> Get the test to pass with minimal effort</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Clean up <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> and improve the design (skip if not needed)</li>
+</ol>
+<p>
+	The cycle should focus is on fulfilling a specific requirement on the SUT (Subject / Unit Under Test). The cycle should be repeated until you are confident that the SUT handles all required and meaningful cases (the more specific the tests become, the the more generic the SUT functionality becomes). All tests should be run at each step of the cycle.
 </p>
 
 <h2>Why do TDD ?</h2>

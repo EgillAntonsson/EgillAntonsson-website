@@ -1,0 +1,48 @@
+<mxfile host="65bd71144e">
+    <diagram id="-dzr-VzIc1iXK7SEfwf3" name="Page-1">
+        <mxGraphModel dx="2825" dy="2326" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="90" style="edgeStyle=none;html=1;rounded=0;sketch=1;curveFitting=1;jiggle=2;strokeWidth=6;fillColor=#a20025;strokeColor=#6F0000;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1400" y="-1070" as="sourcePoint"/>
+                        <mxPoint x="-1370" y="-1020" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="87" value="&lt;font style=&quot;font-size: 20px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Architects+Daughter&quot; face=&quot;Architects Daughter&quot;&gt;1. RED&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="-1525" y="-1130" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" style="edgeStyle=none;html=1;rounded=0;sketch=1;curveFitting=1;jiggle=2;strokeWidth=6;fillColor=#60a917;strokeColor=#2D7600;" parent="1" target="89" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1430" y="-970" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="88" value="&lt;font style=&quot;font-size: 20px;&quot; face=&quot;Architects Daughter&quot;&gt;2. GREEN&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="-1425" y="-1010" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" style="edgeStyle=none;html=1;rounded=0;sketch=1;curveFitting=1;jiggle=2;strokeWidth=6;fillColor=#008a00;strokeColor=#005700;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1560" y="-1020" as="sourcePoint"/>
+                        <mxPoint x="-1530" y="-1080" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="89" value="&lt;font style=&quot;font-size: 18px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Architects+Daughter&quot; face=&quot;Architects Daughter&quot;&gt;3. REFACTOR&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="-1625" y="-1010" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" style="edgeStyle=orthogonalEdgeStyle;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;html=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;exitX=0.325;exitY=1.038;exitDx=0;exitDy=0;exitPerimeter=0;fillColor=#008a00;strokeColor=#005700;curved=1;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="89" target="89" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1585" y="-930" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="-1630" y="-900"/>
+                        </Array>
+                        <mxPoint x="-1560" y="-920" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="100" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;repeat until clean&lt;/font&gt;" style="text;strokeColor=#005700;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="-1623.75" y="-910" width="117.5" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

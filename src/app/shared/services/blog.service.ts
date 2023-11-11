@@ -12,21 +12,24 @@ export class BlogService {
 
 	constructor() {
 
+		this.series = []
+		const seriesTddWhatWhyWhenTitle = 'Test-Focused Development'
+		this.series.push({title: seriesTddWhatWhyWhenTitle, posts: [
+			new Post('The What and How', 'tdd/what', seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2022, 4, 14)),
+			new Post('TDD: When?', 'tdd/when', seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2022, 4, 14))
+		]})
+
 		const seriesTddTitle = 'TDD-ing Avatar Health in C# and C++'
-		this.series = [
-			{title: seriesTddTitle, posts: [
-				new Post('Part 1 - TDD: What, Why, When ?', 'tdd-health/part1', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 14)),
-				new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 14)),
-				new Post( 'Part 3 - Implementation begins - C#', PostRoutePath.tddHealthPart3, seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 5, 8)),
-				new Post( 'Part 3 - Implementation begins - C++', PostRoutePath.tddHealthPart3_Cpp, seriesTddTitle, new Date(2023, 5, 8)),
-				new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 14)),
-				new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 14)),
-				new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
-				new Post( 'Part 7 - The Increasing and Max part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
-				new Post( 'Part 8 - Adding the Config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 16))
-				]
-			}
-		]
+		this.series.push({title: seriesTddTitle, posts: [
+			new Post('Part 2 - The assignment: The Avatar Health', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30), new Date(2022, 4, 14)),
+			new Post( 'Part 3 - Implementation begins - C#', PostRoutePath.tddHealthPart3, seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 5, 8)),
+			new Post( 'Part 3 - Implementation begins - C++', PostRoutePath.tddHealthPart3_Cpp, seriesTddTitle, new Date(2023, 5, 8)),
+			new Post( 'Part 4 - Taking Damage', 'tdd-health/part4', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 14)),
+			new Post( 'Part 5 - The Dying part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 14)),
+			new Post( 'Part 6 - The Replenishing part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
+			new Post( 'Part 7 - The Increasing and Max part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
+			new Post( 'Part 8 - Adding the Config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 16))
+		]})
 		const seriesTddChessTitle = 'TDD-ing Chess in C#'
 		this.series.push({title: seriesTddChessTitle, posts: [
 			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 9, 23))
