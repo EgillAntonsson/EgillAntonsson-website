@@ -517,8 +517,18 @@
 		<lastmod>2023-07-16</lastmod>
 	</url>
 	<url>
+		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
+		<lastmod>2023-11-12</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/what/unit-of-work-with-3-exit-points-triangle.svg</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/what/tdd-red-green-refactor.svg</image:loc>
+		</image:image>
+	</url>
+	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
-		<lastmod>2023-03-16</lastmod>
+		<lastmod>2023-11-12</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
@@ -589,9 +599,9 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd-chess/part1-csharp</loc>
-		<lastmod>2023-10-23</lastmod>
+		<lastmod>2023-11-23</lastmod>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/chess/TestRunner_green-Position-row-column.jpg</image:loc>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/chess/positions-on-board.svg</image:loc>
 		</image:image>
 	</url>
 </urlset>
