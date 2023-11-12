@@ -23,7 +23,7 @@ const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
-		{path: 'tdd/what', component: PostTdd1Component},
+		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
 		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
 		{path: PostRoutePath.tddHealthPart3_Cpp, component: PostTdd3CppComponent},
