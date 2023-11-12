@@ -11,7 +11,7 @@
 
 <h2>Introduction</h2>
 <p>
-	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already done something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank"><i>TDD and modeling a chess game</i> by <i>Erik Dietrich</i></a>), I'm doing this to craft my TDD workflow and share its values and result with you. The series is a continuation of the series <a href="./blog/tdd-health/part1" target="_blank">TTD-ing Avatar Health in C# and C++</a> where I implemented a health system for an avatar, and thus some explanations will be skipped here as they are already covered in that series.
+	This is the first post in a series of posts where I will implement a chess game in the TDD workflow. Though others have already done something similar (e.g. <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/" target="_blank"><i>TDD and modeling a chess game</i> by <i>Erik Dietrich</i></a>), I'm doing this to craft my TDD workflow and share its values and result with you.  Some explanations will be skipped here as they are already covered in that series <a href="./blog/tdd-health/part3" target="_blank">TTD-ing Avatar Health in C# and C++</a>.
 
 <div [innerHTML]="usingUnity('https://github.com/EgillAntonsson/chess')"></div>
 
@@ -19,7 +19,7 @@
 
 <h2>The rules</h2>
 <p>
-	Chess has been played for over a thousand years, and it evolved roughly into its current form by about 1500. The chess rules are known to many and the fundamental rules are:
+	Chess has been played for over a thousand years and it evolved roughly into its current form by about 1500. The chess rules are known to many and the basic rules are:
 </p>
 <ul class="list inline">
 	<li>The game of chess is a two player turn based game where each player controls sixteen pieces on a chessboard</li>
@@ -29,29 +29,54 @@
 	<li>The object of the game is to checkmate the opponent's King</li>
 </ul>
 
-<h2>Some upfront design</h2>
+<h2>The Position</h2>
+<figure>
+	<img src="../assets/images/blog/tdd/chess/positions-on-board.svg" alt="Each board square is a position (column, row)" title="Each board square is a position (column, row)" class="imageSmallTextNoBorder">
+	<figcaption>
+		Each board square is a position (column, row)
+	</figcaption>
+</figure>
 <p>
-	I'll let the TDD cycle drive the design by taking on the next rule / requirement, one at a time. But I'll now design upfront: identifying a domain model concepts that I foresee will be a key building block.
+	A <i>Position</i> data structure seems to be at the base of the domain model. The board squares are positions, and the pieces have a position and move into a new position.  To streamline calculations in the domain model the <i>Position</i> will be defined as 0-based <i>Column</i> and <i>Row</i>, although the presentation / view will be 'a' to 'h' Rank and 1-based File. I deem it well fitting to define <i>Position</i> as a <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/structs#161-general" target="_blank">Struct</a>.
 </p>
-<h3>The Position</h3>
 <p>
-	A <i>Position</i> data structure seems to be at the base of the domain model. The board squares have/are <i>Position(s)</i>, and the pieces have a <i>Position</i> and move into a new <i>Position</i>. To streamline calculations in the domain model the <i>Position</i> will be defined as 0-based <i>Row(s)</i> and <i>Column(s)</i>, although the presentation / view will be 'a' to 'h' Ranks and 1-based Files. I deem it well fitting to define <i>Position</i> as a <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/structs#161-general" target="_blank">Struct</a>.</p>
-
+	Some upfront design like this fits well with the TDD workflow, as long as it does go towards wholistic water flow design phase, as the TDD cycles should drive most of the design by taking on the next rule / requirement, one at a time.
+</p>
 <h2>Cycling the Position</h2>
 <h3><span class="redFail">RED (does not compile)</span></h3>
-<div [innerHTML]="PositionRowColRedCompileText()"></div>
-<pre><code [highlight]="PositionRowColRedCompileCode()"></code></pre>
+<div [innerHTML]="posColRowRedCompileText"></div>
+<pre><code [highlight]="posColRowRedCompileCode"></code></pre>
 
 <h3><span class="redFail">RED (test fails)</span></h3>
-<div [innerHTML]="PositionRowColRedTestFailsText()"></div>
-<pre><code [highlight]="PositionRowColRedTestFailsCode()"></code></pre>
+<div [innerHTML]="posColRowRedTestFailsText"></div>
+<pre><code [highlight]="posColRowRedTestFailsCode"></code></pre>
 
-<h3><span class="greenPass">GREEN and REFACTOR</span></h3>
-<div [innerHTML]="PositionRowColGreenText()"></div>
-<pre><code [highlight]="PositionRowColGreenCode()"></code></pre>
-<div [innerHTML]="PositionRowColGreenText1()"></div>
+<h3><span class="greenPass">GREEN</span></h3>
+<div [innerHTML]="posColRowGreenText"></div>
+<pre><code [highlight]="posColRowGreenCode"></code></pre>
 
-<h2>Handle invalid parameter values</h2>
+<h3><span class="greenRefactor">REFACTOR</span></h3>
+<div [innerHTML]="posColRowRefactorText"></div>
+<pre><code [highlight]="posColRowRefactorCode"></code></pre>
+
+<h2>Comparing positions</h2>
+<div [innerHTML]="posEqualsIntroText"></div>
+
+<h3><span class="greenPass">GREEN</span></h3>
+<pre><code [highlight]="posEqualsTestCode"></code></pre>
+<div [innerHTML]="posEqualsGreenText"></div>
+
+<h3><span class="redFail">RED (does not compile)</span></h3>
+<pre><code [highlight]="posEqualsOpRedCode"></code></pre>
+<div [innerHTML]="posEqualsOpRedText"></div>
+
+<h3><span class="greenRefactor">GREEN and REFACTOR</span></h3>
+<div [innerHTML]="posEqualsRefactorText"></div>
+<pre><code [highlight]="posEqualsRefactorCode"></code></pre>
+<div [innerHTML]="posEqualsRefactorText1"></div>
+
+
+<!-- <h2>Handle invalid parameter values</h2>
 
 <h3><span class="redFail">RED</span></h3>
 <div [innerHTML]="PositionRowInvalidRedText()"></div>
@@ -84,4 +109,4 @@
 	<figcaption>
 		Unity Test Runner: Position row and column tests
 	</figcaption>
-</figure>
+</figure> -->

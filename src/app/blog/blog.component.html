@@ -1,4 +1,5 @@
 
+<h2>Code blog</h2>
 <div class="treeContainer noSelect">
 	<div *ngFor="let series of blogSeries; let seriesIndex = index">
 		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
@@ -16,20 +17,3 @@
 </div>
 
 <router-outlet></router-outlet>
-
-<br>
-<div class="treeContainer">
-	<div *ngFor="let series of blogSeries; let seriesIndex = index">
-		<div class="branchContainer" (click)="onSeriesClick(seriesIndex)">
-				<div class="branchIconContainer">
-						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != seriesIndex, branchAnimateOpen: openedUiSeriesIndex === seriesIndex}"></div>
-					</div>
-			<span>{{series.title}}</span>
-		</div>
-		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === seriesIndex">
-			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of series.posts" (click)="onPostClick(post)">
-				{{post.title}}
-			</div>
-		</div>
-	</div>
-</div>

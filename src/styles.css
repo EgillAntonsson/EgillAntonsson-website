@@ -218,6 +218,13 @@ figcaption {
 	margin: 0 auto;
 }
 
+.imageSmallTextNoBorder
+{
+	max-width: 575px;
+	display: block;
+	margin: 0 auto;
+}
+
 .headerContainer {
 	height: 100px;
 }
@@ -256,6 +263,22 @@ hr {
 }
 .noSelect:focus {
 	outline: none !important;
+}
+
+@keyframes textRoll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.text-roll {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: textRoll 10s linear infinite;
 }
 
 /* #region tree branch node container */
