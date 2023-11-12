@@ -10,62 +10,88 @@
 </div>
 <h2>Introduction</h2>
 <p>
- Test-Focused Development is a broad term that encompasses a variety of methodologies that prioritize writing unit tests as a significant part of the development process. The main methodology is Test-Driven Development (TDD) that focuses on <i>when</i> to write unit tests, thus there are 2 underlying and skills needed to be applied as well to reap the benefits of TDD (and more broadly Test-Focused Development): Writing <b>Good</b> unit tests and designing <b>Good</b> architecture. Let's go through these 3 skills.
+ Test-Focused Development is a broad term that encompasses a variety of methodologies that prioritize writing unit tests as a significant part of the development process. The main methodology and skill is Test-Driven Development (TDD) that focuses on <i>when</i> to write unit tests, thus there are 2 underlying skills needed to be applied as well to reap the benefits of TDD / Test-Focused Development: Writing <b>Good</b> unit tests and designing <b>Good</b> architecture. Let's go through these 3 skills.
 </p>
 
 <h2>Good unit test</h2>
 <p>
-	A good unit test should focus on a specific observable requirement on the SUT (Subject / Unit Under Test). The book <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition" target="_blank">The Art of Unit testing, 3rd edition</a> by <b>Roy Osherove</b> focuses on writing good unit tests and the below definitions are from the book (for him the word 'unit' in unit testing stands for 'unit of work' or a 'use case').
+ The book <a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition" target="_blank">The Art of Unit testing, 3rd edition</a> by <b>Roy Osherove</b> focuses on writing good unit tests and I recommend reading it. Below is summarized definitions in the 1st chapter of his book (I rephrased a bit and add some of my own thoughts).
 </p>
-<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/38">Unit of work</a></h3>
+
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/point-18329-140-147-0" target="_blank">Good automated test</a> (not just unit test)</h3>
+<ul class="list">
+	<li>Should be easy to read and understand and to write.</li>
+	<li>Should always return the same result if you don't change anything between test runs.</li>
+	<li>Should be useful and provide actionable results.</li>
+	<li>Anyone should be able to run it at the push of a button.</li>
+	<li>When it fails, it should be easy to detect what was expected and pinpoint the problem.</li>
+	<li>Should be Self validating / it passes or fail without manual interpretation (the 'S' in <a href="https://romainbrunie.medium.com/f-i-r-s-t-principles-4eec4b9c1cde" target="_blank">F.I.R.S.T </a>).</li>
+</ul>
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/point-18329-140-147-0" target="_blank">Good unit test</a></h3>
+<ul class="list">
+	<li>Should run fast and frequently. Slow runs will lead to less frequent runs, that will lead to problems found out late and hard to fix, that leads to code rot (the 'F' in F.I.R.S.T).</li>
+	<li>Should have the control of the code under test that is needed to write all meaningful test cases.</li>
+	<li>Should be fully independently / isolated from of other tests (the 'I' in F.I.R.S.T).</li>
+	<li>Should run in memory without requiring system files, networks or databases, and be Repeatable in any environment (the 'R' in F.I.R.S.T)</li>
+	<li>Should be as synchronous and linear as possible, i.e. no parallel threads if possible.</li>
+</ul>
+
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/38">Unit of Work</a></h3>
 <p>
-A <i>unit of work</i> is the sum of actions that take place between the invocation of an <i>entry point</i> (what is triggered) up until a noticeable end result through one or more <i>exit points</i>.
+	A <i>Unit of Work</i> is the sum of actions that take place between the invocation of an <i>Entry Point</i> (what is triggered) up until a noticeable end result through one or more <i>Exit Points</i>.
 </p>
 <p>
 	Given a publicly visible function:
 </p>
 <ul class="list inline">
-	<li>The function's body is all or part of the <i>unit of work</i>.</li>
-	<li>The function's declaration and signature are the <i>entry point</i> into the body.</li>
-	<li>The resulting outputs or behaviors of the function are its <i>exit points</i>.</li>
+	<li>The function's body is all or part of the <i>Unit of Work</i>.</li>
+	<li>The function's declaration and signature are the <i>Entry Point</i> into the body.</li>
+	<li>The resulting outputs or behaviors of the function are its <i>Exit Points</i>.</li>
 </ul>
-<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/137">A Good unit test</a></h3>
-<h4>A Good automated test (not just unit test)</h4>
-<ul class="list">
-	<li>Should be easy to read and understand the intent of the author and to write.</li>
-	<li>Should be consistent in its results (it always returns the same result if you don't change anything between runs).</li>
-	<li>Should be useful and provide actionable results.</li>
-	<li>Anyone should be able to run it at the push of a button.</li>
-	<li>When it fails, it should be easy to detect what was expected and pinpoint the problem.</li>
-</ul>
-<h4>Good unit test</h4>
-<ul class="list">
-	<li>Should run quickly.</li>
-	<li>Should have full control of the code under test.</li>
-	<li>Should be fully isolated (runs independently of other tests).</li>
-	<li>Should run in memory without requiring system files, networks, databases...</li>
-	<li>should be as synchronous and linear as possible (no parallel threads if we can help it).</li>
-</ul>
-<h4><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/206" target="_blank">Good unit test summarized</a></h4>
+<figure>
+	<img src="../assets/images/blog/tdd/what/unit-of-work-with-3-exit-points-triangle.svg" alt="Unit of Work with all 3 exit point types" title="Unit of Work with all 3 exit point types" class="imageSmallTextNoBorder">
+	<figcaption>
+		<a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/point-18331-89-89-0" target="_blank">Unit of Work with all 3 exit point types</a>
+	</figcaption>
+</figure>
+<h4>The 3 types of Exit Points</h4>
 <p>
-	A unit test is an automated piece of code that invokes the unit of work through an entry point, and then checks one of its exit points. It can be written easily and runs quickly. <b>It's trustworthy, readable & maintainable. It is consistent as long as the production code we control has not changed.</b>
+	A good unit test should check only one of the 3 types of Exit Points. The 3 types are:
+</p>
+<p>
+	<b>Return value</b> is the easiest to test. You trigger an entry point, you get something back, you check the value you get back. A function with only this type of exit point aligns with the <a href="https://livebook.manning.com/book/functional-programming-in-scala-second-edition/" target="_blank">Functional programming</a> (FP) principle of having <i>pure functions</i> i.e. functions that have no side effects (the other types of entry points).
+</p>
+<p>
+	<b>State change</b> that is noticeable (and public / external) usually require more effort. You call something that triggers the state change, then you check that the state has changed. An example is a method of a class that changes the value of its public property (a function with side-effects).
+</p>
+<p>
+	<b>Dependency call</b> is hardest to test as most make our testing lives harder as one or more of the following is happening: the tests are hard to write and run, maintain, keep consistent / not brittle, and run fast. Some examples: loggers that write to files, things that communicate to the network, code controlled by other teams, components that due to the way they function take a very long time (calculations, threads, database access). This forces us to isolate the code under test from the dependency by using Fake techniques (described when they occur in other blog posts).
+</p>
+
+<h3><a href="https://livebook.manning.com/book/the-art-of-unit-testing-third-edition/chapter-1/v-10/206" target="_blank">Good unit test summarized</a></h3>
+<p>
+	A Good unit test focuses on a observable and meaningful requirement of the <i>Unit of Work</i> and invokes it through an <i>Entry Point</i>, and then checks one of its <i>Exit Points</i>. It can be written easily and runs quickly. <b>It's trustworthy, readable & maintainable. It is consistent as long as the production code we control has not changed.</b>
+</p>
+<p>
+	Most of the tests should be checking return values or state change, thus avoiding checking dependencies as they complicate and worsen the maintainability of the tests. Thus if a function has both a return value and a dependency call, prefer to only check the return value (checking also the dependency likely provides less value, e.g. checking the log output vs the actual calculation). Furthermore you should avoid introducing dependencies into the unit of work (and even state change) to begin with. This aligns with both Object Oriented (OO) and FP principles to strive to minimize dependencies.
 </p>
 
 <h2>Good code architecture</h2>
 <p>
-	Designing good code architecture is a fundamental skill on provides good of value on its own, but also needs to be applied to reap the benefits of TDD (and more broadly Test-Focused Development). This applies to principles from both Object Oriented programming and <a href="https://livebook.manning.com/book/functional-programming-in-scala-second-edition/" target="_blank">Functional programming</a> (for example function with side effects complicates / limits testability).
-</p>
-<p>
-	There is a correlation also in the other direction as TDD, done in the <b>Good</b> way, pushes for  good code code design and maintainability (for both the production and the test code), for example:
+	Designing good code architecture is a fundamental skill and valuable on its own, but it is also needed to be applied to reap the benefits of Test-Focused Development. This also goes the other way as TDD, done in the <b>Good</b> way, pushes for good code design and maintainability (for both the production and the test code). Some principles and patterns have already been mentioned above, let's go through them again and add some more.
 </p>
 <ul class="list inline">
+	<li>The FP principle of having <i>pure functions</i> i.e. functions that have no side effects (the other types of entry points than return value). Pure functions promotes effortless test- and maintainability (but is though not a deal breaking requirement for test focused development).</li>
 	<li><a href="https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns (SoC)</a></li>
 	<li>code should be low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupled</a> / have minimal dependencies</li>
 	<li>each unit should have a readable and requirement focused interface and internals should be <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulated</a></li>
 </ul>
+<p>
+	Designing good code architecture is a broad topic and I won't delve further into to it here and instead recommend the books <a href="https://www.oreilly.com/library/view/clean-code-a/9780136083238/" target="_blank">Clean Code</a> by <b>Robert C. Martin</b> (OO focused) and <a href="https://livebook.manning.com/book/functional-programming-in-scala-second-edition/" target="_blank">Functional Programming in Scala</a> by <b>Paul Chiusano</b> and <b>Rúnar Bjarnason</b> (FP focused).
+</p>
 <h2>Test-Driven Development</h2>
 <p>
-	Test-Driven Development (acronym TDD) and is a workflow discipline for developers. TDD is focused on <i>when</i> to write unit tests. The workflow is not focused on <i>how</i> to write good unit test, so let's first go through that and then continue with the TDD definition.<br>
+	TDD is a workflow discipline that is focused on <i>when</i> to write unit tests and requires 2 underlying skills (<i>Good</i> unit tests and <i>Good</i> code design) to be applied to reap the benefits of TDD (as mentioned above). The heart of TDD is the TDD cycle:
 </p>
 <figure>
 	<img src="../assets/images/blog/tdd/what/tdd-red-green-refactor.svg" alt="TDD: RED GREEN REFACTOR" title="TDD: RED GREEN REFACTOR" class="imageSmallTextNoBorder">
@@ -74,12 +100,15 @@ A <i>unit of work</i> is the sum of actions that take place between the invocati
 	</figcaption>
 </figure>
 <ol class="list">
-	<li><span class="redFail">RED:</span> Write a test and see it fail (verifying that the test is not passing when it should not)</li>
-	<li><span class="greenPass">GREEN:</span> Get the test to pass with minimal effort</li>
-	<li><span class="greenRefactor">REFACTOR:</span> Clean up <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> and improve the design (skip if not needed)</li>
+	<li><span class="redFail">RED:</span> Write a <i>good</i> unit test and see it fail to prove a meaningful functionality is missing in the production code and verifying that the test is not passing when it should not</li>
+	<li><span class="greenPass">GREEN:</span> Make the test pass with minimal effort by adding functionality to the production code that meets the expectations of the test.</li>
+	<li><span class="greenRefactor">REFACTOR:</span> Clean up <a href="https://pragmaticways.com/31-code-smells-you-must-know/">code smells</a> / improve the design and readability (both production and test code). The step should be very small and incremental (if needed), and we run all the tests after each iteration to make sure we didn't break anything with our changes.</li>
 </ol>
 <p>
-	The cycle should focus is on fulfilling a specific requirement on the SUT (Subject / Unit Under Test). The cycle should be repeated until you are confident that the SUT handles all required and meaningful cases (the more specific the tests become, the the more generic the SUT functionality becomes). All tests should be run at each step of the cycle.
+	The cycle should be repeated until you are confident that the unit of work handles all required and meaningful cases and all tests should be run at each step of the cycle. As the cycle is repeated then step 2. <span class="greenPass">GREEN</span> can be a naïve functionality as the next cycle will improve and generalize it (with more test cases the more generic the unit of work functionality becomes).
+</p>
+<p>
+	There are various meanings of TDD out there so I'll clarify what I mean here by paraphrasing <a href="https://osherove.com/blog/2007/10/8/the-various-meanings-of-tdd.html" target="_blank">Roy's blog post</a>: "TDD cycling the meaningful requirements while also allowing it to evolve your design as an added bonus. You may already have some design in place before starting to code, but it could very well change because the tests point out various smells" (Roy coins this as TDDAD (Development and Design) to differentiate from other meanings).
 </p>
 
 <h2>Why do TDD ?</h2>
