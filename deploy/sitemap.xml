@@ -4,14 +4,14 @@
 		xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
 		<loc>https://www.egill.rocks/</loc>
-		<lastmod>2023-07-25</lastmod>
+		<lastmod>2024-08-18</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2024-08-18</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -40,6 +40,13 @@
 		</video:video>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/vikings-of-thule-theme-song.PNG</image:loc>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/laughing-and-smiling</loc>
+		<lastmod>2024-08-18</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/laughing-and-smiling.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
