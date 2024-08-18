@@ -36,6 +36,11 @@ Project uses the [Angular](https://angular.io) framework
 - [ng e2e](https://angular.io/cli/e2e)
 - [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
 
+## Music
+### local (not streamed from youtube or soundcloud)
+- The .flac files are encoded to to Ogg Vorbis: .ogg, VBR, Quality 6
+- The artwork should be around ~ 30 KB
+
 ## Tons lifted | Creature lifted 🏋️‍♂️
 
 Steps to update the `Tons lifted / Creature lifted` table:

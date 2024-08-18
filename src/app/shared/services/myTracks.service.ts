@@ -100,7 +100,7 @@ export class MyTracksService {
 //#endregion
 
 	private get aboutEgillAntonsson() {
-		return `I began my musical journey at age 7 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		return `I began my musical journey at age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
 		Around the turn of this century, I was in the band <a href="https://egill.rocks/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="https://egill.rocks/music/tonis-time-machine" target="_blank">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
@@ -149,6 +149,7 @@ export class MyTracksService {
 			{name: 'Egill Antonsson', tracks: [
 				this.leCube(),
 				this.votThemeSong(),
+				this.laughingAndSmiling(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
@@ -269,6 +270,17 @@ export class MyTracksService {
 			}
 		}, rootUrl, name, artworkPath, about)
 		return track
+	}
+
+	private laughingAndSmiling() {
+		const rootUrl = 'laughing-and-smiling'
+		const name = 'Laughing and Smiling'
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
+		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		const about = `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
 	private winterQueen() {
