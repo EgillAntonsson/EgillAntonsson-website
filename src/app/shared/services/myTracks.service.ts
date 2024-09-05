@@ -49,7 +49,7 @@ export class MyTracksService {
 		this._timeout = value
 	}
 
-//#region Dirs And Paths
+// Dirs And Paths
 	private readonly dirEgillAntonsson = `${Track.dir}/egillantonsson/`
 	private readonly dirKanez = `${Track.dir}/kanez/`
 	private readonly dirTribeOfOranges = `${Track.dir}/too/`
@@ -59,9 +59,8 @@ export class MyTracksService {
 	private readonly pathBraedraminningArtwork = `${this.dirBraedraminning}braedraminning.jpeg`
 	private readonly dirKuai = `${Track.dir}/kuai/`
 	private readonly pathKuaiArtwork = `${this.dirKuai}KUAI.jpg`
-//#endregion
 
-	//#region URLS
+// URLS
 	private urlSindri(fullName = false) {
 		let name = 'Sindri'
 		if (fullName) {
@@ -97,7 +96,6 @@ export class MyTracksService {
 	}
 
 	private urlGogogic = `<a href=https://www.facebook.com/gogogic target="_blank">Gogogic</a>`
-//#endregion
 
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
@@ -137,7 +135,7 @@ export class MyTracksService {
 	constructor(private soundManager: SoundManagerService, private logService: LogService) {
 		this._instancePlayedListeners = new Map()
 		this.instanceEndedListeners = new Map()
-		// for instanceEndedListeners send in 'true' to indicate that the track ended
+		// For instanceEndedListeners send in 'true' to indicate that the track ended.
 	}
 
 	init() {
@@ -160,6 +158,7 @@ export class MyTracksService {
 				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
 			{name: 'Kanez Kane', tracks: [
+				this.freeYourMime(),
 				this.tonisTimeMachine(),
 				this.winterQueen(),
 				this.komaKoma(),
@@ -289,7 +288,7 @@ export class MyTracksService {
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
 		const buyUrl = 'https://www.qobuz.com/album/winter-queen-kanez-kane/i0evkfp38ctac'
-		const about = `The third song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
+		const about = `The 3rd song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
 		Josefine, the frostbites and scars.<br>
@@ -324,7 +323,7 @@ export class MyTracksService {
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
 		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
-		const about = `This second song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!<br>
+		const about = `This 2nd song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
 		His name was Koma Koma, he had to move around.<br>
@@ -361,7 +360,7 @@ export class MyTracksService {
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
 		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/qhcm8paksnp5a'
-		const about = `This first song release by Kanez Kane, 15th December 2022.<br>
+		const about = `This 1st song release by Kanez Kane, 15th December 2022.<br>
 		<br>LYRICS<br>
 		Verse 1:<br>
 		Rose, fame, forever, forever.<br>
@@ -384,6 +383,66 @@ export class MyTracksService {
 		Going home, oh, 6 feet under.<br>`
 
 		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+	}
+
+	private freeYourMime() {
+		const rootUrl = 'free-your-mime'
+		const name = "Free your Mime"
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
+		const spotifyUrl = 'https://open.spotify.com/track/5IyGlS4LP5ew4RyGd6bbJ7?si=60dbc1377b5f4ebb'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
+		const about = `Currently the 5th and latest Kanez Kane song release, 28th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
+		<br>LYRICS<br>
+		<br>
+		VERSE 1<br>
+		John takes care of the groceries.<br>
+		Oh, cooking and all.<br>
+		Makes plans for the savings and and blasphemies.<br>
+		Oh, he'll put you in awe.<br>
+		<br>
+		PRE-CHORUS<br>
+		But every single time she tells her:<br>
+		'Oh, be here with me'.<br>
+		Then every single time he tells her:<br>
+		'Oh, queen, it's great to be seen'.<br>
+		But she never sees the world in his ass.<br>
+		<br>
+		CHORUS<br>
+		Free your mime.<br>
+		Thinking like a hurricane.<br>
+		Free your mime.<br>
+		Broken glass of cheap champagne.<br>
+		<br>
+		PRE-CHORUS<br>
+		Hey no go.<br>
+		Oh phony world come back to me.<br>
+		Oh phony world better run, better run, better run, better run oh.<br>
+		Oh phony world please look at me.<br>
+		Oh phony world better run, better run while you can.<br>
+		<br>
+		VERSE 2<br>
+		Christina takes care of the elderly.<br>
+		Wishing they'd die.<br>
+		Has dreams of the weekends and free pharmacies,<br>
+		and a break up with Mike.<br>
+		<br>
+		PRE-CHORUS<br>
+		CHORUS<br>
+		POST-CHORUS<br>
+		<br>
+		BRIDGE<br>
+		Let your stupid be,<br>
+		its hoping to get free,<br>
+		singing hallelujah.<br>
+		Let your bondage be,<br>
+		your hoping to get free,<br>
+		Singing hallelujah, hallelujah.<br>
+		CHORUS IN FIVE! 3,2,5,5<br>
+		<br>
+		CHORUS<br>
+		POST-CHORUS`
+
+		return new YoutubeTrack('N3r3mA7FvQw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private tonisTimeMachine() {

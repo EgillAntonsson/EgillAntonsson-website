@@ -11,7 +11,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2024-08-18</lastmod>
+		<lastmod>2024-09-05</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -103,6 +103,13 @@
 		<lastmod>2023-09-10</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/free-your-mime</loc>
+		<lastmod>2024-09-05</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/free-your-mime.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
@@ -511,7 +518,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/lifting</loc>
-		<lastmod>2023-10-01</lastmod>
+		<lastmod>2024-09-05</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/lifting/Egill_Antonsson_against_the_dragon_breath.jpg</image:loc>
 		</image:image>
