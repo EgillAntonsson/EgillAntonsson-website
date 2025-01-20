@@ -98,7 +98,7 @@ export class MyTracksService {
 	private urlGogogic = `<a href=https://www.facebook.com/gogogic target="_blank">Gogogic</a>`
 
 	private get aboutEgillAntonsson() {
-		return `I began my musical journey at age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		return `I began my musical journey at around age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
 		Around the turn of this century, I was in the band <a href="https://egill.rocks/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="https://egill.rocks/music/tonis-time-machine" target="_blank">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
@@ -273,6 +273,8 @@ export class MyTracksService {
 		return track
 	}
 
+	// https://open.spotify.com/artist/3I847bFyfMfqgw6IflREkL?si=tALJ0wqfTdSDfEbEV5WWwg
+
 	private goneIsMyFriendJohnny() {
 		const rootUrl = 'gone-is-my-friend-johnny'
 		const name = 'Gone is my friend Johnny'
@@ -280,8 +282,14 @@ export class MyTracksService {
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone_is_my_friend_johnny'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5' // need to update this url
 		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb' // need to update this url
-		const about = `I wrote this song in my teens after a friend of my brother passed away in a car crash. I recorded it with midi instruments and had the title of the song and couple of lyric sentences (the vocals were midi saxophone...) and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. Last year my friend Milosh passed away after a long struggle with a decease. I then felt it was time to finish this song, thus I wrote the lyrics and recorded the song with voice and real instruments (tweaking the melody and the form of the song). It is dedicated to Milosh, Johnny / Jói, and all our friends that have passed away that we'll always remember.<br>
-		<br>LYRICS<br>
+		const about = `I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. I had the title and couple of sentences of the lyrics but since I could simply have the Vocals as a cheesy MIDI saxophone for now, I could finish them later (turned up to be much later...)<br>
+<br>
+Last year my friend and fellow musician Milosh passed away. We had plans to collaborate on music projects together by playing live and record and finish some of his songs. We didn't get far with this but at least we jammed together during family visits and events.<br>
+<br>
+One day, while playing the piano, this old song came into my mind. I felt it was time to properly work, finish and share it. I bought a CD player to import the song from the dusty CD to my computer as a starting point. I wrote the rest of the lyrics and improved the melody. I recorded the song with voice (bye bye MIDI sax) and real instruments and slowed the tempo down. Feeling it fitting to honor Milosh's memory, I decided to feature the guitar prominently throughout the song (with both the solo and the chord strumming).<br>
+<br>
+The song is dedicated to Milosh, Johnny/Jói, and all our friends that have passed away that we'll always remember.<br>
+		<br><b>LYRICS</b><br>
 		<br>
 		Gone is my friend Johnny.<br>
 		Faded away, far away.<br>
@@ -292,17 +300,19 @@ export class MyTracksService {
 		Out of the blue, and there's nothing you can do.<br>
 		But we'll never stop to love and think of you.<br>
 		The memories light the darkness away.<br>
-		We're singing and playing today.<br>
+		We're singing and playing today.
+		<br>
+		<br>Guitar solo<br>
 		<br>
 		But gravity comes and pulls you down, down, down.<br>
 		Out of the blue, and there's nothing you can do.<br>
 		But we'll never stop to love and think of you.<br>
-		One of these days we will meet again, and you'll say then.<br>
-		Gone, gone was your Johnny.<br>
+		One of these days we will meet again, and you'll say then:<br>
 		<br>
+		"Gone, gone was your Johnny.<br>
 		Now you've found, you found your friend Johnny.<br>
 		Together again, here we are.<br>
-		Together we are.`
+		Together we are."`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
 	}
 
