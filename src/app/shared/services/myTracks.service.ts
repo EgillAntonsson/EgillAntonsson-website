@@ -146,8 +146,9 @@ export class MyTracksService {
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
 				this.leCube(),
-				this.votThemeSong(),
+				this.goneIsMyFriendJohnny(),
 				this.laughingAndSmiling(),
+				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
@@ -158,11 +159,12 @@ export class MyTracksService {
 				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
 			{name: 'Kanez Kane', tracks: [
-				this.freeYourMime(),
+				this.glory(),
 				this.tonisTimeMachine(),
 				this.winterQueen(),
 				this.komaKoma(),
-				this.strawberryCityLights()
+				this.strawberryCityLights(),
+				this.freeYourMime(),
 			], about: this.aboutKanez},
 			{name: 'KUAI', tracks: [
 				this.andefniLive(),
@@ -271,6 +273,39 @@ export class MyTracksService {
 		return track
 	}
 
+	private goneIsMyFriendJohnny() {
+		const rootUrl = 'gone-is-my-friend-johnny'
+		const name = 'Gone is my friend Johnny'
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone_is_my_friend_johnny'
+		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5' // need to update this url
+		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb' // need to update this url
+		const about = `I wrote this song in my teens after a friend of my brother passed away in a car crash. I recorded it with midi instruments and had the title of the song and couple of lyric sentences (the vocals were midi saxophone...) and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. Last year my friend Milosh passed away after a long struggle with a decease. I then felt it was time to finish this song, thus I wrote the lyrics and recorded the song with voice and real instruments (tweaking the melody and the form of the song). It is dedicated to Milosh, Johnny / Jói, and all our friends that have passed away that we'll always remember.<br>
+		<br>LYRICS<br>
+		<br>
+		Gone is my friend Johnny.<br>
+		Faded away, far away.<br>
+		And now, I'm talking to Valery.<br>
+		About the days, the yesterdays.<br>
+		<br>
+		But gravity comes and pulls you down, down, down.<br>
+		Out of the blue, and there's nothing you can do.<br>
+		But we'll never stop to love and think of you.<br>
+		The memories light the darkness away.<br>
+		We're singing and playing today.<br>
+		<br>
+		But gravity comes and pulls you down, down, down.<br>
+		Out of the blue, and there's nothing you can do.<br>
+		But we'll never stop to love and think of you.<br>
+		One of these days we will meet again, and you'll say then.<br>
+		Gone, gone was your Johnny.<br>
+		<br>
+		Now you've found, you found your friend Johnny.<br>
+		Together again, here we are.<br>
+		Together we are.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+	}
+
 	private laughingAndSmiling() {
 		const rootUrl = 'laughing-and-smiling'
 		const name = 'Laughing and Smiling'
@@ -278,8 +313,72 @@ export class MyTracksService {
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
-		const about = `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.`
+		const about = `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.
+		<br>LYRICS<br>
+		<br>
+		My all and everything, light of my life.<br>
+		Of joy we dance and sing, wonderful life.<br>
+		The now and future we'd mold.<br>
+		Of love and life, and growing old.<br>
+		Laughing and smiling we were.<br>
+		<br>
+		But then the raging rain fell from the sky.<br>
+		Before we used to sing, now we just cry.<br>
+		And the future we'd planned.<br>
+		Got washed away into the sand.<br>
+		Laughing and smiling we were.<br>
+		<br>
+		The now and future we'd mold.<br>
+		Of love and life, and growing so old.<br>
+		BUt that future we'd planned.<br>
+		Got washed away into the sand.<br>
+		Back then laughing and smiling you were.<br>
+		Laughing and smiling were were.<br>`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+	}
+
+	private glory() {
+		const rootUrl = 'glory'
+		const name = "Glory"
+		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
+		const spotifyUrl = 'https://open.spotify.com/track/5IQHx1OTLkUaOh8BjVyY1Z?si=2f60e86f363d41af'
+		const buyUrl = 'https://www.qobuz.com/se-en/album/glory-kanez-kane/imvcfi7srgbya'
+		const about = `The 6th and latest Kanez Kane song release, 13th December 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
+		<br>LYRICS<br>
+		<br>
+		Mother, mother don't you cry.<br>
+		They don't always realize.<br>
+		Meaning well, but yet decide<br>
+		to do the bad things, it's alright.<br>
+		<br>
+		God-fearing, doing good.<br>
+		Greater world and glory.<br>
+		Meet the hangman, meet the night / knight.<br>
+		We didn't write the story.<br>
+		<br>
+		<br>
+		Father, father feel the love.<br>
+		They're sending your way.<br>
+		Can it be the poison that you insist?<br>
+		Look the other way.<br>
+		<br>
+		Feel the green green grass of home.<br>
+		Bright and beauty sunlight.<br>
+		You should thank them, our hope.<br>
+		Death is on our side.<br>
+		<br>
+		<br>
+		Little baby don't you cry<br>
+		They're coming your way.<br>
+		That means you will be alright.<br>
+		It's your time to play.<br>
+		<br>
+		My dear everything will change.<br>
+		Love will be the story.<br>
+		(But) not what runs through your veins.<br>
+		It's time for glory.<br>`
+
+		return new YoutubeTrack('-W7u-pE1BzE', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
 	}
 
 	private winterQueen() {
@@ -391,7 +490,7 @@ export class MyTracksService {
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IyGlS4LP5ew4RyGd6bbJ7?si=60dbc1377b5f4ebb'
 		const buyUrl = 'https://www.qobuz.com/se-en/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
-		const about = `Currently the 5th and latest Kanez Kane song release, 28th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
+		const about = `The 5th Kanez Kane song release, 28th May 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
 		<br>LYRICS<br>
 		<br>
 		VERSE 1<br>

@@ -11,8 +11,8 @@ py scripts require `Python 3.7.1`
 1. Make sure the `IS_ENABLED` is set to `false` in `log.service.ts`
 1. Make appropriate changes to `deploy/sitemap.xml` if needed, then run `> py validate_sitemap.py`
 1. `> py build.py`
-    - executes `ng build --prod` which generates build artifacts into temporary `dist/` folder ([angular doc](https://angular.io/guide/deployment#production-optimizations))
-    - Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
+    * executes `ng build --prod` which generates build artifacts into temporary `dist/` folder ([angular doc](https://angular.io/guide/deployment#production-optimizations))
+    * Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
 1. git commit changes and push to remote
 
 ## Deployment 🚀
@@ -31,15 +31,16 @@ Project uses the [Angular](https://angular.io) framework
 
 ### Angular CLI most used commands 📜
 
-- [ng serve](https://angular.io/cli/serve)
-- [ng test](https://angular.io/guide/testing#set-up-testing)
-- [ng e2e](https://angular.io/cli/e2e)
-- [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
+* [ng serve](https://angular.io/cli/serve)
+* [ng test](https://angular.io/guide/testing#set-up-testing)
+* [ng e2e](https://angular.io/cli/e2e)
+* [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
 
 ## Music
 ### local (not streamed from youtube or soundcloud)
-- The .flac files are encoded to to Ogg Vorbis: .ogg, VBR, Quality 6
-- The artwork should be around ~ 30 KB
+* The .flac files are encoded to Ogg Vorbis: .ogg, VBR, Quality 6
+* The artwork should be around ~ 30 KB to 60 KB.
+  * Kanez Kane artwork is downloaded once from the Qobuz link, they are a bit under 60 KB and 600px X 600px.
 
 ## Tons lifted | Creature lifted 🏋️‍♂️
 

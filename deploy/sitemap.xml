@@ -11,7 +11,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2024-09-05</lastmod>
+		<lastmod>2025-01-20</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -21,6 +21,20 @@
 		<lastmod>2023-09-10</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/le-cube.jpg</image:loc>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/gone-is-my-friend-johnny</loc>
+		<lastmod>2025-01-20</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/gone-is-my-friend-johnny.jpg</image:loc>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/laughing-and-smiling</loc>
+		<lastmod>2025-01-20</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/laughing-and-smiling.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
@@ -40,13 +54,6 @@
 		</video:video>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/vikings-of-thule-theme-song.PNG</image:loc>
-		</image:image>
-	</url>
-	<url>
-		<loc>https://www.egill.rocks/music/laughing-and-smiling</loc>
-		<lastmod>2024-08-18</lastmod>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/laughing-and-smiling.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
@@ -103,6 +110,13 @@
 		<lastmod>2023-09-10</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
+		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/music/glory</loc>
+		<lastmod>2025-01-10</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/tracks/kanez/glory.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
