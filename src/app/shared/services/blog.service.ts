@@ -13,6 +13,12 @@ export class BlogService {
 	constructor() {
 
 		this.series = []
+		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
+		this.series.push({title: seriesReaScriptsTitle, posts: [
+			new Post('My scripts', PostRoutePath.reaScriptsMyScripts, seriesReaScriptsTitle, new Date(2025, 3, 3)),
+			new Post('The Shipment Evaluator', PostRoutePath.reaScriptsShipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 3, 3))
+		]})
+
 		const seriesTddWhatWhyWhenTitle = 'Test-Focused Development'
 		this.series.push({title: 'Test-Focused Development', posts: [
 			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2023, 10, 13))
@@ -62,6 +68,8 @@ export enum PostRoutePath {
 	tddHealthPart3 = 'tdd-health/part3',
 	tddHealthPart3_Cpp = 'tdd-health/part3-cpp',
 	tddChessPart1 = 'tdd-chess/part1-csharp',
+	reaScriptsMyScripts = 'rea-scripts/my-scripts',
+	reaScriptsShipmentEvaluator = 'rea-scripts/shipment-evaluator'
 }
 
 export class Post {

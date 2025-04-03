@@ -4,7 +4,7 @@ import { PostTdd3Component } from './postTdd3.component'
 @Component({
 	selector: 'app-post-tdd-3-cpp',
 	templateUrl: './postTdd3Cpp.component.html',
-	styleUrls: ['./../blog.component.css']
+	styleUrls: ['./../../blog.component.css']
 })
 
 export class PostTdd3CppComponent extends PostTdd3Component {

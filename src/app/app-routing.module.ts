@@ -6,15 +6,17 @@ import {BlogComponent} from './blog/blog.component'
 import {LiftingComponent} from './lifting/lifting.component'
 import {MusicPageComponent} from './musicPage/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
-import { PostTdd1Component } from './blog/posts/postTdd1.component'
-import { PostTdd2Component } from './blog/posts/postTdd2.component'
-import { PostTdd3Component } from './blog/posts/postTdd3.component'
-import { PostTdd3CppComponent } from './blog/posts/postTdd3Cpp.component'
-import { PostTdd4Component } from './blog/posts/postTdd4.component'
-import { PostTdd5Component } from './blog/posts/postTdd5.component'
-import { PostTdd6Component } from './blog/posts/postTdd6.component'
-import { PostTdd7Component } from './blog/posts/postTdd7.component'
-import { PostTdd8Component } from './blog/posts/postTdd8.component'
+import {PostReascriptsMyScriptsComponent} from './blog/posts/reascripts/postReaScriptsMyScripts.component'
+import {PostReascriptsShipmentEvaluatorComponent} from './blog/posts/reascripts/postReascriptsShipmentEvaluator.component'
+import { PostTdd1Component } from './blog/posts/tdd/postTdd1.component'
+import { PostTdd2Component } from './blog/posts/tdd/postTdd2.component'
+import { PostTdd3Component } from './blog/posts/tdd/postTdd3.component'
+import { PostTdd3CppComponent } from './blog/posts/tdd/postTdd3Cpp.component'
+import { PostTdd4Component } from './blog/posts/tdd/postTdd4.component'
+import { PostTdd5Component } from './blog/posts/tdd/postTdd5.component'
+import { PostTdd6Component } from './blog/posts/tdd/postTdd6.component'
+import { PostTdd7Component } from './blog/posts/tdd/postTdd7.component'
+import { PostTdd8Component } from './blog/posts/tdd/postTdd8.component'
 import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { PostRoutePath } from './shared/services/blog.service'
 
@@ -23,6 +25,8 @@ const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
+		{path: PostRoutePath.reaScriptsMyScripts, component: PostReascriptsMyScriptsComponent},
+		{path: PostRoutePath.reaScriptsShipmentEvaluator, component: PostReascriptsShipmentEvaluatorComponent},
 		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
 		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
