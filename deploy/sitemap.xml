@@ -545,6 +545,10 @@
 		<lastmod>2023-07-16</lastmod>
 	</url>
 	<url>
+		<loc>http://localhost:4200/blog/rea-scripts/my-scripts</loc>
+		<lastmod>2025-04-03</lastmod>
+	</url>
+	<url>
 		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
 		<lastmod>2023-11-12</lastmod>
 		<image:image>
