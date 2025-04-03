@@ -1,0 +1,32 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+<h2>My GitHub repository</h2>
+<p>
+	These are scripts for <a href="https://www.reaper.fm">REAPER</a> DAW (Digital Audio Workstation). I store my scripts in a GitHub repository. You can find it <a href="https://github.com/EgillAntonsson/REAPER-ReaScripts/tree/master">here</a>.
+</p>
+<h2>How to get my scripts into REAPER</h2>
+<p>
+	The best way to to get the scripts is via the <a href="http://www.reapack.com">ReaPack</a> REAPER extension, the package manager for REAPER made by <a href="https://github.com/cfillion/">cfillion</a>. You could also download the scripts manually from the GitHub repository, but then you will need to update them manually as well. The ReaPack extension will automatically check for updates and install them for you and it is very easy to use, thus I recommend it.
+</p>
+<ul class="list inline">
+	<li>Download and install ReaPack</li>
+	<li>In REAPER click menu item <i>Extensions > ReaPack > Manage repositories...</i></li>
+	<li>Click <i>Import/export... > Import repositories</i></li>
+	<li>Insert <i>https://raw.githubusercontent.com/EgillAntonsson/REAPER-ReaScripts/refs/heads/master/index.xml</i> and press OK</li>
+	<li>You should see <i>Antonsson Scripts</i> name in the list
+	<li>Click <i>Options...</i> and checkmark <i>install new packages when synchronizing</i> and then click RePack menu item <i>Synchronize packages</i></li>
+</ul>
+<p>
+	My scripts will be downloaded and installed in the <i>Scripts</i> folder in your REAPER installation folder. You can find it by clicking menu item <i>Options > Show REAPER resource path in explorer/finder</i>. The .lua scripts are in the <i>Scripts</i> subfolder, and the .jsfx scripts are in <i>Effects</i> subfolder.
+</p>
+
+<div class="horizontalLine"></div>
+

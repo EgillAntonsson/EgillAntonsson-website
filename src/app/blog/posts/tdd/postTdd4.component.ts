@@ -1,10 +1,10 @@
 import { Component } from '@angular/core'
-import { PostComponent } from './post.component'
+import { PostComponent } from '../post.component'
 
 @Component({
 	selector: 'app-post-tdd-4',
 	templateUrl: './postTdd4.component.html',
-	styleUrls: ['./../blog.component.css']
+	styleUrls: ['./../../blog.component.css']
 })
 
 export class PostTdd4Component extends PostComponent {
