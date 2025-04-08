@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router'
 
 import {HomeComponent} from './home/home.component'
 import {BlogComponent} from './blog/blog.component'
-import {LiftingComponent} from './lifting/lifting.component'
 import {MusicPageComponent} from './musicPage/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
-import {PostReascriptsMyScriptsComponent} from './blog/posts/reascripts/postReaScriptsMyScripts.component'
+import {PostFmodBatchRenameComponent} from './blog/posts/fmod/postFmodBatchRename.component'
+import {PostReascriptsMyScriptsComponent} from './blog/posts/reascripts/postReascriptsMyScripts.component'
 import {PostReascriptsShipmentEvaluatorComponent} from './blog/posts/reascripts/postReascriptsShipmentEvaluator.component'
 import { PostTdd1Component } from './blog/posts/tdd/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/tdd/postTdd2.component'
@@ -19,14 +19,17 @@ import { PostTdd7Component } from './blog/posts/tdd/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/tdd/postTdd8.component'
 import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { PostRoutePath } from './shared/services/blog.service'
+import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
+import { JonAndMeComponent } from './blog/posts/lifting/jonAndMe.component'
 
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
-		{path: PostRoutePath.reaScriptsMyScripts, component: PostReascriptsMyScriptsComponent},
-		{path: PostRoutePath.reaScriptsShipmentEvaluator, component: PostReascriptsShipmentEvaluatorComponent},
+		{path: PostRoutePath.fmodBatchRename, component: PostFmodBatchRenameComponent},
+		{path: PostRoutePath.myScripts, component: PostReascriptsMyScriptsComponent},
+		{path: PostRoutePath.shipmentEvaluator, component: PostReascriptsShipmentEvaluatorComponent},
 		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
 		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
@@ -37,10 +40,11 @@ const routes: Routes = [
 		{path: 'tdd-health/part7', component: PostTdd7Component},
 		{path: 'tdd-health/part8', component: PostTdd8Component},
 		{path:  PostRoutePath.tddChessPart1, component: PostChess1Component},
+		{path:  PostRoutePath.kgToCreature, component: KgToCreatureComponent},
+		{path:  PostRoutePath.jonAndMe, component: JonAndMeComponent},
 	]},
 	{path: 'music', component: MusicPageComponent},
 	{path: 'music/:trackName', component: MusicPageComponent},
-	{path: 'lifting', component: LiftingComponent},
 	{path: '**', component: PageNotFoundComponent }
 ]
 
