@@ -11,7 +11,6 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
 import { BlogComponent } from './blog/blog.component'
-import { LiftingComponent } from './lifting/lifting.component'
 import { PageNotFoundComponent } from './pagenotfound.component'
 import { MusicPageComponent } from './musicPage/musicPage.component'
 import { MyNumberPipe } from './pipes/mynumber.pipe'
@@ -29,6 +28,7 @@ import { PostTdd6Component } from './blog/posts/tdd/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/tdd/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/tdd/postTdd8.component'
 import { PostChess1Component } from './blog/posts/chess/postChess1.component'
+import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
 
 
 @NgModule({
@@ -47,7 +47,6 @@ import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 		AppComponent,
 		HomeComponent,
 		BlogComponent,
-		LiftingComponent,
 		MusicPageComponent,
 		MusicPlayerComponent,
 		PageNotFoundComponent,
@@ -62,7 +61,8 @@ import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 		PostTdd6Component,
 		PostTdd7Component,
 		PostTdd8Component,
-		PostChess1Component
+		PostChess1Component,
+		KgToCreatureComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [{

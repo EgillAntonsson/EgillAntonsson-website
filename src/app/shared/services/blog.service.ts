@@ -13,10 +13,16 @@ export class BlogService {
 	constructor() {
 
 		this.series = []
+
+		const fmodTitle = 'FMOD'
+		this.series.push({title: fmodTitle, posts: [
+			new Post('Batch Rename in FMOD Studio', PostRoutePath.fmodBatchRename, fmodTitle, new Date(2025, 3, 8)),
+		]})
+
 		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
 		this.series.push({title: seriesReaScriptsTitle, posts: [
-			new Post('My scripts', PostRoutePath.reaScriptsMyScripts, seriesReaScriptsTitle, new Date(2025, 3, 3)),
-			new Post('The Shipment Evaluator', PostRoutePath.reaScriptsShipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 3, 3))
+			new Post('My scripts', PostRoutePath.myScripts, seriesReaScriptsTitle, new Date(2025, 3, 3)),
+			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 3, 3))
 		]})
 
 		const seriesTddWhatWhyWhenTitle = 'Test-Focused Development'
@@ -38,6 +44,12 @@ export class BlogService {
 		const seriesTddChessTitle = 'TDD-ing Chess in C#'
 		this.series.push({title: seriesTddChessTitle, posts: [
 			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 10, 13))
+		]})
+
+		const liftingTitle = 'Lifting'
+		this.series.push({title: liftingTitle, posts: [
+			new Post('Kg to Creature Calculator', PostRoutePath.kgToCreature, fmodTitle, new Date(2025, 3, 8)),
+			new Post('Jón Páll Sigmarsson and me', PostRoutePath.jonAndMe, fmodTitle, new Date(2025, 3, 8)),
 		]})
 
 		this.selectedPost = this.series[0].posts[0]
@@ -68,8 +80,11 @@ export enum PostRoutePath {
 	tddHealthPart3 = 'tdd-health/part3',
 	tddHealthPart3_Cpp = 'tdd-health/part3-cpp',
 	tddChessPart1 = 'tdd-chess/part1-csharp',
-	reaScriptsMyScripts = 'rea-scripts/my-scripts',
-	reaScriptsShipmentEvaluator = 'rea-scripts/shipment-evaluator'
+	fmodBatchRename = 'fmod/batch-rename',
+	myScripts = 'rea-scripts/my-scripts',
+	shipmentEvaluator = 'rea-scripts/shipment-evaluator',
+	kgToCreature = 'lifting/kg-to-creature-calculator',
+	jonAndMe = 'lifting/jan-pall-sigmarsson-and-me'
 }
 
 export class Post {

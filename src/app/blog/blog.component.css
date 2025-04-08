@@ -21,3 +21,16 @@
 .noBulletinPoint {
 	list-style: none;
 }
+
+ul {
+	list-style: none;
+}
+
+.converter {
+	text-align: center;
+}
+
+.convertInput {
+	text-align: center;
+}
+

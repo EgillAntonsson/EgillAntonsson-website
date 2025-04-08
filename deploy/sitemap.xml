@@ -523,7 +523,7 @@
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
-		<url>
+	<url>
 		<loc>https://www.egill.rocks/music/without-them-year-1977</loc>
 		<lastmod>2023-09-10</lastmod>
 		<image:image>
@@ -531,11 +531,15 @@
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/lifting</loc>
-		<lastmod>2024-09-05</lastmod>
+		<loc>https://www.egill.rocks/blog/lifting/kg-to-creature-calculator</loc>
+		<lastmod>2025-04-08</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/lifting/Egill_Antonsson_against_the_dragon_breath.jpg</image:loc>
 		</image:image>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/lifting/jan-pall-sigmarsson-and-me</loc>
+		<lastmod>2025-04-08</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/lifting/Egill_Antonsson_and_Jon_Pall.jpg</image:loc>
 		</image:image>
@@ -545,7 +549,11 @@
 		<lastmod>2023-07-16</lastmod>
 	</url>
 	<url>
-		<loc>http://localhost:4200/blog/rea-scripts/my-scripts</loc>
+		<loc>https://www.egill.rocks/blog/fmod/batch-rename</loc>
+		<lastmod>2025-04-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/rea-scripts/my-scripts</loc>
 		<lastmod>2025-04-03</lastmod>
 	</url>
 	<url>

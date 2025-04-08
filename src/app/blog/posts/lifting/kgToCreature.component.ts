@@ -1,14 +1,16 @@
-import { Component, } from '@angular/core'
+import { Component } from '@angular/core'
+import { PostComponent } from '../post.component'
 import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms'
-import { LiftingService, Creature } from '../shared/services/lifting.service'
+import { LiftingService, Creature } from '../../../shared/services/lifting.service'
+import { BlogService } from 'app/shared/services/blog.service'
 
 @Component({
-	selector: 'app-lift',
-	templateUrl: './lifting.component.html',
-	styleUrls: ['./lifting.component.css']
+	selector: 'app-kg-to-creature',
+	templateUrl: './kgToCreature.component.html',
+	styleUrls: ['./../../blog.component.css']
 })
 
-export class LiftingComponent {
+export class KgToCreatureComponent extends PostComponent {
 
 	firstDate: Date = new Date(2016, 6, 15)
 	lastDate: Date = new Date()
@@ -22,10 +24,12 @@ export class LiftingComponent {
 	maximumInputAllowed = 999999999
 	minimumInputAllowed = 0.5
 
-	constructor(private liftingService: LiftingService, private fb: UntypedFormBuilder) {
+	constructor(private liftingService: LiftingService, private fb: UntypedFormBuilder, blogService: BlogService) {
+		super(blogService)
 
 		liftingService.loadAndCalculateMyLog((myLiftingStats) => {
 			this.totalKgLifted = myLiftingStats.totalKgLifted
+			this.totalCreaturesLifted = []
 			for (const creatureLifted of myLiftingStats.totalCreaturesLifted) {
 				this.totalCreaturesLifted.push(new CreatureLiftedRenderer(creatureLifted.count, creatureLifted.creature))
 			}
@@ -63,6 +67,7 @@ export class LiftingComponent {
 
 	private convert(number: number) {
 		const creaturesLifted = this.liftingService.weightInCreatures(number)
+		this.convertResult = []
 		for (const creatureLifted of creaturesLifted) {
 			this.convertResult.push(new CreatureLiftedRenderer(creatureLifted.count, creatureLifted.creature))
 		}
