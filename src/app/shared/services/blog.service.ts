@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
 	providedIn: 'root',
 })
 
-export class BlogService {
+export class BlogService implements IContentService {
 
 	series: Series[]
 	selectedPost: Post
@@ -59,20 +59,32 @@ export class BlogService {
 			for (let j = 0; j < this.series[i].posts.length; j++) {
 				const post = this.series[i].posts[j]
 				post.index = j
+				post.seriesIndex = i
 				this.posts.push(post)
 			}
 		}
 	}
 
-	tryGetPostWithRoutePath(routePath: string) {
-		let foundPost = null;
-		this.posts.filter((post) => {
-			if (post.routePath === routePath) {
-				foundPost = post
-			}
-		})
-		return foundPost
+	get defaultPost(): Post {
+		return this.posts[0]
 	}
+
+	get urlEnd(): string {
+		return '/blog';
+	}
+
+	getPost(routePath: string) {
+		return this.posts.find(post => '/blog/' + post.routePath === routePath)
+	}
+}
+
+export interface IContentService {
+	series: Series[]
+	selectedPost: Post
+	posts: Post[]
+	getPost(routePath: string): Post | undefined
+	get defaultPost(): Post
+	get urlEnd(): string;
 }
 
 export enum PostRoutePath {
@@ -94,6 +106,7 @@ export class Post {
 	readonly publishedDate: Date
 	readonly updatedDate?: Date
 	index!: number
+	seriesIndex!: number
 
 	constructor(title: string, routePath: string, seriesTitle: string, publishedDate: Date, updatedDate?: Date) {
 		this.title = title
@@ -101,6 +114,10 @@ export class Post {
 		this.seriesTitle = seriesTitle
 		this.publishedDate = publishedDate
 		this.updatedDate = updatedDate
+	}
+
+	toString() {
+		return this.title + ' - ' + this.routePath + ' - ' + this.seriesTitle + ' - ' + this.publishedDate.toLocaleDateString() + (this.updatedDate ? ' - ' + this.updatedDate.toLocaleDateString() + 'index: "' + this.index + '"' : '')
 	}
 }
 

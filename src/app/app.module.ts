@@ -29,6 +29,7 @@ import { PostTdd7Component } from './blog/posts/tdd/postTdd7.component'
 import { PostTdd8Component } from './blog/posts/tdd/postTdd8.component'
 import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
+import { BlogContentDisplayComponent } from './contentDisplay/blogContentDisplay.component'
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.compone
 		PostTdd7Component,
 		PostTdd8Component,
 		PostChess1Component,
-		KgToCreatureComponent
+		KgToCreatureComponent,
+		BlogContentDisplayComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [{

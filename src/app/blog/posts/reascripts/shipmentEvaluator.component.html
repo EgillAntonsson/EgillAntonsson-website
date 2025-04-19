@@ -1,0 +1,21 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+<h2>The plugin</h2>
+<p>
+
+  Disclaimer: Use of this software is on your own risk, mainly as it provides a powerful encouragement to "SHIP IT !", thus you need to be careful about when to use it (not too soon, not too late). This software is completely predictable as it has a fixed evaluation result and does no audio processing.
+
+tags: analysis, utility, evaluation
+license: MIT (Do whatever you like with this code)
+</p>
+
+<div class="horizontalLine"></div>
+

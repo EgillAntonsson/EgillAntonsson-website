@@ -1,0 +1,15 @@
+<div class="treeContainer noSelect">
+	<div *ngFor="let s of series; let si = index">
+		<div class="branchContainer" (click)="onSeriesClick(si)">
+				<div class="branchIconContainer">
+						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != si, branchAnimateOpen: openedUiSeriesIndex === si}"></div>
+					</div>
+			<span>{{s.title}}</span>
+		</div>
+		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === si">
+			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of s.posts" (click)="onPostClick(post)">
+				{{post.title}}
+			</div>
+		</div>
+	</div>
+</div>

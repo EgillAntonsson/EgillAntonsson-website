@@ -6,8 +6,8 @@ import {BlogComponent} from './blog/blog.component'
 import {MusicPageComponent} from './musicPage/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
 import {PostFmodBatchRenameComponent} from './blog/posts/fmod/postFmodBatchRename.component'
-import {PostReascriptsMyScriptsComponent} from './blog/posts/reascripts/postReascriptsMyScripts.component'
-import {PostReascriptsShipmentEvaluatorComponent} from './blog/posts/reascripts/postReascriptsShipmentEvaluator.component'
+import {MyReaScriptsComponent} from './blog/posts/reascripts/myReaScripts.component'
+import {ShipmentEvaluatorComponent} from './blog/posts/reascripts/shipmentEvaluator.component'
 import { PostTdd1Component } from './blog/posts/tdd/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/tdd/postTdd2.component'
 import { PostTdd3Component } from './blog/posts/tdd/postTdd3.component'
@@ -28,8 +28,8 @@ const routes: Routes = [
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
 		{path: PostRoutePath.fmodBatchRename, component: PostFmodBatchRenameComponent},
-		{path: PostRoutePath.myScripts, component: PostReascriptsMyScriptsComponent},
-		{path: PostRoutePath.shipmentEvaluator, component: PostReascriptsShipmentEvaluatorComponent},
+		{path: PostRoutePath.myScripts, component: MyReaScriptsComponent},
+		{path: PostRoutePath.shipmentEvaluator, component: ShipmentEvaluatorComponent},
 		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},
 		{path: PostRoutePath.tddHealthPart3, component: PostTdd3Component},
