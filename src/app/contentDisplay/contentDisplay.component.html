@@ -4,9 +4,9 @@
 				<div class="branchIconContainer">
 						<div [ngClass]="{branchIcon: true, branchAnimateClose: openedUiSeriesIndex != si, branchAnimateOpen: openedUiSeriesIndex === si}"></div>
 					</div>
-			<span>{{s.title}}</span>
+			<span [ngClass]="{nodeSelected: s.title === selectedPost.seriesTitle}">{{s.title}}</span>
 		</div>
-		<div class="nodeContainer NodeFadeIn" *ngIf="openedUiSeriesIndex === si">
+		<div class="nodeContainer nodeFadeIn" *ngIf="openedUiSeriesIndex === si">
 			<div [ngClass]="{nodeSelected: post === selectedPost}" *ngFor="let post of s.posts" (click)="onPostClick(post)">
 				{{post.title}}
 			</div>

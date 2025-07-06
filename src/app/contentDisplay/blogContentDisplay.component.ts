@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from "@angular/core"
+import { Component } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
 import { BlogService, Post, Series } from "app/shared/services/blog.service"
 import { MusicService } from "app/shared/services/music.service"
@@ -40,9 +40,8 @@ export class BlogContentDisplayComponent extends ContentDisplayComponent {
 		router: Router,
 		activatedRoute: ActivatedRoute,
 		musicService: MusicService,
-		changeDetectorRef: ChangeDetectorRef
 	) {
-		super(router, activatedRoute, musicService, changeDetectorRef)
+		super(router, activatedRoute, musicService)
 		this.blogService = blogService
 	}
 
