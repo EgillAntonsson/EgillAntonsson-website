@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { ChangeDetectorRef, Component } from "@angular/core"
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router"
 import { Post, Series } from "app/shared/services/blog.service"
 import { MusicService } from "app/shared/services/music.service"
@@ -13,20 +13,18 @@ import { filter } from "rxjs/operators"
 })
 export abstract class ContentDisplayComponent {
 
-	protected openedUiSeriesIndex = 0
+	protected openedUiSeriesIndex = -1
 	protected selectedSeriesIndex = 0
 
-	constructor(protected router: Router, protected route: ActivatedRoute, protected musicService: MusicService) {
+	constructor(protected router: Router, protected route: ActivatedRoute, protected musicService: MusicService, private changeDetectorRef: ChangeDetectorRef) {
 
 		this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((e) => {
 			const urlEnd = (e as NavigationEnd).urlAfterRedirects
 
 			if (urlEnd === this.urlEnd) {
-				console.log("if")
 				this.selectedPost = this.defaultPost
 				this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 			} else {
-				console.log("else")
 				const post = this.getPost(urlEnd)
 				if (post) {
 					this.selectedPost = post
@@ -66,7 +64,7 @@ export abstract class ContentDisplayComponent {
 
 	onPostClick(post: Post) {
 		this.selectedPost = post
-
 		history.pushState(null, '', 'blog/' + this.selectedPost.routePath);
+		this.changeDetectorRef.detectChanges()
 	}
 }

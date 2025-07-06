@@ -4,7 +4,7 @@
 		xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
 		<loc>https://www.egill.rocks/</loc>
-		<lastmod>2024-08-18</lastmod>
+		<lastmod>2025-07-06</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
 		</image:image>
@@ -546,15 +546,23 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog</loc>
-		<lastmod>2023-07-16</lastmod>
+		<lastmod>2025-07-06</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/rea-scripts/antonsson-scripts</loc>
+		<lastmod>2025-07-06</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/rea-scripts/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname</loc>
+		<lastmod>2025-07-06</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/rea-scripts/shipment-evaluator</loc>
+		<lastmod>2025-07-06</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/fmod/batch-rename</loc>
 		<lastmod>2025-04-08</lastmod>
-	</url>
-	<url>
-		<loc>https://www.egill.rocks/blog/rea-scripts/my-scripts</loc>
-		<lastmod>2025-04-03</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
