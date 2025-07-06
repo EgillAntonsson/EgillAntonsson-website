@@ -279,7 +279,7 @@ export class MyTracksService {
 		const rootUrl = 'gone-is-my-friend-johnny'
 		const name = 'Gone is my friend Johnny'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone_is_my_friend_johnny'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone-is-my-friend-johnny'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5' // need to update this url
 		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb' // need to update this url
 		const about = `I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. I had the title and couple of sentences of the lyrics but since I could simply have the Vocals as a cheesy MIDI saxophone for now, I could finish them later (turned up to be much later...)<br>

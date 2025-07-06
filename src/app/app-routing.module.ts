@@ -7,6 +7,7 @@ import {MusicPageComponent} from './musicPage/musicPage.component'
 import {PageNotFoundComponent} from './pagenotfound.component'
 import {PostFmodBatchRenameComponent} from './blog/posts/fmod/postFmodBatchRename.component'
 import {MyReaScriptsComponent} from './blog/posts/reascripts/myReaScripts.component'
+import {RenameTracksComponent} from './blog/posts/reascripts/renameTracks.component'
 import {ShipmentEvaluatorComponent} from './blog/posts/reascripts/shipmentEvaluator.component'
 import { PostTdd1Component } from './blog/posts/tdd/postTdd1.component'
 import { PostTdd2Component } from './blog/posts/tdd/postTdd2.component'
@@ -28,7 +29,8 @@ const routes: Routes = [
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
 		{path: PostRoutePath.fmodBatchRename, component: PostFmodBatchRenameComponent},
-		{path: PostRoutePath.myScripts, component: MyReaScriptsComponent},
+		{path: PostRoutePath.antonssonScripts, component: MyReaScriptsComponent},
+		{path: PostRoutePath.renameTracks, component: RenameTracksComponent},
 		{path: PostRoutePath.shipmentEvaluator, component: ShipmentEvaluatorComponent},
 		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTdd1Component},
 		{path: 'tdd-health/part2', component: PostTdd2Component},

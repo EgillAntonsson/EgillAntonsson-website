@@ -22,9 +22,11 @@ export abstract class ContentDisplayComponent {
 			const urlEnd = (e as NavigationEnd).urlAfterRedirects
 
 			if (urlEnd === this.urlEnd) {
+				console.log("if")
 				this.selectedPost = this.defaultPost
 				this.router.navigate([this.selectedPost.routePath], {relativeTo: this.route})
 			} else {
+				console.log("else")
 				const post = this.getPost(urlEnd)
 				if (post) {
 					this.selectedPost = post
@@ -63,12 +65,8 @@ export abstract class ContentDisplayComponent {
 	}
 
 	onPostClick(post: Post) {
-		console.log('post clicked: ' + post)
 		this.selectedPost = post
 
 		history.pushState(null, '', 'blog/' + this.selectedPost.routePath);
-
-		console.log('opened: ' + this.openedUiSeriesIndex)
-		console.log('selected: ' + this.selectedSeriesIndex)
 	}
 }

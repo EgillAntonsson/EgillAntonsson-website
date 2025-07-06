@@ -1,0 +1,46 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+</div>
+<h2>Video showcasing this Script</h2>
+<figure>
+	<video controls width="640" height="360" class="image" title="Rename selected tracks from clipboard lines of format 'oldname, newname'">
+		<source src="../assets/videos/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname.mp4" type="video/mp4" alt="Rename selected tracks from clipboard lines of format 'oldname, newname'">
+		Your browser does not support the video tag.
+	</video>
+	<figcaption>Rename selected tracks from clipboard lines usage example</figcaption>
+</figure>
+<p>
+	You can <i>Undo</i> this action afterwards if needed.
+	The text input format should be in the CVS format 'oldName, newName' (without a header line),  the text below was used in the video:
+<p><code>
+oldName, newName<br>
+say_old_stuff, say_new_stuff
+</code></p>
+<h2>Dependencies</h2>
+<p>
+	The script uses these dependencies and will notify at execution start if they are not met.
+</p>
+<ul class="list inline">
+	<li>REAPER minimum version: 6.24</li>
+	<li>ReaPack extension (latest version)</li>
+	<li>SWS/S&M extension (latest version)</li>
+</ul>
+<p>
+	Here is the <a href="https://github.com/EgillAntonsson/REAPER-ReaScripts/blob/master/Tracks%20Properties/antonsson_Rename%20selected%20tracks%20from%20clipboard%20lines%20of%20format%20'oldName%2C%20newName'.lua">source code</a>.
+</p>
+<h2>When to use</h2>
+<h3>Processing <i>Voice Over</i> for all characters in a video game</h3>
+<p>
+	A narrative driven game will have a lot of Voice Over lines. Given the below workflow is used:
+</p>
+<ol class="list inline">
+	<li>Each text line has been set a unique <i>key</i> that will be the filename of each <i>.wav</i> file that corresponds to each Voice Over line in the game</li>
+	<li>The <i>REAPER</i> project is set up that each Track has the <i>key</i> name, and then each track is batch Rendered with the filename wildcard <i>$track</i>.</li>
+</ol>
+<p>
+	If changing a huge number of existing <i>key</i> is needed then the script can batch update the corresponding Tracks in one go, both saving time and minimizing errors.
+</p>

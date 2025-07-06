@@ -4,29 +4,50 @@
 	<small>by Egill Antonsson<br>
 		published on {{publishedDateToString}}<br>
 	</small>
-	<small *ngIf="hasUpdatedDate">
-		updated on {{updatedDateToString}}
-	</small>
 </div>
-<h2>My GitHub repository</h2>
 <p>
-	These are scripts for <a href="https://www.reaper.fm">REAPER</a> DAW (Digital Audio Workstation). I store my scripts in a GitHub repository. You can find it <a href="https://github.com/EgillAntonsson/REAPER-ReaScripts/tree/master">here</a>.
+	These are my scripts for <a href="https://www.reaper.fm">REAPER</a> DAW (Digital Audio Workstation).
 </p>
-<h2>How to get my scripts into REAPER</h2>
+<h2>How to get my scripts in REAPER</h2>
 <p>
-	The best way to to get the scripts is via the <a href="http://www.reapack.com">ReaPack</a> REAPER extension, the package manager for REAPER made by <a href="https://github.com/cfillion/">cfillion</a>. You could also download the scripts manually from the GitHub repository, but then you will need to update them manually as well. The ReaPack extension will automatically check for updates and install them for you and it is very easy to use, thus I recommend it.
+	The best way to get the scripts is via the <a href="http://www.reapack.com">ReaPack</a> REAPER extension, the package manager for REAPER made by <a href="https://github.com/cfillion/">cfillion</a>..
 </p>
-<ul class="list inline">
-	<li>Download and install ReaPack</li>
+<ol class="list inline">
+	<li>Install <a href="https://reapack.com/user-guide#installation">ReaPack</a></li>
 	<li>In REAPER click menu item <i>Extensions > ReaPack > Manage repositories...</i></li>
 	<li>Click <i>Import/export... > Import repositories</i></li>
-	<li>Insert <i>https://raw.githubusercontent.com/EgillAntonsson/REAPER-ReaScripts/refs/heads/master/index.xml</i> and press OK</li>
-	<li>You should see <i>Antonsson Scripts</i> name in the list
-	<li>Click <i>Options...</i> and checkmark <i>install new packages when synchronizing</i> and then click RePack menu item <i>Synchronize packages</i></li>
-</ul>
+	<li>Insert as text: <a href="https://raw.githubusercontent.com/EgillAntonsson/REAPER-ReaScripts/refs/heads/master/index.xml">https://raw.githubusercontent.com/EgillAntonsson/REAPER-ReaScripts/refs/heads/master/index.xml</a></li>
+</ol>
+<figure>
+	<img src="../assets/images/reapack-repos.png" title="Reapack repositories" alt="Reapack repositories" class="image">
+	<figcaption>Reapack repositories, you should see <i>Antonsson Scripts</i> name in the list.</figcaption>
+</figure>
 <p>
-	My scripts will be downloaded and installed in the <i>Scripts</i> folder in your REAPER installation folder. You can find it by clicking menu item <i>Options > Show REAPER resource path in explorer/finder</i>. The .lua scripts are in the <i>Scripts</i> subfolder, and the .jsfx scripts are in <i>Effects</i> subfolder.
+	You easily make ReaPack check for updates and install them with menu item <i>Extensions > ReaPack > Synchronize packages</i>.<br>
+	I recommend making sure that new packages are always installed by clicking <i>Options...</i> and checkmark <i>install new packages when synchronizing</i>.
 </p>
-
-<div class="horizontalLine"></div>
+<h2>How to use</h2>
+<h3>The FX Plugins</h3>
+<p>
+	 Add it to a Track or Item by doing the <i>Add FX...</i> step on and search for the name of the FX, e.g. <i>Shipment Evaluator</i>. Play and be flabbergasted by the result. Below is the list, click for further info:
+</p>
+<ul class="list inline">
+	<li><a href="./blog/rea-scripts/shipment-evaluator">-->> The Shipment Evaluator <<--</a></li>
+</ul>
+<h3>The Scripts</h3>
+<p>
+	Open the <i>Actions</i> window by pressing key '?' or via menu item <i>Actions > Show Action list...</i> and search for the script name, or <i>'antonsson_'</i> as they all have this prefix. Run it by double clicking and be flabbergasted by the result. Below is the list, click for further info:
+</p>
+<ul class="list inline">
+	<li><a href="./blog/rea-scripts/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname">Rename selected tracks from clipboard lines of format 'oldName, newName'</a></li>
+</ul>
+<h2>Basic source code info</h2>
+<h3>The source code</h3>
+<p>
+	The source code is in <a href="https://github.com/EgillAntonsson/REAPER-ReaScripts/tree/master">REAPER-ReaScripts</a> GitHub repository, that I created from the <a href="https://github.com/cfillion/reapack-repository-template">Reapack repository template</a> by <a href="https://github.com/cfillion/">cfillion</a>.
+</p>
+<h3>Where are the scripts within the the REAPER folder</h3>
+<p>
+	Using <a href="http://www.reapack.com">ReaPack</a> the scripts are downloaded and put proper subfolder within the REAPER resource path folder. You can view this  folder by clicking menu item <i>Options > Show REAPER resource path in explorer/finder</i>. The .lua scripts are in the <i>Scripts/Antonsson Scripts/</i> subfolder, and the .jsfx scripts (that correspond to the FX Plugins) are in <i>Effects/Antonsson Scripts/</i> subfolder.
+</p>
 
