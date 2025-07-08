@@ -1,0 +1,843 @@
+[
+	{
+		"name": "Gold dragon",
+		"kg": 580600,
+		"url": "http://forgottenrealms.wikia.com/wiki/Gold_dragon"
+	},
+	{
+		"name": "Silver dragon",
+		"kg": 580599,
+		"url": "https://forgottenrealms.fandom.com/wiki/Silver_dragon"
+	},
+	{
+		"name": "Bronze dragon",
+		"kg": 72575,
+		"url": "https://forgottenrealms.fandom.com/wiki/Bronze_dragon"
+	},
+	{
+		"name": "Copper dragon",
+		"kg": 72574,
+		"url": "https://forgottenrealms.fandom.com/wiki/Copper_dragon"
+	},
+	{
+		"kg": 27216,
+		"name": "Brass dragon",
+		"url": "https://forgottenrealms.fandom.com/wiki/Brass_dragon"
+	},
+	{
+		"name": "Blue whale",
+		"kg": 136000,
+		"url": "https://en.wikipedia.org/wiki/Blue_whale"
+	},
+	{
+		"name": "Tarrasque",
+		"kg": 130000,
+		"url": "http://forgottenrealms.wikia.com/wiki/Tarrasque"
+	},
+	{
+		"kg": 100000,
+		"name": "Bowhead (whale)"
+	},
+	{
+		"kg": 96400,
+		"name": "Argentinosaurus huinculensis dinosaur"
+	},
+	{
+		"kg": 80000,
+		"name": "'Antarctosaurus' giganteus dinosaur",
+		"url": "https://en.wikipedia.org/wiki/Antarctosaurus#%22Antarctosaurus%22_giganteus"
+	},
+	{
+		"kg": 75900,
+		"name": "Notocolossus gonzalezparejasi dinosaur"
+	},
+	{
+		"kg": 75000,
+		"name": "Mamenchisaurus sinocanadorum dinosaur"
+	},
+	{
+		"kg": 72600,
+		"name": "Apatosaurus ajax dinosaur"
+	},
+	{
+		"kg": 70000,
+		"name": "Fin whale"
+	},
+	{
+		"kg": 69000,
+		"name": "Patagotitan mayorum dinosaur"
+	},
+	{
+		"kg": 60000,
+		"name": "Sauroposeidon proteles dinosaur"
+	},
+	{
+		"kg": 59300,
+		"name": "Dreadnoughtus schrani dinosaur"
+	},
+	{
+		"kg": 59000,
+		"name": "Paralititan stromeri dinosaur"
+	},
+	{
+		"kg": 45000,
+		"name": "Southern right whale"
+	},
+	{
+		"kg": 30000,
+		"name": "Humpback whale"
+	},
+	{
+		"kg": 28500,
+		"name": "Gray whale"
+	},
+	{
+		"name": "Northen right whale",
+		"kg": 23000,
+		"url": "https://en.wikipedia.org/wiki/North_Atlantic_right_whale"
+	},
+	{
+		"kg": 20900,
+		"name": "Spinosaurus aegyptiacus dinosaur"
+	},
+	{
+		"kg": 20000,
+		"name": "Sei whale"
+	},
+	{
+		"kg": 18500,
+		"name": "Tyrannosaurus rex dinosaur"
+	},
+	{
+		"kg": 16000,
+		"name": "Bryde's whale"
+	},
+	{
+		"kg": 15100,
+		"name": "Carcharodontosaurus saharicus dinosaur"
+	},
+	{
+		"kg": 13800,
+		"name": "Giganotosaurus carolinii dinosaur"
+	},
+	{
+		"kg": 11380,
+		"name": "Baird's beaked whale"
+	},
+	{
+		"kg": 7500,
+		"name": "Minke whale"
+	},
+	{
+		"kg": 7300,
+		"name": "Acrocanthosaurus atokensis dinosaur"
+	},
+	{
+		"kg": 7000,
+		"name": "Oxalaia quilombensis dinosaur"
+	},
+	{
+		"kg": 6999,
+		"name": "Tyrannotitan chubutensis dinosaur"
+	},
+	{
+		"kg": 6500,
+		"name": "Northen bottlenose whale"
+	},
+	{
+		"kg": 6400,
+		"name": "Deinocheirus mirificus dinosaur"
+	},
+	{
+		"kg": 6000,
+		"name": "Chilantaisaurus tashuikouensis dinosaur"
+	},
+	{
+		"kg": 5600,
+		"name": "Gervais's beaked whale"
+	},
+	{
+		"kg": 5200,
+		"name": "Suchomimus tenerensis dinosaur"
+	},
+	{
+		"kg": 4800,
+		"name": "African elephant"
+	},
+	{
+		"kg": 3988,
+		"name": "Killer whale"
+	},
+	{
+		"kg": 3750,
+		"name": "Hippopotamus"
+	},
+	{
+		"kg": 7500,
+		"name": "Asian elephant"
+	},
+	{
+		"kg": 2701,
+		"name": "Cuvier's beaked whale",
+		"url": "https://en.wikipedia.org/wiki/Cuvier's_beaked_whale"
+	},
+	{
+		"kg": 2200,
+		"name": "Short-finned pilot whale"
+	},
+	{
+		"kg": 2175,
+		"name": "White rhinoceros"
+	},
+	{
+		"name": "Javan rhinoceros",
+		"kg": 1750,
+		"url": "https://en.wikipedia.org/wiki/Javan_rhinoceros"
+	},
+	{
+		"kg": 1602,
+		"name": "Indian rhinoceros"
+	},
+	{
+		"kg": 1600,
+		"name": "Northen elephant seal"
+	},
+	{
+		"kg": 1430,
+		"name": "Beluga"
+	},
+	{
+		"kg": 1400,
+		"name": "Southern elephant seal"
+	},
+	{
+		"kg": 1260,
+		"name": "Sumatran rhinoceros"
+	},
+	{
+		"kg": 1250,
+		"name": "Narwhal"
+	},
+	{
+		"kg": 1100,
+		"name": "Black rhinoceros"
+	},
+	{
+		"kg": 1088,
+		"name": "Blainville's beaked whale"
+	},
+	{
+		"kg": 1060,
+		"name": "Long-finned pilot whale"
+	},
+	{
+		"kg": 1013,
+		"name": "Walrus"
+	},
+	{
+		"kg": 825,
+		"name": "Gaur"
+	},
+	{
+		"kg": 800,
+		"name": "Giraffe"
+	},
+	{
+		"kg": 748,
+		"name": "False killer whale"
+	},
+	{
+		"kg": 725,
+		"name": "Water buffalo"
+	},
+	{
+		"kg": 700,
+		"name": "African buffalo"
+	},
+	{
+		"kg": 667,
+		"name": "Yak"
+	},
+	{
+		"kg": 630,
+		"name": "American bison",
+		"url": "https://en.wikipedia.org/wiki/American_bison"
+	},
+	{
+		"kg": 610,
+		"name": "European bison"
+	},
+	{
+		"kg": 480,
+		"name": "Amazonian manatee"
+	},
+	{
+		"kg": 475,
+		"name": "Polar bear"
+	},
+	{
+		"kg": 475,
+		"name": "Bactrian camel"
+	},
+	{
+		"kg": 425,
+		"name": "Risso's dolphin"
+	},
+	{
+		"kg": 415,
+		"name": "Northen sea lion"
+	},
+	{
+		"kg": 405,
+		"name": "Hooded seal"
+	},
+	{
+		"kg": 386,
+		"name": "Moose"
+	},
+	{
+		"kg": 425,
+		"name": "Grevy's zebra"
+	},
+	{
+		"kg": 373,
+		"name": "Bearded seal"
+	},
+	{
+		"kg": 368,
+		"name": "Leopard seal"
+	},
+	{
+		"kg": 360,
+		"name": "Dugong"
+	},
+	{
+		"kg": 322,
+		"name": "Caribbean manatee"
+	},
+	{
+		"kg": 315,
+		"name": "Muskox"
+	},
+	{
+		"kg": 308,
+		"name": "Bongo"
+	},
+	{
+		"kg": 300,
+		"name": "Baird's tapir"
+	},
+	{
+		"kg": 296,
+		"name": "Mountain zebra"
+	},
+	{
+		"name": "Indo-Pacific humpbacked dolphin",
+		"kg": 280,
+		"url": "https://en.wikipedia.org/wiki/Indian_Ocean_humpback_dolphin"
+	},
+	{
+		"kg": 278,
+		"name": "grizzly bear"
+	},
+	{
+		"kg": 275,
+		"name": "Kiang"
+	},
+	{
+		"kg": 268,
+		"name": "Gray seal"
+	},
+	{
+		"kg": 250,
+		"name": "Malayan tapir"
+	},
+	{
+		"kg": 240,
+		"name": "Tamaraw"
+	},
+	{
+		"kg": 230,
+		"name": "Kulan"
+	},
+	{
+		"kg": 225,
+		"name": "Roan antelope"
+	},
+	{
+		"kg": 223,
+		"name": "Hawaiian monk seal"
+	},
+	{
+		"kg": 218,
+		"name": "Greater kudu"
+	},
+	{
+		"kg": 215,
+		"name": "Pygmy hippopotamus"
+	},
+	{
+		"kg": 208,
+		"name": "Southern sea lion"
+	},
+	{
+		"kg": 206,
+		"name": "Melon-headed whale"
+	},
+	{
+		"kg": 203,
+		"name": "Giant forest hog"
+	},
+	{
+		"kg": 200,
+		"name": "Red deer"
+	},
+	{
+		"kg": 190,
+		"name": "Australian sea lion"
+	},
+	{
+		"kg": 188,
+		"name": "New Zealand sea lion"
+	},
+	{
+		"kg": 187,
+		"name": "Pere David's deer"
+	},
+	{
+		"kg": 185,
+		"name": "Sambar"
+	},
+	{
+		"kg": 180,
+		"name": "Wild boar"
+	},
+	{
+		"kg": 178,
+		"name": "Scimitar-horned oryx"
+	},
+	{
+		"kg": 177,
+		"name": "Ross seal"
+	},
+	{
+		"kg": 175,
+		"name": "Lion"
+	},
+	{
+		"kg": 170,
+		"name": "Gemsbok"
+	},
+	{
+		"kg": 166,
+		"name": "Northern fur seal"
+	},
+	{
+		"kg": 165,
+		"name": "Blue wildebeest"
+	},
+	{
+		"kg": 164,
+		"name": "Fraser's dolphin"
+	},
+	{
+		"kg": 160,
+		"name": "Argali"
+	},
+	{
+		"kg": 159,
+		"name": "Hartebeest"
+	},
+	{
+		"kg": 155,
+		"name": "Anoa"
+	},
+	{
+		"kg": 154,
+		"name": "American black bear"
+	},
+	{
+		"kg": 150,
+		"name": "Mountain anoa"
+	},
+	{
+		"kg": 149,
+		"name": "Mountain tapir"
+	},
+	{
+		"kg": 140,
+		"name": "Gorilla"
+	},
+	{
+		"kg": 135,
+		"name": "Thorold's deer"
+	},
+	{
+		"kg": 132,
+		"name": "Black wildebeest"
+	},
+	{
+		"kg": 128,
+		"name": "South African fur seal"
+	},
+	{
+		"kg": 123,
+		"name": "Eld's deer"
+	},
+	{
+		"kg": 121,
+		"name": "Arabian oryx"
+	},
+	{
+		"kg": 120,
+		"name": "Tiger",
+		"url": "https://en.wikipedia.org/wiki/Tiger"
+	},
+	{
+		"kg": 118,
+		"name": "Giant panda"
+	},
+	{
+		"kg": 115,
+		"name": "Harbor seal"
+	},
+	{
+		"kg": 114,
+		"name": "Rough-toothed dolphin"
+	},
+	{
+		"kg": 113,
+		"name": "Striped dolphin"
+	},
+	{
+		"kg": 110,
+		"name": "Topi"
+	},
+	{
+		"kg": 109,
+		"name": "Spectacled bear"
+	},
+	{
+		"kg": 105,
+		"name": "Kob"
+	},
+	{
+		"kg": 104,
+		"name": "Asiatic black bear"
+	},
+	{
+		"kg": 103,
+		"name": "Bearded pig"
+	},
+	{
+		"kg": 101,
+		"name": "Reindeer"
+	},
+	{
+		"kg": 100,
+		"name": "Sloth bear"
+	},
+	{
+		"kg": 95,
+		"name": "Lechwe"
+	},
+	{
+		"kg": 93,
+		"name": "Addax"
+	},
+	{
+		"kg": 90,
+		"name": "Mountain goat"
+	},
+	{
+		"kg": 88,
+		"name": "Bushpig"
+	},
+	{
+		"kg": 87,
+		"name": "White-tailed deer"
+	},
+	{
+		"kg": 86,
+		"name": "Caspian seal"
+	},
+	{
+		"kg": 85,
+		"name": "Spotted seal"
+	},
+	{
+		"kg": 84,
+		"name": "Amazon dolphin"
+	},
+	{
+		"kg": 83,
+		"name": "Ibex"
+	},
+	{
+		"kg": 81,
+		"name": "Jaguar"
+	},
+	{
+		"kg": 80,
+		"name": "Short-beaked saddleback dolphin"
+	},
+	{
+		"kg": 76,
+		"name": "Javan pig"
+	},
+	{
+		"kg": 75,
+		"name": "Nilgiri tahr"
+	},
+	{
+		"kg": 73,
+		"name": "Dall's sheep"
+	},
+	{
+		"kg": 72,
+		"name": "Babirusa"
+	},
+	{
+		"kg": 70,
+		"name": "Bighorn sheep"
+	},
+	{
+		"kg": 67,
+		"name": "Grant's gazelle"
+	},
+	{
+		"kg": 64,
+		"name": "Orangutan"
+	},
+	{
+		"kg": 63,
+		"name": "Cougar"
+	},
+	{
+		"kg": 62,
+		"name": "Yellow-backed duiker"
+	},
+	{
+		"kg": 60,
+		"name": "Aardvark"
+	},
+	{
+		"kg": 58,
+		"name": "Southern reedbuck"
+	},
+	{
+		"kg": 57,
+		"name": "Mule deer"
+	},
+	{
+		"kg": 56,
+		"name": "Hector's dolphin"
+	},
+	{
+		"kg": 55,
+		"name": "Red kangaroo"
+	},
+	{
+		"kg": 54,
+		"name": "Leopard"
+	},
+	{
+		"kg": 53,
+		"name": "Harbor porpoise"
+	},
+	{
+		"kg": 50,
+		"name": "Snow leopard"
+	},
+	{
+		"kg": 49,
+		"name": "Rhim gazelle"
+	},
+	{
+		"kg": 47,
+		"name": "River dolphin"
+	},
+	{
+		"kg": 46,
+		"name": "Sun bear"
+	},
+	{
+		"kg": 45,
+		"name": "Chimpanzee"
+	},
+	{
+		"kg": 44,
+		"name": "Gerenuk"
+	},
+	{
+		"kg": 42,
+		"name": "Brown hyena"
+	},
+	{
+		"kg": 41,
+		"name": "Calamian deer"
+	},
+	{
+		"kg": 40,
+		"name": "Bonono"
+	},
+	{
+		"kg": 39,
+		"name": "Eastern roe deer"
+	},
+	{
+		"kg": 38,
+		"name": "Blackbuck"
+	},
+	{
+		"kg": 36,
+		"name": "Chital"
+	},
+	{
+		"kg": 35,
+		"name": "Himalayan tahr"
+	},
+	{
+		"kg": 34,
+		"name": "Tufted deer",
+		"url": "https://en.wikipedia.org/wiki/Tufted_deer"
+	},
+	{
+		"kg": 33,
+		"name": "Giant armadillo"
+	},
+	{
+		"kg": 32,
+		"name": "Goral"
+	},
+	{
+		"kg": 31,
+		"name": "Northern hairy-nosed wombat"
+	},
+	{
+		"kg": 30,
+		"name": "Mongolian gazelle"
+	},
+	{
+		"kg": 29,
+		"name": "Giant anteater"
+	},
+	{
+		"kg": 28,
+		"name": "Western gray kangaroo"
+	},
+	{
+		"kg": 27,
+		"name": "Gray wolf"
+	},
+	{
+		"kg": 26,
+		"name": "Hairy-nosed wobat"
+	},
+	{
+		"kg": 25,
+		"name": "European beaver"
+	},
+	{
+		"kg": 24,
+		"name": "Giant otter"
+	},
+	{
+		"kg": 23,
+		"name": "Lynx"
+	},
+	{
+		"kg": 22,
+		"name": "Maned wolf"
+	},
+	{
+		"kg": 21,
+		"name": "Indian muntjac"
+	},
+	{
+		"kg": 20,
+		"name": "Clouded leopard"
+	},
+	{
+		"kg": 19,
+		"name": "Four-horned antelope"
+	},
+	{
+		"kg": 18,
+		"name": "Hamadryas baboon"
+	},
+	{
+		"kg": 17,
+		"name": "Whiptail wallaby"
+	},
+	{
+		"kg": 16,
+		"name": "Wolverine"
+	},
+	{
+		"kg": 15,
+		"name": "Proboscis monkey"
+	},
+	{
+		"kg": 14,
+		"name": "Asiatic golden cat"
+	},
+	{
+		"kg": 13,
+		"name": "Coyote"
+	},
+	{
+		"kg": 12,
+		"name": "Chinese water deer"
+	},
+	{
+		"kg": 11,
+		"name": "Grizzled tree kangaroo"
+	},
+	{
+		"kg": 10,
+		"name": "Doria's tree kangaroo"
+	},
+	{
+		"kg": 9,
+		"name": "Bobcat"
+	},
+	{
+		"kg": 8,
+		"name": "Black spider monkey"
+	},
+	{
+		"kg": 7,
+		"name": "Tasmanian devil"
+	},
+	{
+		"name": "Common raccon",
+		"kg": 6,
+		"url": "https://en.wikipedia.org/wiki/Raccoon"
+	},
+	{
+		"kg": 5,
+		"name": "Gray fox"
+	},
+	{
+		"kg": 4,
+		"name": "Striped skunk"
+	},
+	{
+		"kg": 3,
+		"name": "Large bamboo rat"
+	},
+	{
+		"kg": 2,
+		"name": "Red giant flying squirrel"
+	},
+	{
+		"kg": 1,
+		"name": "Guinea pig"
+	},
+	{
+		"kg": 0.5,
+		"name": "Four-toed hedgehog",
+		"url": "https://en.wikipedia.org/wiki/Four-toed_hedgehog"
+	}
+]
