@@ -21,6 +21,7 @@
 	</div>
 </div>
 
+<div class="horizontalLine"></div>
 <div #trackGraphicContainer class="trackGraphicContainer">
 	<div *ngIf="selectedTrack.artworkPath !== ''">
 	<figure>
@@ -28,30 +29,48 @@
 	</figure>
 	</div>
 	<div class="buttonContainer">
-		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton">
+		<!-- Bandcamp button -->
+		<span *ngIf="selectedTrack.bandcampUrl !== ''" class="iconButton bgGradientQobuzBlue">
+			 <a href="{{selectedTrack.bandcampUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bandcamp-logotype-light.svg" alt="Play {{selectedTrack.name}} on Bandcamp" title="Play {{selectedTrack.name}} on Bandcamp" class="spotifyIcon">
+			</a>
+		</span>
+		<!-- Qobuz button -->
+		<span *ngIf="selectedTrack.qobuzUrl !== ''" class="iconButton bgGradientBlueQobuz">
+			 <a href="{{selectedTrack.qobuzUrl}}" target=”_blank”>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/1/17/New_logo_qobuz_2015.jpg" alt="Play {{selectedTrack.name}} on Bandcamp" title="Play {{selectedTrack.name}} on Bandcamp" class="spotifyIcon">
+			</a>
+		</span>
+		<!-- Soundcloud button -->
+		<span *ngIf="selectedTrack.soundcloudUrl !== ''" class="iconButton bgGradientGray">
 			<a href="{{selectedTrack.soundcloudUrl}}" target=”_blank”>
 				<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Soundcloud_logo.svg" alt="Play {{selectedTrack.name}} on SoundCloud" title="Play {{selectedTrack.name}} on SoundCloud" class="soundcloudIcon">
 			</a>
 		</span>
-		<span *ngIf="selectedTrack.spotifyUrl !== ''" class="iconButton">
+		<!-- Spotify button -->
+		<span *ngIf="selectedTrack.spotifyUrl !== ''" class="iconButton bgGradientGray">
 			<a href="{{selectedTrack.spotifyUrl}}" target=”_blank”>
 				<img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg " alt="Play {{selectedTrack.name}} on Spotify" title="Play {{selectedTrack.name}} on Spotify" class="spotifyIcon">
 			</a>
 		</span>
-		<span *ngIf="selectedTrack.buyUrl !== ''" class="iconButton">
-			<a class="IconLink" href="{{selectedTrack.buyUrl}}" target=”_blank”>Buy</a>
-		</span>
+	</div>
+	Click on the buttons above to buy (via <i>Bandcamp</i> and/or <i>Qubuz</i>) or stream the track on the respective service.<br><br>
+	<div *ngIf="selectedTrack.about !== ''">
+		<div class="horizontalLine"></div>
+		<h4>About {{selectedTrack.name}}</h4>
+		<p [innerHTML]="selectedTrack.about"></p>
 	</div>
 </div>
 
 <div class="trackRightContainer">
 <div class="trackRightInner">
-	<div *ngIf="selectedTrack.about !== ''">
-	<h4>About {{selectedTrack.name}}</h4>
-	<p [innerHTML]="selectedTrack.about"></p>
+	<div *ngIf="selectedTrack.lyrics !== ''">
+		<div class="horizontalLine"></div>
+		<h4>Lyrics</h4>
+		<p [innerHTML]="selectedTrack.lyrics"></p>
 	</div>
-
 	<div *ngIf="selectedTrack.artistAbout !== ''">
+		<div class="horizontalLine"></div>
 		<h4>About {{selectedTrack.artistName}}</h4>
 		<p [innerHTML]="selectedTrack.artistAbout"></p>
 	</div>

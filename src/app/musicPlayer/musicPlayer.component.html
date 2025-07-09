@@ -2,7 +2,7 @@
 	<div #youtubePlayer class="youtubePlayer" [ngClass]="{hide: selectedTrack.source !== 'Youtube' || selectedTrackAsYoutubeTrack.isGraphicsActive === false}">
 		<youtube-player videoId="{{selectedTrackAsYoutubeTrack.youtubeId}}" (ready)="onPlayerReady ($event)" (change)="onPlayerStateChange($event)"></youtube-player>
 	</div>
-	<div class="myPlayer noSelect" [ngClass]="{hide: selectedTrack.source === 'Youtube' && selectedTrackAsYoutubeTrack.isGraphicsActive === true}">
+	<div class="myPlayer noSelect bgGradientGray" [ngClass]="{hide: selectedTrack.source === 'Youtube' && selectedTrackAsYoutubeTrack.isGraphicsActive === true}">
 		<span class="playIconContainer" (click)="onPlayPauseBtn()">
 			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Paused' || playState === 'Stopped'}"></div>
 		</span>

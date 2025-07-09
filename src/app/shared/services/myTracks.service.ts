@@ -99,7 +99,9 @@ export class MyTracksService {
 
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at around age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
+		<br>
 		Around the turn of this century, I was in the band <a href="https://egill.rocks/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="https://egill.rocks/music/tonis-time-machine" target="_blank">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
@@ -273,47 +275,49 @@ export class MyTracksService {
 		return track
 	}
 
-	// https://open.spotify.com/artist/3I847bFyfMfqgw6IflREkL?si=tALJ0wqfTdSDfEbEV5WWwg
-
 	private goneIsMyFriendJohnny() {
 		const rootUrl = 'gone-is-my-friend-johnny'
 		const name = 'Gone is my friend Johnny'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone-is-my-friend-johnny'
-		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5' // need to update this url
-		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb' // need to update this url
-		const about = `I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. I had the title and couple of sentences of the lyrics but since I could simply have the Vocals as a cheesy MIDI saxophone for now, I could finish them later (turned up to be much later...)<br>
+		const spotifyUrl = 'https://open.spotify.com/track/6dcm94SPl7ehPR4ZMlCfah?si=76a90062d2034ab2'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/gone-is-my-friend-johnny-egill-antonsson/svqlqxedzfkwc'
+		const bandcampUrl = 'https://egillantonsson.bandcamp.com/track/gone-is-my-friend-johnny'
+		const about =
+`I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD. I had the title and couple of words of the lyrics thus I simply recorded a cheesy MIDI saxophone for the Vocals.<br>
 <br>
 Last year my friend and fellow musician Milosh passed away. We had plans to collaborate on music projects together by playing live and record and finish some of his songs. We didn't get far with this but at least we jammed together during family visits and events.<br>
 <br>
-One day, while playing the piano, this old song came into my mind. I felt it was time to properly work, finish and share it. I bought a CD player to import the song from the dusty CD to my computer as a starting point. I wrote the rest of the lyrics and improved the melody. I recorded the song with voice (bye bye MIDI sax) and real instruments and slowed the tempo down. Feeling it fitting to honor Milosh's memory, I decided to feature the guitar prominently throughout the song (with both the solo and the chord strumming).<br>
+One day, while playing the piano, this old song came into my mind. I felt it was time to properly work, finish and share it. I bought a CD player to import the song from the dusty CD to my computer as a starting point. I wrote the rest of the lyrics and improved the melody. I recorded the song with voice (bye bye cheesy MIDI sax) and real instruments and slowed the tempo down. Feeling it fitting to honor Milosh's memory, I decided to feature the guitar prominently throughout the song with both the solo and the chord strumming.<br>
 <br>
-The song is dedicated to Milosh, Johnny/Jói, and all our friends that have passed away that we'll always remember.<br>
-		<br><b>LYRICS</b><br>
-		<br>
-		Gone is my friend Johnny.<br>
-		Faded away, far away.<br>
-		And now, I'm talking to Valery.<br>
-		About the days, the yesterdays.<br>
-		<br>
-		But gravity comes and pulls you down, down, down.<br>
-		Out of the blue, and there's nothing you can do.<br>
-		But we'll never stop to love and think of you.<br>
-		The memories light the darkness away.<br>
-		We're singing and playing today.
-		<br>
-		<br>Guitar solo<br>
-		<br>
-		But gravity comes and pulls you down, down, down.<br>
-		Out of the blue, and there's nothing you can do.<br>
-		But we'll never stop to love and think of you.<br>
-		One of these days we will meet again, and you'll say then:<br>
-		<br>
-		"Gone, gone was your Johnny.<br>
-		Now you've found, you found your friend Johnny.<br>
-		Together again, here we are.<br>
-		Together we are."`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+The song is dedicated to Milosh, Johnny/Jói, and all our friends that have passed away that we'll always remember.`
+
+		const lyrics =
+`Gone is my Johnny.<br>
+<br>
+Gone is my friend Johnny.<br>
+Faded away, far away.<br>
+And now, I'm talking to Valery.<br>
+About the days, the yesterdays.<br>
+<br>
+But gravity comes and pulls you down, down, down.<br>
+Out of the blue, and there's nothing you can do.<br>
+But we'll never stop to love and think of you.<br>
+The memories light the darkness away.<br>
+We're singing and playing today.<br>
+<br>
+But gravity comes and pulls you down, down, down.<br>
+Out of the blue, and there's nothing you can do.<br>
+But we'll never stop to love and think of you.<br>
+One of these days we will meet again.<br>
+And you'll say then,<br>
+<br>
+"Gone, gone was my Johnny.<br>
+Now you've found, you found your friend Johnny.<br>
+Together again, here we are.<br>
+Together we are."`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private laughingAndSmiling() {
@@ -322,7 +326,7 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
 		const about = `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.
 		<br>LYRICS<br>
 		<br>
@@ -344,7 +348,7 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		Got washed away into the sand.<br>
 		Back then laughing and smiling you were.<br>
 		Laughing and smiling were were.<br>`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl)
 	}
 
 	private glory() {
@@ -851,7 +855,7 @@ And I shine, when there's no light.<br>
 		const name = 'We Will Meet Again'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
-		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
+		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
 		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
 
 		const about = `In the spring of 2021, my friend and music partner, <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.<br>
@@ -882,7 +886,7 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Magma MerryGoRound'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
-		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
+		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
 		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
 		const about = `Debuted at the 2021 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym, Vulkanoman, this creation was initially named 'Tivoli Chase Cop 27/16.' However, the inspiration struck me during the then recent journey where I witnessed the live volcanic eruption at <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>, leading me to retitle the track.`
 

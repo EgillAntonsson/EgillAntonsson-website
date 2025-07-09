@@ -31,6 +31,9 @@
 
 	--colorBlueLight: #7AA6DA;
 
+	--colorBlueLightQobuz: #55b5cb;
+	--colorBlueDarkQobuz: #108db9;
+
 	--colorPurpleLight: #C397D8;
 
 	--colorBackground: var(--colorBlackLight);
@@ -41,6 +44,14 @@
 	--colorLinkVisited: var(--colorPurpleLight);
 
 	--screenWidth0: 451px;
+}
+
+.bgGradientGray {
+	background: linear-gradient(180deg, var(--colorGrayDarkMed) 0%, var(--colorGrayDark) 100%);
+}
+
+.bgGradientBlueQobuz {
+	background: linear-gradient(180deg, var(--colorBlueLightQobuz) 0%, var(--colorBlueDarkQobuz) 100%);
 }
 
 body {
