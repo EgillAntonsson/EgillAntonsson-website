@@ -99,7 +99,9 @@ export class MyTracksService {
 
 	private get aboutEgillAntonsson() {
 		return `I began my musical journey at around age 8 with the piano. In my early teens, I was drawn to the guitar, inspired by icons like <a href="https://www.slashonline.com/"  target="_blank">Slash</a>. Alongside my two friends, all of us guitarists, we formed a band and I embraced the electric bass, recognizing its significance (alongside the drums) in modern music genres. Growing up in choirs my mother Halla Soffía Jónasdóttir sung in, I started myself singing more and more.<br>
+		<br>
 		In my late teens, my passion for the piano resurfaced, leading me to focus on jazz piano, and a bit of bass, at FÍH music school. There, I had the privilege of learning from exceptional mentors, including <a href="https://www.agnarmagnusson.com" target="_blank">Agnar Már Magnússon</a>, <a href="https://open.spotify.com/artist/1mtaJAxoe50UVhxjG3BRDd?si=da5LV9aAT6mNstXEwgnoeA" target="_blank">Eyþór Gunnarsson</a>, <a href="https://open.spotify.com/artist/07AnAQ7ktaTxhqaAJvSCRG?si=vJpKq05ORHyxWWrFSVpSrA" target="_blank">Jóhann Ásmundsson</a>, and <a href="https://www.sigurdurflosason.com" target="_blank">Sigurður Flosason</a>.<br>
+		<br>
 		Around the turn of this century, I was in the band <a href="https://egill.rocks/music/pirringur" target="_blank">KUAI</a> which shone brightly before fading out. Throughout my journey, I collaborated with many talented musicians, yet my most enduring partnership remains with ${this.urlSindri()}. Currently we produce music as <a href="https://egill.rocks/music/tonis-time-machine" target="_blank">Kanez Kane</a>.<br>
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
@@ -257,7 +259,13 @@ export class MyTracksService {
 		const rootUrl = 'le-cube'
 		const name = 'Le Cube ◇ Mass Psychosis'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const about = `A demoscene entry collaboration with my friend Erik Byström (klovman) in 2014. He created and programmed the visuals and I (Vulkanoman) created the music. In 2023 I enhanced the music a la Mass Psychosis.`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/le-cube'
+		const spotifyUrl = 'https://open.spotify.com/track/6dJIAyez5tXoVwfXQwETHH?si=614ffdade4af4478'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
+		// TODO: replace with Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/se-en/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
+		const about =
+`A demoscene entry collaboration with my friend Erik Byström (klovman) in 2014. He created and programmed the visuals and I (Vulkanoman) created the music. In 2023 I enhanced the music a la Mass Psychosis.`
 
 		const track = new RealtimeVisualTrack([SoundData.music(rootUrl, `${this.dirEgillAntonsson}/${rootUrl}.ogg`)],
 		() => {
@@ -269,51 +277,53 @@ export class MyTracksService {
 				await endedPromise
 				this.instanceEndedListeners.forEach((listener) => listener(true))
 			}
-		}, rootUrl, name, artworkPath, about)
+		}, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl)
 		return track
 	}
-
-	// https://open.spotify.com/artist/3I847bFyfMfqgw6IflREkL?si=tALJ0wqfTdSDfEbEV5WWwg
 
 	private goneIsMyFriendJohnny() {
 		const rootUrl = 'gone-is-my-friend-johnny'
 		const name = 'Gone is my friend Johnny'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone-is-my-friend-johnny'
-		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5' // need to update this url
-		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb' // need to update this url
-		const about = `I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD that has been collecting dust ever since. I had the title and couple of sentences of the lyrics but since I could simply have the Vocals as a cheesy MIDI saxophone for now, I could finish them later (turned up to be much later...)<br>
+		const spotifyUrl = 'https://open.spotify.com/track/6dcm94SPl7ehPR4ZMlCfah?si=76a90062d2034ab2'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/gone-is-my-friend-johnny-egill-antonsson/svqlqxedzfkwc'
+		const bandcampUrl = 'https://egillantonsson.bandcamp.com/track/gone-is-my-friend-johnny'
+		const about =
+`I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD. I had the title and couple of words of the lyrics thus I simply recorded a cheesy MIDI saxophone for the Vocals.<br>
 <br>
 Last year my friend and fellow musician Milosh passed away. We had plans to collaborate on music projects together by playing live and record and finish some of his songs. We didn't get far with this but at least we jammed together during family visits and events.<br>
 <br>
-One day, while playing the piano, this old song came into my mind. I felt it was time to properly work, finish and share it. I bought a CD player to import the song from the dusty CD to my computer as a starting point. I wrote the rest of the lyrics and improved the melody. I recorded the song with voice (bye bye MIDI sax) and real instruments and slowed the tempo down. Feeling it fitting to honor Milosh's memory, I decided to feature the guitar prominently throughout the song (with both the solo and the chord strumming).<br>
+One day, while playing the piano, this old song came into my mind. I felt it was time to properly work, finish and share it. I bought a CD player to import the song from the dusty CD to my computer as a starting point. I wrote the rest of the lyrics and improved the melody. I recorded the song with voice (bye bye cheesy MIDI sax) and real instruments and slowed the tempo down. Feeling it fitting to honor Milosh's memory, I decided to feature the guitar prominently throughout the song with both the solo and the chord strumming.<br>
 <br>
-The song is dedicated to Milosh, Johnny/Jói, and all our friends that have passed away that we'll always remember.<br>
-		<br><b>LYRICS</b><br>
-		<br>
-		Gone is my friend Johnny.<br>
-		Faded away, far away.<br>
-		And now, I'm talking to Valery.<br>
-		About the days, the yesterdays.<br>
-		<br>
-		But gravity comes and pulls you down, down, down.<br>
-		Out of the blue, and there's nothing you can do.<br>
-		But we'll never stop to love and think of you.<br>
-		The memories light the darkness away.<br>
-		We're singing and playing today.
-		<br>
-		<br>Guitar solo<br>
-		<br>
-		But gravity comes and pulls you down, down, down.<br>
-		Out of the blue, and there's nothing you can do.<br>
-		But we'll never stop to love and think of you.<br>
-		One of these days we will meet again, and you'll say then:<br>
-		<br>
-		"Gone, gone was your Johnny.<br>
-		Now you've found, you found your friend Johnny.<br>
-		Together again, here we are.<br>
-		Together we are."`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+The song is dedicated to Milosh, Johnny/Jói, and all our friends that have passed away that we'll always remember.`
+
+		const lyrics =
+`Gone is my Johnny.<br>
+<br>
+Gone is my friend Johnny.<br>
+Faded away, far away.<br>
+And now, I'm talking to Valery.<br>
+About the days, the yesterdays.<br>
+<br>
+But gravity comes and pulls you down, down, down.<br>
+Out of the blue, and there's nothing you can do.<br>
+But we'll never stop to love and think of you.<br>
+The memories light the darkness away.<br>
+We're singing and playing today.<br>
+<br>
+But gravity comes and pulls you down, down, down.<br>
+Out of the blue, and there's nothing you can do.<br>
+But we'll never stop to love and think of you.<br>
+One of these days we will meet again.<br>
+And you'll say then,<br>
+<br>
+"Gone, gone was my Johnny.<br>
+Now you've found, you found your friend Johnny.<br>
+Together again, here we are.<br>
+Together we are."`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private laughingAndSmiling() {
@@ -322,29 +332,33 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
-		const about = `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.
-		<br>LYRICS<br>
-		<br>
-		My all and everything, light of my life.<br>
-		Of joy we dance and sing, wonderful life.<br>
-		The now and future we'd mold.<br>
-		Of love and life, and growing old.<br>
-		Laughing and smiling we were.<br>
-		<br>
-		But then the raging rain fell from the sky.<br>
-		Before we used to sing, now we just cry.<br>
-		And the future we'd planned.<br>
-		Got washed away into the sand.<br>
-		Laughing and smiling we were.<br>
-		<br>
-		The now and future we'd mold.<br>
-		Of love and life, and growing so old.<br>
-		BUt that future we'd planned.<br>
-		Got washed away into the sand.<br>
-		Back then laughing and smiling you were.<br>
-		Laughing and smiling were were.<br>`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		// TODO: replace with Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		const about =
+`I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.`
+
+		const lyrics =
+`My all and everything, light of my life.<br>
+Of joy we dance and sing, wonderful life.<br>
+The now and future we'd mold.<br>
+Of love and life, and growing old.<br>
+Laughing and smiling we were.<br>
+<br>
+But then the raging rain fell from the sky.<br>
+Before we used to sing, now we just cry.<br>
+And the future we'd planned.<br>
+Got washed away into the sand.<br>
+Laughing and smiling we were.<br>
+<br>
+The now and future we'd mold.<br>
+Of love and life, and growing so old.<br>
+But that future we'd planned.<br>
+Got washed away into the sand.<br>
+Back then laughing and smiling you were.<br>
+Laughing and smiling were were.`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private glory() {
@@ -352,43 +366,46 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = "Glory"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IQHx1OTLkUaOh8BjVyY1Z?si=2f60e86f363d41af'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/glory-kanez-kane/imvcfi7srgbya'
-		const about = `The 6th and latest Kanez Kane song release, 13th December 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
-		<br>LYRICS<br>
-		<br>
-		Mother, mother don't you cry.<br>
-		They don't always realize.<br>
-		Meaning well, but yet decide<br>
-		to do the bad things, it's alright.<br>
-		<br>
-		God-fearing, doing good.<br>
-		Greater world and glory.<br>
-		Meet the hangman, meet the night / knight.<br>
-		We didn't write the story.<br>
-		<br>
-		<br>
-		Father, father feel the love.<br>
-		They're sending your way.<br>
-		Can it be the poison that you insist?<br>
-		Look the other way.<br>
-		<br>
-		Feel the green green grass of home.<br>
-		Bright and beauty sunlight.<br>
-		You should thank them, our hope.<br>
-		Death is on our side.<br>
-		<br>
-		<br>
-		Little baby don't you cry<br>
-		They're coming your way.<br>
-		That means you will be alright.<br>
-		It's your time to play.<br>
-		<br>
-		My dear everything will change.<br>
-		Love will be the story.<br>
-		(But) not what runs through your veins.<br>
-		It's time for glory.<br>`
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/glory-kanez-kane/imvcfi7srgbya'
+		const bandcampUrl = ''
+		const soundcloudUrl = ''
+		const about =
+`The 6th and latest Kanez Kane song release, 13th December 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).`
 
-		return new YoutubeTrack('-W7u-pE1BzE', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+		const lyrics =
+`Mother, mother don't you cry.<br>
+They don't always realize.<br>
+Meaning well, but yet decide<br>
+to do the bad things, it's alright.<br>
+<br>
+God-fearing, doing good.<br>
+Greater world and glory.<br>
+Meet the hangman, meet the night / knight.<br>
+We didn't write the story.<br>
+<br>
+<br>
+Father, father feel the love.<br>
+They're sending your way.<br>
+Can it be the poison that you insist?<br>
+Look the other way.<br>
+<br>
+Feel the green green grass of home.<br>
+Bright and beauty sunlight.<br>
+You should thank them, our hope.<br>
+Death is on our side.<br>
+<br>
+<br>
+Little baby don't you cry<br>
+They're coming your way.<br>
+That means you will be alright.<br>
+It's your time to play.<br>
+<br>
+My dear everything will change.<br>
+Love will be the story.<br>
+(But) not what runs through your veins.<br>
+It's time for glory.`
+
+		return new YoutubeTrack('-W7u-pE1BzE', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private winterQueen() {
@@ -396,34 +413,43 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = 'Winter Queen'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
-		const buyUrl = 'https://www.qobuz.com/album/winter-queen-kanez-kane/i0evkfp38ctac'
-		const about = `The 3rd song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.<br>
-		<br>LYRICS<br>
-		Verse 1:<br>
-		Josefine, the frostbites and scars.<br>
-		Josefine, you're cold from afar.<br>
-		Every night I pray for... Every night I scream...<br>
-		I'm afraid I'll end up like my queen.<br>
-		Verse 2:<br>
-		Josefine, the north wind is harsh.<br>
-		Josefine, my shivering dreams.<br>
-		Every day I beg you... Every day I try...<br>
-		Nothing but the icing on your heart.<br>
-		Pre-chorus:<br>
-		Oh, the long, cold winter nights.<br>
-		Cold breath, nothing seems right.<br>
-		Chorus:<br>
-		Josefine, winter queen.<br>
-		Josefine, don't be so mean, my winter queen.<br>
-		Verse 3:<br>
-		Josefine, a cold summer day.<br>
-		Josefine, I'm melting away.<br>
-		Every time I feel you... Every time I cry...<br>
-		Your frosty tongue is waiting in the dark.<br>
-		-> Pre-chorus -> Chorus<br>
-		Weather forecast: It seems like there's a storm, coming...<br>`
+		const qobuzUrl = 'https://www.qobuz.com/album/winter-queen-kanez-kane/i0evkfp38ctac'
+		const soundcloudUrl = ''
+		const bandcampUrl = ''
+		const about =
+`The 3rd song release by Kanez Kane, 7th February 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me). Fittingly the weather both in Sweden and Iceland was cold throughout the whole production period.`
 
-		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+		const lyrics =
+`Josefine, the frostbites and scars.<br>
+Josefine, you're cold from afar.<br>
+Every night I pray for... Every night I scream...<br>
+I'm afraid I'll end up like my queen.<br>
+<br>
+Josefine, the north wind is harsh.<br>
+Josefine, my shivering dreams.<br>
+Every day I beg you... Every day I try...<br>
+Nothing but the icing on your heart.<br>
+<br>
+Oh, the long, cold winter nights.<br>
+Cold breath, nothing seems right.<br>
+Josefine, winter queen.<br>
+Josefine, don't be so mean, my winter queen.<br>
+<br>
+Josefine, a cold summer day.<br>
+Josefine, I'm melting away.<br>
+Every time I feel you... Every time I cry...<br>
+Your frosty tongue is waiting in the dark.<br>
+<br>
+Oh, the long, cold winter nights.<br>
+Cold breath, nothing seems right.<br>
+Josefine, winter queen.<br>
+Josefine, don't be so mean, my winter queen.<br>
+<br>
+It seems like there's a storm, coming...<br>
+<br>
+Josefine, Josefine, Josefine...`
+
+		return new YoutubeTrack('gNL39MCw8Jw', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private komaKoma() {
@@ -431,36 +457,45 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = 'Koma Koma'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
-		const buyUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
-		const about = `This 2nd song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!<br>
-		<br>LYRICS<br>
-		Verse 1:<br>
-		His name was Koma Koma, he had to move around.<br>
-		Heard he came from Bangaboo, the dark side of town.<br>
-		50 years in coma, still looking 22, I thought he was a miracle too.<br>
-		Pre-chorus:<br>
-		Oh, he sees you, feels you, calls out your name, and tells us stories of time.<br>
-		Chorus:<br>
-		Oh, the nights were so long, we kept playing along, talking about revolution.<br>
-		Oh, the people were kind, they got into your mind, talking about revolution.<br>
-		Post-chorus:<br>
-		Revolution (everybody do what I say), in the mind (everybody jump).<br>
-		Revolution (everybody do what I say), in the heart (everybody jump).<br>
-		Verse 2:<br>
-		He was always moving, never standing still.<br>
-		Had a vision of the world, was willing to kill.<br>
-		Put you in a koma, there's magic in his eyes, you would always follow his will.<br>
-		Pre-chorus -> Chorus -> Post-chorus<br>
-		Bridge:<br>
-		Jump, jump, jump, jump, jump, jump, jump, jump...<br>
-		Revolution, revolution, revolution of the mind.<br>
-		But they're out of their mind, of their mind, of their mind!<br>
-		Chorus -> Post-chorus<br>
-		Post-chorus outro:<br>
-		Revolution (got a message to the whole / free generation).<br>
-		Revolution (got a message to the heart).<br>`
+		const qobuzUrl = 'https://www.qobuz.com/album/koma-koma-kanez-kane/vmzznxtf4kyna'
+		const soundcloudUrl = ''
+		const bandcampUrl = ''
+		const about = `This 2nd song release by Kanez Kane, 15th January 2023. Jump and join the Revolution!`
 
-		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+		const lyrics =
+`His name was Koma Koma, he had to move around.<br>
+Heard he came from Bangaboo, the dark side of town.<br>
+50 years in coma, still looking 22, I thought he was a miracle too.<br>
+<br>
+Oh, he sees you, feels you, calls out your name, and tells us stories of time.<br>
+Oh, the nights were so long, we kept playing along, talking about revolution.<br>
+Oh, the people were kind, they got into your mind, talking about revolution.<br>
+Revolution (everybody do what I say), in the mind (everybody jump).<br>
+Revolution (everybody do what I say), in the heart (everybody jump).<br>
+<br>
+He was always moving, never standing still.<br>
+Had a vision of the world, was willing to kill.<br>
+Put you in a koma, there's magic in his eyes, you would always follow his will.<br>
+<br>
+Oh, he sees you, feels you, calls out your name, and tells us stories of time.<br>
+Oh, the nights were so long, we kept playing along, talking about revolution.<br>
+Oh, the people were kind, they got into your mind, talking about revolution.<br>
+Revolution (everybody do what I say), in the mind (everybody jump).<br>
+Revolution (everybody do what I say), in the heart (everybody jump).<br>
+<br>
+Jump, jump, jump, jump, jump, jump, jump, jump...<br>
+Revolution, revolution, revolution of the mind.<br>
+But they're out of their mind, of their mind, of their mind!<br>
+<br>
+Oh, he sees you, feels you, calls out your name, and tells us stories of time.<br>
+Oh, the nights were so long, we kept playing along, talking about revolution.<br>
+Oh, the people were kind, they got into your mind, talking about revolution.<br>
+Revolution (everybody do what I say), in the mind (everybody jump).<br>
+Revolution (everybody do what I say), in the heart (everybody jump).<br>
+Revolution (got a message to the whole / free generation).<br>
+Revolution (got a message to the heart).<br>`
+
+		return new YoutubeTrack('Ww4w8prWBxM', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private strawberryCityLights() {
@@ -468,30 +503,35 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = 'Strawberry City Lights'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
-		const buyUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/qhcm8paksnp5a'
-		const about = `This 1st song release by Kanez Kane, 15th December 2022.<br>
-		<br>LYRICS<br>
-		Verse 1:<br>
-		Rose, fame, forever, forever.<br>
-		Going home, oh, it went sideways.<br>
-		Birds, bees, forever, forever.<br>
-		Growing tall, oh, wait for Fridays.<br>
-		Chorus:<br>
-		Strawberry city lights, angels shine every night.<br>
-		No turn here makes it right, I'm waiting at the gate.<br>
-		Perfume and ecstasy, Candyman sets you free.<br>
-		Love, guns and sticky nuns, they'll / please help me find my way.<br>
-		Verse 2:<br>
-		Gone, dead, forever, forever.<br>
-		Going home, oh, 6 feet under.<br>
-		Stars, light, oh never, oh never.<br>
-		Growing old, oh, makes you wonder.<br>
-		-> Chorus<br>
-		Verse outro:<br>
-		Rose, fame, forever, forever.<br>
-		Going home, oh, 6 feet under.<br>`
+		const qobuzUrl = 'https://www.qobuz.com/album/strawberry-city-lights-kanez-kane/qhcm8paksnp5a'
+		const soundcloudUrl = ''
+		const bandcampUrl = ''
+		const about = `This 1st song release by Kanez Kane, 15th December 2022.`
+		const lyrics =
+`Rose, fame, forever, forever.<br>
+Going home, oh, it went sideways.<br>
+Birds, bees, forever, forever.<br>
+Growing tall, oh, wait for Fridays.<br>
+<br>
+Strawberry city lights, angels shine every night.<br>
+No turn here makes it right, I'm waiting at the gate.<br>
+Perfume and ecstasy, Candyman sets you free.<br>
+Love, guns and sticky nuns, they'll / please help me find my way.<br>
+<br>
+Gone, dead, forever, forever.<br>
+Going home, oh, 6 feet under.<br>
+Stars, light, oh never, oh never.<br>
+Growing old, oh, makes you wonder.<br>
+<br>
+Strawberry city lights, angels shine every night.<br>
+No turn here makes it right, I'm waiting at the gate.<br>
+Perfume and ecstasy, Candyman sets you free.<br>
+Love, guns and sticky nuns, they'll / please help me find my way.<br>
+<br>
+Rose, fame, forever, forever.<br>
+Going home, oh, 6 feet under.`
 
-		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+		return new YoutubeTrack('DTmPz-vSTFI', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private freeYourMime() {
@@ -499,59 +539,74 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = "Free your Mime"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IyGlS4LP5ew4RyGd6bbJ7?si=60dbc1377b5f4ebb'
-		const buyUrl = 'https://www.qobuz.com/se-en/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
-		const about = `The 5th Kanez Kane song release, 28th May 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
-		<br>LYRICS<br>
-		<br>
-		VERSE 1<br>
-		John takes care of the groceries.<br>
-		Oh, cooking and all.<br>
-		Makes plans for the savings and and blasphemies.<br>
-		Oh, he'll put you in awe.<br>
-		<br>
-		PRE-CHORUS<br>
-		But every single time she tells her:<br>
-		'Oh, be here with me'.<br>
-		Then every single time he tells her:<br>
-		'Oh, queen, it's great to be seen'.<br>
-		But she never sees the world in his ass.<br>
-		<br>
-		CHORUS<br>
-		Free your mime.<br>
-		Thinking like a hurricane.<br>
-		Free your mime.<br>
-		Broken glass of cheap champagne.<br>
-		<br>
-		PRE-CHORUS<br>
-		Hey no go.<br>
-		Oh phony world come back to me.<br>
-		Oh phony world better run, better run, better run, better run oh.<br>
-		Oh phony world please look at me.<br>
-		Oh phony world better run, better run while you can.<br>
-		<br>
-		VERSE 2<br>
-		Christina takes care of the elderly.<br>
-		Wishing they'd die.<br>
-		Has dreams of the weekends and free pharmacies,<br>
-		and a break up with Mike.<br>
-		<br>
-		PRE-CHORUS<br>
-		CHORUS<br>
-		POST-CHORUS<br>
-		<br>
-		BRIDGE<br>
-		Let your stupid be,<br>
-		its hoping to get free,<br>
-		singing hallelujah.<br>
-		Let your bondage be,<br>
-		your hoping to get free,<br>
-		Singing hallelujah, hallelujah.<br>
-		CHORUS IN FIVE! 3,2,5,5<br>
-		<br>
-		CHORUS<br>
-		POST-CHORUS`
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
+		const soundcloudUrl = ''
+		const bandcampUrl = ''
+		const about = `The 5th Kanez Kane song release, 28th May 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).`
 
-		return new YoutubeTrack('N3r3mA7FvQw', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+		const lyrics =
+`John takes care of the groceries.<br>
+Oh, cooking and all.<br>
+Makes plans for the savings and and blasphemies.<br>
+Oh, he'll put you in awe.<br>
+<br>
+But every single time she tells her:<br>
+"Oh, be here with me".<br>
+Then every single time he tells her:<br>
+"Oh, queen, it's great to be seen".<br>
+But she never sees the world in his ass.<br>
+<br>
+Free your mime.<br>
+Thinking like a hurricane.<br>
+Free your mime.<br>
+Broken glass of cheap champagne.<br>
+<br>
+Hey no go.<br>
+Oh phony world come back to me.<br>
+Oh phony world better run, better run, better run, better run oh.<br>
+Oh phony world please look at me.<br>
+Oh phony world better run, better run while you can.<br>
+<br>
+Christina takes care of the elderly.<br>
+Wishing they'd die.<br>
+Has dreams of the weekends and free pharmacies,<br>
+and a break up with Mike.<br>
+<br>
+But every single time she tells her:<br>
+"Oh, be here with me".<br>
+Then every single time he tells her:<br>
+"Oh, queen, it's great to be seen".<br>
+But she never sees the world in his ass.<br>
+<br>
+Free your mime.<br>
+Thinking like a hurricane.<br>
+Free your mime.<br>
+Broken glass of cheap champagne.<br>
+<br>
+Hey no go, oh phony world come back to me.<br>
+Oh phony world better run, better run, better run, better run oh.<br>
+Oh phony world please look at me.<br>
+Oh phony world better run, better run while you can.<br>
+<br>
+Let your stupid be,<br>
+its hoping to get free,<br>
+singing hallelujah.<br>
+Let your bondage be,<br>
+your hoping to get free,<br>
+Singing hallelujah, hallelujah.<br>
+CHORUS IN FIVE! 3,2,5,5<br>
+<br>
+Free your mime.<br>
+Thinking like a hurricane.<br>
+Free your mime.<br>
+Broken glass of cheap champagne.<br>
+<br>
+Hey no go, oh phony world come back to me.<br>
+Oh phony world better run, better run, better run, better run oh.<br>
+Oh phony world please look at me.<br>
+Oh phony world better run, better run while you can.`
+
+		return new YoutubeTrack('N3r3mA7FvQw', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private tonisTimeMachine() {
@@ -559,25 +614,30 @@ The song is dedicated to Milosh, Johnny/Jói, and all our friends that have pass
 		const name = "Toni's Time Machine"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
-		const buyUrl = 'https://www.qobuz.com/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
-		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).<br>
-		<br>LYRICS<br>
-		Chorus:<br>
-		Toni's living in the past...<br>
-		Verse 1:<br>
-		Toni was a man, trapped, lost in the past.<br>
-		Lived in his stories, old times were his way, but<br>
-		Toni was ashamed, felt guilty of lies.<br>
-		Invented the greatest machine of all time.<br>
-		-> Chorus<br>
-		Verse 2:<br>
-		Toni traveled time, loved getting away.<br>
-		While sitting still in his room every day, but<hbr>
-		Toni's mission failed when blowing a fuse.<br>
-		Short circuit accident, stuck in the room.<br>
-		-> Chorus`
+		const qobuzUrl = 'https://www.qobuz.com/album/tonis-time-machine-kanez-kane/f0thz4tnngdxc'
+		const soundcloudUrl = ''
+		const bandcampUrl = ''
+		const about = `Currently the latest Kanez Kane song release, 26th May 2023. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).`
 
-		return new YoutubeTrack('J4h4s7IQSSs', false,  rootUrl, name, artworkPath, about, '', spotifyUrl, buyUrl)
+
+		const lyrics =
+`Toni's living in the past...<br>
+<br>
+Toni was a man, trapped, lost in the past.<br>
+Lived in his stories, old times were his way but,<br>
+Toni was ashamed, felt guilty of lies.<br>
+Invented the greatest machine of all time.<br>
+<br>
+Toni's living in the past...<br>
+<br>
+Toni traveled time, loved getting away.<br>
+While sitting still in his room every day, but<br>
+Toni's mission failed when blowing a fuse.<br>
+Short circuit accident, stuck in the room.<br>
+<br>
+Toni's living in the past...`
+
+		return new YoutubeTrack('J4h4s7IQSSs', false,  rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, lyrics	)
 	}
 
 	private pesi2002() {
@@ -802,20 +862,26 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
-		const buyUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company ${this.urlGogogic}. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.<br>
-		<br>Lyrics:<br>
-		Snjóar kaldri ströndu á, sefur jökulfoldin<br>
-		Varin öllum vættum þá, vistinn blóði goldin<br>
-		Tungl er horfið sól er sest, ennþá mun hún rísa<br>
-		Víkingum hún vandar mest, í vonar landi ísa<br>
-		<br>Translated to English:<br>
-		Snow falls on a cold beach, the frozen earth is sleeping<br>
-		Guarded by all wights, thus staying will cost blood<br>
-		The moon has gone the sun has set, but she will rise again<br>
-		For the vikings that settled and stayed, in a land of ice and hope`
+		const qubuzUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
 
-		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, buyUrl)
+		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company ${this.urlGogogic}. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.`
+
+		const lyrics =
+`Sung in Icelandic:<br>
+Snjóar kaldri ströndu á, sefur jökulfoldin.<br>
+Varin öllum vættum þá, vistinn blóði goldin.<br>
+Tungl er horfið sól er sest, ennþá mun hún rísa.<br>
+Víkingum hún vandar mest, í vonar landi ísa.<br>
+<br><br>
+Translated to English:<br>
+Snow falls on a cold beach, the frozen earth is sleeping.<br>
+Guarded by all wights, thus staying will cost blood.<br>
+The moon has gone the sun has set, but she will rise again.<br>
+For the vikings that settled and stayed, in a land of ice and hope.`
+
+		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
 	}
 
 	private harmoniesOfShadeAndLight() {
@@ -824,26 +890,36 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
 		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
-		const buyUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+		const qobuzUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+
 		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017. I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it. In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>. In the spring of 2021 my friend and music partner <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> helped me structure the song and write the lyrics,
-and he recorded my vocals in his studio in Reykjavik. In April 2022 I recorded the rest of the instruments, processed and mixed the song.<br>
-<br>LYRICS<br>
-Verse 1:<br>
-Someday's, the skies are cloudy.<br>
+and he recorded my vocals in his studio in Reykjavik. In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
+
+		const lyrics =
+`Someday's, the skies are cloudy.<br>
 Someday's, there is no light.<br>
-Pre-Chorus:<br>
 And I thank you, for all the times we had.<br>
 And I thank you, for the moments that you cared.<br>
-Chorus:<br>
+<br>
 Stars are shining bright tonight.<br>
 Harmonies of shade and light.<br>
 And everything's alright.<br>
-Verse 2:<br>
+<br>
 I smile, though the skies are cloudy.<br>
 And I shine, when there's no light.<br>
--> Pre-Chorus -> Chorus...
-`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+And I thank you, for all the times we had.<br>
+And I thank you, for the moments that you cared.<br>
+<br>
+Stars are shining bright tonight.<br>
+Harmonies of shade and light.<br>
+Harmonies of shade and light.<br>
+And everything's alright.<br>
+<br>
+And everything's alright... And everything's alright`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private weWillMeetAgain() {
@@ -851,30 +927,36 @@ And I shine, when there's no light.<br>
 		const name = 'We Will Meet Again'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
-		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
-		const buyUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
+		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
+		const qobuzUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/album/we-will-meet-again-egill-antonsson/hytrd9qqfadib'
 
-		const about = `In the spring of 2021, my friend and music partner, <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.<br>
-<br>Lyrics:<br>
-Verse 1:<br>
-Woke up this morning late, it was half past 8, still stuck in the rhythm.<br>
+		const about = `In the spring of 2021, my friend and music partner, <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>, approached me with an exciting proposition: to collaborate on a pop song. While we had dabbled in pop music in the past, this was the first time we dedicated ourselves to crafting and producing a contemporary pop track. We set ourselves a tight deadline of just a couple of days (both to train our production speed, and as I would return to Stockholm shortly after). Together we crafted both the music and lyrics (inspired by the reality that due to Covid restrictions it had been awhile since we'd met). I contributed my vocals to the lyrics, while Sindri expertly mixed and polished the song.`
+
+		const lyrics =
+`Woke up this morning late, it was half past 8, still stuck in the rhythm.<br>
 You feel so far away, life's so dull and grey, when we're not together.<br>
-Pre-Chorus:<br>
+<br>
 But I know, there's a place, you and I will meet again.<br>
 And I know, that in time, you and I will meet again.<br>
-Chorus:<br>
 Though it feels far away, do the walk day by day, you and I will meet again.<br>
 Though you are far away, we can talk every day, you and I will meet again.<br>
-Verse 2:<br>
+<br>
 I tried to dance alone, to our favorite song, in front of the mirror.<br>
 I miss your beat so much, and your caring touch, us two in the rhythm.<br>
--> Pre-Chorus -> Chorus<br>
-Bridge:<br>
+<br>
+But I know, there's a place, you and I will meet again.<br>
+And I know, that in time, you and I will meet again.<br>
+Though it feels far away, do the walk day by day, you and I will meet again.<br>
+Though you are far away, we can talk every day, you and I will meet again.<br>
+<br>
 And we'll dance, you and I, to the off beat and the rhythm.<br>
 And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet you in heaven.<br>
--> Chorus`
+Though it feels far away, do the walk day by day, you and I will meet again.<br>
+Though you are far away, we can talk every day, you and I will meet again.`
 
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private magmaMerryGoRound() {
@@ -882,19 +964,26 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Magma MerryGoRound'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
-		const spotifyUrl = 'https://open.spotify.com/track/06bQmD7bI6N1qGDeIVsGYR'
-		const buyUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
-		const about = `Debuted at the 2021 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym, Vulkanoman, this creation was initially named 'Tivoli Chase Cop 27/16.' However, the inspiration struck me during the then recent journey where I witnessed the live volcanic eruption at <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>, leading me to retitle the track.`
+		const spotifyUrl = 'https://open.spotify.com/track/27t1JaFQlOX6hhkVC6d59Z'
+		const qobuzUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/album/magma-merrygoround-egill-antonsson/bqp8z0xr9lqja'
+		const about =
+	`Debuted at the 2021 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym, Vulkanoman, this creation was initially named 'Tivoli Chase Cop 27/16.' However, the inspiration struck me during the then recent journey where I witnessed the live volcanic eruption at <a href="https://en.wikipedia.org/wiki/Fagradalsfjall">Fagradallsfjall in Iceland</a>, leading me to retitle the track.`
 
-	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, buyUrl)
+	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl)
 	}
 
 	private justInTime() {
 		const rootUrl = 'just-in-time'
 		const name = 'Just in Time'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
-		const about = `Debuted at the 2020 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym Undur (now my current pseudonym is Vulkanoman). The title is a reference to the fact that I finished the song just in time for the party, and having missed the deadline the year before...`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
+		const about =
+`Debuted at the 2020 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my pseudonym Undur (now my current pseudonym is Vulkanoman). The title is a reference to the fact that I finished the song just in time for the party, and having missed the deadline the year before...`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', bandcampUrl)
 	}
 
 	private icelandSocksIntro() {
@@ -902,8 +991,12 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Iceland Socks: Intro'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
-		const about = `<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company ${this.urlGogogic} created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
-	return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
+		const about =
+	`<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> and me made this for an Icelandic travel industry campaign that the company ${this.urlGogogic} created in 2008. The talented Gogogic employees were the puppeteers and you can watch the Iceland Socks Outtakes on <a href="https://youtu.be/6n3_NF0g2dg" target="_blank">YouTube</a>`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, '', '', bandcampUrl)
 	}
 
 	private fortidin() {
@@ -911,23 +1004,32 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Fortíðin'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
-		const about = `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> assisted me with recording and mixing.<br>
-		<br>LYRICS<br>
-		Verse 1:<br>
-		Þitt blíða bros, gæti brætt allan heiminn.<br>
-		Augun blá, svo himnesk og dreymin.<br>
-		Hlæjandi, hamingjan smitar mig.<br>
-		Syngjandi, beint frá sálinni.<br>
-		Chorus:<br>
-		Er ég horfi á þig þá finn ég kærleik þinn.<br>
-		Er ég hlusta á þig þá sefast hugur minn.<br>
-		En þú ert fortíðin.<br>
-		Verse 2:<br>
-		Örlögin, tóku þig frá mér.<br>
-		Örlögin, skildu mig eftir hér.<br>
-		Það eina sem hjá mér eftir er, eru myndir upp á vegg, gamlar upptökur, og góðar minningar.<br>
-		-> Chorus`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+		const spotifyUrl = 'https://open.spotify.com/track/5m9pYmJVkgX4Kk1RyWuCdh?si=4e658375ac824121'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
+		// TODO: replace with the correct Bandcamp URL when available
+		const bandcampUrl = 'https://www.qobuz.com/se-en/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
+		const about =
+`Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> assisted me with recording and mixing.`
+
+		const lyrics =
+`Þitt blíða bros, gæti brætt allan heiminn.<br>
+Augun blá, svo himnesk og dreymin.<br>
+Hlæjandi, hamingjan smitar mig.<br>
+Syngjandi, beint frá sálinni.<br>
+<br>
+Er ég horfi á þig þá finn ég kærleik þinn.<br>
+Er ég hlusta á þig þá sefast hugur minn.<br>
+En þú ert fortíðin.<br>
+<br>
+Örlögin, tóku þig frá mér.<br>
+Örlögin, skildu mig eftir hér.<br>
+Það eina sem hjá mér eftir er, eru myndir upp á vegg, gamlar upptökur, og góðar minningar.<br>
+<br>
+Er ég horfi á þig þá finn ég kærleik þinn.<br>
+Er ég hlusta á þig þá sefast hugur minn.<br>
+En þú ert fortíðin.<br>`
+
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
 
 	private toddlerTune() {
@@ -935,7 +1037,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Toddlers Tune'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
-		const about = `When my daughter, Soffía Rós Egilsdóttir, was around 3 years old, I captured a precious moment of her singing a delightful melody. Inspired by her tune, I embarked on a creative journey, crafting chords and rhythm to complement her sweet voice. This harmonious fusion evolved into this song, that I aptly titled 'Toddler's Tune'`
+		const about =
+`When my daughter, Soffía Rós Egilsdóttir, was around 3 years old, I captured a precious moment of her singing a delightful melody. Inspired by her tune, I embarked on a creative journey, crafting chords and rhythm to complement her sweet voice. This harmonious fusion evolved into this song, that I aptly titled 'Toddler's Tune'`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
@@ -943,7 +1046,8 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const rootUrl = 'odd-times-in-space'
 		const name = 'Odd Times in Space'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
-		const about = `Inaugurated at the 2016 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my former pseudonym 'Undur' (now known as 'Vulkanoman'), the composition bears a title inspired by its odd time signature, odd drum beat emphasis at times, and 'space-like' ambiance (whatever that means).`
+		const about =
+	`Inaugurated at the 2016 <a href="https://edisonparty.com" target="_blank">Edison demoparty</a> under my former pseudonym 'Undur' (now known as 'Vulkanoman'), the composition bears a title inspired by its odd time signature, odd drum beat emphasis at times, and 'space-like' ambiance (whatever that means).`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
 	}
 
@@ -952,9 +1056,12 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Introduction'
 		const artworkPath = `${this.dirTribeOfOranges}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
-		const about = `${this.urlSindri()} and I created this track for a theater play, we called it Introduction as it was played in the beginning. We incorporated drums played by <a href="https://www.discogs.com/artist/429294-Birgir-Baldursson" target="_blank">Birgir Baldursson</a>, that we initially recorded for another track I had composed (yet to be released). We took great care to produce the bassdrum sound, and we gave it a lot of space in the lower frequencies as the bass guitar only joins in the climax, while the guitar, piano and our voices float above in the higher frequencies. <a href="https://soundcloud.com/maniacs-of-noise" target="_blank">Maniacs of Noise / Jeroen Tel</a> commented on this track on Soundcloud, saying: "The best thing about this song is the bassdrum (that's not meant as an insult, it truly stands out!). :-)".<br>
-		When I decided to share this track with the world, I opted for a distinct track artwork unrelated to the play. The artwork chosen was Indíánahöfuðið, a sculpture created by my oldest brother, Jónas. This potent piece holds immense sentimental value as a treasured family artifact, representing a Native American figure. Listening to the track, I envision a captivating tale of the clash of cultures, where the old meets the new, the past intertwines with the present, and the native converges with the foreign.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+		const spotifyUrl = 'https://open.spotify.com/track/76WTYWzVduUif8shAtmhyS?si=a1554403c9f84436'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/introduction-tribeoforanges/od9kw6695qwdc'
+		const about =
+`${this.urlSindri()} and I created this track for a theater play, we called it Introduction as it was played in the beginning. We incorporated drums played by <a href="https://www.discogs.com/artist/429294-Birgir-Baldursson" target="_blank">Birgir Baldursson</a>, that we initially recorded for another track I had composed (yet to be released). We took great care to produce the bassdrum sound, and we gave it a lot of space in the lower frequencies as the bass guitar only joins in the climax, while the guitar, piano and our voices float above in the higher frequencies. <a href="https://soundcloud.com/maniacs-of-noise" target="_blank">Maniacs of Noise / Jeroen Tel</a> commented on this track on Soundcloud, saying: "The best thing about this song is the bassdrum (that's not meant as an insult, it truly stands out!). :-)".<br>
+When I decided to share this track with the world, I opted for a distinct track artwork unrelated to the play. The artwork chosen was Indíánahöfuðið, a sculpture created by my oldest brother, Jónas. This potent piece holds immense sentimental value as a treasured family artifact, representing a Native American figure. Listening to the track, I envision a captivating tale of the clash of cultures, where the old meets the new, the past intertwines with the present, and the native converges with the foreign.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl)
 	}
 
 	private routine() {
@@ -962,8 +1069,11 @@ And we'll joke, and we'll laugh, what a great time we'll have, when I'll meet yo
 		const name = 'Routine'
 		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
-		const about = `${this.urlSindri()} and I explored the untapped potential of everyday household objects found within the confines of my apartment. We crafted a composition that entailed a minimalist electric piano chord progression complemented by a touch of didgeridoo randomness. The artwork for this track captures a candid moment of camaraderie, as we engaged in a friendly game of chess on my apartment's balcony. The photo reveals us adorned in cozy gloves and hats, testament to the sunny yet brisk winter day that accompanied our artistic pursuits.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+		const spotifyUrl = 'https://open.spotify.com/track/0Az5Fk3OLdkejiWE4iVQJW?si=705f0f0c3d7041a4'
+		const qobuzUrl = 'https://www.qobuz.com/se-en/album/routine-tribeoforanges/tpfekpv2d8pwc'
+		const about =
+`${this.urlSindri()} and I explored the untapped potential of everyday household objects found within the confines of my apartment. We crafted a composition that entailed a minimalist electric piano chord progression complemented by a touch of didgeridoo randomness. The artwork for this track captures a candid moment of camaraderie, as we engaged in a friendly game of chess on my apartment's balcony. The photo reveals us adorned in cozy gloves and hats, testament to the sunny yet brisk winter day that accompanied our artistic pursuits.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl)
 	}
 
 	private hhiCommercial() {

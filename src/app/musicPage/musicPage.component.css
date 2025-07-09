@@ -30,12 +30,16 @@
 .iconButton {
 	width: 100px;
 	height: 30px;
-	border: 1px solid var(--colorGrayLight);
+	border: 1px solid var(--colorGrayDarkMed);
 	border-radius: 1em;
 	text-align: center;
 	padding-top: 3px;
 	margin-left: 1em;
 	margin-right: 1em;
+}
+
+.bgGradientQobuzBlue {
+	background: linear-gradient(180deg, var(--colorBlueLightQobuz) 0%, var(--colorBlueDarkQobuz) 100%);
 }
 
 .spotifyIcon {
@@ -84,6 +88,10 @@
 		margin-left: 3px;
 		margin-right: 3px;
 	}
+
+	.trackRightContainer {
+		width: 102%;
+	}
 }
 
 @media screen and (min-width:  452px) and (max-width: 703px) {
@@ -104,6 +112,10 @@
 	.iconButton {
 		margin-left: 0.5em;
 		margin-right: 0.5em;
+	}
+
+	.trackRightContainer {
+		width: 102%;
 	}
 }
 
@@ -129,6 +141,10 @@
 		margin-left: 0%;
 		margin-right: 0%;
 	}
+
+		.trackRightContainer {
+			width: 102%;
+		}
 }
 
 @media screen and (min-width: 1054px) and (max-width: 1403px) {

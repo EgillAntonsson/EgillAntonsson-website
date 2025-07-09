@@ -14,7 +14,7 @@
 
 .myPlayer {
 	cursor: pointer;
-	border: 1px solid var(--colorGrayLightMed);
+	border: 1px solid var(--colorGrayDarkMed);
 	border-radius: 1em;
 	padding-top: 9px;
 	padding-bottom: 7px;

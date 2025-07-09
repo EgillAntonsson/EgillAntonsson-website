@@ -19,17 +19,22 @@
 	--colorGreenLightMed: #99AA2A;
 	--colorGreenMed: #798A0A;
 	--colorGreenMedDark: #596A06;
+	--colorGreenMedDarker: #485905;
 	--colorGreenDark: #394A00;
 
 	--colorOrangeLight: #DD8800;
 	--colorOrangeLightMed: #BD6800;
 	--colorOrangeMed: #9D4800;
 	--colorOrangeMedDark: #7D2800;
+	--colorOrangeMedDarker: #6C1700;
 	--colorOrangeDark: #5D0800;
 
 	--colorRed: #CC4400;
 
 	--colorBlueLight: #7AA6DA;
+
+	--colorBlueLightQobuz: #55b5cb;
+	--colorBlueDarkQobuz: #108db9;
 
 	--colorPurpleLight: #C397D8;
 
@@ -41,6 +46,14 @@
 	--colorLinkVisited: var(--colorPurpleLight);
 
 	--screenWidth0: 451px;
+}
+
+.bgGradientGray {
+	background: linear-gradient(180deg, var(--colorGrayDarkMed) 0%, var(--colorGrayDark) 100%);
+}
+
+.bgGradientBlueQobuz {
+	background: linear-gradient(180deg, var(--colorBlueLightQobuz) 0%, var(--colorBlueDarkQobuz) 100%);
 }
 
 body {
@@ -157,15 +170,16 @@ a:visited {
 }
 
 nav a {
-	padding: 4px 8px;
+	padding: 2px 8px;
 	margin-top: 3px;
 	margin-bottom: 1px;
 	text-decoration: none;
 	margin-left: 1%;
 	margin-right: 1%;
 	display: inline-block;
-	background: var(--colorGrayDarkMed);
+	background: linear-gradient(180deg, var(--colorGrayDarkMed) 0%, var(--colorGrayDark) 100%);
 	border-radius: 10px;
+	border: 1px solid var(--colorGrayDarkMed);
 	font-size: 120%;
 }
 nav a:visited, nav a:link {
@@ -173,10 +187,10 @@ nav a:visited, nav a:link {
 }
 nav a:hover {
 	color: var(--colorBackground);
-	background: var(--colorPending);
+	background: linear-gradient(180deg, var(--colorOrangeLight) 0%, var(--colorOrangeMed) 100%);
 }
 nav a.active {
-	background: var(--colorActive);
+	background: linear-gradient(180deg, var(--colorGreenLight) 0%, var(--colorGreenMed) 100%);
 	color: var(--colorBackground)
 }
 
@@ -527,12 +541,11 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	.headerContainer, .headerBackground {
-		height: 100px;
+		height: 130px;
 	}
 
 	.treeContainer {
 		margin-bottom: 1.5em;
-		/* width: 55%; */
 	}
 
 	.imageSmallText {
@@ -540,8 +553,9 @@ min width considered 360px (Galaxy S8+) */
 	}
 
 	/* debug */
-	/* h1 { color: green; } */
-	/* h4 { color: green; } */
+	/* h1 { color: green; }
+	h3 { color: green; }
+	h4 { color: green; } */
 }
 
 /* WidthRange.XS */
@@ -613,7 +627,7 @@ min width considered 360px (Galaxy S8+) */
 /* WidthRange.M */
 @media screen and (min-width: 1054px) and (max-width: 1403px) {
 	body {
-		font-size: 110%;
+		font-size: 108.75%;
 		letter-spacing: 0.3px;
 		word-spacing: 0.6px;
 	}
@@ -650,9 +664,9 @@ min width considered 360px (Galaxy S8+) */
 /* WidthRange.L */
 @media screen and (min-width: 1404px) and (max-width: 2000px) {
 	body {
-		font-size: 115%;
-		letter-spacing: 0.4px;
-		word-spacing: 0.8px;
+		font-size: 112.5%;
+		letter-spacing: 0.3px;
+		word-spacing: 0.6px;
 	}
 	p, li, code, .nodeContainer {
 		line-height: 24px;
@@ -681,13 +695,14 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	/* h1 { color: red; } */
+	/* h3 { color: red; } */
 	/* h4 { color: red; } */
 }
 
 /* WidthRange.XL */
 @media screen and (min-width: 2001px) {
 	body {
-		font-size: 115%;
+		font-size: 112.5%;
 		letter-spacing: 0.4px;
 		word-spacing: 0.8px;
 	}
@@ -718,5 +733,6 @@ min width considered 360px (Galaxy S8+) */
 
 	/* debug */
 	/* h1 { color: yellow; } */
+	/* h3 { color: yellow; } */
 }
 /* #endregion */
