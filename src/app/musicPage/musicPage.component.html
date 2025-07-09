@@ -57,7 +57,7 @@
 	Click on the buttons above to buy (via <i>Bandcamp</i> and/or <i>Qubuz</i>) or stream the track on the respective service.<br><br>
 	<div *ngIf="selectedTrack.about !== ''">
 		<div class="horizontalLine"></div>
-		<h4>About {{selectedTrack.name}}</h4>
+		<h3>About {{selectedTrack.name}}</h3>
 		<p [innerHTML]="selectedTrack.about"></p>
 	</div>
 </div>
@@ -66,12 +66,12 @@
 <div class="trackRightInner">
 	<div *ngIf="selectedTrack.lyrics !== ''">
 		<div class="horizontalLine"></div>
-		<h4>Lyrics</h4>
+		<h3>Lyrics</h3>
 		<p [innerHTML]="selectedTrack.lyrics"></p>
 	</div>
 	<div *ngIf="selectedTrack.artistAbout !== ''">
 		<div class="horizontalLine"></div>
-		<h4>About {{selectedTrack.artistName}}</h4>
+		<h3>About {{selectedTrack.artistName}}</h3>
 		<p [innerHTML]="selectedTrack.artistAbout"></p>
 	</div>
 </div>

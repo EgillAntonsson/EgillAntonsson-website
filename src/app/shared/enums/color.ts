@@ -15,12 +15,14 @@ export const enum Color {
 	GreenLightMed = '#99AA2A',
 	GreenMed = '#798A0A',
 	GreenMedDark = '#596A06',
+	GreenMedDarker = '#485905',
 	GreenDark = '#394A00',
 
 	OrangeLight = '#DD8800',
 	OrangeLightMed = '#BD6800',
 	OrangeMed = '#9D4800',
 	OrangeMedDark = '#7D2800',
+	OrangeMedDarker = '#6C1700',
 	OrangeDark = '#5D0800',
 
 	BlueLight = '#7AA6DA',

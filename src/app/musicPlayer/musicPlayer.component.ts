@@ -74,7 +74,7 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 	}
 
 	private sliderColors(value: number): string {
-		if (value <= 0.2) { return Color.GreenDark }
+		if (value <= 0.2) { return Color.GreenMedDarker }
 		if (value <= 0.4) { return Color.GreenMedDark }
 		if (value <= 0.6) { return Color.GreenMed }
 		if (value <= 0.8) { return Color.GreenLightMed }
@@ -82,7 +82,7 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 		return Color.GreenLight
 	}
 	private sliderColorsMuted(value: number): string {
-		if (value <= 0.2) { return Color.OrangeDark }
+		if (value <= 0.2) { return Color.OrangeMedDarker }
 		if (value <= 0.4) { return Color.OrangeMedDark }
 		if (value <= 0.6) { return Color.OrangeMed }
 		if (value <= 0.8) { return Color.OrangeLightMed }

@@ -4,42 +4,42 @@
 		xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
 		<loc>https://www.egill.rocks/</loc>
-		<lastmod>2025-07-06</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2025-01-20</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/le-cube</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/le-cube.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/gone-is-my-friend-johnny</loc>
-		<lastmod>2025-01-20</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/gone-is-my-friend-johnny.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/laughing-and-smiling</loc>
-		<lastmod>2025-01-20</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/laughing-and-smiling.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/vikings-of-thule-theme-song</loc>
-		<lastmod>2023-09-11</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<video:video>
 			<video:thumbnail_loc>https://i.ytimg.com/vi/ZphVId8_UUk/hq720.jpg</video:thumbnail_loc>
 			<video:title>Vikings</video:title>
@@ -58,126 +58,126 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/harmonies-of-shade-and-light</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/harmonies-of-shade-and-light.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/we-will-meet-again</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/we-will-meet-again.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/magma-merrygoround</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/magma-merrygoround.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/just-in-time</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/iceland-socks-intro</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/iceland-socks-intro.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/fortidin</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/fortidin.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/toddlers-tune</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/toddlers-tune.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/odd-times-in-space</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/glory</loc>
-		<lastmod>2025-01-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/glory.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/free-your-mime</loc>
-		<lastmod>2024-09-05</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/free-your-mime.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/tonis-time-machine</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/tonis-time-machine.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/winter-queen</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/winter-queen.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/koma-koma</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/koma-koma.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/strawberry-city-lights</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kanez/strawberry-city-lights.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/introduction</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/too/introduction.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/routine</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/too/tribe-of-oranges.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/song-for-hhi-commercial</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/too/tribe-of-oranges.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/andefni-live</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<video:video>
 			<video:thumbnail_loc>https://i.ytimg.com/vi/6cLPGWQJ2Vs/hqdefault.jpg</video:thumbnail_loc>
 			<video:title>Andefni music track by KUAI performed live</video:title>
@@ -196,336 +196,336 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pirringur-live</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pirringur</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/apollo</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/andsetinn</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/hamskipti</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/rover</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/andefni</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/agndofa</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/ofurte</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/lesblinda-i</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/lesblinda-ii</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/godsrule-village</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music-layered/godsrule-village.webp</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/vikings-of-thule-map</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music-layered/vikings-of-thule-map.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/godsrule-battle</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/godsrule-battle.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/vikings-of-thule-duel</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/vikings-of-thule-duel.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/tiny-places</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/tiny-places.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/cake-pop-party</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/cake-pop-party.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/soft-freak-fiesta</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/soft-freak-fiesta.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/symbol-6</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/symbol-6.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/habitarium</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/habitarium.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/christmas-game-2008</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/habitarium.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/christmas-game-2009</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/christmas-gogogic.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/whos-your-friend</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/know-your-friend</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/know-your-friend.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/stack-em</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/stack-em.webp</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/glowbulleville</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/the-crisis-game</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/game/music/the-crisis-game.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/mouse-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/rubber-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/solos-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/take-care-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/be-like-you-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/story-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/frumlag-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/world-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/without-them-year-2002</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/my-dear-old-brothers</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/pesi-year-1974</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/mouse-year-1975</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/rubber-year-1975</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/solos-year-1975</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/take-care-year-1976</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/be-like-you-year-1976</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/story-year-1976</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/frumlag-year-1977</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/world-year-1977</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/without-them-year-1977</loc>
-		<lastmod>2023-09-10</lastmod>
+		<lastmod>2025-07-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/braedraminning/braedraminning.jpeg</image:loc>
 		</image:image>
