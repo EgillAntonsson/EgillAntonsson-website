@@ -3,9 +3,9 @@ import os
 import subprocess
 import shutil
 
-print('Building with ng')
-subprocess.run(["ng", "build", "--configuration", "production"], shell=True)
-print('----------')
+# print('Building with ng')
+# subprocess.run(["ng", "build", "--configuration", "production"], shell=True)
+# print('----------')
 
 
 root_src_dir = 'dist/'
