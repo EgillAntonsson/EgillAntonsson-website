@@ -17,8 +17,8 @@ export class BlogService implements IContentService {
 		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
 		this.series.push({title: seriesReaScriptsTitle, posts: [
 			new Post("Antonsson Scripts", PostRoutePath.antonssonScripts, seriesReaScriptsTitle, new Date(2025, 7, 6)),
-			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6)),
-			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 7, 6))
+			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 7, 6)),
+			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6))
 		]})
 
 		const fmodTitle = 'FMOD'
