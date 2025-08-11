@@ -148,9 +148,9 @@ export class MyTracksService {
 		this._byTracks = [
 			{name: 'Egill Antonsson', tracks: [
 				this.leCube(),
+				this.votThemeSong(),
 				this.goneIsMyFriendJohnny(),
 				this.laughingAndSmiling(),
-				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
@@ -863,14 +863,12 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const qubuzUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		// TODO: replace with the correct Bandcamp URL when available
-		const bandcampUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
+		const bandcampUrl = 'https://egillantonsson.bandcamp.com/track/vikings-of-thule-theme-song'
 
-		const about = `The song for the Vikings of Thule video teaser. VoT was a game made by the company ${this.urlGogogic}. Lyrics by Jónas B. Antonsson, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by Þórir Karl Bragason Celin.`
+		const about = `The song for the Vikings of Thule video teaser for the game made by the company Gogogic. This is the 2025 Remastered version, where I revisited the song in the recording, mixing and mastering. Lyrics by <a href="https://www.linkedin.com/in/jonasantonsson/" target="_blank">Jónas Antonsson</a>, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by <a href="https://www.linkedin.com/in/thorirkarlcelin/" target="_blank">Þórir Karl Bragason Celin</a>.`
 
 		const lyrics =
-`Sung in Icelandic:<br>
-Snjóar kaldri ströndu á, sefur jökulfoldin.<br>
+`Snjóar kaldri ströndu á, sefur jökulfoldin.<br>
 Varin öllum vættum þá, vistinn blóði goldin.<br>
 Tungl er horfið sól er sest, ennþá mun hún rísa.<br>
 Víkingum hún vandar mest, í vonar landi ísa.<br>
@@ -881,7 +879,8 @@ Guarded by all wights, thus staying will cost blood.<br>
 The moon has gone the sun has set, but she will rise again.<br>
 For the vikings that settled and stayed, in a land of ice and hope.`
 
-		return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
+		// return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
 	}
 
 	private harmoniesOfShadeAndLight() {

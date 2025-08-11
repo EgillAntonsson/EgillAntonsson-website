@@ -11,7 +11,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2025-07-09</lastmod>
+		<lastmod>2025-08-12</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -39,19 +39,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/vikings-of-thule-theme-song</loc>
-		<lastmod>2025-07-09</lastmod>
-		<video:video>
-			<video:thumbnail_loc>https://i.ytimg.com/vi/ZphVId8_UUk/hq720.jpg</video:thumbnail_loc>
-			<video:title>Vikings</video:title>
-			<video:description>Vikings of Thule trailer video with Theme Song music by Egill Antonsson</video:description>
-			<video:player_loc>https://www.youtube.com/v/EiiR4cwjNwY</video:player_loc>
-			<video:duration>84</video:duration>
-			<video:view_count>24166</video:view_count>
-			<video:publication_date>2009-05-18</video:publication_date>
-			<video:family_friendly>yes</video:family_friendly>
-			<video:requires_subscription>no</video:requires_subscription>
-			<video:live>no</video:live>
-		</video:video>
+		<lastmod>2025-08-12</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/vikings-of-thule-theme-song.PNG</image:loc>
 		</image:image>
