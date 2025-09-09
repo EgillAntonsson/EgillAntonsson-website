@@ -11,7 +11,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2025-08-12</lastmod>
+		<lastmod>2025-09-09</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -39,7 +39,21 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/vikings-of-thule-theme-song</loc>
-		<lastmod>2025-08-12</lastmod>
+		<lastmod>2025-09-09</lastmod>
+		<video:video>
+			<video:thumbnail_loc>https://i.ytimg.com/vi/6cLPGWQJ2Vs/hqdefault.jpg</video:thumbnail_loc>
+			<video:title>Vikings of Thule - Teaser (Soundtrack remastered)</video:title>
+			<video:description>The teaser for the game (no longer available) with the soundtrack remastered.</video:description>
+			<video:player_loc>https://www.youtube.com/embed/udM5Zr83El4?si=zuh0mUoPvbkfaPmM	</video:player_loc>
+			<video:content_loc>https://www.youtube.com/embed/udM5Zr83El4?si=zuh0mUoPvbkfaPmM	</video:content_loc>
+			<video:duration>93</video:duration>
+			<video:view_count>6</video:view_count>
+			<video:publication_date>2025-08-22</video:publication_date>
+			<video:family_friendly>yes</video:family_friendly>
+			<video:requires_subscription>no</video:requires_subscription>
+			<video:live>no</video:live>
+			<video:uploader info="https://www.egill.rocks">egill.rocks</video:uploader>
+		</video:video>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/egillantonsson/vikings-of-thule-theme-song.PNG</image:loc>
 		</image:image>
@@ -165,19 +179,21 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music/andefni-live</loc>
-		<lastmod>2025-07-09</lastmod>
+		<lastmod>2025-09-09</lastmod>
 		<video:video>
 			<video:thumbnail_loc>https://i.ytimg.com/vi/6cLPGWQJ2Vs/hqdefault.jpg</video:thumbnail_loc>
 			<video:title>Andefni music track by KUAI performed live</video:title>
 			<video:description>Performed Live in Laugardalshöll 2nd of June 2001 at the Reykjavik Mini Festival</video:description>
-			<video:player_loc>https://www.youtube.com/v/6cLPGWQJ2Vs</video:player_loc>
+			<video:player_loc>https://www.youtube.com/embed/6cLPGWQJ2Vs?si=bF6_Bk2C-UL6tIX9</video:player_loc>
+			<video:content_loc>https://www.youtube.com/embed/6cLPGWQJ2Vs?si=bF6_Bk2C-UL6tIX9</video:content_loc>
 			<video:duration>243</video:duration>
-			<video:view_count>577</video:view_count>
+			<video:view_count>608</video:view_count>
 			<video:publication_date>2011-08-13</video:publication_date>
 			<video:family_friendly>yes</video:family_friendly>
 			<video:requires_subscription>no</video:requires_subscription>
 			<video:live>no</video:live>
-		 </video:video>
+			<video:uploader info="https://www.egill.rocks">egill.rocks</video:uploader>
+		</video:video>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/kuai/KUAI.jpg</image:loc>
 		</image:image>

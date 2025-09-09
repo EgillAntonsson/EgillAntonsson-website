@@ -860,7 +860,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song-remastered?in=egill-antonsson/sets/vikings-of-thule-game-soundtrack'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/vikings-of-thule-game-soundtrack'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
 		const qubuzUrl = 'https://www.qobuz.com/gb-en/album/vikings-of-thule-original-game-soundtrack-egill-antonsson/t52dkfwuie6hb'
 		const bandcampUrl = 'https://egillantonsson.bandcamp.com/album/vikings-of-thule-game-soundtrack'
@@ -879,8 +879,7 @@ Guarded by all wights, thus staying will cost blood.<br>
 The moon has gone the sun has set, but she will rise again.<br>
 For the vikings that settled and stayed, in a land of ice and hope.`
 
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
-		// return new YoutubeTrack('EiiR4cwjNwY', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
+		return new YoutubeTrack('udM5Zr83El4', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
 	}
 
 	private harmoniesOfShadeAndLight() {
