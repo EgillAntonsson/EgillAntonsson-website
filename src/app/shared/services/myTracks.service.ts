@@ -860,10 +860,10 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/vikings-of-thule-theme-song-remastered?in=egill-antonsson/sets/vikings-of-thule-game-soundtrack'
 		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
-		const qubuzUrl = 'https://www.qobuz.com/album/vikings-of-thule-theme-song-with-jonas-antonsson-julius-jonasson-egill-antonsson/k6jzobz1suzjb'
-		const bandcampUrl = 'https://egillantonsson.bandcamp.com/track/vikings-of-thule-theme-song'
+		const qubuzUrl = 'https://www.qobuz.com/gb-en/album/vikings-of-thule-original-game-soundtrack-egill-antonsson/t52dkfwuie6hb'
+		const bandcampUrl = 'https://egillantonsson.bandcamp.com/album/vikings-of-thule-game-soundtrack'
 
 		const about = `The song for the Vikings of Thule video teaser for the game made by the company Gogogic. This is the 2025 Remastered version, where I revisited the song in the recording, mixing and mastering. Lyrics by <a href="https://www.linkedin.com/in/jonasantonsson/" target="_blank">Jónas Antonsson</a>, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by <a href="https://www.linkedin.com/in/thorirkarlcelin/" target="_blank">Þórir Karl Bragason Celin</a>.`
 
