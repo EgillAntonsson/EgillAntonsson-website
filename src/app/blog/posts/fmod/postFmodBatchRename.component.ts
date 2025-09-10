@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { PostComponent } from '../post.component'
 
 @Component({
-	selector: 'app-post-reascripts-my-scripts',
+	selector: 'app-post-fmod-batch-rename',
 	templateUrl: './postFmodBatchRename.component.html',
 	styleUrls: ['./../../blog.component.css']
 })

@@ -22,12 +22,14 @@ import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { PostRoutePath } from './shared/services/blog.service'
 import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
 import { JonAndMeComponent } from './blog/posts/lifting/jonAndMe.component'
+import { PostFmodReloadShortcutComponent } from './blog/posts/fmod/postFmodReloadShortcut.component'
 
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent},
 	{path: 'blog', component: BlogComponent, children: [
+		{path: PostRoutePath.fmodReloadShortcut, component: PostFmodReloadShortcutComponent},
 		{path: PostRoutePath.fmodBatchRename, component: PostFmodBatchRenameComponent},
 		{path: PostRoutePath.antonssonScripts, component: MyReaScriptsComponent},
 		{path: PostRoutePath.renameTracks, component: RenameTracksComponent},

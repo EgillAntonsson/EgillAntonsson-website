@@ -14,16 +14,17 @@ export class BlogService implements IContentService {
 
 		this.series = []
 
+		const fmodTitle = 'FMOD Studio scripts'
+		this.series.push({title: fmodTitle, posts: [
+			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodTitle, new Date(2025, 3, 8)),
+			new Post('Add keyboard shortcut for \'Scripts: Reload\'', PostRoutePath.fmodReloadShortcut, fmodTitle, new Date(2025, 8, 10)),
+		]})
+
 		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
 		this.series.push({title: seriesReaScriptsTitle, posts: [
 			new Post("Antonsson Scripts", PostRoutePath.antonssonScripts, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6))
-		]})
-
-		const fmodTitle = 'FMOD'
-		this.series.push({title: fmodTitle, posts: [
-			new Post('Batch Rename in FMOD Studio', PostRoutePath.fmodBatchRename, fmodTitle, new Date(2025, 3, 8)),
 		]})
 
 		const seriesTddWhatWhyWhenTitle = 'Test-Focused Development'
@@ -94,6 +95,7 @@ export enum PostRoutePath {
 	tddHealthPart3_Cpp = 'tdd-health/part3-cpp',
 	tddChessPart1 = 'tdd-chess/part1-csharp',
 	fmodBatchRename = 'fmod/batch-rename',
+	fmodReloadShortcut = 'fmod/reload-shortcut',
 	antonssonScripts = 'rea-scripts/antonsson-scripts',
 	renameTracks = 'rea-scripts/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname',
 	shipmentEvaluator = 'rea-scripts/shipment-evaluator',

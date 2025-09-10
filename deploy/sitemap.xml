@@ -550,7 +550,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog</loc>
-		<lastmod>2025-07-09</lastmod>
+		<lastmod>2025-09-10</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/rea-scripts/antonsson-scripts</loc>
@@ -567,6 +567,13 @@
 	<url>
 		<loc>https://www.egill.rocks/blog/fmod/batch-rename</loc>
 		<lastmod>2025-04-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/fmod/reload-shortcut</loc>
+		<lastmod>2025-09-10</lastmod>
+		<image:image>
+			<image:loc>https://www.egill.rocks/assets/images/blog/fmod/reload-shortcut.png</image:loc>
+		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
