@@ -550,7 +550,7 @@
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog</loc>
-		<lastmod>2025-09-10</lastmod>
+		<lastmod>2025-09-16</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/rea-scripts/antonsson-scripts</loc>
@@ -569,11 +569,16 @@
 		<lastmod>2025-04-08</lastmod>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/blog/fmod/reload-shortcut</loc>
-		<lastmod>2025-09-10</lastmod>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/fmod/reload-shortcut.png</image:loc>
-		</image:image>
+		<loc>https://www.egill.rocks/blog/fmod/unity-game-example</loc>
+		<lastmod>2025-09-16</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/fmod/unity-game-example</loc>
+		<lastmod>2025-09-16</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/fmod/build-all-banks</loc>
+		<lastmod>2025-09-16</lastmod>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>

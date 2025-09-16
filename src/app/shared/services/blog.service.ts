@@ -14,10 +14,12 @@ export class BlogService implements IContentService {
 
 		this.series = []
 
-		const fmodTitle = 'FMOD Studio scripts'
+		const fmodTitle = 'FMOD'
 		this.series.push({title: fmodTitle, posts: [
 			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodTitle, new Date(2025, 3, 8)),
 			new Post('Add keyboard shortcut for \'Scripts: Reload\'', PostRoutePath.fmodReloadShortcut, fmodTitle, new Date(2025, 8, 10)),
+			new Post('Setup the Unity game example', PostRoutePath.fmodUnitySetup, fmodTitle, new Date(2025, 8, 14)),
+			new Post('Build All Banks / Platforms and also do custom a step', PostRoutePath.fmodBuildAllPlatforms, fmodTitle, new Date(2025, 8, 14)),
 		]})
 
 		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
@@ -89,18 +91,21 @@ export interface IContentService {
 	get urlEnd(): string;
 }
 
+
 export enum PostRoutePath {
 	tddWhatHowWhyWhen = 'tdd/what-how-why-when',
 	tddHealthPart3 = 'tdd-health/part3',
 	tddHealthPart3_Cpp = 'tdd-health/part3-cpp',
 	tddChessPart1 = 'tdd-chess/part1-csharp',
+	fmodUnitySetup = "fmod/unity-game-example",
 	fmodBatchRename = 'fmod/batch-rename',
 	fmodReloadShortcut = 'fmod/reload-shortcut',
+	fmodBuildAllPlatforms = 'fmod/build-all-banks',
 	antonssonScripts = 'rea-scripts/antonsson-scripts',
 	renameTracks = 'rea-scripts/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname',
 	shipmentEvaluator = 'rea-scripts/shipment-evaluator',
 	kgToCreature = 'lifting/kg-to-creature-calculator',
-	jonAndMe = 'lifting/jan-pall-sigmarsson-and-me'
+	jonAndMe = 'lifting/jan-pall-sigmarsson-and-me',
 }
 
 export class Post {

@@ -23,6 +23,8 @@ import { PostRoutePath } from './shared/services/blog.service'
 import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
 import { JonAndMeComponent } from './blog/posts/lifting/jonAndMe.component'
 import { PostFmodReloadShortcutComponent } from './blog/posts/fmod/postFmodReloadShortcut.component'
+import { PostFmodBuildAllPlatformsComponent } from './blog/posts/fmod/postFmodBuildAllPlatforms.component'
+import { PostFmodUnitySetupComponent } from './blog/posts/fmod/postFmodUnitySetup.component'
 
 
 const routes: Routes = [
@@ -31,6 +33,8 @@ const routes: Routes = [
 	{path: 'blog', component: BlogComponent, children: [
 		{path: PostRoutePath.fmodReloadShortcut, component: PostFmodReloadShortcutComponent},
 		{path: PostRoutePath.fmodBatchRename, component: PostFmodBatchRenameComponent},
+		{path: PostRoutePath.fmodUnitySetup, component: PostFmodUnitySetupComponent},
+		{path: PostRoutePath.fmodBuildAllPlatforms, component: PostFmodBuildAllPlatformsComponent},
 		{path: PostRoutePath.antonssonScripts, component: MyReaScriptsComponent},
 		{path: PostRoutePath.renameTracks, component: RenameTracksComponent},
 		{path: PostRoutePath.shipmentEvaluator, component: ShipmentEvaluatorComponent},

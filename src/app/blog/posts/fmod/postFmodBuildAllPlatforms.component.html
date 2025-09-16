@@ -1,0 +1,16 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+</div>
+<h2>The Why</h2>
+<p>
+	<a href="https://www.fmod.com/docs/2.03/studio/fmod-studio-concepts.html#building">Building</a> is an essential part of the FMOD workflow but we might also require to always do an additional step. For example to generate a file with the duration of each Voice Over <i>.wav</i> file if we need it at the game engine author time (not only at runtime). Without a solution we need to do two steps every time: First build the banks and then run your custom script. This can be tedious and easy to forget.
+</p>
+<h2>Solution: Use Unity Editor Scripting</h2>
+<p>
+	It is easy to add Unity editor code for our game specific needs in general, such as generating this file. It is also straight forward to call the FMOD Unity integration to build the banks. So we make a menu item that does both steps.
+</p>
+<pre><code [highlight]="buildBanksAndDoCustomStep"></code></pre>
