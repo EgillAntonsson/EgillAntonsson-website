@@ -58,12 +58,6 @@ Recommended for local development:
 * [ng e2e](https://angular.io/cli/e2e)
 * [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
 
-## Music
-### local (not streamed from youtube or soundcloud)
-* The .flac files are encoded to Ogg Vorbis: .ogg, VBR, Quality 6
-* The artwork should be around ~ 30 KB to 60 KB.
-  * Kanez Kane artwork is downloaded once from the Qobuz link, they are a bit under 60 KB and 600px X 600px.
-
 ## Tons lifted | Creature lifted 🏋️‍♂️
 
 Steps to update the `Tons lifted / Creature lifted` table:

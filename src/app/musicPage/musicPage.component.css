@@ -42,7 +42,7 @@
 	background: linear-gradient(180deg, var(--colorBlueLightQobuz) 0%, var(--colorBlueDarkQobuz) 100%);
 }
 
-.spotifyIcon {
+.streamServiceIcon {
 	height: 90%;
 	width: 80%;
 }

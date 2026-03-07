@@ -149,9 +149,9 @@ export class MyTracksService {
 			{name: 'Egill Antonsson', tracks: [
 				this.leCube(),
 				this.votThemeSong(),
+				this.harmoniesOfShadeAndLight(),
 				this.goneIsMyFriendJohnny(),
 				this.laughingAndSmiling(),
-				this.harmoniesOfShadeAndLight(),
 				this.weWillMeetAgain(),
 				this.magmaMerryGoRound(),
 				this.justInTime(),
@@ -238,22 +238,29 @@ export class MyTracksService {
 	}
 
 	private flattenTracks() {
-			this._tracksByRootUrl = new Map<string, Track>()
-			this._flatTracks = []
-			let index = 0
-			for (let i = 0; i < this._byTracks.length; i++) {
-				for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
-					const track = this._byTracks[i].tracks[j]
-					track.index = index++
-					const artist = this._byTracks[i]
-					track.artistName = artist.name
-					track.artistAbout = artist.about
-					this._flatTracks.push(track)
+		this._tracksByRootUrl = new Map<string, Track>()
+		this._flatTracks = []
+		let index = 0
+		for (let i = 0; i < this._byTracks.length; i++) {
+			for (let j = 0; j < this._byTracks[i].tracks.length; j++) {
+				const track = this._byTracks[i].tracks[j]
+				track.index = index++
+				const artist = this._byTracks[i]
+				track.artistName = artist.name
+				track.artistAbout = artist.about
+				this._flatTracks.push(track)
 
-					this._tracksByRootUrl.set(track.rootUrl, track)
-				}
+				this._tracksByRootUrl.set(track.rootUrl, track)
 			}
 		}
+	}
+
+// * Use links to albums / EP if available, otherwise to the single track.
+// ** For Bandcamp copy the link adress
+// ** For SoundCloud copy the link adress (remove ? parameters if any).
+// ** For Spotify use 'Copy Link'.
+// ** For Qubuz copy the link adress and remove the '/<region>-en' part.
+// * Some artwork is downloaded from the Qobuz link, they are a bit under 60 KB and 600px X 600px.
 
 	private leCube() {
 		const rootUrl = 'le-cube'
@@ -261,9 +268,9 @@ export class MyTracksService {
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/le-cube'
 		const spotifyUrl = 'https://open.spotify.com/track/6dJIAyez5tXoVwfXQwETHH?si=614ffdade4af4478'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
+		const qobuzUrl = 'https://www.qobuz.com/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
 		// TODO: replace with Bandcamp URL when available
-		const bandcampUrl = 'https://www.qobuz.com/se-en/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
+		const bandcampUrl = 'https://www.qobuz.com/album/le-cube-mass-psychosis-egill-antonsson/qf9lx3dv514cb'
 		const about =
 `A demoscene entry collaboration with my friend Erik Byström (klovman) in 2014. He created and programmed the visuals and I (Vulkanoman) created the music. In 2023 I enhanced the music a la Mass Psychosis.`
 
@@ -287,7 +294,7 @@ export class MyTracksService {
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone-is-my-friend-johnny'
 		const spotifyUrl = 'https://open.spotify.com/track/6dcm94SPl7ehPR4ZMlCfah?si=76a90062d2034ab2'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/gone-is-my-friend-johnny-egill-antonsson/svqlqxedzfkwc'
+		const qobuzUrl = 'https://www.qobuz.com/album/gone-is-my-friend-johnny-egill-antonsson/svqlqxedzfkwc'
 		const bandcampUrl = 'https://egillantonsson.bandcamp.com/track/gone-is-my-friend-johnny'
 		const about =
 `I created this song in my teens after a friend of my brother passed away in a car crash. At the time, I recorded it with MIDI instruments on my keyboard and roughly mixed it down into an audio track on a CD. I had the title and couple of words of the lyrics thus I simply recorded a cheesy MIDI saxophone for the Vocals.<br>
@@ -332,9 +339,9 @@ Together we are."`
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
 		const spotifyUrl = 'https://open.spotify.com/track/6EROZs18jEgWCpkMwj6yw5'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		const qobuzUrl = 'https://www.qobuz.com/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
 		// TODO: replace with Bandcamp URL when available
-		const bandcampUrl = 'https://www.qobuz.com/se-en/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
+		const bandcampUrl = 'https://www.qobuz.com/album/laughing-and-smiling-egill-antonsson/qsdjm7m3l3hnb'
 		const about =
 `I wrote this song in my early teens (along with a bulk of others) that I recorded with midi instruments (the vocals also being midi (often saxophone for some reason...)) and roughly mixed them down into audio tracks. I recorded this song again with voice and real instruments (but some still based on midi), wrote the lyrics as I'd only had a couple of sentences marinading in my head over the decades, tweaked the melody and chord progression and the form of the song. My intention is to publish more songs from the bulk and put it under a new album called 'Echoes from the Past'.`
 
@@ -366,7 +373,7 @@ Laughing and smiling were were.`
 		const name = "Glory"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IQHx1OTLkUaOh8BjVyY1Z?si=2f60e86f363d41af'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/glory-kanez-kane/imvcfi7srgbya'
+		const qobuzUrl = 'https://www.qobuz.com/album/glory-kanez-kane/imvcfi7srgbya'
 		const bandcampUrl = ''
 		const soundcloudUrl = ''
 		const about =
@@ -539,7 +546,7 @@ Going home, oh, 6 feet under.`
 		const name = "Free your Mime"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IyGlS4LP5ew4RyGd6bbJ7?si=60dbc1377b5f4ebb'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
+		const qobuzUrl = 'https://www.qobuz.com/album/free-your-mime-kanez-kane/hm6rjyzfmrk8b'
 		const soundcloudUrl = ''
 		const bandcampUrl = ''
 		const about = `The 5th Kanez Kane song release, 28th May 2024. Composed during the 1st Stockholm music session (<a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri</a> visited me).`
@@ -861,8 +868,8 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		const name = 'Vikings of Thule Theme Song'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/vikings-of-thule-game-soundtrack'
-		const spotifyUrl = 'https://open.spotify.com/track/35LOjco7IykC60Pqq3DjuU?si=7245ec4caae24d82'
-		const qubuzUrl = 'https://www.qobuz.com/gb-en/album/vikings-of-thule-original-game-soundtrack-egill-antonsson/t52dkfwuie6hb'
+		const spotifyUrl = 'https://open.spotify.com/album/3dFSk8rEvL765HXBCIt1jw?si=BrEihRzMQHm-CigMUjZb-w'
+		const qubuzUrl = 'https://www.qobuz.com/album/vikings-of-thule-original-game-soundtrack-egill-antonsson/t52dkfwuie6hb'
 		const bandcampUrl = 'https://egillantonsson.bandcamp.com/album/vikings-of-thule-game-soundtrack'
 
 		const about = `The song for the Vikings of Thule video teaser for the game made by the company Gogogic. This is the 2025 Remastered version, where I revisited the song in the recording, mixing and mastering. Lyrics by <a href="https://www.linkedin.com/in/jonasantonsson/" target="_blank">Jónas Antonsson</a>, composed by Jónas and me, performed by me and mixed and produced by Júlíus Jónasson. <a href="http://www.77.is" target="_blank">Dóri</a> created the video and synced to the song. Image artwork made by <a href="https://www.linkedin.com/in/thorirkarlcelin/" target="_blank">Þórir Karl Bragason Celin</a>.`
@@ -886,18 +893,17 @@ For the vikings that settled and stayed, in a land of ice and hope.`
 		const rootUrl = 'harmonies-of-shade-and-light'
 		const name = 'Harmonies of Shade and Light'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/harmonies-of-shade-and-light'
-		const spotifyUrl = 'https://open.spotify.com/track/1xHXUKERh3a6elM9VdPIUW'
-		const qobuzUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
-		// TODO: replace with the correct Bandcamp URL when available
-		const bandcampUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/y84mz2hhlrtbc'
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/harmonies-of-shade-and-light'
+		const spotifyUrl = 'https://open.spotify.com/album/3toaPScUxVpbuxNYahudJi?si=6RD8p2RVSSCmM9zMZMBcCQ'
+		const qobuzUrl = 'https://www.qobuz.com/album/harmonies-of-shade-and-light-egill-antonsson/e22y67g079bsu'
+		const bandcampUrl = 'https://egillantonsson.bandcamp.com/album/harmonies-of-shade-and-light'
 
 		const about = `I got the idea of this song when I was with the family in Thailand at the beginning of 2017. I borrowed a guitar with missing strings and created a harmony pattern and sung a melody over it. In circa 2019 I recorded the guitars and arranged the percussions from <a href="https://www.thelooploft.com/collections/drum-loops" target="_blank">The Loop Loft</a>. In the spring of 2021 my friend and music partner <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> helped me structure the song and write the lyrics,
 and he recorded my vocals in his studio in Reykjavik. In April 2022 I recorded the rest of the instruments, processed and mixed the song.`
 
 		const lyrics =
-`Someday's, the skies are cloudy.<br>
-Someday's, there is no light.<br>
+`Somedays, the skies are cloudy.<br>
+Somedays, there is no light.<br>
 And I thank you, for all the times we had.<br>
 And I thank you, for the moments that you cared.<br>
 <br>
@@ -913,9 +919,7 @@ And I thank you, for the moments that you cared.<br>
 Stars are shining bright tonight.<br>
 Harmonies of shade and light.<br>
 Harmonies of shade and light.<br>
-And everything's alright.<br>
-<br>
-And everything's alright... And everything's alright`
+And everything's alright.<br>`
 
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
 	}
@@ -1003,9 +1007,9 @@ Though you are far away, we can talk every day, you and I will meet again.`
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
 		const spotifyUrl = 'https://open.spotify.com/track/5m9pYmJVkgX4Kk1RyWuCdh?si=4e658375ac824121'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
+		const qobuzUrl = 'https://www.qobuz.com/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
 		// TODO: replace with the correct Bandcamp URL when available
-		const bandcampUrl = 'https://www.qobuz.com/se-en/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
+		const bandcampUrl = 'https://www.qobuz.com/album/fortidin-with-sigurjon-alexandersson-sandra-osk-snaebjornsdottir-sindri-bergmann-thorarinsson-egill-antonsson/bzcsmrqkt9sab'
 		const about =
 `Composed by Sigurjón Alexandersson and me. Sigurjón played the guitar, Sandra Ósk Snæbjörnsdóttir played the cello, vocals and other instruments performed by me. <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a> assisted me with recording and mixing.`
 
@@ -1055,7 +1059,7 @@ En þú ert fortíðin.<br>`
 		const artworkPath = `${this.dirTribeOfOranges}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
 		const spotifyUrl = 'https://open.spotify.com/track/76WTYWzVduUif8shAtmhyS?si=a1554403c9f84436'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/introduction-tribeoforanges/od9kw6695qwdc'
+		const qobuzUrl = 'https://www.qobuz.com/album/introduction-tribeoforanges/od9kw6695qwdc'
 		const about =
 `${this.urlSindri()} and I created this track for a theater play, we called it Introduction as it was played in the beginning. We incorporated drums played by <a href="https://www.discogs.com/artist/429294-Birgir-Baldursson" target="_blank">Birgir Baldursson</a>, that we initially recorded for another track I had composed (yet to be released). We took great care to produce the bassdrum sound, and we gave it a lot of space in the lower frequencies as the bass guitar only joins in the climax, while the guitar, piano and our voices float above in the higher frequencies. <a href="https://soundcloud.com/maniacs-of-noise" target="_blank">Maniacs of Noise / Jeroen Tel</a> commented on this track on Soundcloud, saying: "The best thing about this song is the bassdrum (that's not meant as an insult, it truly stands out!). :-)".<br>
 When I decided to share this track with the world, I opted for a distinct track artwork unrelated to the play. The artwork chosen was Indíánahöfuðið, a sculpture created by my oldest brother, Jónas. This potent piece holds immense sentimental value as a treasured family artifact, representing a Native American figure. Listening to the track, I envision a captivating tale of the clash of cultures, where the old meets the new, the past intertwines with the present, and the native converges with the foreign.`
@@ -1068,7 +1072,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
 		const spotifyUrl = 'https://open.spotify.com/track/0Az5Fk3OLdkejiWE4iVQJW?si=705f0f0c3d7041a4'
-		const qobuzUrl = 'https://www.qobuz.com/se-en/album/routine-tribeoforanges/tpfekpv2d8pwc'
+		const qobuzUrl = 'https://www.qobuz.com/album/routine-tribeoforanges/tpfekpv2d8pwc'
 		const about =
 `${this.urlSindri()} and I explored the untapped potential of everyday household objects found within the confines of my apartment. We crafted a composition that entailed a minimalist electric piano chord progression complemented by a touch of didgeridoo randomness. The artwork for this track captures a candid moment of camaraderie, as we engaged in a friendly game of chess on my apartment's balcony. The photo reveals us adorned in cozy gloves and hats, testament to the sunny yet brisk winter day that accompanied our artistic pursuits.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl)
