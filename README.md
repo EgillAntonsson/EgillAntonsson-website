@@ -29,6 +29,21 @@ Domain redirects are defined in file [deploy/_redirects](deploy/_redirects) and 
 
 Project uses the [Angular](https://angular.io) framework
 
+### Installing Angular CLI globally
+```bash
+> sudo npm install -g @angular/cli@15.0.1
+# The version should match the version defined in `package.json` file.
+> ng version
+# Confirm the installation.
+# Angular will ask you for auto-completion, allow it if you want to use it.
+```
+
+### Install the dependencies
+```bash
+> npm install
+# In some cases you might need to use '--force' flag, if you get errors about incompatible versions of dependencies.
+```
+
 ### Angular CLI most used commands 📜
 
 * [ng serve](https://angular.io/cli/serve)
