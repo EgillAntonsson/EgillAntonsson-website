@@ -866,7 +866,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	private votThemeSong() {
 		const rootUrl = 'vikings-of-thule-theme-song'
 		const name = 'Vikings of Thule Theme Song'
-		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.PNG`
+		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/vikings-of-thule-game-soundtrack'
 		const spotifyUrl = 'https://open.spotify.com/album/3dFSk8rEvL765HXBCIt1jw?si=BrEihRzMQHm-CigMUjZb-w'
 		const qubuzUrl = 'https://www.qobuz.com/album/vikings-of-thule-original-game-soundtrack-egill-antonsson/t52dkfwuie6hb'

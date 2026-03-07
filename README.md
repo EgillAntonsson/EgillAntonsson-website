@@ -8,12 +8,17 @@ This is the codebase project for my personal website:
 
 py scripts require `Python 3.7.1`
 
-1. Make sure the `IS_ENABLED` is set to `false` in `log.service.ts`
-1. Make appropriate changes to `deploy/sitemap.xml` if needed, then run `> py validate_sitemap.py`
-1. `> py build.py`
-    * executes `ng build --prod` which generates build artifacts into temporary `dist/` folder ([angular doc](https://angular.io/guide/deployment#production-optimizations))
-    * Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
-1. git commit changes and push to remote
+* Make sure the `IS_ENABLED` is set to `false` in `log.service.ts`
+* Make appropriate changes to `deploy/sitemap.xml` if needed, then run:
+```bash
+> cd scripts/ && python3 validate_sitemap.py
+# Then build the project with:
+> ng build --configuration production
+# Executes `ng build --prod` which generates build artifacts into temporary `dist/` folder ([angular doc](https://angular.io/guide/deployment#production-optimizations))
+> python3 build.py
+# Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
+```
+* git commit changes and push to remote
 
 ## Deployment 🚀
 
