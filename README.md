@@ -40,11 +40,18 @@ Project uses the [Angular](https://angular.io) framework
 
 ### Install the dependencies
 ```bash
-> npm install
-# In some cases you might need to use '--force' flag, if you get errors about incompatible versions of dependencies.
+> sudo npm install
+# If you get peer dependency resolution errors (ERESOLVE), use:
+> npm install --legacy-peer-deps
 ```
 
 ### Angular CLI most used commands 📜
+
+Recommended for local development:
+```bash
+> npx ng serve
+# Uses the project-local Angular CLI version from node_modules.
+```
 
 * [ng serve](https://angular.io/cli/serve)
 * [ng test](https://angular.io/guide/testing#set-up-testing)
