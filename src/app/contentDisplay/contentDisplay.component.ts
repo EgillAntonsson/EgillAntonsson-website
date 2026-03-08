@@ -4,11 +4,12 @@ import { Post, Series } from "app/shared/services/blog.service"
 import { MusicService } from "app/shared/services/music.service"
 import { filter } from "rxjs/operators"
 import { TreeNavigationNode } from "app/shared/data/treeNavigationNode"
+import { BLOG_SERIES_TITLE, BlogSeriesTitle } from "app/shared/data/blogTree.constants"
 
 interface BlogTreeBranchConfig {
 	label: string
 	children?: BlogTreeBranchConfig[]
-	seriesTitles?: string[]
+	seriesTitles?: BlogSeriesTitle[]
 }
 
 @Component({
@@ -26,25 +27,25 @@ export abstract class ContentDisplayComponent {
 		{
 			label: 'Test-Focused programming',
 			seriesTitles: [
-				'TDD: The What, How, Why and When',
-				'TDD-ing Avatar Health in C# and C++',
-				'TDD-ing Chess in C#'
+				BLOG_SERIES_TITLE.TddWhatHowWhyWhen,
+				BLOG_SERIES_TITLE.TddAvatarHealth,
+				BLOG_SERIES_TITLE.TddChess,
 			]
 		},
 		{
 			label: 'Audio programming',
 			children: [{
 					label: 'REAPER',
-					seriesTitles: ['ReaScripts'],
+					seriesTitles: [BLOG_SERIES_TITLE.ReaScripts],
 				}, {
 					label: 'FMOD',
-					seriesTitles: ['FMOD editor', 'Unity editor'],
+					seriesTitles: [BLOG_SERIES_TITLE.FmodEditor, BLOG_SERIES_TITLE.UnityEditor],
 				},
 			],
 		},
 		{
 			label: 'Lifting',
-			seriesTitles: ['Lift up and down']
+			seriesTitles: [BLOG_SERIES_TITLE.Lifting],
 		},
 	]
 

@@ -10,11 +10,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router'
 import { Location } from '@angular/common'
 import { LocationStrategy, PathLocationStrategy } from '@angular/common'
 import { TreeNavigationNode } from 'app/shared/data/treeNavigationNode'
+import { MUSIC_ARTIST_NAME, MusicArtistName, MUSIC_TRACK_ROOT_URL, MusicTrackRootUrl } from 'app/shared/data/musicTree.constants'
 
 interface MusicTreeBranchConfig {
 	label: string
 	children?: MusicTreeBranchConfig[]
-	trackRootUrls?: string[]
+	trackRootUrls?: MusicTrackRootUrl[]
 }
 
 @Component({
@@ -47,73 +48,79 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 	// Optional per-artist grouping config for deep trees. Any unlisted tracks are appended under the artist.
 	private readonly egillBranches: MusicTreeBranchConfig[] = [{
 		label: 'Tracks with real-time visuals',
-		trackRootUrls: ['le-cube']
+		trackRootUrls: [MUSIC_TRACK_ROOT_URL.LeCube],
 	}, {
 		label: 'Songs',
 		trackRootUrls: [
-			'vikings-of-thule-theme-song',
-			'harmonies-of-shade-and-light',
-			'gone-is-my-friend-johnny',
-			'we-will-meet-again',
-			'laughing-and-smiling',
-			'fortidin'
-	]}, {
+			MUSIC_TRACK_ROOT_URL.VikingsOfThuleThemeSong,
+			MUSIC_TRACK_ROOT_URL.HarmoniesOfShadeAndLight,
+			MUSIC_TRACK_ROOT_URL.GoneIsMyFriendJohnny,
+			MUSIC_TRACK_ROOT_URL.WeWillMeetAgain,
+			MUSIC_TRACK_ROOT_URL.LaughingAndSmiling,
+			MUSIC_TRACK_ROOT_URL.Fortidin,
+		],
+	}, {
 		label: 'Tracks',
 		trackRootUrls: [
-			'magma-merrygoround',
-			'just-in-time',
-			'iceland-socks-intro',
-			'odd-times-in-space',
-			'toddlers-tune'
-	]}, ]
+			MUSIC_TRACK_ROOT_URL.MagmaMerrygoround,
+			MUSIC_TRACK_ROOT_URL.JustInTime,
+			MUSIC_TRACK_ROOT_URL.IcelandSocksIntro,
+			MUSIC_TRACK_ROOT_URL.OddTimesInSpace,
+			MUSIC_TRACK_ROOT_URL.ToddlersTune,
+		],
+	}, ]
 
 	private readonly sindriAndEgillBranches: MusicTreeBranchConfig[] = [{
 		label: 'Kanez Kane',
 		trackRootUrls: [
-			'glory',
-			'tonis-time-machine',
-			'winter-queen',
-			'koma-koma',
-			'strawberry-city-lights',
-			'free-your-mime'
-	]}, {
+			MUSIC_TRACK_ROOT_URL.Glory,
+			MUSIC_TRACK_ROOT_URL.TonisTimeMachine,
+			MUSIC_TRACK_ROOT_URL.WinterQueen,
+			MUSIC_TRACK_ROOT_URL.KomaKoma,
+			MUSIC_TRACK_ROOT_URL.StrawberryCityLights,
+			MUSIC_TRACK_ROOT_URL.FreeYourMime,
+		],
+	}, {
 		label: 'Tribe Of Oranges',
 		trackRootUrls: [
-			'introduction',
-			'routine',
-			'song-for-hhi-commercial'
-	]}, ]
+			MUSIC_TRACK_ROOT_URL.Introduction,
+			MUSIC_TRACK_ROOT_URL.Routine,
+			MUSIC_TRACK_ROOT_URL.SongForHhiCommercial,
+		],
+	}, ]
 
 	private readonly kuaiBranches: MusicTreeBranchConfig[] = [{
-	label: 'Live in Laugardalshöll',
-	trackRootUrls: [
-		'andefni-live',
-		'pirringur-live',
-	]}, {
-	label: 'The album',
-	trackRootUrls: [
-		'pirringur',
-		'apollo',
-		'andsetinn',
-		'hamskipti',
-		'rover',
-		'andefni',
-		'agndofa',
-		'ofurte',
-		'lesblinda-i',
-		'lesblinda-ii'
-	]}, ]
+		label: 'Live in Laugardalshöll',
+		trackRootUrls: [
+			MUSIC_TRACK_ROOT_URL.AndefniLive,
+			MUSIC_TRACK_ROOT_URL.PirringurLive,
+		],
+	}, {
+		label: 'The album',
+		trackRootUrls: [
+			MUSIC_TRACK_ROOT_URL.Pirringur,
+			MUSIC_TRACK_ROOT_URL.Apollo,
+			MUSIC_TRACK_ROOT_URL.Andsetinn,
+			MUSIC_TRACK_ROOT_URL.Hamskipti,
+			MUSIC_TRACK_ROOT_URL.Rover,
+			MUSIC_TRACK_ROOT_URL.Andefni,
+			MUSIC_TRACK_ROOT_URL.Agndofa,
+			MUSIC_TRACK_ROOT_URL.Ofurte,
+			MUSIC_TRACK_ROOT_URL.LesblindaI,
+			MUSIC_TRACK_ROOT_URL.LesblindaIi,
+		],
+	}, ]
 
 	private readonly gameMusicBranches: MusicTreeBranchConfig[] = [{
 		label: 'Layered tracks',
-		trackRootUrls: ['godsrule-village', 'vikings-of-thule-map']
+		trackRootUrls: [MUSIC_TRACK_ROOT_URL.GodsruleVillage, MUSIC_TRACK_ROOT_URL.VikingsOfThuleMap],
 	},]
 
-	private readonly nestedBranchesByArtist: {[artistName: string]: MusicTreeBranchConfig[]} = {
-		'Egill Antonsson': this.egillBranches,
-		'Sindri and Egill': this.sindriAndEgillBranches,
-		'KUAI': this.kuaiBranches,
-		'Game Music': this.gameMusicBranches,
+	private readonly nestedBranchesByArtist: Partial<Record<MusicArtistName, MusicTreeBranchConfig[]>> = {
+		[MUSIC_ARTIST_NAME.EgillAntonsson]: this.egillBranches,
+		[MUSIC_ARTIST_NAME.SindriAndEgill]: this.sindriAndEgillBranches,
+		[MUSIC_ARTIST_NAME.Kuai]: this.kuaiBranches,
+		[MUSIC_ARTIST_NAME.GameMusic]: this.gameMusicBranches,
 	}
 
 	@ViewChild('trackGraphicContainer')
@@ -302,7 +309,7 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 		const artistNodeId = `artist:${artistIndex}:${artist.name}`
 
 		const configuredTreeNodes = this.toConfiguredBranchNodes(
-			this.nestedBranchesByArtist[artist.name] || [],
+			this.getBranchesForArtist(artist.name),
 			tracksByRootUrl,
 			configuredRootUrls,
 			artistNodeId,
@@ -366,5 +373,13 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 
 	private getTrackNodeId(track: Track): string {
 		return `track:${track.rootUrl}`
+	}
+
+	private getBranchesForArtist(artistName: string): MusicTreeBranchConfig[] {
+		if (Object.values(MUSIC_ARTIST_NAME).includes(artistName as MusicArtistName)) {
+			return this.nestedBranchesByArtist[artistName as MusicArtistName] || []
+		}
+
+		return []
 	}
 }
