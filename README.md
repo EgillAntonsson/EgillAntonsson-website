@@ -27,11 +27,11 @@ py scripts require `Python 3.7.1`
 
 For future builds, an AI agent will be initiated by me to run the full build workflow above.
 
-Required approval gates:
+Workflow rules:
 1. AI runs all build steps (including sitemap update and validation) and reports results.
-1. AI stops and waits for my explicit approval before running any `git add` or `git commit`.
-1. AI proposes a descriptive commit message before committing, then waits for approval.
-1. AI stops and waits for my explicit approval before `git push`.
+1. AI can run `git add` and `git commit` (with a descriptive commit message) without waiting for approval.
+1. AI never runs `git push`.
+1. I always run `git push` manually.
 
 ### How to infer "changed since deployed"
 
