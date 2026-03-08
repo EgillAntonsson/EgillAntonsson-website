@@ -33,6 +33,11 @@ Workflow rules:
 1. AI never runs `git push`.
 1. I always run `git push` manually.
 
+How to invoke:
+
+1. Prompt command (recommended): run `/run-build` in Copilot Chat.
+1. Agent mode: use the `build-release` custom agent and ask it to run the release build.
+
 ### How to infer "changed since deployed"
 
 Assume the currently running Netlify deployment corresponds to the latest commit that was pushed to remote branch `master`.
