@@ -282,7 +282,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				await endedPromise
 				this.instanceEndedListeners.forEach((listener) => listener(true))
 			}
-		}, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl)
+		}, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qobuzUrl, bandcampUrl, '', 85, 4)
 		return track
 	}
 
@@ -884,7 +884,7 @@ Guarded by all wights, thus staying will cost blood.<br>
 The moon has gone the sun has set, but she will rise again.<br>
 For the vikings that settled and stayed, in a land of ice and hope.`
 
-		return new YoutubeTrack('udM5Zr83El4', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics)
+		return new YoutubeTrack('udM5Zr83El4', true, rootUrl, name, artworkPath, about, soundcloudUrl, spotifyUrl, qubuzUrl, bandcampUrl, lyrics, 87, 3)
 	}
 
 	private harmoniesOfShadeAndLight() {
