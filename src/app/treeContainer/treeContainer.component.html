@@ -1,0 +1,17 @@
+<div class="treeContainer noSelect">
+	<ng-container *ngTemplateOutlet="treeNodesTemplate; context: { nodes: nodes }"></ng-container>
+</div>
+
+<ng-template #treeNodesTemplate let-currentNodes="nodes">
+	<div *ngFor="let node of currentNodes">
+		<div class="branchContainer" (click)="onNodeClick(node, $event)">
+			<div *ngIf="hasChildren(node)" class="branchIconContainer">
+				<div [ngClass]="{branchIcon: true, branchAnimateClose: !isExpanded(node), branchAnimateOpen: isExpanded(node)}"></div>
+			</div>
+			<span [ngClass]="{nodeSelected: isSelected(node)}">{{node.label}}</span>
+		</div>
+		<div class="nodeContainer nodeFadeIn" *ngIf="hasChildren(node) && isExpanded(node)">
+			<ng-container *ngTemplateOutlet="treeNodesTemplate; context: { nodes: node.children }"></ng-container>
+		</div>
+	</div>
+</ng-template>

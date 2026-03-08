@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { globalMaxNrPlayingAtOncePerSound } from '../../soundcommon/soundUtil'
 import { SoundInstance } from '../../soundcommon/interface/soundInstance'
-import { LayeredMusicTrack, Track, YoutubeTrack } from '../shared/data/track'
+import { Artist, LayeredMusicTrack, Track, YoutubeTrack } from '../shared/data/track'
 import { MusicService } from '../shared/services/music.service'
 import { LogService } from '../shared/services/log.service'
 import { LogType } from '../../shared/enums/logType'
@@ -9,6 +9,13 @@ import { PlayState } from 'app/shared/enums/playState'
 import { ActivatedRoute, ParamMap } from '@angular/router'
 import { Location } from '@angular/common'
 import { LocationStrategy, PathLocationStrategy } from '@angular/common'
+import { TreeNavigationNode } from 'app/shared/data/treeNavigationNode'
+
+interface MusicTreeBranchConfig {
+	label: string
+	children?: MusicTreeBranchConfig[]
+	trackRootUrls?: string[]
+}
 
 @Component({
 	selector: 'app-music-page',
@@ -19,6 +26,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common'
 export class MusicPageComponent implements OnInit, OnDestroy {
 	private readonly label = 'MusicPage'
 	private drawVisuals: number[] = []
+	private _treeNodes?: TreeNavigationNode<Track>[]
 	private playedListenerName = `${this.label} playedListener`
 	private endedListenerName = `${this.label} endedListener`
 	private canvases!: ElementRef<HTMLCanvasElement>[]
@@ -35,8 +43,32 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 	value = 0
 	highValue = 1
 	range = this.highValue - this.value
-	selectedByIndex = 0
-	openedUiByIndex = -1 // all deselected
+
+	// Optional per-artist grouping config for deep trees. Any unlisted tracks are appended under the artist.
+	private readonly egillBranches: MusicTreeBranchConfig[] = [
+		{
+			label: 'Demo Scene',
+			trackRootUrls: ['le-cube'],
+		},
+		{
+			label: 'Songs',
+			trackRootUrls: ['vikings-of-thule-theme-song', 'harmonies-of-shade-and-light'],
+		},
+		{
+			label: 'Tracks',
+			trackRootUrls: ['magma-merry-go-round'],
+		},
+	]
+
+	private readonly nestedBranchesByArtist: {[artistName: string]: MusicTreeBranchConfig[]} = {
+		'Egill Antonsson': this.egillBranches,
+		'Egill Antonsson songs': this.egillBranches,
+		// Add more artist branch trees here when needed.
+		// Example:
+		// 'Kanez Kane': [
+		// 	{ label: 'Albums', children: [{ label: 'Toni', trackRootUrls: ['tonis-time-machine'] }] },
+		// ],
+	}
 
 	@ViewChild('trackGraphicContainer')
 	trackGraphicContainerElement!: ElementRef
@@ -66,6 +98,18 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 
 	get selectedTrackAsYoutubeTrack() {
 		return this.musicService.selectedTrack as YoutubeTrack
+	}
+
+	get treeNodes(): TreeNavigationNode<Track>[] {
+		if (!this._treeNodes) {
+			this._treeNodes = this.byTracks.map((artist, artistIndex) => this.toArtistTreeNode(artist, artistIndex))
+		}
+
+		return this._treeNodes
+	}
+
+	get selectedTrackNodeId(): string {
+		return this.getTrackNodeId(this.selectedTrack)
 	}
 
 	constructor(private musicService: MusicService, private logService: LogService, private route: ActivatedRoute, private location: Location) {}
@@ -115,14 +159,12 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 		this.musicService.onUiTrackSelected(track)
 	}
 
-	onByClick(byIndex: number) {
-		if (this.openedUiByIndex === byIndex) {
-			// deselect
-			this.openedUiByIndex = -1
-		} else {
-			this.openedUiByIndex = byIndex
+	onTreeNodeSelected(node: TreeNavigationNode<unknown>) {
+		if (node.value) {
+			this.onTrackClick(node.value as Track)
 		}
 	}
+
 	get layerText(): string {
 			if (this.musicService.selectedTrack instanceof LayeredMusicTrack && this.musicService.selectedTrack.layeredMusicController.layerSoundInstances) {
 			const layers =  this.musicService.selectedTrack.layeredMusicController.layerSoundInstances
@@ -206,5 +248,77 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 		})
 		this.currentCanvasNr = 1
 		this.canvasNrAscending = false
+	}
+
+	private toArtistTreeNode(artist: Artist, artistIndex: number): TreeNavigationNode<Track> {
+		const configuredRootUrls = new Set<string>()
+		const tracksByRootUrl = new Map<string, Track>(artist.tracks.map(track => [track.rootUrl, track]))
+		const artistNodeId = `artist:${artistIndex}:${artist.name}`
+
+		const configuredTreeNodes = this.toConfiguredBranchNodes(
+			this.nestedBranchesByArtist[artist.name] || [],
+			tracksByRootUrl,
+			configuredRootUrls,
+			artistNodeId,
+		)
+
+		const unconfiguredTrackNodes = artist.tracks
+			.filter(track => !configuredRootUrls.has(track.rootUrl))
+			.map(track => this.toTrackTreeNode(track))
+
+		return {
+			id: artistNodeId,
+			label: artist.name,
+			children: [...configuredTreeNodes, ...unconfiguredTrackNodes],
+		}
+	}
+
+	private toConfiguredBranchNodes(
+		configs: MusicTreeBranchConfig[],
+		tracksByRootUrl: Map<string, Track>,
+		configuredRootUrls: Set<string>,
+		parentNodeId: string,
+	): TreeNavigationNode<Track>[] {
+		return configs.map((config, branchIndex) => {
+			const branchNodeId = `${parentNodeId}/branch:${branchIndex}:${config.label}`
+			const childBranchNodes = this.toConfiguredBranchNodes(
+				config.children || [],
+				tracksByRootUrl,
+				configuredRootUrls,
+				branchNodeId,
+			)
+
+			const configuredTrackNodes = (config.trackRootUrls || [])
+				.map(rootUrl => {
+					const track = tracksByRootUrl.get(rootUrl)
+					if (!track) {
+						this.logService.log(LogType.Warn, `Track rootUrl "${rootUrl}" not found for branch "${config.label}"`)
+						return undefined
+					}
+
+					configuredRootUrls.add(rootUrl)
+					return this.toTrackTreeNode(track)
+				})
+				.filter((trackNode): trackNode is TreeNavigationNode<Track> => !!trackNode)
+
+			return {
+				id: branchNodeId,
+				label: config.label,
+				children: [...childBranchNodes, ...configuredTrackNodes],
+			}
+		})
+	}
+
+	private toTrackTreeNode(track: Track): TreeNavigationNode<Track> {
+		return {
+			id: this.getTrackNodeId(track),
+			label: track.name,
+			value: track,
+			selectable: true,
+		}
+	}
+
+	private getTrackNodeId(track: Track): string {
+		return `track:${track.rootUrl}`
 	}
 }

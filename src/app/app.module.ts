@@ -31,6 +31,7 @@ import { PostChess1Component } from './blog/posts/chess/postChess1.component'
 import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.component'
 import { BlogContentDisplayComponent } from './contentDisplay/blogContentDisplay.component'
 import { PostFmodBuildAllPlatformsComponent } from './blog/posts/fmod/postFmodBuildAllPlatforms.component'
+import { TreeContainerComponent } from './treeContainer/treeContainer.component'
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { PostFmodBuildAllPlatformsComponent } from './blog/posts/fmod/postFmodBu
 		PostChess1Component,
 		PostFmodBuildAllPlatformsComponent,
 		KgToCreatureComponent,
-		BlogContentDisplayComponent
+		BlogContentDisplayComponent,
+		TreeContainerComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [{
