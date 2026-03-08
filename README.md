@@ -9,16 +9,41 @@ This is the codebase project for my personal website:
 py scripts require `Python 3.7.1`
 
 * Make sure the `IS_ENABLED` is set to `false` in `log.service.ts`
-* Make appropriate changes to `deploy/sitemap.xml` if needed, then run:
+* Update `deploy/sitemap.xml` as part of every build:
+	* Set `lastmod` to today's date for each page changed since the last deployed build.
+	* At minimum, update changed section roots (for example `/music` and `/blog`) and any changed child pages under them.
+* Validate sitemap and build:
 ```bash
 > cd scripts/ && python3 validate_sitemap.py
+# Run this exactly as shown above (using `python3` from your shell).
 # Then build the project with:
-> ng build --configuration production
+> cd .. && npx ng build --configuration production
 # Executes `ng build --prod` which generates build artifacts into temporary `dist/` folder ([angular doc](https://angular.io/guide/deployment#production-optimizations))
 > python3 build.py
 # Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
 ```
-* git commit changes and push to remote
+
+### AI-assisted build workflow
+
+For future builds, an AI agent will be initiated by me to run the full build workflow above.
+
+Required approval gates:
+1. AI runs all build steps (including sitemap update and validation) and reports results.
+1. AI stops and waits for my explicit approval before running any `git add` or `git commit`.
+1. AI proposes a descriptive commit message before committing, then waits for approval.
+1. AI stops and waits for my explicit approval before `git push`.
+
+### How to infer "changed since deployed"
+
+Assume the currently running Netlify deployment corresponds to the latest commit that was pushed to remote branch `master`.
+
+In practice, compare local `master` with `origin/master`:
+
+```bash
+> git log --oneline origin/master..master
+```
+
+The commits listed there are inferred to be the changes not yet deployed.
 
 ## Deployment 🚀
 
@@ -67,7 +92,9 @@ Recommended for local development:
 
 ## Tons lifted | Creature lifted 🏋️‍♂️
 
+This is optional and manual. It is not part of every build.
+
 Steps to update the `Tons lifted / Creature lifted` table:
 1. In the [FitNotes](http://www.fitnotesapp.com) app export the workout data as a CSV file (`Settings > Spreadsheet Export >` with `WorkoutData` selected).
 1. Put the CSV file in the `scripts/fitNotesExport/` folder.
-1. Be in dir `scripts/fitNotesExport/` and run `py fitNotesExport.py` to generate the `src/assets/data/FitNotes_Export_Processed.csv` file, that the website uses to display the table.
+1. Be in dir `scripts/fitNotesExport/` and run `python3 process_fitnotes_export.py` to generate the `src/assets/data/FitNotes_Export_Processed.csv` file, that the website uses to display the table.
