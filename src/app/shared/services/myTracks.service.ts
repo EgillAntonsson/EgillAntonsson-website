@@ -646,7 +646,7 @@ Toni's living in the past...`
 	}
 
 	private pesi2002() {
-		const rootUrl = 'pesi-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.PesiYear2002
 		const name = 'Pési (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6viU3JhxNEKkY2paBuOEaP'
@@ -656,7 +656,7 @@ Toni's living in the past...`
 	}
 
 	private mouse2002() {
-		const rootUrl = 'mouse-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.MouseYear2002
 		const name = 'Mouse (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1f2eGiZiCMOMZZbKc52IIH'
@@ -666,7 +666,7 @@ Toni's living in the past...`
 	}
 
 	private rubber2002() {
-		const rootUrl = 'rubber-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.RubberYear2002
 		const name = 'Rubber (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/23kZ3ftMMyigpXU49Rq35Q'
@@ -676,7 +676,7 @@ Toni's living in the past...`
 	}
 
 	private solos2002() {
-		const rootUrl = 'solos-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.SolosYear2002
 		const name = 'Solos (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5J8kU1mdqcqKZ0Wb3sxrqj'
@@ -686,7 +686,7 @@ Toni's living in the past...`
 	}
 
 		private takeCare2002() {
-			const rootUrl = 'take-care-year-2002'
+			const rootUrl = MUSIC_TRACK_ROOT_URL.TakeCareYear2002
 			const name = 'Take Care (year 2002)'
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-2002?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/6xiCd9HFh0SaJEngXtgldj'
@@ -696,7 +696,7 @@ Toni's living in the past...`
 		}
 
 		private beLikeYou2002() {
-			const rootUrl = 'be-like-you-year-2002'
+			const rootUrl = MUSIC_TRACK_ROOT_URL.BeLikeYouYear2002
 			const name = 'Be Like You (year 2002)'
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-2002?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/4zcgAvMsU46YVTKGmS8vJA'
@@ -706,7 +706,7 @@ Toni's living in the past...`
 		}
 
 	private story2002() {
-		const rootUrl = 'story-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.StoryYear2002
 		const name = 'Story (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0zcnfEWqzmaCfp7hsbcA9Z'
@@ -716,7 +716,7 @@ Toni's living in the past...`
 	}
 
 	private frumlag2002() {
-		const rootUrl = 'frumlag-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.FrumlagYear2002
 		const name = 'Frumlag (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5fFuGjJMqLS0iPMmiZ3SBc'
@@ -726,7 +726,7 @@ Toni's living in the past...`
 	}
 
 	private world2002() {
-		const rootUrl = 'world-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WorldYear2002
 		const name = 'World (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5EFT7M2r9kiJqPn2EtXNoz'
@@ -736,7 +736,7 @@ Toni's living in the past...`
 	}
 
 	private withoutThem2002() {
-		const rootUrl = 'without-them-year-2002'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WithoutThemYear2002
 		const name = 'Without them (year 2002)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-2002?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5cfstB4Y5eIFI79e4KBAk8'
@@ -746,7 +746,7 @@ Toni's living in the past...`
 	}
 
 	private myDearOldBrothers() {
-		const rootUrl = 'my-dear-old-brothers'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.MyDearOldBrothers
 		const name = 'My Dear Old Brothers'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/my-dear-old-brothers?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6mnJyUYVPeoEx8oKUBu4Zw'
@@ -761,7 +761,7 @@ Toni's living in the past...`
 	private lazarusOrFlo = `guitar: Árni Björnsson or Júlíus Jónasson, bass: Páll Hartmannsson or Einar Arngrímsson, drums: Hermann Tómasson or Vignir Hallgrímsson`
 
 	private pesi1974() {
-		const rootUrl = 'pesi-year-1974'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.PesiYear1974
 		const name = 'Pési (year 1974)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pesi-year-1974?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/5wmAzE3Mc0uWjhjxRf95OQ'
@@ -772,7 +772,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private mouse1975() {
-		const rootUrl = 'mouse-year-1975'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.MouseYear1975
 		const name = 'Mouse (year 1975)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/mouse-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3qtGfywTgrjxBMQcCdN1xo'
@@ -782,7 +782,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private rubber1975() {
-		const rootUrl = 'rubber-year-1975'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.RubberYear1975
 		const name = 'Rubber (year 1975)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rubber-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/700fVJsCrH4BBpsMW7B60t'
@@ -792,7 +792,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private solos1975() {
-		const rootUrl = 'solos-year-1975'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.SolosYear1975
 		const name = 'Solos (year 1975)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/solos-year-1975?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/3X7wZlcTxFwkLs7rvEkkWZ'
@@ -802,7 +802,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 		private takeCare1976() {
-			const rootUrl = 'take-care-year-1976'
+			const rootUrl = MUSIC_TRACK_ROOT_URL.TakeCareYear1976
 			const name = 'Take Care (year 1976)'
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/take-care-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/2V0X8p2Tefcg5MTrnuuplo'
@@ -812,7 +812,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		}
 
 		private beLikeYou1976() {
-			const rootUrl = 'be-like-you-year-1976'
+			const rootUrl = MUSIC_TRACK_ROOT_URL.BeLikeYouYear1976
 			const name = 'Be Like You (year 1976)'
 			const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/be-like-you-year-1976?in=egill-antonsson/sets/braedraminning'
 			const spotifyUrl = 'https://open.spotify.com/track/23YxXCBVwziMTdJnIGqLZx'
@@ -822,7 +822,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 		}
 
 	private story1976() {
-		const rootUrl = 'story-year-1976'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.StoryYear1976
 		const name = 'Story (year 1976)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/story-year-1976?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/47Tf6lPTTaibh0LFGi6ULh'
@@ -832,7 +832,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private frumlag1977() {
-		const rootUrl = 'frumlag-year-1977'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.FrumlagYear1977
 		const name = 'Frumlag (year 1977)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/frumlag-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/1TV6QGFbW0mdtO8GqXCfay'
@@ -842,7 +842,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private world1977() {
-		const rootUrl = 'world-year-1977'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WorldYear1977
 		const name = 'World (year 1977)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/world-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/6dI0WypRxmbUK7Rw9TaHpT'
@@ -852,7 +852,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private withoutThem1977() {
-		const rootUrl = 'without-them-year-1977'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WithoutThemYear1977
 		const name = 'Without them (year 1977)'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/without-them-year-1977?in=egill-antonsson/sets/braedraminning'
 		const spotifyUrl = 'https://open.spotify.com/track/0rcIAwxbRtRhYbKX0bq142'
@@ -1270,7 +1270,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private cakePopParty() {
-		const rootUrl = 'cake-pop-party'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.CakePopParty
 		const name = 'Cake Pop Party'
 		const about = `I composed and produced the music and sfx for this game. I was inspired by the intro of <a href="https://open.spotify.com/track/3qI94hINNNeb4S7xQi18lS?si=daef63ec063e4901" target="_blank">Blame it on the Boogie by The Jacksons</a>. This track starts with the Intro music looped twice, then goes into the in-game 'Make the Pop' music. Then the whole thing is looped twice. A short description of the game: A social entertainment game for the iPad and iPhone. The key ingredient of the game is the ability of players to create, design and share their unique cake pop creations globally within the app and on the social networks for added fun. Developed by ${this.urlGogogic} and published by <a href="https://www.facebook.com/profile.php?id=100063882670798" target="_blank">FreshGames</a>.`
 
@@ -1317,7 +1317,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private symbol6() {
-		const rootUrl = 'symbol-6'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Symbol6
 		const name = 'Symbol 6'
 		const about = `I composed and produced the music and sfx for this game. I was a bit inspired by the song <a href="https://soundcloud.com/r-nar-li-bjarnason/easy-cream?in=r-nar-li-bjarnason/sets/fiff" target="_blank">Easy Cream by the band Fiff</a> as I use the same verse chord progression, but I change the time signature from 4 to 6. This track starts with the drum beat that was during the menu, then goes into the in-game music, and goes into the old version of the in-game music (with less drums). Then the whole thing is looped twice. Developed and published by ${this.urlGogogic}.`
 
@@ -1359,7 +1359,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private softFreakFiesta() {
-		const rootUrl = 'soft-freak-fiesta'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.SoftFreakFiesta
 		const name = 'Soft Freak Fiesta'
 		const about = `I composed and produced the music and sfx for this game. This track starts with the Intro into menu music, then goes into in-game music. First with default level, then with bubbling acid / lava ambience level. Then the You Loose jingle is played, then the whole thing is looped twice, but now it ends with You Win jingle. Developed and published by ${this.urlGogogic}.`
 
@@ -1423,7 +1423,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private habitarium() {
-		const rootUrl = 'habitarium'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Habitarium
 		const name = 'Habitarium'
 		const about = `I composed and produced the music and sfx for this <a href="https://www.neopets.com/habitarium/" target="_blank">game</a> that was developed by ${this.urlGogogic} but was for Neopets that was then owned by <a href="https://www.nickelodeon.com" target="_blank">Nickelodeon</a>. This track starts with the main theme music and then goes into in-game music, then the whole thing is looped twice. After the delivery at some point the owners (maybe after change of ownership) added a music track that was not done by me.`
 
@@ -1458,7 +1458,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private tinyPlaces() {
-		const rootUrl = 'tiny-places'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.TinyPlaces
 		const name = 'Tiny Places'
 		const about = `I composed and produced the music and sfx for this game. This track starts with the intro music and then goes to the main theme music, where I was inspired by the <a href="https://open.spotify.com/track/5duZVZ4m1TaJDTCbeHG8TG?si=a7ac919c95274a51" target="_blank">Indiana Jones theme</a>. Then it goes to the Space Bonus Level where Nap floats in space, and where I was inspired by communication by the melody line in the movie <a href="https://www.youtube.com/watch?v=nkykqyMEarA" target="_blank">Close Encounters of the Third Kind</a>. Then it goes to the Pyramid Tomb Bonus Level. Then it goes the 'Lazy style', then it goes to a short xylophone cut scene and then the in-game music, and it ends with The Time is Running Out and Game Over. Developed by ${this.urlGogogic} and published by <a href="https://www.bigfishgames.com" target="_blank">Big Fish Games</a>.`
 
@@ -1549,7 +1549,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private jol2008() {
-		const rootUrl = 'christmas-game-2008'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.ChristmasGame2008
 		const name = 'Christmas Game 2008'
 		const about = `I composed and produced the music and sfx for the 2008 Gogogic Christmas Game. It was a ${this.urlGogogic} tradition to publish a game each Christmas that people could play for free and get int the holiday spirit. This year the game was packaging christmas correctly and in due time. This track plays the the main music twice and  then ends with the Game Over jingle.`
 
@@ -1584,7 +1584,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private jol2009() {
-		const rootUrl = 'christmas-game-2009'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.ChristmasGame2009
 		const name = 'Christmas Game 2009'
 		const about = `I composed and produced the music and sfx for the 2009 Gogogic Christmas Game. It was a ${this.urlGogogic} tradition to publish a game each Christmas that people could play for free and get int the holiday spirit. This year the game was solving the christmas puzzle that pushing out slimy balls through some pipes, thus I shuffled and juiced up the comp around the same melody tones from last year's game. This track starts with the Bridge and then goes to the Chorus. Then the whole thing is looped twice.`
 
@@ -1625,7 +1625,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private whosYourFriend() {
-		const rootUrl = 'whos-your-friend'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WhosYourFriend
 		const name = 'Who\'s Your Friend'
 		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (selected randomly) in 90 seconds, thus the track is the same length as the game sessions 90 seconds. Developed and published by ${this.urlGogogic}.`
 
@@ -1644,7 +1644,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private knowYourFriend() {
-		const rootUrl = 'know-your-friend'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.KnowYourFriend
 		const name = 'Know Your Friend'
 		const about = `I composed and produced the music and sfx for this game that was about knowing as many of your Facebook friend profile pictures (presented 4 choices randomly) in 90 seconds. The track starts with 90 seconds game session then goes to the Game Finished and Result music with applause ambience (looped twice). Developed and published by ${this.urlGogogic}.`
 
@@ -1679,7 +1679,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private stackem() {
-		const rootUrl = 'stack-em'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.StackEm
 		const name = 'Stack\'em'
 		const about = `I composed and produced the music and sfx for this game by ${this.urlGogogic} that was about stacking your sheep as high as you can, competing for the high score with your fellow farmers. This track is looped twice.`
 
@@ -1703,7 +1703,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private glowbulleville() {
-		const rootUrl = 'glowbulleville'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Glowbulleville
 		const name = 'Glowbulleville'
 		const about = `I composed and produced the music and sfx for this game which was the first one I did at ${this.urlGogogic}. This track starts with the main music, then goes to the village music (looped twice), then goes to the in-game music, then the whole thing is looped twice.`
 
@@ -1755,7 +1755,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private godsrule() {
-		const rootUrl = 'godsrule-battle'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.GodsruleBattle
 		const name = 'Godsrule: Battle'
 		const about = `I composed and produced the music and sfx for this game. This track starts with the battle music, then goes to Combat Ended with Defeat music, then goes to Combat Ended with Victory (to showcase both, though would not happen in the actual game). Developed by ${this.urlGogogic} and published by Sega.`
 
@@ -1807,7 +1807,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private vot() {
-		const rootUrl = 'vikings-of-thule-duel'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.VikingsOfThuleDuel
 		const name = 'Vikings of Thule: Duel'
 		const about = `I composed and produced the music and sfx for this game. This track starts with the drums when the duel initiated popup displays, then goes to the duel music when the duel starts. The duel end popup queues the duel end music where the music ends (and wind ambience continues). Developed and published by ${this.urlGogogic}.`
 
@@ -1859,7 +1859,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private crisisGame() {
-		const rootUrl = 'the-crisis-game'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.TheCrisisGame
 		const name = 'The Crisis Game'
 		const about = `The Crisis Game or Kreppuspilið in Icelandic was a board game created after the Icelandic financial crisis that ${this.urlGogogic} produced. I created the jingle for the the video shorts campaign which is available <a href="https://www.youtube.com/@kreppur/videos" target="_blank">here</a>.`
 
