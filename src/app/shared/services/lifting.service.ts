@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import * as Papa from 'papaparse'
 import { HttpClient } from '@angular/common/http'
 import { LogService } from './log.service'
-import { LogType } from 'shared/enums/logType'
+import { LogType } from 'app/shared/enums/logType'
 
 
 @Injectable({ providedIn: 'root' })

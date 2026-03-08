@@ -1,7 +1,7 @@
 import { SoundInstance } from './interface/soundInstance'
 import { EmitterEvent } from './enum/emitterEvent'
 import { BooleanEmitter } from './emitter/booleanEmitter'
-import { LogType } from 'shared/enums/logType'
+import { LogType } from 'app/shared/enums/logType'
 
 export class LayeredMusicController {
 

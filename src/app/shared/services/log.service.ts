@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { LogType } from 'shared/enums/logType'
+import { LogType } from 'app/shared/enums/logType'
 
 @Injectable({ providedIn: 'root' })
 export class LogService {

@@ -8,7 +8,7 @@ import {text} from '../services/realtimeVisualJs/lecube/text'
 import {fade} from '../services/realtimeVisualJs/lecube/fade'
 import {scroller} from '../services/realtimeVisualJs/lecube/scroller'
 import { LogService } from "./log.service"
-import { LogType } from 'shared/enums/logType'
+import { LogType } from 'app/shared/enums/logType'
 import { ScreenService, WidthRange } from "./screen.service"
 
 @Injectable({

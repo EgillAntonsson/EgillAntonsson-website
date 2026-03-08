@@ -4,7 +4,7 @@ import { GainWrapper } from './wrapper/gainWrapper'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
 import { SoundInstance } from './interface/soundInstance'
 import { SoundData } from './interface/soundData'
-import { LogType } from '../shared/enums/logType'
+import { LogType } from '../app/shared/enums/logType'
 
 export class Sound {
 	readonly label = 'Sound'

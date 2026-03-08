@@ -4,7 +4,7 @@ import { HttpParams, HttpClient } from '@angular/common/http'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
 import { LogService } from './shared/services/log.service'
-import { LogType } from 'shared/enums/logType'
+import { LogType } from 'app/shared/enums/logType'
 import { HtmlElementService } from './shared/services/htmlElement.service'
 
 @Component({

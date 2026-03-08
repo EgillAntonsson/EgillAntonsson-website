@@ -5,7 +5,7 @@ import { GainEmitter } from './emitter/gainEmitter'
 import { EmitterEvent } from './enum/emitterEvent'
 import { DynamicRangeEmitter } from './emitter/dynamicRangeEmitter'
 import { SoundData } from './interface/soundData'
-import { LogType } from '../shared/enums/logType'
+import { LogType } from '../app/shared/enums/logType'
 
 export interface SoundManager {
 

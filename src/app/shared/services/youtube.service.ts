@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from "@angular/core";
-import { LogType } from "shared/enums/logType";
+import { LogType } from "app/shared/enums/logType";
 import { LogService } from "./log.service";
 import { WindowRefService } from './windowRef.service'
 import { MessageService } from "./message.service";

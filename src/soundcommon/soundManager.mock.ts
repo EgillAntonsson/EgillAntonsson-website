@@ -1,4 +1,4 @@
-import { LogType } from 'shared/enums/logType';
+import { LogType } from 'app/shared/enums/logType';
 import { SoundManager } from 'soundcommon/soundManager'
 import { SoundData } from './interface/soundData';
 import { Sound } from './sound';

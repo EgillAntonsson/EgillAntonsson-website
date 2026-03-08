@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { LogType } from "shared/enums/logType";
+import { LogType } from "app/shared/enums/logType";
 import { Track } from "../data/track";
 import { LogService } from "./log.service";
 
