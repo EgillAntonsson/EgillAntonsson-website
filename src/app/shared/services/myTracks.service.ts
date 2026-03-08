@@ -4,6 +4,7 @@ import { SoundInstance } from 'soundcommon/interface/soundInstance'
 import { LayeredMusicController } from 'soundcommon/layeredMusicController'
 import { Artist, Track, LayeredMusicTrack, YoutubeTrack, SoundcloudTrack, LocalTrack, RealtimeVisualTrack } from '../data/track'
 import { LogService } from './log.service'
+import { MUSIC_ARTIST_NAME, MUSIC_TRACK_ROOT_URL } from '../data/musicTree.constants'
 import { SoundManagerService } from './soundManager.service'
 
 interface Played {
@@ -147,7 +148,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 		}
 
 		this._byTracks = [
-			{name: 'Egill Antonsson', tracks: [
+			{name: MUSIC_ARTIST_NAME.EgillAntonsson, tracks: [
 				this.leCube(),
 				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
@@ -161,7 +162,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				this.toddlerTune(),
 				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
-			{name: 'Sindri and Egill', tracks: [
+			{name: MUSIC_ARTIST_NAME.SindriAndEgill, tracks: [
 				this.glory(),
 				this.tonisTimeMachine(),
 				this.winterQueen(),
@@ -172,7 +173,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				this.routine(),
 				this.hhiCommercial()
 			], about: this.aboutSindriAndEgill},
-			{name: 'KUAI', tracks: [
+			{name: MUSIC_ARTIST_NAME.Kuai, tracks: [
 				this.andefniLive(),
 				this.pirringurLive(),
 				this.pirringur(),
@@ -209,7 +210,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				this.world1977(),
 				this.withoutThem1977(),
 			], about: this.aboutBraedraminning},
-			{name: 'Game Music', tracks: [
+			{name: MUSIC_ARTIST_NAME.GameMusic, tracks: [
 				this.godsruleLayered(),
 				this.votLayered(),
 				this.godsrule(),
@@ -260,7 +261,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 // * Some artwork is downloaded from the Qobuz link, they are a bit under 60 KB and 600px X 600px.
 
 	private leCube() {
-		const rootUrl = 'le-cube'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.LeCube
 		const name = 'Le Cube ◇ Mass Psychosis'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/le-cube'
@@ -286,7 +287,7 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 	}
 
 	private goneIsMyFriendJohnny() {
-		const rootUrl = 'gone-is-my-friend-johnny'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.GoneIsMyFriendJohnny
 		const name = 'Gone is my friend Johnny'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/gone-is-my-friend-johnny'
@@ -331,7 +332,7 @@ Together we are."`
 	}
 
 	private laughingAndSmiling() {
-		const rootUrl = 'laughing-and-smiling'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.LaughingAndSmiling
 		const name = 'Laughing and Smiling'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/laughing-and-smiling'
@@ -366,7 +367,7 @@ Laughing and smiling were were.`
 	}
 
 	private glory() {
-		const rootUrl = 'glory'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Glory
 		const name = "Glory"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IQHx1OTLkUaOh8BjVyY1Z?si=2f60e86f363d41af'
@@ -413,7 +414,7 @@ It's time for glory.`
 	}
 
 	private winterQueen() {
-		const rootUrl = 'winter-queen'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WinterQueen
 		const name = 'Winter Queen'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/56X0rSJh8MRO2aJTZfSgpF?si=ec263723abbf4f29'
@@ -457,7 +458,7 @@ Josefine, Josefine, Josefine...`
 	}
 
 	private komaKoma() {
-		const rootUrl = 'koma-koma'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.KomaKoma
 		const name = 'Koma Koma'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0Hbv3lJZvM3Bb9vhEcAAhi?si=c9036966188848a9'
@@ -503,7 +504,7 @@ Revolution (got a message to the heart).<br>`
 	}
 
 	private strawberryCityLights() {
-		const rootUrl = 'strawberry-city-lights'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.StrawberryCityLights
 		const name = 'Strawberry City Lights'
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/0lRUvYevsLK5pBrTYfl3be?si=04526be015af456e'
@@ -539,7 +540,7 @@ Going home, oh, 6 feet under.`
 	}
 
 	private freeYourMime() {
-		const rootUrl = 'free-your-mime'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.FreeYourMime
 		const name = "Free your Mime"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/5IyGlS4LP5ew4RyGd6bbJ7?si=60dbc1377b5f4ebb'
@@ -614,7 +615,7 @@ Oh phony world better run, better run while you can.`
 	}
 
 	private tonisTimeMachine() {
-		const rootUrl = 'tonis-time-machine'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.TonisTimeMachine
 		const name = "Toni's Time Machine"
 		const artworkPath = `${this.dirKanez}${rootUrl}.jpg`
 		const spotifyUrl = 'https://open.spotify.com/track/2RLL2jOutw0X6xoJuxOl2u?si=4d0cc6b104f943a0'
@@ -861,7 +862,7 @@ guitar: Jónas, ${this.lazarusOrFlo}.`
 	}
 
 	private votThemeSong() {
-		const rootUrl = 'vikings-of-thule-theme-song'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.VikingsOfThuleThemeSong
 		const name = 'Vikings of Thule Theme Song'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/vikings-of-thule-game-soundtrack'
@@ -887,7 +888,7 @@ For the vikings that settled and stayed, in a land of ice and hope.`
 	}
 
 	private harmoniesOfShadeAndLight() {
-		const rootUrl = 'harmonies-of-shade-and-light'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.HarmoniesOfShadeAndLight
 		const name = 'Harmonies of Shade and Light'
 		const artworkPath =  `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/sets/harmonies-of-shade-and-light'
@@ -922,7 +923,7 @@ And everything's alright.<br>`
 	}
 
 	private weWillMeetAgain() {
-		const rootUrl = 'we-will-meet-again'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.WeWillMeetAgain
 		const name = 'We Will Meet Again'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/we-will-meet-again'
@@ -959,7 +960,7 @@ Though you are far away, we can talk every day, you and I will meet again.`
 	}
 
 	private magmaMerryGoRound() {
-		const rootUrl = 'magma-merrygoround'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.MagmaMerrygoround
 		const name = 'Magma MerryGoRound'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/magma-merrygoround'
@@ -974,7 +975,7 @@ Though you are far away, we can talk every day, you and I will meet again.`
 	}
 
 	private justInTime() {
-		const rootUrl = 'just-in-time'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.JustInTime
 		const name = 'Just in Time'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/just-in-time'
 		// TODO: replace with the correct Bandcamp URL when available
@@ -986,7 +987,7 @@ Though you are far away, we can talk every day, you and I will meet again.`
 	}
 
 	private icelandSocksIntro() {
-		const rootUrl = 'iceland-socks-intro'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.IcelandSocksIntro
 		const name = 'Iceland Socks: Intro'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/iceland-socks-intro'
@@ -999,7 +1000,7 @@ Though you are far away, we can talk every day, you and I will meet again.`
 	}
 
 	private fortidin() {
-		const rootUrl = 'fortidin'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Fortidin
 		const name = 'Fortíðin'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/fortidin'
@@ -1032,7 +1033,7 @@ En þú ert fortíðin.<br>`
 	}
 
 	private toddlerTune() {
-		const rootUrl = 'toddlers-tune'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.ToddlersTune
 		const name = 'Toddlers Tune'
 		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/toddler-tune'
@@ -1042,7 +1043,7 @@ En þú ert fortíðin.<br>`
 	}
 
 	private oddTimesInSpace() {
-		const rootUrl = 'odd-times-in-space'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.OddTimesInSpace
 		const name = 'Odd Times in Space'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/odd-times-in-space'
 		const about =
@@ -1051,7 +1052,7 @@ En þú ert fortíðin.<br>`
 	}
 
 	private introduction() {
-		const rootUrl = 'introduction'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Introduction
 		const name = 'Introduction'
 		const artworkPath = `${this.dirTribeOfOranges}${rootUrl}.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/introduction'
@@ -1064,7 +1065,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private routine() {
-		const rootUrl = 'routine'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Routine
 		const name = 'Routine'
 		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/routine'
@@ -1076,7 +1077,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private hhiCommercial() {
-		const rootUrl = 'song-for-hhi-commercial'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.SongForHhiCommercial
 		const name = 'Song for HHI commercial'
 		const artworkPath = `${this.dirTribeOfOranges}tribe-of-oranges.jpg`
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/song-for-hhi-commercial'
@@ -1089,7 +1090,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private andefniLive() {
-		const rootUrl = 'andefni-live'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.AndefniLive
 		const name = 'Andefni - Live'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
 		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
@@ -1098,7 +1099,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private pirringurLive() {
-		const rootUrl = 'pirringur-live'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.PirringurLive
 		const name = 'Pirringur - Live'
 		const soundcloudUrl = 'https://soundcloud.com/kuai-iceland/pirringur-live'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
@@ -1107,7 +1108,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private pirringur() {
-		const rootUrl = 'pirringur'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Pirringur
 		const name = 'Pirringur'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/pirringur'
 		const spotifyUrl = 'https://open.spotify.com/track/1MnsPzWXUWDdBjLGreX9mp?si=bbfd84374fd24935'
@@ -1116,7 +1117,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private apollo() {
-		const rootUrl = 'apollo'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Apollo
 		const name = 'Apollo'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/apollo'
 		const spotifyUrl = 'https://open.spotify.com/track/3ayL6r8u4hkHZzLFSGLq5j?si=42bf7eb320d14012'
@@ -1125,7 +1126,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private andsetinn() {
-		const rootUrl = 'andsetinn'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Andsetinn
 		const name = 'Andsetinn'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andsetinn'
 		const spotifyUrl = 'https://open.spotify.com/track/7MRGsSRocQ9CUEP7MzzutU?si=39de5d4ba04f4ded'
@@ -1134,7 +1135,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private hamskipti() {
-		const rootUrl = 'hamskipti'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Hamskipti
 		const name = 'Hamskipti'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/hamskipti'
 		const spotifyUrl = 'https://open.spotify.com/track/03YyiL49fyp9pPoynSk0e5?si=cd62c0313293492f'
@@ -1143,7 +1144,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private rover() {
-		const rootUrl = 'rover'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Rover
 		const name = 'Rover'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/rover'
 		const spotifyUrl = 'https://open.spotify.com/track/2nM3ir2HXQIYx9HHdYgu3c?si=731010727fb94acc'
@@ -1152,7 +1153,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private andefni() {
-		const rootUrl = 'andefni'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Andefni
 		const name = 'Andefni'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/andefni'
 		const spotifyUrl = 'https://open.spotify.com/track/0BeH2MfJp85TtdE5PZ16PU?si=50aea94a99c5455f'
@@ -1161,7 +1162,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private agndofa() {
-		const rootUrl = 'agndofa'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Agndofa
 		const name = 'Agndofa'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/agndofa'
 		const spotifyUrl = 'https://open.spotify.com/track/39v1wVL4fWnPWEt8D8tl40?si=500e84677daa4aec'
@@ -1170,7 +1171,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private ofurte() {
-		const rootUrl = 'ofurte'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Ofurte
 		const name = 'Ofurte'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/ofurte'
 		const spotifyUrl = 'https://open.spotify.com/track/1deKl4F86Lns3pgbeQspyw?si=536593297c194d76'
@@ -1183,7 +1184,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private lesblindaI() {
-		const rootUrl = 'lesblinda-i'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.LesblindaI
 		const name = 'Lesblinda I'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-i'
 		const spotifyUrl = 'https://open.spotify.com/track/6ZPVNTF0o9B79SGKRulrUh?si=4a0d989e1c674d53'
@@ -1191,7 +1192,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private lesblindaII() {
-		const rootUrl = 'lesblinda-ii'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.LesblindaIi
 		const name = 'Lesblinda II'
 		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/lesblinda-ii'
 		const spotifyUrl = 'https://open.spotify.com/track/6tOuId7SigO9IMiUwaavCU?si=e1bf6a3f596c4da6'
@@ -1200,7 +1201,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 
 
 	private godsruleLayered() {
-		const rootUrl = 'godsrule-village'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.GodsruleVillage
 		const name = 'Godsrule: Village'
 		const about = `I composed and produced the music and sfx for this game. The Village music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody. Developed by ${this.urlGogogic} and published by Sega.`
 
@@ -1235,7 +1236,7 @@ When I decided to share this track with the world, I opted for a distinct track 
 	}
 
 	private votLayered() {
-		const rootUrl = 'vikings-of-thule-map'
+		const rootUrl = MUSIC_TRACK_ROOT_URL.VikingsOfThuleMap
 		const name = 'Vikings of Thule: Map'
 		const about = `I composed and produced the music and sfx for this game. The Map music track has 4 layers — village ambience, string and male choir (me) harmony chords, harp arpeggio chords, and piano melody. Developed and published by ${this.urlGogogic}.`
 

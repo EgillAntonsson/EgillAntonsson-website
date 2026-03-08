@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { BLOG_SERIES_TITLE } from '../data/blogTree.constants'
 
 @Injectable({
 	providedIn: 'root',
@@ -14,31 +15,31 @@ export class BlogService implements IContentService {
 
 		this.series = []
 
-		const fmodEditorTitle = 'FMOD editor'
+		const fmodEditorTitle = BLOG_SERIES_TITLE.FmodEditor
 		this.series.push({title: fmodEditorTitle, posts: [
 			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodEditorTitle, new Date(2025, 3, 8)),
 			new Post('Add keyboard shortcut for \'Scripts: Reload\'', PostRoutePath.fmodReloadShortcut, fmodEditorTitle, new Date(2025, 8, 10))
 		]})
 
-		const unityEditorTitle = 'Unity editor'
+		const unityEditorTitle = BLOG_SERIES_TITLE.UnityEditor
 		this.series.push({title: unityEditorTitle, posts: [
 			new Post('Setup the Unity game example', PostRoutePath.fmodUnitySetup, unityEditorTitle, new Date(2025, 8, 14)),
 			new Post('Build All Banks / Platforms and also do custom a step', PostRoutePath.fmodBuildAllPlatforms, unityEditorTitle, new Date(2025, 8, 14))
 		]})
 
-		const seriesReaScriptsTitle = 'ReaScripts'
+		const seriesReaScriptsTitle = BLOG_SERIES_TITLE.ReaScripts
 		this.series.push({title: seriesReaScriptsTitle, posts: [
 			new Post("Antonsson Scripts", PostRoutePath.antonssonScripts, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6))
 		]})
 
-		const seriesTddWhatWhyWhenTitle = 'TDD: The What, How, Why and When'
+		const seriesTddWhatWhyWhenTitle = BLOG_SERIES_TITLE.TddWhatHowWhyWhen
 		this.series.push({title: seriesTddWhatWhyWhenTitle, posts: [
 			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2023, 10, 13))
 		]})
 
-		const seriesTddTitle = 'TDD-ing Avatar Health in C# and C++'
+		const seriesTddTitle = BLOG_SERIES_TITLE.TddAvatarHealth
 		this.series.push({title: seriesTddTitle, posts: [
 			new Post('Part 1&2 - The Avatar Health assignment', 'tdd-health/part2', seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 10, 13)),
 			new Post( 'Part 3 - Implementation begins - C#', PostRoutePath.tddHealthPart3, seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 5, 8)),
@@ -49,12 +50,12 @@ export class BlogService implements IContentService {
 			new Post( 'Part 7 - The Increasing and Max part', 'tdd-health/part7', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
 			new Post( 'Part 8 - Adding the Config', 'tdd-health/part8', seriesTddTitle, new Date(2022, 7, 16))
 		]})
-		const seriesTddChessTitle = 'TDD-ing Chess in C#'
+		const seriesTddChessTitle = BLOG_SERIES_TITLE.TddChess
 		this.series.push({title: seriesTddChessTitle, posts: [
 			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 10, 13))
 		]})
 
-		const liftingTitle = 'Lift up and down'
+		const liftingTitle = BLOG_SERIES_TITLE.Lifting
 		this.series.push({title: liftingTitle, posts: [
 			new Post('Kg to Creature Calculator', PostRoutePath.kgToCreature, liftingTitle, new Date(2025, 3, 8)),
 			new Post('Jón Páll Sigmarsson and me', PostRoutePath.jonAndMe, liftingTitle, new Date(2025, 3, 8)),
