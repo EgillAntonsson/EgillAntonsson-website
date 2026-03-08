@@ -34,7 +34,22 @@ Domain redirects are defined in file [deploy/_redirects](deploy/_redirects) and 
 
 Project uses the [Angular](https://angular.io) framework
 
-### Installing Angular CLI globally
+
+### Angular CLI most used commands 📜
+
+Recommended for local development:
+```bash
+> npx ng serve
+# Uses the project-local Angular CLI version from node_modules.
+# https://angular.io/cli/serve
+```
+
+* [ng test](https://angular.io/guide/testing#set-up-testing)
+* [ng e2e](https://angular.io/cli/e2e)
+* [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
+
+### One time setup for local development 🛠️
+#### Installing Angular CLI globally
 ```bash
 > sudo npm install -g @angular/cli@15.0.1
 # The version should match the version defined in `package.json` file.
@@ -43,25 +58,12 @@ Project uses the [Angular](https://angular.io) framework
 # Angular will ask you for auto-completion, allow it if you want to use it.
 ```
 
-### Install the dependencies
+#### Install the dependencies
 ```bash
 > sudo npm install
 # If you get peer dependency resolution errors (ERESOLVE), use:
 > npm install --legacy-peer-deps
 ```
-
-### Angular CLI most used commands 📜
-
-Recommended for local development:
-```bash
-> npx ng serve
-# Uses the project-local Angular CLI version from node_modules.
-```
-
-* [ng serve](https://angular.io/cli/serve)
-* [ng test](https://angular.io/guide/testing#set-up-testing)
-* [ng e2e](https://angular.io/cli/e2e)
-* [ng test --no-watch --code-coverage](https://angular.io/guide/testing-code-coverage)
 
 ## Tons lifted | Creature lifted 🏋️‍♂️
 
