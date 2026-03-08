@@ -68,7 +68,7 @@
 
 	transform: translate(8%, 4%);
 	animation-name: rotate-pause;
-  animation-duration: 3s;
+	animation-duration: var(--playing-animation-duration, 6s);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 	transition: all 0.2s;
@@ -81,12 +81,12 @@
   0% {
     transform: rotate(0deg);
   }
-  40% {
+  /* 40% {
     transform: rotate(-180deg);
   }
 	60% {
     transform: rotate(-180deg);
-  }
+  } */
   100% {
     transform: rotate(-360deg);
   }

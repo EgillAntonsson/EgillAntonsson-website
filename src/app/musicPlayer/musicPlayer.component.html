@@ -4,7 +4,7 @@
 	</div>
 	<div class="myPlayer noSelect bgGradientGray" [ngClass]="{hide: selectedTrack.source === 'Youtube' && selectedTrackAsYoutubeTrack.isGraphicsActive === true}">
 		<span class="playIconContainer" (click)="onPlayPauseBtn()">
-			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Paused' || playState === 'Stopped'}"></div>
+			<div [ngClass]="{playing: playState === 'Playing', loading: playState === 'Loading', stopped: playState === 'Paused' || playState === 'Stopped'}" [style.--playing-animation-duration]="playingAnimationDuration"></div>
 		</span>
 		<span class="nextContainer" (click)="onNextBtn()">
 			<div class="next_triangle"></div>

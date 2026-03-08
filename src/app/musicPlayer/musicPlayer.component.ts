@@ -8,6 +8,7 @@ import { MessageService, MessageType } from 'app/shared/services/message.service
 import { Color } from 'app/shared/enums/color'
 import { RealtimeVisualTrack, YoutubeTrack } from 'app/shared/data/track';
 import { HtmlElementService } from 'app/shared/services/htmlElement.service';
+import { getSecondsPerBeat } from 'app/shared/beatCalculator'
 
 @Component({
 	selector: 'app-music-player',
@@ -51,6 +52,15 @@ export class MusicPlayerComponent implements AfterViewChecked, OnDestroy {
 
 	get masterMuted() {
 		return this.musicService.masterMuted
+	}
+
+	get playingAnimationDuration() {
+		const bpm = this.selectedTrack?.bpm
+		if (!bpm || bpm <= 0) {
+			return '6000ms'
+		}
+		let secondsPerRotation = getSecondsPerBeat(bpm) * (this.selectedTrack?.beatsInBar ?? 4)
+		return `${secondsPerRotation}s`
 	}
 
 	private subscription: Subscription

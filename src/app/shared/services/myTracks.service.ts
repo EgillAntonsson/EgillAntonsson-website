@@ -328,7 +328,7 @@ Now you've found, you found your friend Johnny.<br>
 Together again, here we are.<br>
 Together we are."`
 
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics, 101, 4)
 	}
 
 	private laughingAndSmiling() {
@@ -363,7 +363,7 @@ Got washed away into the sand.<br>
 Back then laughing and smiling you were.<br>
 Laughing and smiling were were.`
 
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics, 99.9, 3)
 	}
 
 	private glory() {
@@ -919,7 +919,7 @@ Harmonies of shade and light.<br>
 Harmonies of shade and light.<br>
 And everything's alright.<br>`
 
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics)
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics, 134, 7)
 	}
 
 	private weWillMeetAgain() {
