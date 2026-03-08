@@ -9,7 +9,6 @@ interface BlogTreeBranchConfig {
 	label: string
 	children?: BlogTreeBranchConfig[]
 	seriesTitles?: string[]
-	selectable?: boolean
 }
 
 @Component({
@@ -25,30 +24,27 @@ export abstract class ContentDisplayComponent {
 	// Optional grouping for deep blog navigation. Non-configured series are appended at root level.
 	private readonly blogTreeConfig: BlogTreeBranchConfig[] = [
 		{
-			label: 'Functional and TTD programming',
+			label: 'Test-Focused programming',
 			seriesTitles: [
-				'Test-Focused Development',
+				'TDD: The What, How, Why and When',
 				'TDD-ing Avatar Health in C# and C++',
-				'TDD-ing Chess in C#',
-			],
+				'TDD-ing Chess in C#'
+			]
 		},
 		{
 			label: 'Audio programming',
-			children: [
-				{
-					label: 'ReaScripts for Cockos REAPER',
-					seriesTitles: ['ReaScripts for Cockos REAPER'],
-				},
-				{
+			children: [{
+					label: 'REAPER',
+					seriesTitles: ['ReaScripts'],
+				}, {
 					label: 'FMOD',
-					seriesTitles: ['FMOD'],
+					seriesTitles: ['FMOD editor', 'Unity editor'],
 				},
 			],
 		},
 		{
 			label: 'Lifting',
-			seriesTitles: ['Lifting'],
-			selectable: false,
+			seriesTitles: ['Lift up and down']
 		},
 	]
 
@@ -161,8 +157,7 @@ export abstract class ContentDisplayComponent {
 			return {
 				id: branchNodeId,
 				label: config.label,
-				children: [...childBranchNodes, ...seriesNodes],
-				selectable: config.selectable,
+				children: [...childBranchNodes, ...seriesNodes]
 			}
 		})
 	}
@@ -174,8 +169,7 @@ export abstract class ContentDisplayComponent {
 			children: series.posts.map(post => ({
 				id: this.getPostNodeId(post),
 				label: post.title,
-				value: post,
-				selectable: true,
+				value: post
 			}))
 		}
 	}

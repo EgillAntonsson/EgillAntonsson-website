@@ -106,32 +106,33 @@ export class MyTracksService {
 		<br>You can find more details about these collaborations in the 'About' section of the corresponding tracks.`
 	}
 
-	private get aboutKanez() {
-		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. While we have created a vast amount of music together, we have only released a small portion of it to the world. However, we are excited to announce that we will be releasing more of our music soon, so stay tuned for updates.`
+	private get aboutSindriAndEgill() {
+		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. We've created a vast amount of music together and we aim to release more of it to the world in due time.`
 	}
 
 	private get aboutBraedraminning() {
 		return `My parents kept a cassette with the recordings of the songs my older brothers made. To make sure the songs survived that old cassette, I published the album Bræðraminning, which also includes my takes on their songs.`
 	}
 
-	private get aboutTribeOfOranges() {
-		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. Some of our music is under Tribe Of Oranges.`
-	}
 
 	private get aboutKuai() {
-		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and ${this.urlSteini(true)} (called Steini) and ${this.urlSiggi(true)} (called Siggi) on guitars. When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br><br>
-		The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by ${this.urlDori()}. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
-		To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir ( ${this.urlSteini()} arranged the cello parts).<br>
-		Due to an accidental finger cut on his "fretting" hand at the beginning of the recording period,  ${this.urlSteini()} re-tuned his guitar, and the band transposed many tracks to D in order to minimize strain on his injured hand while playing. Egill also re-tuned his deepest string to D on his 4 string bass in many of the tracks.<br>`
+		return `The instrumental post-rock band KUAI was formed in Reykjavik, Iceland, in the summer of 1998. The band consisted of Baldur Ingvar Sigurðsson on drums, Egill Antonsson on bass, and ${this.urlSteini(true)} (called Steini) and ${this.urlSiggi(true)} (called Siggi) on guitars.
+When asked to describe their music, the band explained that it is difficult to put into words, but it can be categorized as instrumental rock with experimental elements. They draw inspiration from their roots in rock and heavy metal, and the guitars often improvise lines influenced by jazz improvisation, while the bass and drums provide powerful patterns as the foundation.<br>
+<br>
+The album "kuai" was recorded between September 2000 and June 2001 by <a href="https://open.spotify.com/artist/1bh1wQxtLdKOi9gCAEglwl" target="_blank">Elmar Þór Gilbertsson</a>, then the band mixed the album themselves. One track, "Rover," was recorded and mixed by Jón Elvar Hafsteinsson in 1999. The album cover was designed by ${this.urlDori()}. From October 2001, the band assembled the CDs and sent to Hljómalind music store and sold at concerts.<br>
+To capture the raw energy and spontaneity of their performances, the band opted for a "live" studio recording (without an audience). However, some parts were recorded separately afterwards, including some guitar parts, organ and piano played by Egill, saxophone in "Andefni" played by Steinar Sigurðsson, and cellos in "Lesblinda I" and "Lesblinda II" played by Hallgrímur Jónas Jensson and Rannveig Bjarnadóttir ( ${this.urlSteini()} arranged the cello parts).<br>
+${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on his "fretting" hand at the beginning of the recording period, thus many tracks were transposed to D and Egill tuned down the deepest string to D on his 4 string bass in many of the tracks.`
 	}
 
 	private get aboutBraedraminningTake2002() {
 		return `My take on this song, recorded and mixed in 2001-2002. ${this.urlSindri(true)} mastered in 2022 (as well as could be done).`
 	}
 
-	private readonly aboutGameMusicLayered = `When Head of Sound at the company ${this.urlGogogic} from 2008 to 2013 I developed a method called "Layered Music" to balance rich musical experiences with minimal resource usage and monotony. This technique fades in and fades out music layers based on user activity.`
 
-	private readonly aboutGameMusic = `When I was Head of Sound at the company ${this.urlGogogic} from 2008 to 2013  I composed, designed and produced the Music and SFX for the games.`
+
+	private readonly aboutGameMusic = `When I was Head of Sound at the company ${this.urlGogogic} from 2008 to 2013  I composed, designed and produced the Music and SFX for the games.<br>
+	<br>
+	I developed a method called "Layered Music" to balance rich musical experiences (instead of hearing the same monotonous repeating loop) with minimal resource usage. This technique fades in and fades out music layers based on user activity and was used in Godsrule and VoT and is here under 'Layered tracks'.`
 
 
 	constructor(private soundManager: SoundManagerService, private logService: LogService) {
@@ -151,8 +152,8 @@ export class MyTracksService {
 				this.votThemeSong(),
 				this.harmoniesOfShadeAndLight(),
 				this.goneIsMyFriendJohnny(),
-				this.laughingAndSmiling(),
 				this.weWillMeetAgain(),
+				this.laughingAndSmiling(),
 				this.magmaMerryGoRound(),
 				this.justInTime(),
 				this.icelandSocksIntro(),
@@ -160,14 +161,17 @@ export class MyTracksService {
 				this.toddlerTune(),
 				this.oddTimesInSpace()
 			], about: this.aboutEgillAntonsson},
-			{name: 'Kanez Kane', tracks: [
+			{name: 'Sindri and Egill', tracks: [
 				this.glory(),
 				this.tonisTimeMachine(),
 				this.winterQueen(),
 				this.komaKoma(),
 				this.strawberryCityLights(),
 				this.freeYourMime(),
-			], about: this.aboutKanez},
+				this.introduction(),
+				this.routine(),
+				this.hhiCommercial()
+			], about: this.aboutSindriAndEgill},
 			{name: 'KUAI', tracks: [
 				this.andefniLive(),
 				this.pirringurLive(),
@@ -182,31 +186,6 @@ export class MyTracksService {
 				this.lesblindaI(),
 				this.lesblindaII()
 			], about: this.aboutKuai},
-			{name: 'Tribe Of Oranges', tracks: [
-				this.introduction(),
-				this.routine(),
-				this.hhiCommercial()
-			], about: this.aboutTribeOfOranges},
-			{name: 'Game Music - Layered', tracks: [
-				this.godsruleLayered(),
-				this.votLayered()
-			], about: this.aboutGameMusicLayered},
-			{name: 'Game Music', tracks: [
-				this.godsrule(),
-				this.vot(),
-				this.tinyPlaces(),
-				this.cakePopParty(),
-				this.softFreakFiesta(),
-				this.symbol6(),
-				this.habitarium(),
-				this.jol2008(),
-				this.jol2009(),
-				this.whosYourFriend(),
-				this.knowYourFriend(),
-				this.stackem(),
-				this.glowbulleville(),
-				this.crisisGame()
-			], about: this.aboutGameMusic},
 			{name: 'Bræðraminning', tracks: [
 				this.pesi2002(),
 				this.mouse2002(),
@@ -229,7 +208,25 @@ export class MyTracksService {
 				this.frumlag1977(),
 				this.world1977(),
 				this.withoutThem1977(),
-			], about: this.aboutBraedraminning}
+			], about: this.aboutBraedraminning},
+			{name: 'Game Music', tracks: [
+				this.godsruleLayered(),
+				this.votLayered(),
+				this.godsrule(),
+				this.vot(),
+				this.tinyPlaces(),
+				this.cakePopParty(),
+				this.softFreakFiesta(),
+				this.symbol6(),
+				this.habitarium(),
+				this.jol2008(),
+				this.jol2009(),
+				this.whosYourFriend(),
+				this.knowYourFriend(),
+				this.stackem(),
+				this.glowbulleville(),
+				this.crisisGame()
+			], about: this.aboutGameMusic}
 		]
 
 		this.flattenTracks()

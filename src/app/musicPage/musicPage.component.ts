@@ -45,29 +45,75 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 	range = this.highValue - this.value
 
 	// Optional per-artist grouping config for deep trees. Any unlisted tracks are appended under the artist.
-	private readonly egillBranches: MusicTreeBranchConfig[] = [
-		{
-			label: 'Demo Scene',
-			trackRootUrls: ['le-cube'],
-		},
-		{
-			label: 'Songs',
-			trackRootUrls: ['vikings-of-thule-theme-song', 'harmonies-of-shade-and-light'],
-		},
-		{
-			label: 'Tracks',
-			trackRootUrls: ['magma-merry-go-round'],
-		},
-	]
+	private readonly egillBranches: MusicTreeBranchConfig[] = [{
+		label: 'Tracks with real-time visuals',
+		trackRootUrls: ['le-cube']
+	}, {
+		label: 'Songs',
+		trackRootUrls: [
+			'vikings-of-thule-theme-song',
+			'harmonies-of-shade-and-light',
+			'gone-is-my-friend-johnny',
+			'we-will-meet-again',
+			'laughing-and-smiling',
+			'fortidin'
+	]}, {
+		label: 'Tracks',
+		trackRootUrls: [
+			'magma-merrygoround',
+			'just-in-time',
+			'iceland-socks-intro',
+			'odd-times-in-space',
+			'toddlers-tune'
+	]}, ]
+
+	private readonly sindriAndEgillBranches: MusicTreeBranchConfig[] = [{
+		label: 'Kanez Kane',
+		trackRootUrls: [
+			'glory',
+			'tonis-time-machine',
+			'winter-queen',
+			'koma-koma',
+			'strawberry-city-lights',
+			'free-your-mime'
+	]}, {
+		label: 'Tribe Of Oranges',
+		trackRootUrls: [
+			'introduction',
+			'routine',
+			'song-for-hhi-commercial'
+	]}, ]
+
+	private readonly kuaiBranches: MusicTreeBranchConfig[] = [{
+	label: 'Live in Laugardalshöll',
+	trackRootUrls: [
+		'andefni-live',
+		'pirringur-live',
+	]}, {
+	label: 'The album',
+	trackRootUrls: [
+		'pirringur',
+		'apollo',
+		'andsetinn',
+		'hamskipti',
+		'rover',
+		'andefni',
+		'agndofa',
+		'ofurte',
+		'lesblinda-i',
+		'lesblinda-ii'
+	]}, ]
+
+	private readonly gameMusicBranches: MusicTreeBranchConfig[] = [{
+		label: 'Layered tracks',
+		trackRootUrls: ['godsrule-village', 'vikings-of-thule-map']
+	},]
 
 	private readonly nestedBranchesByArtist: {[artistName: string]: MusicTreeBranchConfig[]} = {
 		'Egill Antonsson': this.egillBranches,
-		'Egill Antonsson songs': this.egillBranches,
-		// Add more artist branch trees here when needed.
-		// Example:
-		// 'Kanez Kane': [
-		// 	{ label: 'Albums', children: [{ label: 'Toni', trackRootUrls: ['tonis-time-machine'] }] },
-		// ],
+		'Sindri and Egill': this.sindriAndEgillBranches,
+		'KUAI': this.kuaiBranches,
+		'Game Music': this.gameMusicBranches,
 	}
 
 	@ViewChild('trackGraphicContainer')

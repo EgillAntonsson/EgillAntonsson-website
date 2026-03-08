@@ -14,23 +14,27 @@ export class BlogService implements IContentService {
 
 		this.series = []
 
-		const fmodTitle = 'FMOD'
-		this.series.push({title: fmodTitle, posts: [
-			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodTitle, new Date(2025, 3, 8)),
-			new Post('Add keyboard shortcut for \'Scripts: Reload\'', PostRoutePath.fmodReloadShortcut, fmodTitle, new Date(2025, 8, 10)),
-			new Post('Setup the Unity game example', PostRoutePath.fmodUnitySetup, fmodTitle, new Date(2025, 8, 14)),
-			new Post('Build All Banks / Platforms and also do custom a step', PostRoutePath.fmodBuildAllPlatforms, fmodTitle, new Date(2025, 8, 14)),
+		const fmodEditorTitle = 'FMOD editor'
+		this.series.push({title: fmodEditorTitle, posts: [
+			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodEditorTitle, new Date(2025, 3, 8)),
+			new Post('Add keyboard shortcut for \'Scripts: Reload\'', PostRoutePath.fmodReloadShortcut, fmodEditorTitle, new Date(2025, 8, 10))
 		]})
 
-		const seriesReaScriptsTitle = 'ReaScripts for Cockos REAPER'
+		const unityEditorTitle = 'Unity editor'
+		this.series.push({title: unityEditorTitle, posts: [
+			new Post('Setup the Unity game example', PostRoutePath.fmodUnitySetup, unityEditorTitle, new Date(2025, 8, 14)),
+			new Post('Build All Banks / Platforms and also do custom a step', PostRoutePath.fmodBuildAllPlatforms, unityEditorTitle, new Date(2025, 8, 14))
+		]})
+
+		const seriesReaScriptsTitle = 'ReaScripts'
 		this.series.push({title: seriesReaScriptsTitle, posts: [
 			new Post("Antonsson Scripts", PostRoutePath.antonssonScripts, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluator, seriesReaScriptsTitle, new Date(2025, 7, 6)),
 			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6))
 		]})
 
-		const seriesTddWhatWhyWhenTitle = 'Test-Focused Development'
-		this.series.push({title: 'Test-Focused Development', posts: [
+		const seriesTddWhatWhyWhenTitle = 'TDD: The What, How, Why and When'
+		this.series.push({title: seriesTddWhatWhyWhenTitle, posts: [
 			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2023, 10, 13))
 		]})
 
@@ -50,10 +54,10 @@ export class BlogService implements IContentService {
 			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 10, 13))
 		]})
 
-		const liftingTitle = 'Lifting'
+		const liftingTitle = 'Lift up and down'
 		this.series.push({title: liftingTitle, posts: [
-			new Post('Kg to Creature Calculator', PostRoutePath.kgToCreature, fmodTitle, new Date(2025, 3, 8)),
-			new Post('Jón Páll Sigmarsson and me', PostRoutePath.jonAndMe, fmodTitle, new Date(2025, 3, 8)),
+			new Post('Kg to Creature Calculator', PostRoutePath.kgToCreature, liftingTitle, new Date(2025, 3, 8)),
+			new Post('Jón Páll Sigmarsson and me', PostRoutePath.jonAndMe, liftingTitle, new Date(2025, 3, 8)),
 		]})
 
 		this.selectedPost = this.series[0].posts[0]
