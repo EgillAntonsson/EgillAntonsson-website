@@ -11,6 +11,7 @@ export class TreeContainerComponent implements OnChanges {
 	@Output() nodeSelected = new EventEmitter<TreeNavigationNode>()
 
 	expandedNodeIds = new Set<string>()
+	selectedPathNodeIds = new Set<string>()
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes['selectedNodeId'] || changes['nodes']) {
@@ -43,10 +44,12 @@ export class TreeContainerComponent implements OnChanges {
 	}
 
 	isSelected(node: TreeNavigationNode): boolean {
-		return node.id === this.selectedNodeId
+		return this.selectedPathNodeIds.has(node.id)
 	}
 
 	private expandPathToSelectedNode() {
+		this.selectedPathNodeIds.clear()
+
 		if (!this.selectedNodeId) {
 			return
 		}
@@ -55,6 +58,8 @@ export class TreeContainerComponent implements OnChanges {
 		if (!selectedPathNodeIds) {
 			return
 		}
+
+		this.selectedPathNodeIds = new Set(selectedPathNodeIds)
 
 		for (let i = 0; i < selectedPathNodeIds.length - 1; i++) {
 			this.expandedNodeIds.add(selectedPathNodeIds[i])
