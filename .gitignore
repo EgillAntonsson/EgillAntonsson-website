@@ -39,3 +39,4 @@ Thumbs.db
 
 # my ignores
 /coverage_history
+.aider*
