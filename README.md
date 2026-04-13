@@ -13,6 +13,7 @@ py scripts require `Python 3.7.1`
 	* Set `lastmod` to today's date for each page changed since the last deployed build.
 	* At minimum, update changed section roots (for example `/music` and `/blog`) and any changed child pages under them.
 * Validate sitemap and build:
+
 ```bash
 > cd scripts/ && python3 validate_sitemap.py
 # Run this exactly as shown above (using `python3` from your shell).
@@ -35,8 +36,7 @@ Workflow rules:
 
 How to invoke:
 
-1. Prompt command (recommended): run `/run-build` in Copilot Chat.
-1. Agent mode: use the `build-release` custom agent and ask it to run the release build.
+1. Prompt command (recommended): run `/run-build`.
 
 ### How to infer "changed since deployed"
 
