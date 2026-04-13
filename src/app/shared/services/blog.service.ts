@@ -15,6 +15,11 @@ export class BlogService implements IContentService {
 
 		this.series = []
 
+		const soundDesignReelTitle = BLOG_SERIES_TITLE.SoundDesignReel
+		this.series.push({title: soundDesignReelTitle, posts: [
+			new Post('Dig', PostRoutePath.soundDesignReelDig, soundDesignReelTitle, new Date(2026, 3, 13))
+		]})
+
 		const fmodEditorTitle = BLOG_SERIES_TITLE.FmodEditor
 		this.series.push({title: fmodEditorTitle, posts: [
 			new Post('Batch Rename', PostRoutePath.fmodBatchRename, fmodEditorTitle, new Date(2025, 3, 8)),
@@ -60,6 +65,7 @@ export class BlogService implements IContentService {
 			new Post('Kg to Creature Calculator', PostRoutePath.kgToCreature, liftingTitle, new Date(2025, 3, 8)),
 			new Post('Jón Páll Sigmarsson and me', PostRoutePath.jonAndMe, liftingTitle, new Date(2025, 3, 8)),
 		]})
+
 
 		this.selectedPost = this.series[0].posts[0]
 
@@ -111,6 +117,7 @@ export enum PostRoutePath {
 	shipmentEvaluator = 'rea-scripts/shipment-evaluator',
 	kgToCreature = 'lifting/kg-to-creature-calculator',
 	jonAndMe = 'lifting/jan-pall-sigmarsson-and-me',
+	soundDesignReelDig = 'sound-design-reel/dig'
 }
 
 export class Post {

@@ -6,6 +6,7 @@ export const BLOG_SERIES_TITLE = {
 	FmodEditor: 'FMOD editor',
 	UnityEditor: 'Unity editor',
 	Lifting: 'Lift up and down',
+	SoundDesignReel: 'Sound Design Reel'
 } as const
 
 export type BlogSeriesTitle = (typeof BLOG_SERIES_TITLE)[keyof typeof BLOG_SERIES_TITLE]

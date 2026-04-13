@@ -32,6 +32,7 @@ import { KgToCreatureComponent } from './blog/posts/lifting/kgToCreature.compone
 import { BlogContentDisplayComponent } from './contentDisplay/blogContentDisplay.component'
 import { PostFmodBuildAllPlatformsComponent } from './blog/posts/fmod/postFmodBuildAllPlatforms.component'
 import { TreeContainerComponent } from './treeContainer/treeContainer.component'
+import { SoundDesignReelDig } from './blog/posts/soundDesignReel/soundDesignReelDig.component'
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { TreeContainerComponent } from './treeContainer/treeContainer.component'
 		PostFmodBuildAllPlatformsComponent,
 		KgToCreatureComponent,
 		BlogContentDisplayComponent,
-		TreeContainerComponent
+		TreeContainerComponent,
+		SoundDesignReelDig
 	],
 	bootstrap: [AppComponent],
 	providers: [{

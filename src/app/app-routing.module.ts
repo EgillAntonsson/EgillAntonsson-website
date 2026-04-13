@@ -25,6 +25,7 @@ import { JonAndMeComponent } from './blog/posts/lifting/jonAndMe.component'
 import { PostFmodReloadShortcutComponent } from './blog/posts/fmod/postFmodReloadShortcut.component'
 import { PostFmodBuildAllPlatformsComponent } from './blog/posts/fmod/postFmodBuildAllPlatforms.component'
 import { PostFmodUnitySetupComponent } from './blog/posts/fmod/postFmodUnitySetup.component'
+import { SoundDesignReelDig } from './blog/posts/soundDesignReel/soundDesignReelDig.component'
 
 
 const routes: Routes = [
@@ -50,6 +51,7 @@ const routes: Routes = [
 		{path:  PostRoutePath.tddChessPart1, component: PostChess1Component},
 		{path:  PostRoutePath.kgToCreature, component: KgToCreatureComponent},
 		{path:  PostRoutePath.jonAndMe, component: JonAndMeComponent},
+		{path:  PostRoutePath.soundDesignReelDig, component: SoundDesignReelDig},
 	]},
 	{path: 'music', component: MusicPageComponent},
 	{path: 'music/:trackName', component: MusicPageComponent},

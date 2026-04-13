@@ -107,7 +107,7 @@ export abstract class ContentDisplayComponent {
 				.filter(series => !configuredSeriesTitles.has(series.title))
 				.map((series, seriesIndex) => this.toSeriesTreeNode(series, seriesIndex))
 
-			this._treeNodes = [...configuredNodes, ...unconfiguredSeriesNodes]
+			this._treeNodes = [...unconfiguredSeriesNodes, ...configuredNodes]
 		}
 
 		return this._treeNodes
