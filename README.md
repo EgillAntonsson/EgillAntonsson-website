@@ -24,32 +24,6 @@ py scripts require `Python 3.7.1`
 # Uses `dist/` folder to update `deploy/` folder, making it ready for deployment
 ```
 
-### AI-assisted build workflow
-
-For future builds, an AI agent will be initiated by me to run the full build workflow above.
-
-Workflow rules:
-1. AI runs all build steps (including sitemap update and validation) and reports results.
-1. AI can run `git add` and `git commit` (with a descriptive commit message) without waiting for approval.
-1. AI never runs `git push`.
-1. I always run `git push` manually.
-
-How to invoke:
-
-1. Prompt command (recommended): run `/run-build`.
-
-### How to infer "changed since deployed"
-
-Assume the currently running Netlify deployment corresponds to the latest commit that was pushed to remote branch `master`.
-
-In practice, compare local `master` with `origin/master`:
-
-```bash
-> git log --oneline origin/master..master
-```
-
-The commits listed there are inferred to be the changes not yet deployed.
-
 ## Deployment 🚀
 
 [Netlify](https://www.netlify.com) deploys `deploy/` (integrated via `Netlify` Github App).
