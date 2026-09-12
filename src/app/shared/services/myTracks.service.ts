@@ -171,7 +171,11 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				this.freeYourMime(),
 				this.introduction(),
 				this.routine(),
-				this.hhiCommercial()
+				this.hhiCommercial(),
+				this.oskubuska(),
+				this.stjupsysturnarOskubuska(),
+				this.egErPrinsOskubuska(),
+				this.bukolla()
 			], about: this.aboutSindriAndEgill},
 			{name: MUSIC_ARTIST_NAME.Kuai, tracks: [
 				this.andefniLive(),
@@ -364,6 +368,74 @@ Back then laughing and smiling you were.<br>
 Laughing and smiling were were.`
 
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics, 99.9, 3)
+	}
+
+	private oskubuska() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
+		const name = "Öskubuska (Cinderella fairy tale in Icelandic)"
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/oskubuska'
+		const about =
+`Cinderella is one of the world's most beloved folk tales: the story of a girl, a household of chores, and a night unlike any other. After her father's fortunes change, a young woman is left with nothing but hard work and hope, while everyone around her seems to want the glittering life that fate has denied her.
+But this is a fairy tale, and in fairy tales nothing is quite what it seems — not a pumpkin, not a shoe, and certainly not midnight. A story told in hundreds of versions across cultures for centuries, now retold for the ear, where narration and soundscape carry the wonder of transformation and the tick of the clock itself.
+Produced and voice acted in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
+Voice acting cast:
+Storyteller: Anton Angantýsson ( my dad )
+Step Sisters: Sindri and me
+`
+
+		const lyrics =
+`Þú Öskubuska, sótatuska, verður í öskustónni, átt heim í rótþrónni!<br>
+(sister A) Því prinsinn vill mig, (sister B) ó! nei! hann vill mig.<br>
+`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+	}
+
+	private stjupsysturnarOskubuska() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
+		const name = "Stjupsysturnar song from Öskubuska (Cinderella fairy tale in Icelandic)"
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/stjupsysturnar'
+		const about =
+`The song that the step systers sing to Cinderella when they are going to the ball in the place and rub it in that she can't go.
+Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
+`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+	}
+
+	private egErPrinsOskubuska() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
+		const name = "Ég er Prins song from Öskubuska (Cinderella fairy tale in Icelandic)"
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/eg-er-prins'
+		const about =
+`The song that the prince sings when is looking the the girl that will fit the shoe.
+Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
+`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+	}
+
+	private fjallasongurOskubuska() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
+		const name = "Fjallasöngur song from Öskubuska (Cinderella fairy tale in Icelandic)"
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/stjupsysturnar'
+		const about =
+`The song that the step systers sing to Cinderella when they are going to the ball in the place and rub it in that she can't go.
+Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
+`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+	}
+
+	private bukolla() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Bukolla
+		const name = "Búkolla (folk tale in Icelandic)"
+		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
+		const soundcloudUrl = ''
+		const about =
+`Búkolla is one of Iceland's most treasured folk tales: the story of a boy, a cow, and something lurking in the highlands. When a poor farming family's most precious possession vanishes one morning, their young son must go alone into the wilderness to find it.
+But this is a fairy tale, and in fairy tales nothing is quite what it seems. A story passed down through generations by winter firesides, now retold for the ear, where narration and soundscape carry the tension of the chase and the land itself. Produced and voice acted in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
 	}
 
 	private glory() {

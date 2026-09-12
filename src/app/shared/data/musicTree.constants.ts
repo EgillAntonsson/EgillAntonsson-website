@@ -20,6 +20,8 @@ export const MUSIC_TRACK_ROOT_URL = {
 	IcelandSocksIntro: 'iceland-socks-intro',
 	OddTimesInSpace: 'odd-times-in-space',
 	ToddlersTune: 'toddlers-tune',
+	Oskubuska: 'oskubuska',
+	Bukolla: 'bukolla',
 	Glory: 'glory',
 	TonisTimeMachine: 'tonis-time-machine',
 	WinterQueen: 'winter-queen',
