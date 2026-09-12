@@ -53,7 +53,7 @@ export class LiftingService {
 			for (let i = errors.length - 1 ; i >= 0; i--) {
 				error = errors[i]
 				this.logService.log(LogType.Warn, 'Removing row "' + error.row + '". ' + error.type + '. ' + error.code + '. ' + error.message)
-				theData.splice(error.row, 1)
+				theData.splice(error.row as number, 1)
 			}
 
 			var hasFaultyCalculation = false
