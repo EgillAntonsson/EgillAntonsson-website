@@ -112,14 +112,14 @@ button:disabled {
 }
 
 code {
-	font-family: 'M PLUS 1 Code';
+	font-family: 'M PLUS 1 Code', monospace;
 	font-size: 95%;
 	tab-size: 1;
 	border-radius: 5%;
 }
 
 .code {
-	font-family: 'M PLUS 1 Code';
+	font-family: 'M PLUS 1 Code', monospace;
 }
 
 h1 {

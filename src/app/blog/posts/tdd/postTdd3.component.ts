@@ -26,8 +26,7 @@ export class PostTdd3Component extends PostComponent {
 }
 
 	redDoesNotCompileStartingValue() {
-		return `<p>The domain model focus will be the <code>Health</code> class (not created yet), thus I create the test file and write the first test and see it fail (as the code does not compile).
-</p>`
+		return `<p>I create the test file and write the first test and it is failing as the code does not compile.</p>`
 	}
 
 
@@ -37,34 +36,27 @@ using NUnit.Framework;
 
 public class HealthTest
 {
-	public class Constructor
+	[Test]
+	public void Points_HasStartingValue()
 	{
-		[Test]
-		public void Points_HasStartingValue()
-		{
-			var health = new Health();
-			Assert.That(health.points, Is.EqualTo(12));
-		}
+		var healthState = new HealthState();
+		Assert.That(healthState.Points, Is.EqualTo(12));
 	}
 }
 `
 	}
 
 	redAfterDoesNotCompileStartingValue() {
-		return `<p>I create and name a nested class after the <i>entry point</i> of the test (<i>entry point</i> is defined in <i>What is a good Unit Test section</i> in <a href="./blog/tdd-health/part1">Part 1</a>), thus is named <code>Constructor</code> in this case. I got the idea from post <a href="https://daedtech.com/tdd-and-modeling-a-chess-game/">TDD and modeling a chess game</a> (author Erik Dietrich) that references <a href="https://haacked.com/archive/2012/01/02/structuring-unit-tests.aspx/">Structuring Unit Tests</a> (author Phil Haack).</p>
-<p>I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions.</a>.</p>`
+		return `<p>I'm using the <a href="https://docs.nunit.org/articles/nunit/writing-tests/assertions/assertions.html#two-models">Constraint Model of Assertions</a>.</p>`
 	}
 
 	redStartingValue1() {
-		return `<p>I write the minimal production code to compile successfully and intentionally make the test fail to verify that the test is not passing when it should not (testing the test).</p>`
+		return `<p>I write the minimal product code to compile successfully and run the test to see it fail to verify that the test does not pass when it should not.</p>`
 	}
 
 	codeTestRedStartingValue() {
-		return `// Health.cs
-public class Health
-{
-	public int points;
-}
+		return `// HealthState.cs
+public readonly record struct HealthState(int PointsPerUnit) {}
 `
 	}
 
@@ -78,60 +70,51 @@ public class Health
 
 	redStartingValueImg() {
 		return `<figure>
-<img src="` + this.redStartingValueImgUrl() +
-`"alt="` + this.redStartingValueImgCaption() +
-`"title="` + this.redStartingValueImgCaption() +
-`"class="imageSmallText">
-<figcaption>` + this.redStartingValueImgCaption() + `</figcaption>
+<img src="${this.redStartingValueImgUrl()}
+"alt="${this.redStartingValueImgCaption()}" title="${this.redStartingValueImgCaption()}" class="imageSmallText">
+<figcaption>${this.redStartingValueImgCaption()}</figcaption>
 </figure>`
 	}
 
 	redStartingValue2() {
-		return `<p>Going forward I will usually skip demonstrating both RED steps and only demonstrate one and simply call it RED, But I do both steps when coding as it is important to test the test.
+		return `<p>Going forward I will only show one RED step that contains both 'does not compile' and 'test fails' steps, but I do both steps when coding to keep the steps as short as possible.
 	</p>`
 	}
 
 	greenStartingValue() {
-		return `<p>I make the test pass with this very simple implementation:</p>`
+		return `<p>I make the test pass by simply passing in 12 into to the constructor. I could have written it in at the beginning but then we would not have verified that the test does not pass when it should not. Going forward I'll only show only the focusd code and not the whole file.</p>`
 	}
 
 	codeImplGreenStartingValue() {
-		return `// Health.cs
-public class Health
+		return `// HealthTest.cs
+[Test]
+public void Points_HasStartingValue()
 {
-	public int points = 12;
+	var healthState = new HealthState(12);
+	Assert.That(healthState.Points, Is.EqualTo(12));
 }
 `
 	}
 
 	greenStartingValue1() {
-		return `<p>It comes to mind that it's good to be able to tweak the starting points at compile time for game design balancing, thus I refactor the value to be passed as param into the constructor.</p>`
+		return `<p>I had already chosen to have HealthState as a readonly record struct that makes it immutable.</p>`
 	}
 
+	// I get an error when I remove this func but I do not know why, so I keep it for now. It is not used in the html.
 	greenStartingValue2() {
-		return `<p>
-		I rename the member variable and thus the test case to current points. I name the constructor param <span class="code">startingPoints</span>.
-		</p>`
+		return ''
 	}
 
 	codeTestRefactorStartingValue() {
-		return `// HealthTest.cs
-// inside nested Constructor class.
-[Test]
-public void CurrentPoints_HasStartingValue()
-{
-	int startingPoints = 12;
-	var health = new Health(startingPoints);
-	Assert.That(health.CurrentPoints, Is.EqualTo(startingPoints));
-}
-`
+		return ''
 	}
 
-greenStartingValue3() {
-	return `<p>I encapsulate current points by providing a 'getter'. I want to <a href="https://medium.com/swlh/the-importance-of-code-encapsulation-ce19efbcfe57">encapsulate</a> the production code so that the only exposure comes from the requirements that the TDD cycles drives (more exposure could be required in certain cases but should be kept to the bare minimum).</p>`
-}
+	greenStartingValue3() {
+		return ''
+	}
+
 	codeImplRefactorStartingValue() {
-	return `// Health.cs
+		return `// Health.cs
 public int CurrentPoints { get; private set; }
 
 public Health(int startingPoints)
@@ -142,8 +125,7 @@ public Health(int startingPoints)
 	}
 
 	invalidStartingPoints() {
-		return `<p>It comes to mind that invalid values can be passed into the constructor, as our avatar should never start with less than 1 points (starting up being dead is a 'no show'). I deem it appropriate that the production code throws an exception when the value is invalid and I write a test that expects this, and it expectedly fails as the throwing has not been implemented.</p>
-<p>Going forward I'll present only the code that's the focus of the current TDD step.</p>
+		return `<p>It comes to mind that invalid values can be passed into the constructor, as our avatar should never start with less than 1 points, e.g. not start dead, but this should be handled at the earliest point by the code that uses the Health.</p>
 `
 	}
 
@@ -226,7 +208,7 @@ public Health(int startingPoints)
 	}
 
 	testingMoreValues() {
-		return `<p>I'm confident that this implementation works for any passed in param value. But I'll test a few more values to verify it and demonstrate how to do it in a maintainable way.</p>`
+		return `<p>I'll test a few more values more values (more for demonstration as the implementation ).</p>`
 	}
 
 	parameterizedRefactor1() {

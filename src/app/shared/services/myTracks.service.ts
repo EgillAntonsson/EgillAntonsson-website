@@ -518,7 +518,7 @@ Já ég hef það fyrir sið! (prins: Að passa mig!)<br>
 (Allir að lalla, og vörðurinn að riffa á milli)<br>
 Lalalala! Aha, aha! Lalalalalala!<br>
 Lalalala! One time, one time! Lalalalalalala!<br>
-Tjékkinn-fríkinn-ná!
+Tjíkkinn-fríkkinn-ná!
 Lalalala! Two time!<br>
 Lalalalalala! ....`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', '', lyrics)

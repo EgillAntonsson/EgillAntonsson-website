@@ -10,22 +10,24 @@ import { PostComponent } from '../post.component'
 export class PostTdd4Component extends PostComponent {
 
 test_1_Red = `// HealthTest.cs
-// inside nested class TakeDamage
 [Test]
-public void CurrentPoints_Decrease()
+public void TakeDamage_DecreasesPoints()
 {
-	var health = new Health(12);
-	health.TakeDamage(1);
-	Assert.That(health.CurrentPoints, Is.EqualTo(11));
+	var healthState = new HealthState(12);
+	var newHealthState = healthState.TakeDamage(1);
+	Assert.That(newHealthState.Points, Is.EqualTo(11));
 }
 `
 
 impl_1_Green = `// Health.cs
-public int CurrentPoints { get; private set; }
+public readonly record struct HealthState(int Points) {}
 
-public void TakeDamage(int damagePoints)
+public static class HealthStateExtensions
 {
-	CurrentPoints -= damagePoints;
+	public static HealthState TakeDamage(this HealthState healthState, int damagePoints)
+	{
+		return healthState with { Points = healthState.Points - damagePoints };
+	}
 }
 `
 
