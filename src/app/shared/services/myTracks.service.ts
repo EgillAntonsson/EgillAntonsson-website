@@ -56,11 +56,10 @@ export class MyTracksService {
 	private readonly dirTribeOfOranges = `${Track.dir}/too/`
 	private readonly dirGameMusicLayered = `${Track.dir}/game/music-layered/`
 	private readonly dirGameMusic = `${Track.dir}/game/music`
-	private readonly dirBraedraminning = `${Track.dir}/braedraminning/`
-	private readonly pathBraedraminningArtwork = `${this.dirBraedraminning}braedraminning.jpeg`
+	private readonly pathBraedraminningArtwork = `${Track.dir}/braedraminning/braedraminning.jpeg`
 	private readonly dirKuai = `${Track.dir}/kuai/`
 	private readonly pathKuaiArtwork = `${this.dirKuai}KUAI.jpg`
-
+	private readonly soundcloudUrlPrefix = 'https://soundcloud.com/egill-antonsson'
 // URLS
 	private urlSindri(fullName = false) {
 		let name = 'Sindri'
@@ -96,6 +95,14 @@ export class MyTracksService {
 		return `<a href="http://www.77.is" target="_blank">${name}</a>`
 	}
 
+	private urlHalla(fullName = false) {
+		let name = 'Halla' // nickname
+		if (fullName) {
+			name = 'Halla Soffía Jónasdóttir'
+		}
+		return `<a href="http://www.77.is" target="_blank">${name}</a>`
+	}
+
 	private urlGogogic = `<a href=https://www.facebook.com/gogogic target="_blank">Gogogic</a>`
 
 	private get aboutEgillAntonsson() {
@@ -108,7 +115,7 @@ export class MyTracksService {
 	}
 
 	private get aboutSindriAndEgill() {
-		return `A partnership with my friend <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Thorarinsson</a>. We've created a vast amount of music together and we aim to release more of it to the world in due time.`
+		return `My most enduring musical and audio partnership with my friend ${this.urlSindri(true)}. We've released music and soundscaped fairy and folk tales available here and on other audio services, and we aim to release more in due time, so stay tuned!`
 	}
 
 	private get aboutBraedraminning() {
@@ -169,13 +176,16 @@ ${this.urlSteini()} had to re-tune his guitar due to an accidental finger cut on
 				this.komaKoma(),
 				this.strawberryCityLights(),
 				this.freeYourMime(),
+				this.bukolla(),
+				this.oskubuska(),
+				this.stjupsysturnar(),
+				this.egErPrins(),
+				this.fjallasongur(),
+				this.lokalag(),
+				this.islandsHetjan(),
 				this.introduction(),
 				this.routine(),
-				this.hhiCommercial(),
-				this.oskubuska(),
-				this.stjupsysturnarOskubuska(),
-				this.egErPrinsOskubuska(),
-				this.bukolla()
+				this.hhiCommercial()
 			], about: this.aboutSindriAndEgill},
 			{name: MUSIC_ARTIST_NAME.Kuai, tracks: [
 				this.andefniLive(),
@@ -370,72 +380,176 @@ Laughing and smiling were were.`
 		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, spotifyUrl, qobuzUrl, bandcampUrl, lyrics, 99.9, 3)
 	}
 
-	private oskubuska() {
-		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
-		const name = "Öskubuska (Cinderella fairy tale in Icelandic)"
-		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/oskubuska'
-		const about =
-`Cinderella is one of the world's most beloved folk tales: the story of a girl, a household of chores, and a night unlike any other. After her father's fortunes change, a young woman is left with nothing but hard work and hope, while everyone around her seems to want the glittering life that fate has denied her.
-But this is a fairy tale, and in fairy tales nothing is quite what it seems — not a pumpkin, not a shoe, and certainly not midnight. A story told in hundreds of versions across cultures for centuries, now retold for the ear, where narration and soundscape carry the wonder of transformation and the tick of the clock itself.
-Produced and voice acted in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
-Voice acting cast:
-Storyteller: Anton Angantýsson ( my dad )
-Step Sisters: Sindri and me
-`
-
-		const lyrics =
-`Þú Öskubuska, sótatuska, verður í öskustónni, átt heim í rótþrónni!<br>
-(sister A) Því prinsinn vill mig, (sister B) ó! nei! hann vill mig.<br>
-`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
-	}
-
-	private stjupsysturnarOskubuska() {
-		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
-		const name = "Stjupsysturnar song from Öskubuska (Cinderella fairy tale in Icelandic)"
-		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/stjupsysturnar'
-		const about =
-`The song that the step systers sing to Cinderella when they are going to the ball in the place and rub it in that she can't go.
-Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
-`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
-	}
-
-	private egErPrinsOskubuska() {
-		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
-		const name = "Ég er Prins song from Öskubuska (Cinderella fairy tale in Icelandic)"
-		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/eg-er-prins'
-		const about =
-`The song that the prince sings when is looking the the girl that will fit the shoe.
-Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
-`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
-	}
-
-	private fjallasongurOskubuska() {
-		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
-		const name = "Fjallasöngur song from Öskubuska (Cinderella fairy tale in Icelandic)"
-		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/stjupsysturnar'
-		const about =
-`The song that the step systers sing to Cinderella when they are going to the ball in the place and rub it in that she can't go.
-Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
-`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
-	}
-
 	private bukolla() {
 		const rootUrl = MUSIC_TRACK_ROOT_URL.Bukolla
-		const name = "Búkolla (folk tale in Icelandic)"
-		const artworkPath = `${this.dirEgillAntonsson}${rootUrl}.jpg`
-		const soundcloudUrl = ''
+		const name = "Búkolla"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/bukolla`
 		const about =
-`Búkolla is one of Iceland's most treasured folk tales: the story of a boy, a cow, and something lurking in the highlands. When a poor farming family's most precious possession vanishes one morning, their young son must go alone into the wilderness to find it.
-But this is a fairy tale, and in fairy tales nothing is quite what it seems. A story passed down through generations by winter firesides, now retold for the ear, where narration and soundscape carry the tension of the chase and the land itself. Produced and voice acted in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.`
-		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about)
+`Búkolla is one of Iceland's most treasured folk tales now retold for the ear, where the narration and rich soundscape bring it to life! Produced and voice acted in Icelandic by ${this.urlSindri(false)} and me.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about)
+	}
+
+	private oskubuska() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Oskubuska
+		const name = "Öskubuska"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/oskubuska`
+		const about =
+`Cinderella is one of the world's most beloved folk tales, now retold in Icelandic for the ear, where the narration and rich soundscape bring it to life!<br>
+<br>
+Voice acting cast:<br>
+Storyteller - Anton Angantýsson ( my dad )<br>
+Step sisters - ${this.urlSindri(false)} and me<br>
+Cinderella - Gígja Rós Þórarinsdóttir<br>
+Singing narrator - Egill Antonsson<br>
+Father - ${this.urlSindri(true)}<br>
+Step mom - ${this.urlHalla(true)} (my mom)<br>
+Prince - ${this.urlSindri(false)}<br>
+Guard called Hörður harði - Egill<br>
+Talking doves - Egill<br>
+Monkey playing drummer - ${this.urlSindri(false)}<br>`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name,  Track.defaultArtworkPath, about)
+	}
+
+	private stjupsysturnar() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Stjupsysturnar
+		const name = "Stjupsysturnar - Öskubuska"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/stjupsysturnar`
+		const about =
+`The song that the step sisters sing to Cinderella when they two (not Cinderella) are going to the palace ball to meet the Prince.`
+		const lyrics =
+`(báðar) Þú Öskubuska! Sótatuska!<br>
+Verður í öskustónni, átt heim í rótþrónni!<br>
+(systir A) Því prinsinn vill mig.<br>
+(systir B) Óóó-nei! hann vill mig.<br>
+(báðar) Ó þú öskubuska, hann vill sko ekki fá þig!<br>
+Öskubuska! Góðhjartaða!<br>
+Þú ert skítug snót, öll þakin í sót!<br>
+Ó Öskubuska! Farðu að þrífa!<br>
+Því baunirnar safnast upp fljótt!<br>
+Lalalalaaaa, lalalalaaaa ....`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', '', lyrics)
+	}
+
+	private egErPrins() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.EgErPrins
+		const name = "Ég er Prins! - Öskubuska"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/eg-er-prins`
+		const about = `The song that the Prince sings when is looking for the girl that will fit the shoe she left behind.`
+		const lyrics =
+`(verðir) La, lalalala, la, la, la, la! Hann er prins.<br>
+<br>
+Ó ég er prins! Í leit að stúlku.<br>
+Já ég er prins! Í leit að táslum sem eiga þennan skó! Ó hve dátt hún hló!<br>
+Að bröndurum mínum, í gullkjólnum sínum.<br>
+Ég er ástfanginn af þéeeeeeeeeeeeeer!<br>
+<br>
+Ó ég er prins! Í leit að stúlku.<br>
+Já ég er prins! Í leit að táslum sem eiga þennan skó! Ó hve dátt hún hló!<br>
+Að bröndurum mínum, í gullskónum sínum.<br>
+Ég er ástfanginn af þéeeeeeeeeeeeeer!<br>
+<br>
+(verðir) Já hann er ástfanginn af þér.<br>
+La, lalalala, la, la, la, la! Hann er prins! ....<br>`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', '', lyrics)
+	}
+
+	private fjallasongur() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Fjallasongur
+		const name = "Fjallasöngur - Öskubuska"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/fjallasongur`
+			const about =
+	`The song that the Prince sings after Cinderella rejected his proposal and he got so suprised (as no one had rejected him before) that he ran crying up to the highest mountain top of the kingdom.`
+		const lyrics =
+`Aleinn á kletti er, ástin farin er.<br>
+Gríman tók öll völd af mér, nú einn ég eftir er.<br>
+Ég elsk'ana mest, meira en mig.<br>
+Því hún er fögur og kærleiksrík, snót.<br>
+<br>
+Aleinn á kletti er, hún er ekki hér.<br>
+Fyrsta ástarjátningin, og hryggbrotinn ég er.<br>
+Ég elska hana mest, meir'en sjálfan mig.<br>
+Því hún er fögur og kærleiksrík,<br>
+falleg og skilningsrík snót.<br>
+<br>
+Ég elska'na! Ég elska'na!<br>
+Ég elska'na! Ég eeeeeeeeeeeeeelska'naaaa!<br>
+<br>
+Því hún er svo fögur og kærleiksrík.`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', '', lyrics)
+	}
+
+	private lokalag() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.Lokalag
+		const name = "Lokalag - Öskubuska"
+		const soundcloudUrl = `${this.soundcloudUrlPrefix}/lokalag`
+		const about =
+`The song that the step sisters sing to Cinderella when they are going to the ball in the place and rub it in that she can't go.
+Produced and sung in Icelandic by <a href="https://www.f6s.com/member/sindribergmannrarinsson#about">Sindri Bergmann Þórarinsson</a> and me.
+`
+		const lyrics =
+`(Prinsinn) Monkey! play monkey play! Hehehe góður þessi api.<br>
+<br>
+(sögusöngvarar) Þau fóru og giftu sig, í konungshöllinni, og það var haldið svaka partý!<br>
+Allir voru viðstaddir, systurnar og verðirnir, sungu og lölluðu fram á nótt!<br>
+Lalalala Lalalalalala Lalalala Lalalalalalalala!<br>
+<br>
+Þau fóru og giftu sig, í konungshöllinni, og það var haldið svaka partý!<br>
+Allir voru viðstaddir, pabbinn og stjúpmamman.<br>
+(Prinsinn) Velkomin í partý-ið við skulum lalla fram á nótt!<br>
+(Allir að lalla, og Prinsinn að riffa á milli)<br>
+Lalalala Lalalalalala Lalalala Lalalalalalalala!<br>
+Lalalala! Ójá!<br>
+Lalalalalala! Klöppum höndunum!<br>
+Lalalala! Stöppm fótunum!<br>
+Lalalalalalala! Ég er Prins!<br>
+Lalalala! Allir saman nú!<br>
+Lalalalalala! Einn tveir þrír fjór!<br>
+Lalalala! Play monkey! Lalalalalalala!<br>
+<br>
+(Vörður) Ég er vörður! Verndari prinsins!<br>
+Stæltur og stoltur og hrikalega flottur vörður!<br>
+Kallaður Hörður! Harði!<br>
+Sem drek'í klessu barði!<br>
+Ég er vörður! Og ég hik'ekki við,<br>
+að læsa inni ræningja og þess konar lið.<br>
+Já ég hef það fyrir sið! (prins: Að passa mig!)<br>
+Því ég er vö! vö! vö! vö! vörður! (prins: Hei, hann stamar!)<br>
+<br>
+(Allir að lalla, og vörðurinn að riffa á milli)<br>
+Lalalala! Aha, aha! Lalalalalala!<br>
+Lalalala! One time, one time! Lalalalalalala!<br>
+Tjékkinn-fríkinn-ná!
+Lalalala! Two time!<br>
+Lalalalalala! ....`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, Track.defaultArtworkPath, about, '', '', '', lyrics)
+	}
+
+	private islandsHetjan() {
+		const rootUrl = MUSIC_TRACK_ROOT_URL.IslandsHetjan
+		const name = "Íslands Hetjan"
+		const artworkPath = Track.defaultArtworkPath
+		const soundcloudUrl = 'https://soundcloud.com/egill-antonsson/islands-hetjan'
+		const about =
+`The song about the Iclandic Hero that is as strong as <a href="https://www.egill.rocks/lifting/jon-pall-sigmarsson-and-me">Jón Páll</a> and <a href="https://theworldsstrongestman.weebly.com/magnuacutes-ver-magnuacutesson.html">Magnús Ver</a>.`
+		const lyrics =
+`Stinnur eins og stál, sterkur á við kappan  <a href="https://www.egill.rocks/lifting/jon-pall-sigmarsson-and-me">Jón Pál</a>.<br>
+Réttir hjálparhönd, er hann nokkuð draumur.<br>
+Ég veit að hann mun leggja okkur lið.<br>
+<br>
+Þú ert hetja, hetjan mín. (4x)<br>
+<br>
+Íslensk hetjan er, römm að afli eins og <a href="https://theworldsstrongestman.weebly.com/magnuacutes-ver-magnuacutesson.html">Magnús<br>
+Ver</a> sitt land og þjóð, hann er ekki draumur.<br>
+Ég veit að hann er sannur eins og ég.<br>
+<br>
+Þú ert hetja, hetjan mín. (4x)<br>
+<br>
+Stundum verð ég óttasleginn, og myrkvið virðist endalaust.<br>
+En ég veit að þú munt ávallt vera hér.<br>
+<br>
+Áfram Ísland, hetjan mín. (16x) ....<br>
+`
+		return new SoundcloudTrack(soundcloudUrl, rootUrl, name, artworkPath, about, '', '', '', lyrics)
 	}
 
 	private glory() {
