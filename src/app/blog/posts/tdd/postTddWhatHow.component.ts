@@ -2,9 +2,9 @@ import { Component } from '@angular/core'
 import { PostComponent } from '../post.component'
 
 @Component({
-	selector: 'app-post-tdd-2',
-	templateUrl: './postTdd2.component.html',
+	selector: 'app-post-tdd-what-how',
+	templateUrl: './postTddWhatHow.component.html',
 	styleUrls: ['./../../blog.component.css']
 })
 
-export class PostTdd2Component extends PostComponent {}
+export class PostTddWhatHowComponent extends PostComponent {}

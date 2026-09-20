@@ -82,7 +82,7 @@ export class PostComponent {
 	}
 
 	get rewordRequirement() {
-		return `Let's reword this focusing on the domain model and using its terminology:`
+		return `Let's reword this using the domain model terminology:`
 	}
 
 }

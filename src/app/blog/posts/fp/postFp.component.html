@@ -1,0 +1,17 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+<p>
+This is a blog post about Functional Programming (henceforth shortened to FP) in general, and not about a specific programming language.<br>
+	I recommend reading the <a href="https://www.manning.com/books/functional-programming-in-c-sharp-second-edition" target="_blank">Functional Programming in C# (2nd edition)</a> book by Enrico Buonanno, and the <a href="https://www.manning.com/books/functional-programming-in-scala-second-edition" target="_blank">Functional Programming in Scala (2nd edition)</a> book by Paul Chiusano and Rúnar Bjarnason (my grandfather and his grandfather were brothers).<br>
+These books are both good introduction to FP (but they they also go deep into FP design), and although focusing on C# and Scala respectively (both multi-paradigm languages / not FP only), they explain well the FP concepts and principles that are applicable to other languages as well.<br>
+</p>
+<p>
+FP emphasizes functions as <a href="https://livebook.manning.com/book/functional-programming-in-c-sharp-second-edition/chapter-1#11" target="_blank">first-class values</a> while <a href="https://livebook.manning.com/book/functional-programming-in-c-sharp-second-edition/chapter-1#23" target="_blank">avoiding state mutation</a>.

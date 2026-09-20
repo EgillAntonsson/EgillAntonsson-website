@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PostTdd3Component } from './postTdd3.component'
+import { PostHealth2Component } from './postHealth2.component'
 
 @Component({
 	selector: 'app-post-tdd-3-cpp',
@@ -7,7 +7,7 @@ import { PostTdd3Component } from './postTdd3.component'
 	styleUrls: ['./../../blog.component.css']
 })
 
-export class PostTdd3CppComponent extends PostTdd3Component {
+export class PostTdd3CppComponent extends PostHealth2Component {
 
 	override codeTestRedDoesNotCompileStartingValue() {
 		return `// HealthTest.cpp
