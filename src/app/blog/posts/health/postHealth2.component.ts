@@ -108,10 +108,11 @@ public void HasHealthPoints()
 	}
 
 greenRefactor() {
-	return `<p>There is nothing more to refactor on the product code as I'd already chosen it to be <code>readonly record struct</code> that makes it immutable, and thus <code>health.Points = 24</code> would not compile.<br>
+	return `<p>There is nothing more to refactor on the product code as I'd already chosen it to be <code>readonly record struct</code> that makes it immutable, and thus <code>health.Points = 24</code> for example would not compile.<br>
 <br>
-But I can refactor the test code to use a <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html">parameterized test</a> that allows us to test our code with a variety of input values and <code>ExpectedResult</code> values and reuse the rest of our test code. Parameterized tests tend to be more functional because they make us think in terms of inputs and outputs<br>
-Furthermore I switch to using <code>ExpectedResult</code>
+But I can refactor the test code to use a <a href="https://docs.nunit.org/articles/nunit/writing-tests/attributes/testcase.html" target="_blank">parameterized test</a> that allows us to test our code with a variety of input values and <code>ExpectedResult</code> values and reuse the rest of our test code.<br>
+<br>
+Both of these decisions are based on <a href="http://egill.rocks/blog/function-programming" target="_blank">Functional Programming</a>.
 </p>`
 }
 
@@ -129,8 +130,8 @@ public int HasHealthPoints(int startingPoints)
 }
 
 greenRefactorImg() {
-	var url = '../assets/images/blog/tdd/part3/TestRunner_first-test-fails.PNG'
-	var caption = 'The test runner after first test fail'
+	var url = '../assets/images/blog/tdd/part3/TestRunner_passing_after_refactor.PNG'
+	var caption = 'The test runner after first test passing after refactor'
 	return this.Img(url, caption)
 }
 }

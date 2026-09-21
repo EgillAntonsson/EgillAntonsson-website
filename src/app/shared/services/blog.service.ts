@@ -17,7 +17,7 @@ export class BlogService implements IContentService {
 
 		const soundDesignReelTitle = BLOG_SERIES_TITLE.SoundDesignReel
 		this.series.push({title: soundDesignReelTitle, posts: [
-			new Post('The Dig', PostRoutePath.soundDesignReelDig, soundDesignReelTitle, new Date(2026, 3, 13))
+			new Post('The Dig', PostRoutePath.soundDesignReelDig, soundDesignReelTitle, new Date(2026, 3, 13), new Date(2026, 8, 21))
 		]})
 
 		const fmodEditorTitle = BLOG_SERIES_TITLE.FmodEditor
@@ -41,27 +41,27 @@ export class BlogService implements IContentService {
 
 		const seriesTddWhatWhyWhenTitle = BLOG_SERIES_TITLE.TddWhatHowWhyWhen
 		this.series.push({title: seriesTddWhatWhyWhenTitle, posts: [
-			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2023, 10, 13))
+			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2026, 8, 21))
 		]})
 
 		const seriesFpTitle = BLOG_SERIES_TITLE.Fp
 		this.series.push({title: seriesFpTitle, posts: [
-			new Post('Functional Programming', PostRoutePath.fp, seriesFpTitle, new Date(2021, 11, 30), new Date(2023, 10, 13))
+			new Post('Brief Introduction to Functional Programming', PostRoutePath.fp, seriesFpTitle, new Date(2026, 8, 21), new Date(2026, 8, 21))
 		]})
 
 		const seriesTddTitle = BLOG_SERIES_TITLE.TddAvatarHealth
 		this.series.push({title: seriesTddTitle, posts: [
 			new Post('Part 1 - The Avatar Health assignment', PostRoutePath.tddHealthPart1, seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 10, 13)),
 			new Post( 'Part 2 - Implementation begins', PostRoutePath.tddHealthPart2, seriesTddTitle, new Date(2021, 11, 30), new Date(2023, 5, 8)),
-			new Post( 'Part 3 - Taking Damage', 'tdd-health/part3', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 14)),
-			new Post( 'Part 4 - The Dying part', 'tdd-health/part4', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 14)),
-			new Post( 'Part 5 - The Replenishing part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
-			new Post( 'Part 6 - The Increasing and Max part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
-			new Post( 'Part 7 - Adding the Config', 'tdd-health/part7', seriesTddTitle, new Date(2022, 7, 16))
-		]})
-		const seriesTddChessTitle = BLOG_SERIES_TITLE.TddChess
-		this.series.push({title: seriesTddChessTitle, posts: [
-			new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 10, 13))
+		// 	new Post( 'Part 3 - Taking Damage', 'tdd-health/part3', seriesTddTitle, new Date(2022, 0, 4), new Date(2022, 4, 14)),
+		// 	new Post( 'Part 4 - The Dying part', 'tdd-health/part4', seriesTddTitle, new Date(2022, 1, 1), new Date(2022, 4, 14)),
+		// 	new Post( 'Part 5 - The Replenishing part', 'tdd-health/part5', seriesTddTitle, new Date(2022, 4, 9), new Date(2022, 4, 14)),
+		// 	new Post( 'Part 6 - The Increasing and Max part', 'tdd-health/part6', seriesTddTitle, new Date(2022, 4, 14), new Date(2022, 7, 16)),
+		// 	new Post( 'Part 7 - Adding the Config', 'tdd-health/part7', seriesTddTitle, new Date(2022, 7, 16))
+		// ]})
+		// const seriesTddChessTitle = BLOG_SERIES_TITLE.TddChess
+		// this.series.push({title: seriesTddChessTitle, posts: [
+		// 	new Post('Part 1 - The Position - C#', PostRoutePath.tddChessPart1, seriesTddChessTitle, new Date(2023, 9, 23), new Date(2023, 10, 13))
 		]})
 
 		const liftingTitle = BLOG_SERIES_TITLE.Lifting
