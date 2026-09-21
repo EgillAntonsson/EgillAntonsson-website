@@ -3,14 +3,14 @@
 		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
 		<loc>https://www.egill.rocks/</loc>
-		<lastmod>2026-04-03</lastmod>
+		<lastmod>2026-09-21</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/home/Egill_Antonsson_family.jpg</image:loc>
 		</image:image>
 	</url>
 	<url>
 		<loc>https://www.egill.rocks/music</loc>
-		<lastmod>2026-03-08</lastmod>
+		<lastmod>2026-09-21</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/tracks/Egill_Antonsson.png</image:loc>
 		</image:image>
@@ -556,8 +556,16 @@
 		<lastmod>2026-03-08</lastmod>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
+		<loc>https://www.egill.rocks/blog/fmod/build-all-banks</loc>
 		<lastmod>2026-03-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/functional-programming</loc>
+		<lastmod>2026-09-21</lastmod>
+	</url>
+	<url>
+		<loc>https://www.egill.rocks/blog/tdd/what-how-why-when</loc>
+		<lastmod>2026-09-21</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/what/unit-of-work-with-3-exit-points-triangle.svg</image:loc>
 		</image:image>
@@ -566,27 +574,13 @@
 		</image:image>
 	</url>
 	<url>
-		<loc>https://www.egill.rocks/blog/tdd-health/part2</loc>
-		<lastmod>2026-03-08</lastmod>
-	</url>
-	<url>
 		<loc>https://www.egill.rocks/blog/tdd-health/part3</loc>
-		<lastmod>2026-03-08</lastmod>
+		<lastmod>2026-09-21</lastmod>
 		<image:image>
 			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.PNG</image:loc>
 		</image:image>
 		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_after-parameterized-refactor.PNG</image:loc>
-		</image:image>
-	</url>
-	<url>
-		<loc>https://www.egill.rocks/blog/tdd-health/part3-cpp</loc>
-		<lastmod>2026-03-08</lastmod>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_first-test-fails.jpg</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_after-parameterized-refactor.jpg</image:loc>
+			<image:loc>https://www.egill.rocks/assets/images/blog/tdd/part3/TestRunner_passing_after_refactor.PNG</image:loc>
 		</image:image>
 	</url>
 	<url>

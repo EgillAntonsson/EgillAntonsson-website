@@ -2,30 +2,31 @@ import { Component } from '@angular/core'
 import { PostComponent } from '../post.component'
 
 @Component({
-	selector: 'app-post-tdd-4',
-	templateUrl: './postTdd4.component.html',
+	selector: 'app-post-health-3',
+	templateUrl: './postHealth3.component.html',
 	styleUrls: ['./../../blog.component.css']
 })
 
-export class PostTdd4Component extends PostComponent {
+export class PostHealth3Component extends PostComponent {
 
 test_1_Red = `// HealthTest.cs
-// inside nested class TakeDamage
 [Test]
-public void CurrentPoints_Decrease()
+public void TakeDamage_DecreasesPoints()
 {
-	var health = new Health(12);
-	health.TakeDamage(1);
-	Assert.That(health.CurrentPoints, Is.EqualTo(11));
+	var healthAfterDamage = new Health(12).TakeDamage(1);
+	Assert.That(healthAfterDamage.Points, Is.EqualTo(11));
 }
 `
 
 impl_1_Green = `// Health.cs
-public int CurrentPoints { get; private set; }
+public readonly record struct Health(int Points) {}
 
-public void TakeDamage(int damagePoints)
+public static class HealthExtensions
 {
-	CurrentPoints -= damagePoints;
+	public static Health TakeDamage(this Health health, int damagePoints)
+	{
+		return health with { Points = health.Points - damagePoints };
+	}
 }
 `
 

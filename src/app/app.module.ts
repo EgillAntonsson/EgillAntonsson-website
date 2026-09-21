@@ -18,11 +18,11 @@ import { MinutesSecondsPipe } from './pipes/minutesSeconds.pipe'
 import { MusicPlayerComponent } from './musicPlayer/musicPlayer.component'
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player'
 import { RandomNumber, RandomNumberService } from './shared/services/randomNumber.service'
-import { PostTdd1Component } from './blog/posts/tdd/postTdd1.component'
-import { PostTdd2Component } from './blog/posts/tdd/postTdd2.component'
-import { PostTdd3Component } from './blog/posts/tdd/postTdd3.component'
-import { PostTdd3CppComponent } from './blog/posts/tdd/postTdd3Cpp.component'
-import { PostTdd4Component } from './blog/posts/tdd/postTdd4.component'
+import { PostFpComponent } from './blog/posts/fp/postFp.component'
+import { PostTddWhatHowComponent } from './blog/posts/tdd/postTddWhatHow.component'
+import { PostHealth1Component } from './blog/posts/health/postHeath1.component'
+import { PostHealth2Component } from './blog/posts/health/postHealth2.component'
+import { PostHealth3Component } from './blog/posts/health/postHealth3.component'
 import { PostTdd5Component } from './blog/posts/tdd/postTdd5.component'
 import { PostTdd6Component } from './blog/posts/tdd/postTdd6.component'
 import { PostTdd7Component } from './blog/posts/tdd/postTdd7.component'
@@ -56,11 +56,11 @@ import { SoundDesignReelDig } from './blog/posts/soundDesignReel/soundDesignReel
 		PageNotFoundComponent,
 		MyNumberPipe,
 		MinutesSecondsPipe,
-		PostTdd1Component,
-		PostTdd2Component,
-		PostTdd3Component,
-		PostTdd3CppComponent,
-		PostTdd4Component,
+		PostFpComponent,
+		PostTddWhatHowComponent,
+		PostHealth1Component,
+		PostHealth2Component,
+		PostHealth3Component,
 		PostTdd5Component,
 		PostTdd6Component,
 		PostTdd7Component,

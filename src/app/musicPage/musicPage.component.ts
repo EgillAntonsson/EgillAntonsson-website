@@ -87,6 +87,17 @@ export class MusicPageComponent implements OnInit, OnDestroy {
 			MUSIC_TRACK_ROOT_URL.Routine,
 			MUSIC_TRACK_ROOT_URL.SongForHhiCommercial,
 		],
+	}, {
+		label: 'Fairy tales in Icelandic',
+		trackRootUrls: [
+			MUSIC_TRACK_ROOT_URL.Oskubuska,
+			MUSIC_TRACK_ROOT_URL.Stjupsysturnar,
+			MUSIC_TRACK_ROOT_URL.EgErPrins,
+			MUSIC_TRACK_ROOT_URL.Fjallasongur,
+			MUSIC_TRACK_ROOT_URL.Lokalag,
+			MUSIC_TRACK_ROOT_URL.Bukolla,
+			MUSIC_TRACK_ROOT_URL.IslandsHetjan,
+		],
 	}, ]
 
 	private readonly kuaiBranches: MusicTreeBranchConfig[] = [{

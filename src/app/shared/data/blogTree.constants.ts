@@ -1,6 +1,7 @@
 export const BLOG_SERIES_TITLE = {
 	TddWhatHowWhyWhen: 'TDD: The What, How, Why and When',
-	TddAvatarHealth: 'TDD-ing Avatar Health in C# and C++',
+	Fp: 'Functional Programming',
+	TddAvatarHealth: 'TDD-ing Avatar Health in C#',
 	TddChess: 'TDD-ing Chess in C#',
 	ReaScripts: 'ReaScripts',
 	FmodEditor: 'FMOD editor',

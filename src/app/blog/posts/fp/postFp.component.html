@@ -1,0 +1,62 @@
+<h1>{{post.seriesTitle}}</h1>
+<h2>{{post.title}}</h2>
+<div class="byAndDate">
+	<small>by Egill Antonsson<br>
+		published on {{publishedDateToString}}<br>
+	</small>
+	<small *ngIf="hasUpdatedDate">
+		updated on {{updatedDateToString}}
+	</small>
+</div>
+<p>
+This is a blog post is a brief introduction to Functional Programming (henceforth shortened to FP).
+<h2>A paradigm</h2>
+<p>
+A paradigm is a style of programming, if you want a metaphor then take a guitar: with a guitar you can play many different styles of music, you can play rock, you can play pop, you can play country and western if you have no soul.<br>
+The last sentence is a quote from <a href="https://youtu.be/LCTZud6hwWM?si=dxJiII-5aaBzBJHP&t=244" target="_blank">Simon Painter</a> during his talk about FP and IMO he humorously delivers this, although I'd add AI generated, heavily automated music and 90s gangsta rap as soulless styles, although every style has its gems.<br>
+</p>
+<h2>Paradigm comparison: FP (declarative) vs. OOP (imperative)</h2>
+<p>
+FP is a different way of thinking about programs than the mainstream OOP and imperative paradigm.<br>
+Most OO developers program their function implementation in the imperative style, which is a step-by-step approach to programming, where you tell the computer how to do something, and mutate the program state. They use O design in the large and imperative programming in the small (thus the main question is that of imperative versus FP).<br>
+In contrast, FP is a declarative style that emphasizes functions as <a href="https://livebook.manning.com/book/functional-programming-in-c-sharp-second-edition/chapter-1#11" target="_blank">first-class values</a> , where you tell the computer what to do, and let it figure out how to do it, and you <a href="https://livebook.manning.com/book/functional-programming-in-c-sharp-second-edition/chapter-1#23" target="_blank">avoid mutating the program state.</a>.<br>
+The fundamental principles of OOP are the same as FP (and thus can be combined) but differ in terms of structuring a large program, and are listed below (they work also on the small, e.g on functions and class):
+</p>
+<ul class="list inline">
+	<li>Separation of concerns — Each component should only do one thing.</li>
+	<li>Modularity — program should be composed of reusable components.</li>
+	<li>Layering — High-level components can depend on low-level components but not the other way.</li>
+	<li>Loose coupling — A component should not know about the internal details of the components it depends on, and thus changes to a component should not affect components that depend on it.</li>
+</ul>
+<p>
+As already stated, these principles apply to both OOP and FP. The difference will be in what the components are and which APIs they expose. The FP emphasis on pure functions and <a href="https://livebook.manning.com/book/functional-programming-in-c-sharp-second-edition/chapter-7" target="_blank">composability</a> make it easier to achieve some of these design goals.<br>
+For a more thorough discussion on why imperatively flavored OOP is a cause of (rather than a solution to) program complexity, see the article <a href="https://curtclifton.net/papers/MoseleyMarks06a.pdf" target="_blank">Out of the Tar Pit</a> by Ben Moseley and Peter Marks.
+</p>
+<h2>Pure functions</h2>
+<p>
+Pure functions closely resemble mathematical functions: they do nothing other than compute an output value based on their input values.<br>
+Pure functions have two important properties:
+</p>
+<ul class="list inline">
+	<li>Output depends completely on the input arguments</li>
+	<li>No side effects — A function does not modify any external state or have any observable effects other than returning a value.</li>
+</ul>
+<p>
+In contrast impure functions can have other factors than the input arguments that affect the output, and they can have side effects.<br>
+</p>
+<h3>Side effects</h3>
+<ul class="list">
+	<li>Mutates its input arguments</li>
+	<li>Mutates global (outside the function scope) state</li>
+	<li>Throwing exceptions</li>
+	<li>Performs any I/O operations (e.g. printing to the console or reading user input, Reading from or writing to a file, Drawing on the screen)
+</li>
+</ul>
+<p>
+ Pure functions are easier to reason about, test, and compose, and they can be memoized (cached) for performance optimization. They also enable parallelism and concurrency (almost for free), as they do not depend on shared state or mutable data. The first chapters in the recommended books explain well (and FP in Scala also formalizes the idea of pure functions using the concept of <a href="https://livebook.manning.com/book/functional-programming-in-scala-second-edition/chapter-1#49" target="_blank">referential transparency</a>).
+</p>
+<h3>Further Reading</h3>
+<p>
+For further reading I recommend books the <a href="https://www.manning.com/books/functional-programming-in-c-sharp-second-edition" target="_blank">Functional Programming in C# (2nd edition)</a> by Enrico Buonanno, and the <a href="https://www.manning.com/books/functional-programming-in-scala-second-edition" target="_blank">Functional Programming in Scala (2nd edition)</a> by Paul Chiusano and Rúnar Bjarnason (my grandfather and his grandfather were brothers).<br>
+Both books are a very good introduction to FP, and although they use specific language (C# and Scala respectively) as a vehicle, they explain well the FP concepts and principles that are applicable to other multi-paradigm languages as well. These books also explain advanced FP design well, thus very useful books indeed.
+</p>
