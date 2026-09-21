@@ -27,7 +27,7 @@ THE SOFTWARE.
 MIT
 The MIT License
 
-Copyright (c) 2022 Google LLC.
+Copyright (c) 2023 Google LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,7 @@ MIT
 MIT
 The MIT License
 
-Copyright (c) 2022 Google LLC.
+Copyright (c) 2023 Google LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -116,7 +116,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 core-js
 MIT
-Copyright (c) 2014-2022 Denis Pushkarev
+Copyright (c) 2013–2025 Denis Pushkarev (zloirock.ru)
+Copyright (c) 2025–2026 CoreJS Company (core-js.io)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -137,7 +138,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-detect-passive-events
+detect-it
 MIT
 The MIT License (MIT)
 
@@ -511,7 +512,7 @@ zone.js
 MIT
 The MIT License
 
-Copyright (c) 2010-2020 Google LLC. https://angular.io/license
+Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
