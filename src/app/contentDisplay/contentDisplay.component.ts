@@ -35,6 +35,9 @@ export abstract class ContentDisplayComponent {
 		{
 			label: 'Audio programming',
 			children: [{
+					label: 'DAW Plugins',
+					seriesTitles: [BLOG_SERIES_TITLE.Clap],
+				}, {
 					label: 'REAPER',
 					seriesTitles: [BLOG_SERIES_TITLE.ReaScripts],
 				}, {

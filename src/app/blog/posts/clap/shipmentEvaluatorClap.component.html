@@ -5,18 +5,22 @@
 		published on {{publishedDateToString}}<br>
 	</small>
 </div>
+<figure>
+	<video controls width="584" height="640" class="image" title="The Shipment Evaluator">
+		<source src="../assets/videos/shipment-evaluator-clap.mov" type="video/mp4" alt="The Shipment Evaluator">
+		Your browser does not support the video tag.
+	</video>
+	<figcaption>The Shipment Evaluator usage example</figcaption>
+</figure>
+<h2>Disclaimer</h2>
 <p>
-	This is a CLAP-plugin implementation of the same intentionally unhelpful idea as my <a href="./blog/rea-scripts/shipment-evaluator">Shipment Evaluator JSFX</a>.
+Use this plugin at your own risk: it goes to 11 and provides a powerful urge to <b>♬ ♫ ♪ ♩  →  SHIP IT !  ←  ♩ ♪ ♫ ♬</b>.<br>
+Thus be careful when you use it (not too soon, not too late).<br><br>
+The plugin always gives the same completely predictable and deterministic evaluation as it is a powerful visual encouragement only, and does not alter nor analyze the audio.<br>
 </p>
-<h2>How the evaluation works</h2>
 <p>
-	Add the plugin to a track and start playback. Its amp-style Evaluation Meter climbs toward 11, then displays <i>SHIP IT!</i>. The result stays visible while playback continues; stopping or pausing resets the meter for the next evaluation. The result text cycles through seven rainbow colors, changing once per second.
+	Here is the <a href="https://github.com/EgillAntonsson/shipment-evaluator-clap" target="_blank">source code</a>.
 </p>
-<h2>Audio behavior</h2>
 <p>
-	The verdict is always the same: the plugin does not judge whether a project is ready. It does not analyze or alter the audio; its stereo audio ports pass the input through unchanged.
-</p>
-<h2>Build and install</h2>
-<p>
-	The plugin's <a href="https://github.com/EgillAntonsson/shipment-evaluator-clap">source code</a> and <a href="https://github.com/EgillAntonsson/shipment-evaluator-clap/blob/main/README.md">build and installation instructions</a> are on GitHub. The current instructions describe building a macOS <i>.clap</i> bundle.
+	The blog post about the Reaper FX version of this is <a href="./blog/reascripts/shipment-evaluator" target="_blank">here</a>.
 </p>

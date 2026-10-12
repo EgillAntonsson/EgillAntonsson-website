@@ -41,7 +41,7 @@ export class BlogService implements IContentService {
 
 		const clapTitle = BLOG_SERIES_TITLE.Clap
 		this.series.push({title: clapTitle, posts: [
-			new Post('The Shipment Evaluator CLAP Plugin', PostRoutePath.shipmentEvaluatorClap, clapTitle, new Date(2026, 9, 12))
+			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluatorClap, clapTitle, new Date(2026, 9, 12))
 		]})
 
 		const seriesTddWhatWhyWhenTitle = BLOG_SERIES_TITLE.TddWhatHowWhyWhen
