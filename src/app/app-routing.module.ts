@@ -9,6 +9,7 @@ import {PostFmodBatchRenameComponent} from './blog/posts/fmod/postFmodBatchRenam
 import {MyReaScriptsComponent} from './blog/posts/reascripts/myReaScripts.component'
 import {RenameTracksComponent} from './blog/posts/reascripts/renameTracks.component'
 import {ShipmentEvaluatorComponent} from './blog/posts/reascripts/shipmentEvaluator.component'
+import {ShipmentEvaluatorClapComponent} from './blog/posts/clap/shipmentEvaluatorClap.component'
 import { PostTddWhatHowComponent } from './blog/posts/tdd/postTddWhatHow.component'
 import { PostFpComponent } from './blog/posts/fp/postFp.component'
 import { PostHealth1Component } from './blog/posts/health/postHeath1.component'
@@ -39,6 +40,7 @@ const routes: Routes = [
 		{path: PostRoutePath.antonssonScripts, component: MyReaScriptsComponent},
 		{path: PostRoutePath.renameTracks, component: RenameTracksComponent},
 		{path: PostRoutePath.shipmentEvaluator, component: ShipmentEvaluatorComponent},
+		{path: PostRoutePath.shipmentEvaluatorClap, component: ShipmentEvaluatorClapComponent},
 		{path: PostRoutePath.tddWhatHowWhyWhen, component: PostTddWhatHowComponent},
 		{path: PostRoutePath.fp, component: PostFpComponent},
 		{path: PostRoutePath.tddHealthPart1, component: PostHealth1Component},

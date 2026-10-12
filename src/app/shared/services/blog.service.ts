@@ -39,6 +39,11 @@ export class BlogService implements IContentService {
 			new Post("Rename selected tracks from clipboard lines of format 'oldName, newName'", PostRoutePath.renameTracks, seriesReaScriptsTitle, new Date(2025, 7, 6))
 		]})
 
+		const clapTitle = BLOG_SERIES_TITLE.Clap
+		this.series.push({title: clapTitle, posts: [
+			new Post('The Shipment Evaluator', PostRoutePath.shipmentEvaluatorClap, clapTitle, new Date(2026, 9, 12))
+		]})
+
 		const seriesTddWhatWhyWhenTitle = BLOG_SERIES_TITLE.TddWhatHowWhyWhen
 		this.series.push({title: seriesTddWhatWhyWhenTitle, posts: [
 			new Post('The What, How, Why and When', PostRoutePath.tddWhatHowWhyWhen, seriesTddWhatWhyWhenTitle, new Date(2021, 11, 30), new Date(2026, 8, 21))
@@ -125,6 +130,7 @@ export enum PostRoutePath {
 	antonssonScripts = 'rea-scripts/antonsson-scripts',
 	renameTracks = 'rea-scripts/rename-selected-tracks-from-clipboard-lines-of-format-oldname-newname',
 	shipmentEvaluator = 'rea-scripts/shipment-evaluator',
+	shipmentEvaluatorClap = 'clap/shipment-evaluator',
 	kgToCreature = 'lifting/kg-to-creature-calculator',
 	jonAndMe = 'lifting/jan-pall-sigmarsson-and-me',
 	soundDesignReelDig = 'sound-design-reel/dig'
@@ -162,4 +168,3 @@ export interface Comment {
 	comment: string
 	response: string
 }
-

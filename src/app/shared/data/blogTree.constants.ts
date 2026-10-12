@@ -4,6 +4,7 @@ export const BLOG_SERIES_TITLE = {
 	TddAvatarHealth: 'TDD-ing Avatar Health in C#',
 	TddChess: 'TDD-ing Chess in C#',
 	ReaScripts: 'ReaScripts',
+	Clap: 'CLAP',
 	FmodEditor: 'FMOD editor',
 	UnityEditor: 'Unity editor',
 	Lifting: 'Lift up and down',
